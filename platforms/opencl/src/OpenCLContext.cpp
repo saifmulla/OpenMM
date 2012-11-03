@@ -45,6 +45,8 @@
 #include <sstream>
 #include <typeinfo>
 
+
+//using namespace for OpenMM
 using namespace OpenMM;
 using namespace std;
 
