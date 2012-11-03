@@ -241,6 +241,7 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
  * (2) comment out the code below
  * In this case option (2) has been chosen.
  * @author: saifmulla
+ * checked to see if git commit works
  *
  */
 
