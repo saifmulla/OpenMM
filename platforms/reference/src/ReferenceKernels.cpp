@@ -1290,6 +1290,66 @@ void ReferenceIntegrateVerletStepKernel::execute(ContextImpl& context, const Ver
     data.stepCount++;
 }
 
+
+/**
+ * velocity verlet integrator
+ * added by saif on 6 nov 2012
+ */
+
+ReferenceIntegrateVelocityVerletStepKernel::~ReferenceIntegrateVelocityVerletStepKernel() {
+    if (dynamics)
+        delete dynamics;
+    if (constraints)
+        delete constraints;
+    if (constraintIndices)
+        disposeIntArray(constraintIndices, numConstraints);
+    if (constraintDistances)
+        delete[] constraintDistances;
+}
+
+void ReferenceIntegrateVelocityVerletStepKernel::initialize(const System& system, const VelocityVerletIntegrator& integrator) {
+    int numParticles = system.getNumParticles();
+    masses.resize(numParticles);
+    for (int i = 0; i < numParticles; ++i)
+        masses[i] = static_cast<RealOpenMM>(system.getParticleMass(i));
+    numConstraints = system.getNumConstraints();
+    constraintIndices = allocateIntArray(numConstraints, 2);
+    constraintDistances = new RealOpenMM[numConstraints];
+    for (int i = 0; i < numConstraints; ++i) {
+        int particle1, particle2;
+        double distance;
+        system.getConstraintParameters(i, particle1, particle2, distance);
+        constraintIndices[i][0] = particle1;
+        constraintIndices[i][1] = particle2;
+        constraintDistances[i] = static_cast<RealOpenMM>(distance);
+    }
+}
+
+void ReferenceIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator) {
+    double stepSize = integrator.getStepSize();
+    vector<RealVec>& posData = extractPositions(context);
+    vector<RealVec>& velData = extractVelocities(context);
+    vector<RealVec>& forceData = extractForces(context);
+    if (dynamics == 0 || stepSize != prevStepSize) {
+        // Recreate the computation objects with the new parameters.
+        
+        if (dynamics) {
+            delete dynamics;
+            delete constraints;
+        }
+        dynamics = new ReferenceVelocityVerletDynamics(context.getSystem().getNumParticles(), static_cast<RealOpenMM>(stepSize) );
+        vector<ReferenceCCMAAlgorithm::AngleInfo> angles;
+        findAnglesForCCMA(context.getSystem(), angles);
+        constraints = new ReferenceCCMAAlgorithm(context.getSystem().getNumParticles(), numConstraints, constraintIndices, constraintDistances, masses, angles, (RealOpenMM)integrator.getConstraintTolerance());
+        dynamics->setReferenceConstraintAlgorithm(constraints);
+        prevStepSize = stepSize;
+    }
+    constraints->setTolerance(integrator.getConstraintTolerance());
+    dynamics->update(context.getSystem(), posData, velData, forceData, masses);
+    data.time += stepSize;
+    data.stepCount++;
+}
+
 ReferenceIntegrateLangevinStepKernel::~ReferenceIntegrateLangevinStepKernel() {
     if (dynamics)
         delete dynamics;
