@@ -747,6 +747,39 @@ private:
 };
 
 /**
+ * This kernel is invoked by VelocityVerletIntegrator to take one time step.
+ */
+class ReferenceIntegrateVelocityVerletStepKernel : public IntegrateVelocityVerletStepKernel {
+public:
+    ReferenceIntegrateVelocityVerletStepKernel(std::string name, const Platform& platform, ReferencePlatform::PlatformData& data) : IntegrateVelocityVerletStepKernel(name, platform),
+        data(data), dynamics(0), constraints(0), constraintDistances(0), constraintIndices(0) {
+    }
+    ~ReferenceIntegrateVelocityVerletStepKernel();
+    /**
+     * Initialize the kernel.
+     * 
+     * @param system     the System this kernel will be applied to
+     * @param integrator the VelocityVerletIntegrator this kernel will be used for
+     */
+    void initialize(const System& system, const VelocityVerletIntegrator& integrator);
+    /**
+     * Execute the kernel.
+     * 
+     * @param context    the context in which to execute this kernel
+     * @param integrator the VelocityVerletIntegrator this kernel is being used for
+     */
+    void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator);
+private:
+    ReferencePlatform::PlatformData& data;
+    ReferenceVelocityVerletDynamics* dynamics;
+    ReferenceConstraintAlgorithm* constraints;
+    std::vector<RealOpenMM> masses;
+    RealOpenMM* constraintDistances;
+    int** constraintIndices;
+    int numConstraints;
+    double prevStepSize;
+};
+/**
  * This kernel is invoked by LangevinIntegrator to take one time step.
  */
 class ReferenceIntegrateLangevinStepKernel : public IntegrateLangevinStepKernel {
