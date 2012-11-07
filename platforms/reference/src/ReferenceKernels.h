@@ -771,7 +771,7 @@ public:
     void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator);
 private:
     ReferencePlatform::PlatformData& data;
-    ReferenceVelocityVerletDynamics* dynamics;
+    ReferenceVerletDynamics* dynamics;
     ReferenceConstraintAlgorithm* constraints;
     std::vector<RealOpenMM> masses;
     RealOpenMM* constraintDistances;
