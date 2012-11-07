@@ -80,6 +80,9 @@ KernelImpl* ReferenceKernelFactory::createKernelImpl(std::string name, const Pla
         return new ReferenceCalcCustomHbondForceKernel(name, platform);
     if (name == IntegrateVerletStepKernel::Name())
         return new ReferenceIntegrateVerletStepKernel(name, platform, data);
+    /* new kernel reference for velocity verlet*/
+    if (name == IntegrateVelocityVerletStepKernel::Name())
+            return new ReferenceIntegrateVelocityVerletStepKernel(name, platform, data);
     if (name == IntegrateLangevinStepKernel::Name())
         return new ReferenceIntegrateLangevinStepKernel(name, platform, data);
     if (name == IntegrateBrownianStepKernel::Name())
