@@ -56,6 +56,7 @@
 #include "SimTKReference/ReferenceVariableStochasticDynamics.h"
 #include "SimTKReference/ReferenceVariableVerletDynamics.h"
 #include "SimTKReference/ReferenceVerletDynamics.h"
+#include "SimTKReference/ReferenceVelocityVerletDynamics.h"
 #include "SimTKReference/ReferenceVirtualSites.h"
 #include "openmm/CMMotionRemover.h"
 #include "openmm/Context.h"

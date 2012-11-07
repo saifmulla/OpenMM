@@ -49,6 +49,7 @@ class ReferenceMonteCarloBarostat;
 class ReferenceVariableStochasticDynamics;
 class ReferenceVariableVerletDynamics;
 class ReferenceVerletDynamics;
+class ReferenceVelocityVerletDynamics;
 class ReferenceCustomDynamics;
 
 namespace OpenMM {
@@ -771,7 +772,7 @@ public:
     void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator);
 private:
     ReferencePlatform::PlatformData& data;
-    ReferenceVerletDynamics* dynamics;
+    ReferenceVelocityVerletDynamics* dynamics;
     ReferenceConstraintAlgorithm* constraints;
     std::vector<RealOpenMM> masses;
     RealOpenMM* constraintDistances;

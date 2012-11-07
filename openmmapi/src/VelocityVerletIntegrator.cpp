@@ -1,6 +1,3 @@
-#ifndef OPENMM_H_
-#define OPENMM_H_
-
 /* -------------------------------------------------------------------------- *
  *                                   OpenMM                                   *
  * -------------------------------------------------------------------------- *
@@ -9,7 +6,7 @@
  * Biological Structures at Stanford, funded under the NIH Roadmap for        *
  * Medical Research, grant U54 GM072970. See https://simtk.org.               *
  *                                                                            *
- * Portions copyright (c) 2009 Stanford University and the Authors.           *
+ * Portions copyright (c) 2008 Stanford University and the Authors.           *
  * Authors: Peter Eastman                                                     *
  * Contributors:                                                              *
  *                                                                            *
@@ -32,41 +29,41 @@
  * USE OR OTHER DEALINGS IN THE SOFTWARE.                                     *
  * -------------------------------------------------------------------------- */
 
-#include "openmm/AndersenThermostat.h"
-#include "openmm/BrownianIntegrator.h"
-#include "openmm/CMAPTorsionForce.h"
-#include "openmm/CMMotionRemover.h"
-#include "openmm/CustomBondForce.h"
-#include "openmm/CustomAngleForce.h"
-#include "openmm/CustomTorsionForce.h"
-#include "openmm/CustomExternalForce.h"
-#include "openmm/CustomGBForce.h"
-#include "openmm/CustomHbondForce.h"
-#include "openmm/CustomIntegrator.h"
-#include "openmm/CustomNonbondedForce.h"
-#include "openmm/Force.h"
-#include "openmm/GBSAOBCForce.h"
-#include "openmm/GBVIForce.h"
-#include "openmm/HarmonicAngleForce.h"
-#include "openmm/HarmonicBondForce.h"
-#include "openmm/Integrator.h"
-#include "openmm/LangevinIntegrator.h"
-#include "openmm/LocalEnergyMinimizer.h"
-#include "openmm/MonteCarloBarostat.h"
-#include "openmm/NonbondedForce.h"
+#include "openmm/VelocityVerletIntegrator.h"
 #include "openmm/Context.h"
 #include "openmm/OpenMMException.h"
-#include "openmm/PeriodicTorsionForce.h"
-#include "openmm/RBTorsionForce.h"
-#include "openmm/State.h"
-#include "openmm/System.h"
-#include "openmm/Units.h"
-#include "openmm/VariableLangevinIntegrator.h"
-#include "openmm/VariableVerletIntegrator.h"
-#include "openmm/Vec3.h"
-#include "openmm/VerletIntegrator.h"
-#include "openmm/VelocityVerletIntegrator.h"
-#include "openmm/VirtualSite.h"
-#include "openmm/Platform.h"
+#include "openmm/internal/ContextImpl.h"
+#include "openmm/kernels.h"
+#include <string>
 
-#endif /*OPENMM_H_*/
+using namespace OpenMM;
+using std::string;
+using std::vector;
+
+VelocityVerletIntegrator::VelocityVerletIntegrator(double stepSize) : owner(NULL) {
+    setStepSize(stepSize);
+    setConstraintTolerance(1e-4);
+}
+
+void VelocityVerletIntegrator::initialize(ContextImpl& contextRef) {
+    if (owner != NULL && &contextRef.getOwner() != owner)
+        throw OpenMMException("This Integrator is already bound to a context");
+    context = &contextRef;
+    owner = &contextRef.getOwner();
+    kernel = context->getPlatform().createKernel(IntegrateVelocityVerletStepKernel::Name(), contextRef);
+    dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).initialize(contextRef.getSystem(), *this);
+}
+
+vector<string> VelocityVerletIntegrator::getKernelNames() {
+    std::vector<std::string> names;
+    names.push_back(IntegrateVelocityVerletStepKernel::Name());
+    return names;
+}
+
+void VelocityVerletIntegrator::step(int steps) {
+    for (int i = 0; i < steps; ++i) {
+        context->updateContextState();
+        context->calcForcesAndEnergy(true, false);
+        dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).execute(*context, *this);
+    }
+}

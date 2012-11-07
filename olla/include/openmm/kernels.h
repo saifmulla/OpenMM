@@ -58,6 +58,7 @@
 #include "openmm/VariableLangevinIntegrator.h"
 #include "openmm/VariableVerletIntegrator.h"
 #include "openmm/VerletIntegrator.h"
+#include "openmm/VelocityVerletIntegrator.h"
 #include <set>
 #include <string>
 #include <vector>
@@ -705,6 +706,33 @@ public:
     virtual void execute(ContextImpl& context, const VerletIntegrator& integrator) = 0;
 };
 
+    
+/**
+ * This kernel is invoked by VelocityVerletIntegrator to take one time step.
+ */
+class IntegrateVelocityVerletStepKernel : public KernelImpl {
+public:
+    static std::string Name() {
+        return "IntegrateVelocityVerletStep";
+    }
+    IntegrateVelocityVerletStepKernel(std::string name, const Platform& platform) : KernelImpl(name, platform) {
+    }
+    /**
+     * Initialize the    
+     *
+     * @param system     the System this kernel will be applied to
+     * @param integrator the VelocityVerletIntegrator this kernel will be used for
+     */
+    virtual void initialize(const System& system, const VelocityVerletIntegrator& integrator) = 0;
+    /**
+     * Execute the kernel.
+     *
+     * @param context    the context in which to execute this kernel
+     * @param integrator the VelocityVerletIntegrator this kernel is being used for
+     */
+    virtual void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator) = 0;
+};
+    
 /**
  * This kernel is invoked by LangevinIntegrator to take one time step.
  */
