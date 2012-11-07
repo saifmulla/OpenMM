@@ -102,6 +102,9 @@ KernelImpl* OpenCLKernelFactory::createKernelImpl(std::string name, const Platfo
         return new OpenCLCalcCustomHbondForceKernel(name, platform, cl, context.getSystem());
     if (name == IntegrateVerletStepKernel::Name())
         return new OpenCLIntegrateVerletStepKernel(name, platform, cl);
+    //new kernel invocation for OpenCLIntegrateVelocityVerlet
+    if (name == IntegrateVelocityVerletStepKernel::Name())
+    	return new OpenCLIntegrateVelocityVerletStepKernel(name, platform,cl);
     if (name == IntegrateLangevinStepKernel::Name())
         return new OpenCLIntegrateLangevinStepKernel(name, platform, cl);
     if (name == IntegrateBrownianStepKernel::Name())

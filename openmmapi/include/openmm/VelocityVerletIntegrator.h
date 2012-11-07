@@ -75,4 +75,4 @@ private:
 
 } // namespace OpenMM
 
-#endif /*OPENMM_VERLETINTEGRATOR_H_*/
+#endif /*OPENMM_VELOCITYVERLETINTEGRATOR_H_*/

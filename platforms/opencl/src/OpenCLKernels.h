@@ -792,6 +792,36 @@ private:
     cl::Kernel kernel1, kernel2;
 };
 
+
+/**
+ * This kernel is invoked by VelocityVerletIntegrator to take one time step.
+ */
+class OpenCLIntegrateVelocityVerletStepKernel : public IntegrateVelocityVerletStepKernel {
+public:
+    OpenCLIntegrateVelocityVerletStepKernel(std::string name, const Platform& platform, OpenCLContext& cl) : IntegrateVelocityVerletStepKernel(name, platform), cl(cl),
+            hasInitializedKernels(false) {
+    }
+    ~OpenCLIntegrateVelocityVerletStepKernel();
+    /**
+     * Initialize the kernel.
+     *
+     * @param system     the System this kernel will be applied to
+     * @param integrator the VelocityVerletIntegrator this kernel will be used for
+     */
+    void initialize(const System& system, const VelocityVerletIntegrator& integrator);
+    /**
+     * Execute the kernel.
+     *
+     * @param context    the context in which to execute this kernel
+     * @param integrator the VelocityVerletIntegrator this kernel is being used for
+     */
+    void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator);
+private:
+    OpenCLContext& cl;
+    double prevStepSize;
+    bool hasInitializedKernels;
+    cl::Kernel kernel1, kernel2;
+};
 /**
  * This kernel is invoked by LangevinIntegrator to take one time step.
  */
