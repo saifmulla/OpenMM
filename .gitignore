@@ -2,4 +2,5 @@
 .cproject
 .project
 *~
-examples/*
+examples/*.cpp
+examples/Makefile
