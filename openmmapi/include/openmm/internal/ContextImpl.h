@@ -100,10 +100,25 @@ public:
      * @param positions  a vector containg the particle positions
      */
     void setPositions(const std::vector<Vec3>& positions);
+    
+    /**
+     * Set the accelerations of all particles.
+     *
+     * @param accelerations  a vector containg the particle positions
+     */
+    void setAccelerations(const std::vector<Vec3>& accelerations);
+
+    /**
+     * Get the accelerations of all particles.
+     * accessor function
+     * 
+     * @param accelerations a vector containg the particle positions
+     */
+    void getAccelerations(const std::vector<Vec3>& accelerations);
     /**
      * Get the velocities of all particles.
      *
-     * @param velocities  on exit, this contains the particle velocities
+     * @param velocities on exit, this contains the particle velocities
      */
     void getVelocities(std::vector<Vec3>& velocities);
     /**

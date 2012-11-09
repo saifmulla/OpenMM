@@ -48,6 +48,11 @@ const vector<Vec3>& State::getVelocities() const {
         throw OpenMMException("Invoked getVelocities() on a State which does not contain velocities.");
     return velocities;
 }
+const vector<Vec3>& State::getAccelerations() const {
+	if((types&Accelerations) == 0)
+		throw OpenMMException("Invoked getAccelerations() on a State which does not contain accelerations.");
+	return accelerations;
+}
 const vector<Vec3>& State::getForces() const {
     if ((types&Forces) == 0)
         throw OpenMMException("Invoked getForces() on a State which does not contain forces.");
@@ -75,15 +80,18 @@ const map<string, double>& State::getParameters() const {
 }
 State::State(double time, int numParticles, int types) : types(types), time(time), ke(0), pe(0),
         positions( (types & Positions) == 0 ? 0 : numParticles), velocities( (types & Velocities) == 0 ? 0 : numParticles),
-        forces( (types & Forces) == 0 ? 0 : numParticles) {
+        forces( (types & Forces) == 0 ? 0 : numParticles), accelerations((types & Accelerations) == 0 ? 0 :numParticles) {
 }
-State::State() : types(0), time(0.0), ke(0), pe(0), positions(0), velocities(0), forces(0) {
+State::State() : types(0), time(0.0), ke(0), pe(0), positions(0), velocities(0), forces(0), accelerations(0) {
 }
 vector<Vec3>& State::updPositions() {
     return positions;
 }
 vector<Vec3>& State::updVelocities() {
     return velocities;
+}
+vector<Vec3>& State::updAccelerations(){
+	return accelerations;
 }
 vector<Vec3>& State::updForces() {
     return forces;

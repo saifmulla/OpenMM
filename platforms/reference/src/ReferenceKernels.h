@@ -135,6 +135,20 @@ public:
      */
     void setPositions(ContextImpl& context, const std::vector<Vec3>& positions);
     /**
+     * Set the acceleration of all particles.
+     *
+     * @param acceleration  a vector containg the particle acceleration
+     */
+    void setAccelerations(ContextImpl& context, const std::vector<Vec3>& accelerations);
+    
+    /**
+     * Get the acceleration of all particles
+     * this is the acceleration function for the acceleration of each particles
+     * @param acceleration a vector containing the particle acceleration
+     */
+    void getAccelerations(ContextImpl& context, const std::vector<Vec3>& accelerations);
+    
+    /**
      * Get the velocities of all particles.
      *
      * @param velocities  on exit, this contains the particle velocities
@@ -770,6 +784,7 @@ public:
      * @param integrator the VelocityVerletIntegrator this kernel is being used for
      */
     void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator);
+    void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called);
 private:
     ReferencePlatform::PlatformData& data;
     ReferenceVelocityVerletDynamics* dynamics;

@@ -62,8 +62,9 @@ vector<string> VelocityVerletIntegrator::getKernelNames() {
 
 void VelocityVerletIntegrator::step(int steps) {
     for (int i = 0; i < steps; ++i) {
-        context->updateContextState();
-        context->calcForcesAndEnergy(true, false);
-        dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).execute(*context, *this);
+	context->updateContextState();
+	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).execute(*context, *this,false);
+	context->calcForcesAndEnergy(true, false);
+	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).execute(*context, *this,true);
     }
 }

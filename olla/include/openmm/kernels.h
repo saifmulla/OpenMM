@@ -157,6 +157,22 @@ public:
      */
     virtual void getVelocities(ContextImpl& context, std::vector<Vec3>& velocities) = 0;
     /**
+     * @update
+     * this is the newly added function for acceleration
+     * @param ContextImpl
+     * @param acceleration a vector containing the particle acceleration
+     */
+    virtual void setAccelerations(ContextImpl& context, const std::vector<Vec3>& accelerations) = 0;
+    
+    /**
+     * @update
+     * this is the newly added function for acceleration
+     * essentially this is a accessor function
+     * @param ContextImpl
+     * @param acceleration a vector containing the particle acceleration
+     */
+    virtual void getAccelerations(ContextImpl& context, const std::vector<Vec3>& accelerations) = 0;
+    /**
      * Set the velocities of all particles.
      *
      * @param velocities  a vector containing the particle velocities
@@ -731,6 +747,17 @@ public:
      * @param integrator the VelocityVerletIntegrator this kernel is being used for
      */
     virtual void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator) = 0;
+    /**
+     * Execute the kernel
+     * This is a modified version of the execute function inorder to enable execute to two step process 
+     * in isolation. Actually the existing function takes two parameter however hereby there is additional
+     * variable added which is boolean.
+     * 
+     * @param context    the context in which to execute this kernel
+     * @param integrator the VelocityVerletIntegrator this kernel is being used force
+     * @param called	  the boolean variable to enable execution of two different steps
+     */
+    virtual void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called) = 0;
 };
     
 /**

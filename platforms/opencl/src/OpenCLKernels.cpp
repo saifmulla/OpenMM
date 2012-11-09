@@ -27,7 +27,7 @@
 #include "OpenCLKernels.h"
 #include "OpenCLForceInfo.h"
 #include "openmm/LangevinIntegrator.h"
-//#include "openmm/LangevinIntegrator.h"
+  //#include "openmm/LangevinIntegrator.h"
 #include "openmm/Context.h"
 #include "openmm/internal/AndersenThermostatImpl.h"
 #include "openmm/internal/CMAPTorsionForceImpl.h"
@@ -195,6 +195,33 @@ void OpenCLUpdateStateDataKernel::setVelocities(ContextImpl& context, const std:
     for (int i = numParticles; i < cl.getPaddedNumAtoms(); i++)
         velm[i] = mm_float4(0.0f, 0.0f, 0.0f, 0.0f);
     velm.upload();
+}
+
+/**
+ * newly added code which implements setter and accessor functions for 
+ * accelerations on OpenCL platform 
+ */
+void OpenCLUpdateStateDataKernel::setAccelerations(ContextImpl& context, const std::vector<Vec3>& accelerations){
+    OpenCLArray<mm_float4>& acln = cl.getAcln();
+    OpenCLArray<cl_int>& order = cl.getAtomIndex();
+    int numParticles = context.getSystem().getNumParticles();
+    for(int i = 0;i < numParticles; ++i)
+    {
+	mm_float4& acl = acln[i];
+	const Vec3& p = accelerations[order[i]];
+	acl.x = (cl_float) p[0];
+	acl.y = (cl_float) p[1];
+	acl.z = (cl_float) p[2];
+    }
+    for(int i = 0;i<cl.getPaddedNumAtoms();i++)
+	acln[i] = mm_float4(0.0f,0.0f,0.0f,0.0f);
+    
+    acln.upload();
+}
+
+
+void OpenCLUpdateStateDataKernel::getAccelerations(ContextImpl& context, const std::vector<Vec3>& accelerations){
+    
 }
 
 void OpenCLUpdateStateDataKernel::getForces(ContextImpl& context, std::vector<Vec3>& forces) {
@@ -3252,8 +3279,9 @@ void OpenCLIntegrateVerletStepKernel::execute(ContextImpl& context, const Verlet
     cl.setStepCount(cl.getStepCount()+1);
 }
 
+
 /**
- * Opencl velocityVelocityVerletintegrator implementation
+ * Opencl velocityVerletintegrator implementation
  * this is a newly added class
  * on 6th Nov 2012
  */
@@ -3263,13 +3291,15 @@ OpenCLIntegrateVelocityVerletStepKernel::~OpenCLIntegrateVelocityVerletStepKerne
 
 void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, const VelocityVerletIntegrator& integrator) {
     cl.getPlatformData().initializeContexts(system);
-    cl::Program program = cl.createProgram(OpenCLKernelSources::verlet, "");
-    kernel1 = cl::Kernel(program, "integrateVerletPart1");
-    kernel2 = cl::Kernel(program, "integrateVerletPart2");
+    cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet, "");
+    kernel1 = cl::Kernel(program, "velocityVerletPart1");
+    kernel2 = cl::Kernel(program, "velocityVerletPart2");
     prevStepSize = -1.0;
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator) {
+  
+    
     OpenCLIntegrationUtilities& integration = cl.getIntegrationUtilities();
     int numAtoms = cl.getNumAtoms();
     double dt = integrator.getStepSize();
@@ -3313,6 +3343,51 @@ void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, cons
     cl.setStepCount(cl.getStepCount()+1);
 }
 
+void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called)
+{
+    OpenCLIntegrationUtilities& integration = cl.getIntegrationUtilities();
+    int numAtoms = cl.getNumAtoms();
+    double dt = integrator.getStepSize();
+    if (!hasInitializedKernels) {
+        hasInitializedKernels = true;
+        kernel1.setArg<cl_int>(0, numAtoms);
+        kernel1.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
+        kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
+        kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
+        kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
+        kernel1.setArg<cl::Buffer>(5, integration.getPosDelta().getDeviceBuffer());
+        kernel2.setArg<cl_int>(0, numAtoms);
+        kernel2.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
+        kernel2.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
+        kernel2.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
+        kernel2.setArg<cl::Buffer>(4, integration.getPosDelta().getDeviceBuffer());
+    }
+    if (dt != prevStepSize) {
+        vector<mm_float2> stepSizeVec(1);
+        stepSizeVec[0] = mm_float2((cl_float) dt, (cl_float) dt);
+        cl.getIntegrationUtilities().getStepSize().upload(stepSizeVec);
+        prevStepSize = dt;
+    }
+    
+     // Call the first integration kernel.
+
+    if(!called)
+    {
+      cl.executeKernel(kernel1, numAtoms);
+    }
+
+    // Call the second integration kernel.
+
+    if(called)
+    {
+      cl.executeKernel(kernel2, numAtoms);
+      // Update the time and step count.
+      cl.setTime(cl.getTime()+dt);
+      cl.setStepCount(cl.getStepCount()+1);
+    }
+
+
+}
 
 OpenCLIntegrateLangevinStepKernel::~OpenCLIntegrateLangevinStepKernel() {
     if (params != NULL)

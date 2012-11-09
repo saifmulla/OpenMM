@@ -214,6 +214,7 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
         nonbonded = new OpenCLNonbondedUtilities(*this);
         posq = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "posq", true);
         velm = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "velm", true);
+	acln = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "acln", true);
         posCellOffsets.resize(paddedNumAtoms, mm_int4(0, 0, 0, 0));
     }
     catch (cl::Error err) {
@@ -316,6 +317,10 @@ OpenCLContext::~OpenCLContext() {
         delete nonbonded;
     if (thread != NULL)
         delete thread;
+    /* new addition */
+    if	(acln != NULL)
+	delete acln;
+    
 }
 
 void OpenCLContext::initialize(const System& system) {

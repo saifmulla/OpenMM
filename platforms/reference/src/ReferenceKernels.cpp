@@ -215,6 +215,22 @@ void ReferenceUpdateStateDataKernel::setVelocities(ContextImpl& context, const s
     }
 }
 
+void ReferenceUpdateStateDataKernel::setAccelerations(ContextImpl& context, const std::vector<Vec3>& accelerations)
+{
+    /**
+     * @todo: perhaps you need to implement this
+     */
+}
+
+void ReferenceUpdateStateDataKernel::getAccelerations(ContextImpl& context, const vector< Vec3 >& accelerations)
+{
+    /**
+     * @todo: perhaps you need to implement this later
+     */
+}
+
+
+
 void ReferenceUpdateStateDataKernel::getForces(ContextImpl& context, std::vector<Vec3>& forces) {
     int numParticles = context.getSystem().getNumParticles();
     vector<RealVec>& forceData = extractForces(context);
@@ -1350,6 +1366,12 @@ void ReferenceIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, c
     data.time += stepSize;
     data.stepCount++;
 }
+
+void ReferenceIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called)
+{
+   called = true;
+}
+
 
 ReferenceIntegrateLangevinStepKernel::~ReferenceIntegrateLangevinStepKernel() {
     if (dynamics)
