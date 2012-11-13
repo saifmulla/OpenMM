@@ -114,7 +114,7 @@ public:
      * 
      * @param accelerations a vector containg the particle positions
      */
-    void getAccelerations(const std::vector<Vec3>& accelerations);
+    void getAccelerations(std::vector<Vec3>& accelerations);
     /**
      * Get the velocities of all particles.
      *

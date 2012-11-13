@@ -154,6 +154,11 @@ void Context::setVelocities(const vector<Vec3>& velocities) {
     impl->setVelocities(velocities);
 }
 
+void Context::setAccelerations(const vector<Vec3>& accelerations) {
+    if ((int) accelerations.size() != impl->getSystem().getNumParticles())
+	throw OpenMMException("Called setAccelerations() on a context with the wrong number of Accelerations");
+    impl->setAccelerations(accelerations);
+}
 double Context::getParameter(const string& name) {
     return impl->getParameter(name);
 }

@@ -146,7 +146,7 @@ public:
      * this is the acceleration function for the acceleration of each particles
      * @param acceleration a vector containing the particle acceleration
      */
-    void getAccelerations(ContextImpl& context, const std::vector<Vec3>& accelerations);
+    void getAccelerations(ContextImpl& context, std::vector<Vec3>& accelerations);
     
     /**
      * Get the velocities of all particles.

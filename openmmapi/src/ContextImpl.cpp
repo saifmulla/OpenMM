@@ -158,7 +158,7 @@ void ContextImpl::setAccelerations(const std::vector<Vec3>& accelerations)
     integrator.stateChanged(State::Accelerations);
 }
 
-void ContextImpl::getAccelerations(const std::vector<Vec3>& accelerations)
+void ContextImpl::getAccelerations(std::vector<Vec3>& accelerations)
 {
 	dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).getAccelerations(*this,accelerations);
 }

@@ -222,7 +222,7 @@ void ReferenceUpdateStateDataKernel::setAccelerations(ContextImpl& context, cons
      */
 }
 
-void ReferenceUpdateStateDataKernel::getAccelerations(ContextImpl& context, const vector< Vec3 >& accelerations)
+void ReferenceUpdateStateDataKernel::getAccelerations(ContextImpl& context, vector< Vec3 >& accelerations)
 {
     /**
      * @todo: perhaps you need to implement this later

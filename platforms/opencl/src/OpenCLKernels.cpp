@@ -38,6 +38,7 @@
 #include "OpenCLExpressionUtilities.h"
 #include "OpenCLIntegrationUtilities.h"
 #include "OpenCLNonbondedUtilities.h"
+#include "cl.hpp"
 #include "OpenCLKernelSources.h"
 #include "lepton/ExpressionTreeNode.h"
 #include "lepton/Operation.h"
@@ -213,15 +214,23 @@ void OpenCLUpdateStateDataKernel::setAccelerations(ContextImpl& context, const s
 	acl.y = (cl_float) p[1];
 	acl.z = (cl_float) p[2];
     }
-    for(int i = 0;i<cl.getPaddedNumAtoms();i++)
-	acln[i] = mm_float4(0.0f,0.0f,0.0f,0.0f);
+//     for(int i = 0;i<cl.getPaddedNumAtoms();i++)
+// 	acln[i] = mm_float4(0.0f,0.0f,0.0f,0.0f);
     
     acln.upload();
 }
 
 
-void OpenCLUpdateStateDataKernel::getAccelerations(ContextImpl& context, const std::vector<Vec3>& accelerations){
-    
+void OpenCLUpdateStateDataKernel::getAccelerations(ContextImpl& context, std::vector<Vec3>& accelerations){
+    OpenCLArray<mm_float4>& acln = cl.getAcln();
+    acln.download();
+    OpenCLArray<cl_int>& order = cl.getAtomIndex();
+    int numParticles = context.getSystem().getNumParticles();
+    accelerations.resize(numParticles);
+    for (int i = 0; i < numParticles; ++i) {
+        mm_float4 acl = acln[i];
+        accelerations[order[i]] = Vec3(acl.x, acl.y, acl.z);
+    }
 }
 
 void OpenCLUpdateStateDataKernel::getForces(ContextImpl& context, std::vector<Vec3>& forces) {
@@ -3344,23 +3353,23 @@ void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, cons
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called)
-{
+{   
     OpenCLIntegrationUtilities& integration = cl.getIntegrationUtilities();
     int numAtoms = cl.getNumAtoms();
     double dt = integrator.getStepSize();
+    
     if (!hasInitializedKernels) {
         hasInitializedKernels = true;
-        kernel1.setArg<cl_int>(0, numAtoms);
-        kernel1.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-        kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
-        kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
-        kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
-        kernel1.setArg<cl::Buffer>(5, integration.getPosDelta().getDeviceBuffer());
-        kernel2.setArg<cl_int>(0, numAtoms);
-        kernel2.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-        kernel2.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
-        kernel2.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
-        kernel2.setArg<cl::Buffer>(4, integration.getPosDelta().getDeviceBuffer());
+	kernel1.setArg<cl_int>(0, numAtoms);
+	kernel1.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
+	kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
+	kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
+	kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
+
+	kernel2.setArg<cl_int>(0, numAtoms);
+	kernel2.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
+	kernel2.setArg<cl::Buffer>(2, cl.getVelm().getDeviceBuffer());
+	kernel2.setArg<cl::Buffer>(3, cl.getForce().getDeviceBuffer());
     }
     if (dt != prevStepSize) {
         vector<mm_float2> stepSizeVec(1);
