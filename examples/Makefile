@@ -18,7 +18,7 @@
 # gcc 4.1.2.
 
 # Check whether this is the right capitalization for your install directory.
-OpenMM_INSTALL_DIR=/usr/local/openmm
+OpenMM_INSTALL_DIR=${FOAM_OMM}
 CFLAGS = -g 
 FFLAGS = -g -ffree-line-length-none
 

@@ -224,8 +224,8 @@ void testConstrainedClusters() {
 int main() {
     try {
         testSingleBond();
-        testConstraints();
-        testConstrainedClusters();
+//        testConstraints();
+  //      testConstrainedClusters();
     }
     catch(const exception& e) {
         cout << "exception: " << e.what() << endl;
