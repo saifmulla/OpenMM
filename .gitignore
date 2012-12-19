@@ -2,5 +2,9 @@
 .cproject
 .project
 *~
+*.bak
+.kdev4/
+OpenMM.kdev4
 examples/*.cpp
 examples/Makefile
+
