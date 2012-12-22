@@ -44,7 +44,7 @@ class ForceImpl;
 class Integrator;
 class Context;
 class System;
-
+class ControlTools;
 /**
  * This is the internal implementation of a Context.
  */
@@ -54,7 +54,8 @@ public:
     /**
      * Create an ContextImpl for a Context;
      */
-    ContextImpl(Context& owner, System& system, Integrator& integrator, Platform* platform, const std::map<std::string, std::string>& properties);
+    ContextImpl(Context& owner, System& system, Integrator& integrator, Platform* platform, const std::map<std::string, std::string>& properties,
+    		ControlTools* tools);
     ~ContextImpl();
     /**
      * Get the Context for which this is the implementation.
@@ -235,6 +236,14 @@ public:
      * same molecule if they are connected by constraints or bonds.
      */
     const std::vector<std::vector<int> >& getMolecules() const;
+    /**
+     * getter and setter functions for control tools object
+     */
+
+    ControlTools& getControls();
+    bool getControlSet(){
+	    return controlSet;
+    }
 private:
     friend class Context;
     static void tagParticlesInMolecule(int particle, int molecule, std::vector<int>& particleMolecule, std::vector<std::vector<int> >& particleBonds);
@@ -249,6 +258,8 @@ private:
     Platform* platform;
     Kernel initializeForcesKernel, kineticEnergyKernel, updateStateDataKernel, applyConstraintsKernel, virtualSitesKernel;
     void* platformData;
+    ControlTools* controls; 
+    bool controlSet;
 };
 
 } // namespace OpenMM

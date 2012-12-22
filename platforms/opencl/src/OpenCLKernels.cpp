@@ -4380,3 +4380,68 @@ void OpenCLRemoveCMMotionKernel::execute(ContextImpl& context) {
     cl.executeKernel(kernel1, cl.getNumAtoms());
     cl.executeKernel(kernel2, cl.getNumAtoms());
 }
+
+OpenCLBerendsenThermostatKernel::~OpenCLBerendsenThermostatKernel()
+{
+	std::cout<<"Berendsen destructor\n";
+	if(totalMomM!=NULL)
+		delete totalMomM;
+	if(totalKeDof != NULL)
+		delete totalKeDof;
+	if(instantTemperature != NULL)
+		delete instantTemperature;
+}
+
+void OpenCLBerendsenThermostatKernel::initialize(ContextImpl& impl)
+{
+	std::cout<<"Berendsen initialize\n";
+	temperature = impl.getControls().getTemperature();
+	tauT = impl.getControls().getTauT();
+	deltaT = impl.getIntegrator().getStepSize();
+	threads = (cl.getNumAtoms()+(OpenCLContext::ThreadBlockSize - 1))/OpenCLContext::ThreadBlockSize;
+	totalMomM = new OpenCLArray<mm_float4>(cl,threads,"totalMomM",true);
+	totalKeDof = new OpenCLArray<mm_float2>(cl,threads,"totalKeDof",true);
+	instantTemperature = new OpenCLArray<cl_float>(cl,threads,"instantTemperature",true);
+
+	map<string,string> defines;
+	defines["TEMPERATURE"] = doubleToString(temperature);
+	defines["TAUT"] = doubleToString(tauT);
+	defines["DELTATMD"] = doubleToString(deltaT);
+	defines["KT"] = doubleToString(BOLTZ);
+	cl::Program program = cl.createProgram(OpenCLKernelSources::berendsen,defines);
+	kernel1 = cl::Kernel(program,"berendsen1");
+	kernel2 = cl::Kernel(program,"berendsen2");
+	kernel1.setArg<cl_int>(0,cl.getNumAtoms());
+	kernel1.setArg<cl::Buffer>(1,cl.getVelm().getDeviceBuffer());
+	kernel1.setArg<cl::Buffer>(2,totalMomM->getDeviceBuffer());
+	kernel1.setArg(3,OpenCLContext::ThreadBlockSize*sizeof(mm_float4),NULL);
+	/*kernel1.setArg<cl_float>(2,deltaT);
+	kernel1.setArg<cl_float>(3,tauT);
+	kernel1.setArg<cl_float>(4,temperature);
+	kernel1.setArg<cl::Buffer>(6,totalKeDof->getDeviceBuffer());
+	kernel1.setArg<cl::Buffer>(7,instantTemperature->getDeviceBuffer());
+	*/
+}
+
+void OpenCLBerendsenThermostatKernel::controlBeforeForces(ContextImpl& impl)
+{
+
+	cl.executeKernel(kernel1,cl.getNumAtoms());
+	totalMomM->download();
+
+	/*instantTemperature->download();
+	totalMomM->download();
+	totalKeDof->download();
+	float t = instantTemperature->get(0);
+	mm_float4 mom = totalMomM->get(0);
+	mm_float2 ke = totalKeDof->get(0);
+	printf("Vel x %8.10f y %8.10f z %8.10f w %8.10f\n",
+			mom.x,mom.y,mom.z,mom.w);
+	printf("KE x %8.10f y %8.10f\n",
+				ke.x,ke.y);
+	*/
+}
+
+void OpenCLBerendsenThermostatKernel::controlAfterForces(ContextImpl& impl)
+{
+}

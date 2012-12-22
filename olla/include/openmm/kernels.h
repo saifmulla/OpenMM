@@ -59,6 +59,7 @@
 #include "openmm/VariableVerletIntegrator.h"
 #include "openmm/VerletIntegrator.h"
 #include "openmm/VelocityVerletIntegrator.h"
+#include "openmm/ControlTools.h"
 #include <set>
 #include <string>
 #include <vector>
@@ -1037,6 +1038,33 @@ public:
      * @param context    the context in which to execute this kernel
      */
     virtual void execute(ContextImpl& context) = 0;
+};
+
+/**
+ * this is a parent class for all controllers in the system
+ */
+class Controls {
+public:
+	virtual void initialize(ContextImpl& impl) = 0;
+	virtual void controlBeforeForces(ContextImpl& impl) = 0; 
+	virtual void controlAfterForces(ContextImpl& impl) = 0;
+	~Controls(){
+	}
+};
+/**
+ * this is a kernel for berendsen thermostat
+ */
+
+class BerendsenThermostatKernel : public Controls, public KernelImpl 
+{
+public:
+	static std::string Name(){
+		return "BerendsenThermostat";
+	}
+	BerendsenThermostatKernel(std::string name, const Platform& platform):
+		KernelImpl(name,platform)
+	{
+	}
 };
 
 } // namespace OpenMM

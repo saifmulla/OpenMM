@@ -28,7 +28,7 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE  *
  * USE OR OTHER DEALINGS IN THE SOFTWARE.                                     *
  * -------------------------------------------------------------------------- */
-
+#include <iostream>
 #include "openmm/Force.h"
 #include "openmm/Integrator.h"
 #include "openmm/OpenMMException.h"
@@ -38,6 +38,7 @@
 #include "openmm/internal/ContextImpl.h"
 #include "openmm/State.h"
 #include "openmm/VirtualSite.h"
+#include "openmm/ControlTools.h"
 #include <map>
 #include <utility>
 #include <vector>
@@ -48,8 +49,9 @@ using std::pair;
 using std::vector;
 using std::string;
 
-ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator, Platform* platform, const map<string, string>& properties) :
-         owner(owner), system(system), integrator(integrator), hasInitializedForces(false), lastForceGroups(-1), platform(platform), platformData(NULL) {
+ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator, Platform* platform, const map<string, string>& properties,
+		ControlTools* tools) :
+         owner(owner), system(system), integrator(integrator), hasInitializedForces(false), lastForceGroups(-1), platform(platform), platformData(NULL),controls(tools),controlSet(false) {
     if (system.getNumParticles() == 0)
         throw OpenMMException("Cannot create a Context for a System with no particles");
     
@@ -93,7 +95,19 @@ ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator,
         this->platform = platform = &Platform::findPlatform(kernelNames);
     else if (!platform->supportsKernels(kernelNames))
         throw OpenMMException("Specified a Platform for a Context which does not support all required kernels");
-    
+
+	//check if controlTools are set
+	if(controls){
+		if(controls->getToolSize()>0){
+			std::vector<std::string> controlKernels = controls->getKernelNames();
+			if(!platform->supportsKernels(controlKernels))
+				throw OpenMMException("Not all control kernels are supported by "
+						+platform->getName()+" platform");
+			controlSet = true;
+		}
+		else
+			throw OpenMMException("No tools are provided");
+	}    
     // Create and initialize kernels and other objects.
     
     platform->contextCreated(*this, properties);
@@ -113,6 +127,8 @@ ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator,
     for (size_t i = 0; i < forceImpls.size(); ++i)
         forceImpls[i]->initialize(*this);
     integrator.initialize(*this);
+    if(controls)
+    	controls->initialize(*this);
     dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).setVelocities(*this, vector<Vec3>(system.getNumParticles()));
 }
 
@@ -245,6 +261,10 @@ void ContextImpl::setPlatformData(void* data) {
     platformData = data;
 }
 
+
+ControlTools& ContextImpl::getControls(){
+	return *controls;
+}
 const vector<vector<int> >& ContextImpl::getMolecules() const {
     if (!hasInitializedForces)
         throw OpenMMException("ContextImpl: getMolecules() cannot be called until all ForceImpls have been initialized");

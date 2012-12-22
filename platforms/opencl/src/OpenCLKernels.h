@@ -1179,6 +1179,25 @@ private:
     cl::Kernel kernel1, kernel2;
 };
 
+class OpenCLBerendsenThermostatKernel : public BerendsenThermostatKernel {
+public:
+	OpenCLBerendsenThermostatKernel(std::string name, const Platform& platform, OpenCLContext& cl) : BerendsenThermostatKernel(name,platform),cl(cl),tauT(0.0),temperature(0.0),deltaT(0.0),threads(0) {
+
+	}
+	~OpenCLBerendsenThermostatKernel();
+	void initialize(ContextImpl& impl);
+	void controlBeforeForces(ContextImpl& impl);
+	void controlAfterForces(ContextImpl& impl);
+private:
+	OpenCLContext& cl;
+	double tauT,temperature, deltaT;
+	unsigned short threads;
+	OpenCLArray<mm_float4>* totalMomM;
+	OpenCLArray<mm_float2>* totalKeDof;
+	OpenCLArray<cl_float>* instantTemperature;
+	cl::Kernel kernel1,kernel2;
+};
+
 } // namespace OpenMM
 
 #endif /*OPENMM_OPENCLKERNELS_H_*/

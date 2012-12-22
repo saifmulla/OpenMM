@@ -74,6 +74,7 @@ OpenCLPlatform::OpenCLPlatform() {
     registerKernelFactory(ApplyMonteCarloBarostatKernel::Name(), factory);
     registerKernelFactory(CalcKineticEnergyKernel::Name(), factory);
     registerKernelFactory(RemoveCMMotionKernel::Name(), factory);
+    registerKernelFactory(BerendsenThermostatKernel::Name(),factory);
     platformProperties.push_back(OpenCLDeviceIndex());
     platformProperties.push_back(OpenCLPlatformIndex());
     setPropertyDefaultValue(OpenCLDeviceIndex(), "");

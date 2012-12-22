@@ -45,6 +45,7 @@ namespace OpenMM {
 class ContextImpl;
 class Vec3;
 class Platform;
+class ControlTools;
 
 /**
  * A Context stores the complete state of a simulation.  More specifically, it includes:
@@ -90,6 +91,13 @@ public:
      * @param properties  a set of values for platform-specific properties.  Keys are the property names.
      */
     Context(System& system, Integrator& integrator, Platform& platform, const std::map<std::string, std::string>& properties);
+
+    /** overloaded constructor
+     * to accomodate controltools
+     */
+    Context(System& system, Integrator& integrator, Platform& platform,
+		const std::map<std::string,std::string>& properties,
+		ControlTools& controls);
     ~Context();
     /**
      * Get System being simulated in this context.

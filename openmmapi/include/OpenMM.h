@@ -68,5 +68,5 @@
 #include "openmm/VelocityVerletIntegrator.h"
 #include "openmm/VirtualSite.h"
 #include "openmm/Platform.h"
-
+#include "openmm/ControlTools.h"
 #endif /*OPENMM_H_*/
