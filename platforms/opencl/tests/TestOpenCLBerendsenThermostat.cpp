@@ -90,6 +90,9 @@ void testTemperature() {
     for (int i = 0; i < numSteps; ++i) {
         State state = context.getState(State::Energy);
         ke += state.getKineticEnergy();
+//	double temp = tools.getTempValue();
+//	printf("Temp\t%8.15f\n",temp);
+//	ke += temp;
         integrator.step(1);
     }
     ke /= numSteps;

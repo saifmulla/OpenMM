@@ -1194,8 +1194,9 @@ private:
 	unsigned short threads;
 	OpenCLArray<mm_float4>* totalMomM;
 	OpenCLArray<mm_float2>* totalKeDof;
-	OpenCLArray<cl_float>* instantTemperature;
-	cl::Kernel kernel1,kernel2;
+	OpenCLArray<mm_float4>* newVelocity;
+	OpenCLArray<cl_float>* chi; 
+	cl::Kernel kernel1,kernel2,kernel3;
 };
 
 } // namespace OpenMM

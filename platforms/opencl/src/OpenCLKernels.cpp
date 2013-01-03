@@ -4383,44 +4383,46 @@ void OpenCLRemoveCMMotionKernel::execute(ContextImpl& context) {
 
 OpenCLBerendsenThermostatKernel::~OpenCLBerendsenThermostatKernel()
 {
-	std::cout<<"Berendsen destructor\n";
 	if(totalMomM!=NULL)
 		delete totalMomM;
 	if(totalKeDof != NULL)
 		delete totalKeDof;
-	if(instantTemperature != NULL)
-		delete instantTemperature;
+	if(newVelocity != NULL)
+		delete newVelocity;
+	if(chi != NULL)
+		delete chi;
 }
 
 void OpenCLBerendsenThermostatKernel::initialize(ContextImpl& impl)
 {
-	std::cout<<"Berendsen initialize\n";
 	temperature = impl.getControls().getTemperature();
 	tauT = impl.getControls().getTauT();
 	deltaT = impl.getIntegrator().getStepSize();
 	threads = (cl.getNumAtoms()+(OpenCLContext::ThreadBlockSize - 1))/OpenCLContext::ThreadBlockSize;
 	totalMomM = new OpenCLArray<mm_float4>(cl,threads,"totalMomM",true);
 	totalKeDof = new OpenCLArray<mm_float2>(cl,threads,"totalKeDof",true);
-	instantTemperature = new OpenCLArray<cl_float>(cl,threads,"instantTemperature",true);
-
+	newVelocity = new OpenCLArray<mm_float4>(cl,1,"newVelocity",true);
+	chi = new OpenCLArray<cl_float>(cl,1,"chi",true);
 	map<string,string> defines;
-	defines["TEMPERATURE"] = doubleToString(temperature);
-	defines["TAUT"] = doubleToString(tauT);
-	defines["DELTATMD"] = doubleToString(deltaT);
-	defines["KT"] = doubleToString(BOLTZ);
+	defines["NUM_ATOMS"] = intToString(cl.getNumAtoms());
 	cl::Program program = cl.createProgram(OpenCLKernelSources::berendsen,defines);
 	kernel1 = cl::Kernel(program,"berendsen1");
-	kernel2 = cl::Kernel(program,"berendsen2");
+	kernel2 = cl::Kernel(program,"calculateKEDOF");
+	kernel3 = cl::Kernel(program,"updateVelocities");
+
+	//arguments for kernel1 berendsen1
 	kernel1.setArg<cl_int>(0,cl.getNumAtoms());
 	kernel1.setArg<cl::Buffer>(1,cl.getVelm().getDeviceBuffer());
 	kernel1.setArg<cl::Buffer>(2,totalMomM->getDeviceBuffer());
 	kernel1.setArg(3,OpenCLContext::ThreadBlockSize*sizeof(mm_float4),NULL);
-	/*kernel1.setArg<cl_float>(2,deltaT);
-	kernel1.setArg<cl_float>(3,tauT);
-	kernel1.setArg<cl_float>(4,temperature);
-	kernel1.setArg<cl::Buffer>(6,totalKeDof->getDeviceBuffer());
-	kernel1.setArg<cl::Buffer>(7,instantTemperature->getDeviceBuffer());
-	*/
+	//arguments for kernel2 calculateKEDOF
+	kernel2.setArg<cl::Buffer>(0,cl.getVelm().getDeviceBuffer());
+	kernel2.setArg<cl::Buffer>(1,newVelocity->getDeviceBuffer());
+	kernel2.setArg<cl::Buffer>(2,totalKeDof->getDeviceBuffer());
+	kernel2.setArg(3,OpenCLContext::ThreadBlockSize*sizeof(mm_float2),NULL);
+	//arguments for kernel3 updatevelocities
+	kernel3.setArg<cl::Buffer>(0,cl.getVelm().getDeviceBuffer());
+	kernel3.setArg<cl::Buffer>(1,chi->getDeviceBuffer());
 }
 
 void OpenCLBerendsenThermostatKernel::controlBeforeForces(ContextImpl& impl)
@@ -4428,18 +4430,40 @@ void OpenCLBerendsenThermostatKernel::controlBeforeForces(ContextImpl& impl)
 
 	cl.executeKernel(kernel1,cl.getNumAtoms());
 	totalMomM->download();
+	mm_float4 tmom = mm_float4(0.0f,0.0f,0.0f,0.0f);
+	for(int v=0;v<threads;v++)
+	{
+		mm_float4 t = totalMomM->get(v);
+		tmom.x += t.x;
+		tmom.y += t.y;
+		tmom.z += t.z;
+		tmom.w += t.w;
+	}
+	vector<mm_float4> newVel(1);
+	newVel[0] = mm_float4(tmom.x/tmom.w,tmom.y/tmom.w,tmom.z/tmom.w,0.0f);
+	//upload new velocity out of mom
+	newVelocity->upload(newVel);
 
-	/*instantTemperature->download();
-	totalMomM->download();
+	cl.executeKernel(kernel2,cl.getNumAtoms());
 	totalKeDof->download();
-	float t = instantTemperature->get(0);
-	mm_float4 mom = totalMomM->get(0);
-	mm_float2 ke = totalKeDof->get(0);
-	printf("Vel x %8.10f y %8.10f z %8.10f w %8.10f\n",
-			mom.x,mom.y,mom.z,mom.w);
-	printf("KE x %8.10f y %8.10f\n",
-				ke.x,ke.y);
-	*/
+	float ke = 0.0f;
+	float dof = 0.0f;
+	for(int v=0;v<threads;v++){
+		mm_float2 temp = totalKeDof->get(v);
+		ke += temp.x;
+		dof += temp.y;
+	}
+	float measureTemp;
+	if(dof>0.0)
+		measureTemp = (2.0*ke)/(BOLTZ*dof);
+	else
+		measureTemp = temperature;
+
+	impl.getControls().setTempValue(measureTemp);
+	vector<cl_float> vchi(1);
+	vchi[0] = sqrt(1.0+(deltaT/tauT)*((temperature/measureTemp)-1.0));
+	chi->upload(vchi);
+	cl.executeKernel(kernel3,cl.getNumAtoms());
 }
 
 void OpenCLBerendsenThermostatKernel::controlAfterForces(ContextImpl& impl)
