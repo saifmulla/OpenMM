@@ -4439,6 +4439,7 @@ void OpenCLBerendsenThermostatKernel::controlBeforeForces(ContextImpl& impl)
 		tmom.z += t.z;
 		tmom.w += t.w;
 	}
+
 	vector<mm_float4> newVel(1);
 	newVel[0] = mm_float4(tmom.x/tmom.w,tmom.y/tmom.w,tmom.z/tmom.w,0.0f);
 	//upload new velocity out of mom
@@ -4469,3 +4470,94 @@ void OpenCLBerendsenThermostatKernel::controlBeforeForces(ContextImpl& impl)
 void OpenCLBerendsenThermostatKernel::controlAfterForces(ContextImpl& impl)
 {
 }
+
+OpenCLMeasureCombinedFieldsKernel::~OpenCLMeasureCombinedFieldsKernel()
+{}
+
+void OpenCLMeasureCombinedFieldsKernel::initialize(ContextImpl& impl){
+	/**
+	 * first initilise all the variables related with this class which are member
+	 * variables inside measurement tools class so that they become valid
+	 * and give an indication that the variables are set and ready to be used
+	 */
+	impl.getMeasurements().setTotalMass(0.0);
+	impl.getMeasurements().setNumberDensity(0.0);
+	impl.getMeasurements().setNumberMolecules(0.0);
+	impl.getMeasurements().setKe(0.0);
+	impl.getMeasurements().setDof(0.0);
+	impl.getMeasurements().setTemperature(0.0);
+	impl.getMeasurements().setMassDensity(0.0);
+	impl.getMeasurements().setMomentum(OpenMM::Vec3(0.0,0.0,0.0));
+
+
+	numBlocks = (cl.getNumAtoms()+(OpenCLContext::ThreadBlockSize - 1))/OpenCLContext::ThreadBlockSize;
+	totalVelm = new OpenCLArray<mm_float4>(cl,numBlocks,"totalVelm",true);
+	totalMols = new OpenCLArray<cl_float>(cl,numBlocks,"totalMols",true);
+	newVelocity = new OpenCLArray<mm_float4>(cl,1,"newVelocity",true);
+	KeDof = new OpenCLArray<mm_float2>(cl,numBlocks,"KeDof",true);
+	cl::Program program = cl.createProgram(OpenCLKernelSources::combinedfields);
+	kernel1 = cl::Kernel(program,"measureTotalMass");
+	kernel2 = cl::Kernel(program,"measureKE");
+	//kernel1 - calculateTotalMass
+	kernel1.setArg<cl_int>(0,cl.getNumAtoms());
+	kernel1.setArg<cl::Buffer>(1,cl.getVelm().getDeviceBuffer());
+	kernel1.setArg<cl::Buffer>(2,totalVelm->getDeviceBuffer());
+	kernel1.setArg<cl::Buffer>(3,totalMols->getDeviceBuffer());
+	kernel1.setArg(4,OpenCLContext::ThreadBlockSize*sizeof(mm_float4),NULL);
+	kernel1.setArg(5,OpenCLContext::ThreadBlockSize*sizeof(cl_float),NULL);
+	//kernel2 - calculateKE
+	kernel2.setArg<cl_int>(0,cl.getNumAtoms());
+	kernel2.setArg<cl::Buffer>(1,cl.getVelm().getDeviceBuffer());
+	kernel2.setArg<cl::Buffer>(2,newVelocity->getDeviceBuffer());
+	kernel2.setArg<cl::Buffer>(3,KeDof->getDeviceBuffer());
+	kernel2.setArg(4,OpenCLContext::ThreadBlockSize*sizeof(mm_float2),NULL);
+}
+
+void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
+	cl.executeKernel(kernel1,cl.getNumAtoms());
+	totalVelm->download();
+	totalMols->download();
+
+	mm_float4 mom = mm_float4(0.0f,0.0f,0.0f,0.0f);
+	float totalmol = 0.0f;
+	for(int i = 0;i<numBlocks;i++){
+		mm_float4 t = totalVelm->get(i);
+		float t2 = totalMols->get(i);
+		mom.x += t.x;
+		mom.y += t.y;
+		mom.z += t.z;
+		mom.w += t.w;
+		totalmol += t2;
+	}
+
+	vector<mm_float4> newvelm(1);
+	newvelm[0] = mm_float4(mom.x/mom.w,mom.y/mom.w,mom.z/mom.w,0.0f);
+	newVelocity->upload(newvelm);
+
+	cl.executeKernel(kernel2,cl.getNumAtoms());
+
+	KeDof->download();
+	float ke = 0.0f;
+	float dof = 0.0f;
+	for(int k=0;k<numBlocks;k++){
+		mm_float2 t = KeDof->get(k);
+		ke += t.x;
+		dof = t.y;
+	}
+
+	impl.getMeasurements().setTotalMass((double) mom.w);
+	double volume = impl.getOwner().getSystem().getBoxVolume();
+	double numberdensity = totalmol/volume;
+	impl.getMeasurements().setNumberDensity(numberdensity);
+	impl.getMeasurements().setNumberMolecules((double) totalmol);
+	impl.getMeasurements().setKe((double) ke);
+	impl.getMeasurements().setDof((double) dof);
+	double temp = ((2.0*ke)/(BOLTZ*dof));
+	impl.getMeasurements().setTemperature((double) temp);
+	double massdensity = (double)mom.w/volume;
+	impl.getMeasurements().setMassDensity(massdensity);
+	impl.getMeasurements().setMomentum(OpenMM::Vec3(mom.x,mom.y,mom.z));
+
+}
+
+

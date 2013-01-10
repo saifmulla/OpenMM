@@ -224,6 +224,14 @@ public:
      * @param c      the vector defining the third edge of the periodic box
      */
     void setDefaultPeriodicBoxVectors(const Vec3& a, const Vec3& b, const Vec3& c);
+
+    /**
+     * get the volume of the box
+     * this function is added to facilitate volume values inside the kernel calculation
+     * @author: saif mulla
+     * @date: 9/7/2013
+     */
+    double getBoxVolume();
 private:
     class ConstraintInfo;
     Vec3 periodicBoxVectors[3];

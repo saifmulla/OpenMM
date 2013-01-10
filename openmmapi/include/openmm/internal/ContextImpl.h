@@ -45,6 +45,7 @@ class Integrator;
 class Context;
 class System;
 class ControlTools;
+class MeasurementTools;
 /**
  * This is the internal implementation of a Context.
  */
@@ -55,7 +56,7 @@ public:
      * Create an ContextImpl for a Context;
      */
     ContextImpl(Context& owner, System& system, Integrator& integrator, Platform* platform, const std::map<std::string, std::string>& properties,
-    		ControlTools* tools);
+    		ControlTools* tools, MeasurementTools* measuretools);
     ~ContextImpl();
     /**
      * Get the Context for which this is the implementation.
@@ -244,6 +245,16 @@ public:
     bool getControlSet(){
 	    return controlSet;
     }
+
+    /**
+     * get the pointer to measurement tools
+     * inside the context
+     */
+    MeasurementTools& getMeasurements();
+
+    bool getMeasurementSet(){
+	return measurementSet;
+    }
 private:
     friend class Context;
     static void tagParticlesInMolecule(int particle, int molecule, std::vector<int>& particleMolecule, std::vector<std::vector<int> >& particleBonds);
@@ -258,8 +269,10 @@ private:
     Platform* platform;
     Kernel initializeForcesKernel, kineticEnergyKernel, updateStateDataKernel, applyConstraintsKernel, virtualSitesKernel;
     void* platformData;
-    ControlTools* controls; 
+    ControlTools* controls;
+    MeasurementTools* measurements; 
     bool controlSet;
+    bool measurementSet;
 };
 
 } // namespace OpenMM

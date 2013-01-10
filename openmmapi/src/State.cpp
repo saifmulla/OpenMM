@@ -109,3 +109,18 @@ void State::setPeriodicBoxVectors(const Vec3& a, const Vec3& b, const Vec3& c) {
     periodicBoxVectors[1] = b;
     periodicBoxVectors[2] = c;
 }
+
+double State::getNumMolecules() const
+{
+	double size = (double) positions.size();
+	return size;
+}
+
+double State::getNumberDensity() const
+{
+	double nm = getNumMolecules();
+	double volume = (periodicBoxVectors[0][0]*periodicBoxVectors[1][1]*periodicBoxVectors[2][2]);
+	double v = nm/volume;
+	return v;
+}
+

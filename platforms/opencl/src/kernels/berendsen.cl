@@ -23,8 +23,10 @@ __kernel void berendsen1(int numAtoms,
 	while(idx<NUM_ATOMS)
 	{
 		float4 velocity = velm[idx];
-		if(velocity.w != 0.0)
-			tempvel += velocity;
+		if(velocity.w != 0.0){
+			tempvel.xyz += velocity.w*velocity.xyz;
+			tempvel.w += velocity.w;
+		}
 		idx += get_global_size(0);
 	}
 	/* copy the total per thread to shared/local
@@ -69,9 +71,9 @@ __kernel void calculateKEDOF(__global float4* restrict velm,
 	{
 		float4 velocity = velm[idx];
 		float4 diffvel = velocity - newVelocity[0];
-		float sqr = ((diffvel.x*diffvel.x)+(diffvel.y*diffvel.y)+(diffvel.z*diffvel.y));
+		float sqr = ((diffvel.x*diffvel.x)+(diffvel.y*diffvel.y)+(diffvel.z*diffvel.z));
 		tempkedof.x += 0.5*velocity.w*sqr;
-		tempkedof.y += (float) 3.0;
+		tempkedof.y += 3.0;
 		idx += get_global_size(0);
 	}
 	unsigned int tid = get_local_id(0);

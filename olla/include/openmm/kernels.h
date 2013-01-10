@@ -60,6 +60,7 @@
 #include "openmm/VerletIntegrator.h"
 #include "openmm/VelocityVerletIntegrator.h"
 #include "openmm/ControlTools.h"
+#include "openmm/MeasurementTools.h"
 #include <set>
 #include <string>
 #include <vector>
@@ -1051,6 +1052,18 @@ public:
 	~Controls(){
 	}
 };
+
+/**
+ * parent abstract virtual class for all the measurement tools
+ *
+ */
+class Measure {
+public:
+	virtual void initialize(ContextImpl& impl) = 0;
+	virtual void calculate(ContextImpl& impl) = 0;
+	~Measure(){
+	}
+};
 /**
  * this is a kernel for berendsen thermostat
  */
@@ -1067,6 +1080,33 @@ public:
 	}
 };
 
+
+/**
+ * skeleton classes for all the measurement tools
+ *
+ */
+//- class combineproperties
+class MeasureCombinedFieldsKernel : public Measure, public KernelImpl
+{
+public:
+	static std::string Name(){
+		return "MeasureCombinedFields";
+	}
+	MeasureCombinedFieldsKernel(std::string name, const Platform& platform):
+		KernelImpl(name,platform){
+	}
+};
+
+//- class maxvelocitykernel
+class MeasureMaxVelocityKernel : public Measure, public KernelImpl{
+public:
+	static std::string Name(){
+		return "MeasureMaxVelocity";
+	}
+	MeasureMaxVelocityKernel(std::string name, const Platform& platform):
+		KernelImpl(name,platform){
+	}
+};
 } // namespace OpenMM
 
 #endif /*OPENMM_KERNELS_H_*/

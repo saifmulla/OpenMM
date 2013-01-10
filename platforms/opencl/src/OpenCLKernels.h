@@ -1199,6 +1199,28 @@ private:
 	cl::Kernel kernel1,kernel2,kernel3;
 };
 
+
+/**
+ * implementation for Measurement tools classes
+ */
+//- class measureCombinedFields
+class OpenCLMeasureCombinedFieldsKernel : public MeasureCombinedFieldsKernel {
+public:
+	OpenCLMeasureCombinedFieldsKernel(std::string name, const Platform& platform, OpenCLContext& cl)
+		:MeasureCombinedFieldsKernel(name,platform),cl(cl),numBlocks(0){
+	}
+	~OpenCLMeasureCombinedFieldsKernel();
+	void initialize(ContextImpl& impl);
+	void calculate(ContextImpl& impl);
+private:
+	OpenCLContext& cl;
+	OpenCLArray<mm_float4>* totalVelm;//to store total velocity and mass
+	OpenCLArray<cl_float>* totalMols;//to store total molecules
+	OpenCLArray<mm_float4>* newVelocity;//to store new velocity
+	OpenCLArray<mm_float2>* KeDof;
+	cl::Kernel kernel1,kernel2;
+	unsigned short numBlocks;
+};
 } // namespace OpenMM
 
 #endif /*OPENMM_OPENCLKERNELS_H_*/

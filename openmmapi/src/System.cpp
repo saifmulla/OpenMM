@@ -119,3 +119,8 @@ void System::setDefaultPeriodicBoxVectors(const Vec3& a, const Vec3& b, const Ve
     periodicBoxVectors[1] = b;
     periodicBoxVectors[2] = c;
 }
+
+double System::getBoxVolume(){
+	double t = (periodicBoxVectors[0][0]*periodicBoxVectors[1][1]*periodicBoxVectors[2][2]);
+	return t;
+}

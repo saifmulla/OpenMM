@@ -38,22 +38,21 @@ using namespace OpenMM;
 using namespace std;
 
 Context::Context(System& system, Integrator& integrator) : properties(map<string, string>()) {
-    impl = new ContextImpl(*this, system, integrator, 0, properties,0);
+    impl = new ContextImpl(*this, system, integrator, 0, properties,0,0);
 }
 
 Context::Context(System& system, Integrator& integrator, Platform& platform) : properties(map<string, string>()) {
-    impl = new ContextImpl(*this, system, integrator, &platform, properties,0);
+    impl = new ContextImpl(*this, system, integrator, &platform, properties,0,0);
 }
 
 Context::Context(System& system, Integrator& integrator, Platform& platform, const map<string, string>& properties) : properties(properties) {
-    impl = new ContextImpl(*this, system, integrator, &platform, properties,0);
+    impl = new ContextImpl(*this, system, integrator, &platform, properties,0,0);
 }
 
 Context::Context(System& system, Integrator& integrator, Platform& platform,
-		const map<string,string>& properties,
-		ControlTools& controls)
+		ControlTools& controls, MeasurementTools& measurements) : properties(map<string,string>())
 {
-	impl = new ContextImpl(*this,system,integrator,&platform, properties,&controls);
+	impl = new ContextImpl(*this,system,integrator,&platform, properties,&controls,&measurements);
 	//impl->setControls(controls);
 }
 
@@ -192,6 +191,7 @@ void Context::reinitialize() {
     Integrator& integrator = impl->getIntegrator();
     Platform& platform = impl->getPlatform();
     ControlTools& tools = impl->getControls();
+    //@todo: implement measurement tools later
     delete impl;
-    impl = new ContextImpl(*this, system, integrator, &platform, properties,&tools);
+    impl = new ContextImpl(*this, system, integrator, &platform, properties,&tools,0);
 }

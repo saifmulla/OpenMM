@@ -69,4 +69,5 @@
 #include "openmm/VirtualSite.h"
 #include "openmm/Platform.h"
 #include "openmm/ControlTools.h"
+#include "openmm/MeasurementTools.h"
 #endif /*OPENMM_H_*/

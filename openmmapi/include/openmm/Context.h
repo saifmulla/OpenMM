@@ -46,7 +46,7 @@ class ContextImpl;
 class Vec3;
 class Platform;
 class ControlTools;
-
+class MeasurementTools;
 /**
  * A Context stores the complete state of a simulation.  More specifically, it includes:
  * 
@@ -96,8 +96,7 @@ public:
      * to accomodate controltools
      */
     Context(System& system, Integrator& integrator, Platform& platform,
-		const std::map<std::string,std::string>& properties,
-		ControlTools& controls);
+		ControlTools& controls, MeasurementTools& measurements);
     ~Context();
     /**
      * Get System being simulated in this context.

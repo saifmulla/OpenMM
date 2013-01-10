@@ -101,6 +101,16 @@ public:
      * Get a map containing the values of all parameters.  If this State does not contain parameters, this will throw an exception.
      */
     const std::map<std::string, double>& getParameters() const;
+    /**
+     * get number of molecules in the system
+     * being simulated
+     */
+    double getNumMolecules() const;
+    /**
+     * get number density of the system
+     *
+     */
+    double getNumberDensity() const;
 private:
     friend class Context;
     State(double time, int numParticles, int types);

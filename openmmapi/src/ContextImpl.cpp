@@ -39,6 +39,7 @@
 #include "openmm/State.h"
 #include "openmm/VirtualSite.h"
 #include "openmm/ControlTools.h"
+#include "openmm/MeasurementTools.h"
 #include <map>
 #include <utility>
 #include <vector>
@@ -50,8 +51,9 @@ using std::vector;
 using std::string;
 
 ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator, Platform* platform, const map<string, string>& properties,
-		ControlTools* tools) :
-         owner(owner), system(system), integrator(integrator), hasInitializedForces(false), lastForceGroups(-1), platform(platform), platformData(NULL),controls(tools),controlSet(false) {
+		ControlTools* tools,
+		MeasurementTools* measuretools) :
+         owner(owner), system(system), integrator(integrator), hasInitializedForces(false), lastForceGroups(-1), platform(platform), platformData(NULL),controls(tools),controlSet(false),measurements(measuretools),measurementSet(false) {
     if (system.getNumParticles() == 0)
         throw OpenMMException("Cannot create a Context for a System with no particles");
     
@@ -107,7 +109,21 @@ ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator,
 		}
 		else
 			throw OpenMMException("No tools are provided");
-	}    
+	} 
+
+	//check if measurementtools are set
+	if(measurements)
+	{
+		if(measurements->getToolSize()>0){
+			std::vector<std::string> measurementkernels = measurements->getKernelNames();
+			if(!platform->supportsKernels(measurementkernels))
+				throw OpenMMException("Not all measurement kernels are supported by "
+							+platform->getName()+" platform");
+			measurementSet = true;
+		}
+		else
+			throw OpenMMException("No measurement tools mentioned");
+	}	
     // Create and initialize kernels and other objects.
     
     platform->contextCreated(*this, properties);
@@ -129,6 +145,8 @@ ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator,
     integrator.initialize(*this);
     if(controls)
     	controls->initialize(*this);
+    if(measurements)
+    	measurements->initialize(*this);
     dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).setVelocities(*this, vector<Vec3>(system.getNumParticles()));
 }
 
@@ -264,6 +282,10 @@ void ContextImpl::setPlatformData(void* data) {
 
 ControlTools& ContextImpl::getControls(){
 	return *controls;
+}
+
+MeasurementTools& ContextImpl::getMeasurements(){
+	return *measurements;
 }
 const vector<vector<int> >& ContextImpl::getMolecules() const {
     if (!hasInitializedForces)

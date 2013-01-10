@@ -42,6 +42,7 @@
 #include "openmm/VelocityVerletIntegrator.h"
 #include "openmm/VerletIntegrator.h"
 #include "openmm/ControlTools.h"
+#include "openmm/MeasurementTools.h"
 #include "../src/SimTKUtilities/SimTKOpenMMRealType.h"
 #include "sfmt/SFMT.h"
 #include <iostream>
@@ -66,15 +67,18 @@ void testTemperature() {
     system.addForce(forceField);
  /*   AndersenThermostat* thermstat = new AndersenThermostat(temp, collisionFreq);
     system.addForce(thermstat);*/
-    vector<string> toolnames;
+    vector<string> toolnames,mtools;
     toolnames.push_back("BerendsenThermostat");
+    mtools.push_back("MeasureCombinedFields");
     map<string,string> properties;
 
     ControlTools tools(toolnames);
     tools.setTemperature(temp);
     tools.setTauT(0.1);
 
-    Context context(system, integrator, platform,properties,tools);
+    MeasurementTools measurements(mtools);
+
+    Context context(system, integrator, platform,tools,measurements);
     vector<Vec3> positions(numParticles);
     for (int i = 0; i < numParticles; ++i)
         positions[i] = Vec3((i%2 == 0 ? 2 : -2), (i%4 < 2 ? 2 : -2), (i < 4 ? 2 : -2));
@@ -90,8 +94,10 @@ void testTemperature() {
     for (int i = 0; i < numSteps; ++i) {
         State state = context.getState(State::Energy);
         ke += state.getKineticEnergy();
-//	double temp = tools.getTempValue();
-//	printf("Temp\t%8.15f\n",temp);
+        /*printf("Num molecules %f\n",state.getNumMolecules());
+        printf("Num Density %f\n",state.getNumberDensity());*/
+	/*double temp = tools.getTempValue();
+	printf("Temp\t%8.15f\n",temp);*/
 //	ke += temp;
         integrator.step(1);
     }
