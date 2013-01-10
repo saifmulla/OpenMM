@@ -4,15 +4,12 @@
 #include "openmm/internal/ContextImpl.h"
 #include "openmm/kernels.h"
 #include "openmm/ControlTools.h"
-#include <string>
 
 
 using namespace OpenMM;
 
-using std::string;
-using std::vector;
 
-ControlTools::ControlTools(vector<string> tools):toolNames(tools)
+ControlTools::ControlTools(std::vector<std::string> tools):toolNames(tools)
 {
 	temperature = 0.0;
 	tauT = 0.0;
@@ -20,7 +17,7 @@ ControlTools::ControlTools(vector<string> tools):toolNames(tools)
 	tempValue = 0.0;
 }
 
-vector<string> ControlTools::getKernelNames()
+std::vector<std::string> ControlTools::getKernelNames()
 {
 	return toolNames;
 }

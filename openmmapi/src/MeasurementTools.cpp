@@ -11,7 +11,7 @@
 
 using namespace OpenMM;
 
-MeasurementTools::MeasurementTools(vector<string> tools,double averagingTime):
+MeasurementTools::MeasurementTools(std::vector<std::string> tools,double averagingTime):
 		tools(tools),totalMass(0.0),massDensity(0.0) {
 	this->averagingTime = averagingTime;
 /*	totalMass = (double) -1.0;
@@ -25,7 +25,7 @@ MeasurementTools::MeasurementTools(vector<string> tools,double averagingTime):
 	*/
 }
 
-vector<string> MeasurementTools::getKernelNames(){
+std::vector<std::string> MeasurementTools::getKernelNames(){
 	return tools;
 }
 

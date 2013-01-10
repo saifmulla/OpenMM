@@ -5,9 +5,6 @@
 #include "openmm/Kernel.h"
 #include "internal/windowsExport.h"
 
-using std::string;
-using std::vector;
-
 namespace OpenMM{
 
 class ContextImpl;
@@ -17,11 +14,11 @@ class OPENMM_EXPORT MeasurementTools {
 
 
 private:
-	vector<string> tools;
+	std::vector<std::string> tools;
 	double averagingTime;
-	vector<vector<unsigned int> > zoneParticles;//use this variables inside zone calculation
-	vector<vector<unsigned int> > binParticles;//use this variables inside bin calculation
-	vector<Kernel> kernels;
+	std::vector<std::vector<unsigned int> > zoneParticles;//use this variables inside zone calculation
+	std::vector<std::vector<unsigned int> > binParticles;//use this variables inside bin calculation
+	std::vector<Kernel> kernels;
 	double totalMass;
 	double massDensity;
 	double numberMolecules;
@@ -33,7 +30,7 @@ private:
 protected:
 	friend class ContextImpl;
 public:
-	MeasurementTools(vector<string> tools,double averagingTime = 1.0);
+	MeasurementTools(std::vector<std::string> tools,double averagingTime = 1.0);
 	int getToolSize(){
 		return tools.size();
 	}
@@ -92,7 +89,7 @@ public:
 	double getMassDensity(){
 		return massDensity;
 	}
-	vector<string> getKernelNames();
+	std::vector<std::string> getKernelNames();
 
 	void initialize(ContextImpl& impl);
 	void measureAtEnd(ContextImpl& impl);

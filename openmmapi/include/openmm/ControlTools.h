@@ -3,14 +3,12 @@
 
 
 #include <iostream>
-#include <vector>
-#include <map>
 
 #include "openmm/Kernel.h"
 #include "internal/windowsExport.h"
 
 using std::string;
-using std::vector;
+
 
 namespace OpenMM{
 	class Context;
@@ -73,7 +71,7 @@ namespace OpenMM{
 			double getTempValue(){
 				return tempValue;
 			}
-			vector<string> getKernelNames();
+			std::vector<std::string> getKernelNames();
 			void initialize(ContextImpl& impl);
 			void controlBeforeForces(ContextImpl& impl);
 			void controlAfterForces(ContextImpl& impl);

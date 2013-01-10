@@ -33,8 +33,6 @@
  * This tests the OpenCL implementation of AndersenThermostat.
  */
 
-#include "openmm/internal/AssertionUtilities.h"
-#include "openmm/AndersenThermostat.h"
 #include "openmm/Context.h"
 #include "OpenCLPlatform.h"
 #include "openmm/NonbondedForce.h"
@@ -47,11 +45,11 @@
 #include "sfmt/SFMT.h"
 #include <iostream>
 #include <vector>
-
+#include "gtest/gtest.h"
 using namespace OpenMM;
 using namespace std;
 
-void testTemperature() {
+TEST(TESTTEMPERATURE,FIRSTTEST) {
     const int numParticles = 8;
     const double temp = 100.0;
     const double collisionFreq = 10.0;
@@ -65,8 +63,6 @@ void testTemperature() {
         forceField->addParticle((i%2 == 0 ? 1.0 : -1.0), 1.0, 5.0);
     }
     system.addForce(forceField);
- /*   AndersenThermostat* thermstat = new AndersenThermostat(temp, collisionFreq);
-    system.addForce(thermstat);*/
     vector<string> toolnames,mtools;
     toolnames.push_back("BerendsenThermostat");
     mtools.push_back("MeasureCombinedFields");
@@ -90,149 +86,32 @@ void testTemperature() {
 
     // Now run it for a while and see if the temperature is correct.
 
+    double exnummols = 8.0f;
+    double extmass = 4.0f;
+    double exnumden = exnummols/system.getBoxVolume();
+    double exmassden = extmass/system.getBoxVolume();
+    double exdof = 3.0 * (double) numParticles;
     double ke = 0.0;
     for (int i = 0; i < numSteps; ++i) {
-        State state = context.getState(State::Energy);
-        ke += state.getKineticEnergy();
-        /*printf("Num molecules %f\n",state.getNumMolecules());
-        printf("Num Density %f\n",state.getNumberDensity());*/
-	/*double temp = tools.getTempValue();
-	printf("Temp\t%8.15f\n",temp);*/
+//        State state = context.getState(State::Energy);
+//        ke += state.getKineticEnergy();
+	double temp = tools.getTempValue();
+	EXPECT_EQ(exnummols,measurements.getNumberMolecules());
+	EXPECT_EQ(extmass,measurements.getTotalMass());
+	EXPECT_EQ(exnumden,measurements.getNumberDensity());
+	EXPECT_EQ(exmassden,measurements.getMassDensity());
+	EXPECT_EQ(exdof,measurements.getDof());
+
 //	ke += temp;
         integrator.step(1);
     }
     ke /= numSteps;
-    double expected = 0.5*numParticles*3*BOLTZ*temp;
-    ASSERT_EQUAL_TOL(expected, ke, 6/std::sqrt((double) numSteps));
+    //double expected = 0.5*numParticles*3*BOLTZ*temp;
+    //ASSERT_EQUAL_TOL(expected, ke, 6/std::sqrt((double) numSteps));
 }
 
-
-
-void testConstraints() {
-    const int numParticles = 8;
-    const double temp = 100.0;
-    const double collisionFreq = 10.0;
-    const int numSteps = 10000;
-    OpenCLPlatform platform;
-    System system;
-    VerletIntegrator integrator(0.005);
-    NonbondedForce* forceField = new NonbondedForce();
-    for (int i = 0; i < numParticles; ++i) {
-        system.addParticle(2.0);
-        forceField->addParticle((i%2 == 0 ? 1.0 : -1.0), 1.0, 5.0);
-    }
-    system.addForce(forceField);
-    system.addConstraint(0, 1, 1);
-    system.addConstraint(1, 2, 1);
-    system.addConstraint(2, 3, 1);
-    system.addConstraint(3, 0, 1);
-    system.addConstraint(4, 5, 1);
-    system.addConstraint(5, 6, 1);
-    system.addConstraint(6, 7, 1);
-    system.addConstraint(7, 4, 1);
-    AndersenThermostat* thermstat = new AndersenThermostat(temp, collisionFreq);
-    system.addForce(thermstat);
-    Context context(system, integrator, platform);
-    vector<Vec3> positions(numParticles);
-    positions[0] = Vec3(0, 0, 0);
-    positions[1] = Vec3(1, 0, 0);
-    positions[2] = Vec3(1, 1, 0);
-    positions[3] = Vec3(0, 1, 0);
-    positions[4] = Vec3(1, 0, 1);
-    positions[5] = Vec3(1, 1, 1);
-    positions[6] = Vec3(0, 1, 1);
-    positions[7] = Vec3(0, 0, 1);
-    context.setPositions(positions);
-
-    // Let it equilibrate.
-
-    integrator.step(10000);
-
-    // Now run it for a while and see if the temperature is correct.
-
-    double ke = 0.0;
-    for (int i = 0; i < numSteps; ++i) {
-        State state = context.getState(State::Energy);
-        ke += state.getKineticEnergy();
-        integrator.step(1);
-    }
-    ke /= numSteps;
-    double expected = 0.5*(numParticles*3-system.getNumConstraints())*BOLTZ*temp;
-    ASSERT_EQUAL_TOL(expected, ke, 6/std::sqrt((double) numSteps));
-}
-
-void testRandomSeed() {
-    const int numParticles = 8;
-    const double temp = 100.0;
-    const double collisionFreq = 10.0;
-    OpenCLPlatform platform;
-    System system;
-    VerletIntegrator integrator(0.01);
-    NonbondedForce* forceField = new NonbondedForce();
-    for (int i = 0; i < numParticles; ++i) {
-        system.addParticle(2.0);
-        forceField->addParticle((i%2 == 0 ? 1.0 : -1.0), 1.0, 5.0);
-    }
-    system.addForce(forceField);
-    AndersenThermostat* thermostat = new AndersenThermostat(temp, collisionFreq);
-    system.addForce(thermostat);
-    vector<Vec3> positions(numParticles);
-    vector<Vec3> velocities(numParticles);
-    for (int i = 0; i < numParticles; ++i) {
-        positions[i] = Vec3((i%2 == 0 ? 2 : -2), (i%4 < 2 ? 2 : -2), (i < 4 ? 2 : -2));
-        velocities[i] = Vec3(0, 0, 0);
-    }
-
-    // Try twice with the same random seed.
-
-    thermostat->setRandomNumberSeed(5);
-    Context context(system, integrator, platform);
-    context.setPositions(positions);
-    context.setVelocities(velocities);
-    integrator.step(10);
-    State state1 = context.getState(State::Positions);
-    context.reinitialize();
-    context.setPositions(positions);
-    context.setVelocities(velocities);
-    integrator.step(10);
-    State state2 = context.getState(State::Positions);
-
-    // Try twice with a different random seed.
-
-    thermostat->setRandomNumberSeed(10);
-    context.reinitialize();
-    context.setPositions(positions);
-    context.setVelocities(velocities);
-    integrator.step(10);
-    State state3 = context.getState(State::Positions);
-    context.reinitialize();
-    context.setPositions(positions);
-    context.setVelocities(velocities);
-    integrator.step(10);
-    State state4 = context.getState(State::Positions);
-
-    // Compare the results.
-
-    for (int i = 0; i < numParticles; i++) {
-        for (int j = 0; j < 3; j++) {
-            ASSERT(state1.getPositions()[i][j] == state2.getPositions()[i][j]);
-            ASSERT(state3.getPositions()[i][j] == state4.getPositions()[i][j]);
-            ASSERT(state1.getPositions()[i][j] != state3.getPositions()[i][j]);
-        }
-    }
-}
-
-int main() {
-    try {
-        testTemperature();
-//        testConstraints();
-//        testRandomSeed();
-    }
-    catch(const exception& e) {
-        cout << "exception: " << e.what() << endl;
-        return 1;
-    }
-    cout << "Done" << endl;
-    return 0;
+int main(int argc, char **argv) {
+	testing::InitGoogleTest(&argc,argv);
+	return RUN_ALL_TESTS();
 }
 
