@@ -14,7 +14,7 @@ using namespace OpenMM;
 MeasurementTools::MeasurementTools(vector<string> tools,double averagingTime):
 		tools(tools),totalMass(0.0),massDensity(0.0) {
 	this->averagingTime = averagingTime;
-	totalMass = (double) -1.0;
+/*	totalMass = (double) -1.0;
 	massDensity = (double) -1.0;
 	numberMolecules = (double) -1.0;
 	momentum = OpenMM::Vec3(-1.0,-1.0,-1.0);
@@ -22,6 +22,7 @@ MeasurementTools::MeasurementTools(vector<string> tools,double averagingTime):
 	Dof = -1.0;
 	temperature = -1.0;
 	numberDensity = -1.0;
+	*/
 }
 
 vector<string> MeasurementTools::getKernelNames(){

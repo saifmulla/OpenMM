@@ -4,6 +4,15 @@
 
 ENABLE_TESTING()
 
+#
+#
+# the below two lines are for google test include
+# directory path and gtest library path. This is to include google test framework for testing
+# opencl tests
+# AUTHOR: Saif Mulla
+#
+INCLUDE_DIRECTORIES (/opt/google-test/include)
+LINK_DIRECTORIES (/usr/lib)
 # INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/../FindOpenCL.cmake)
 INCLUDE_DIRECTORIES(${OPENCL_INCLUDE_DIR})
 
@@ -22,7 +31,8 @@ FOREACH(TEST_PROG ${TEST_PROGS})
 
     # Link with shared library
     ADD_EXECUTABLE(${TEST_ROOT} ${TEST_PROG})
-    TARGET_LINK_LIBRARIES(${TEST_ROOT} ${SHARED_TARGET})
+#additional library is added for gtest
+    TARGET_LINK_LIBRARIES(${TEST_ROOT} ${SHARED_TARGET} gtest)
 
     IF( ${TEST_ROOT} STREQUAL "TestOpenCLGBSAOBCForce2" )
 
