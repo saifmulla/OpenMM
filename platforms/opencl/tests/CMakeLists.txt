@@ -12,6 +12,7 @@ ENABLE_TESTING()
 # AUTHOR: Saif Mulla
 #
 INCLUDE_DIRECTORIES (/opt/google-test/include)
+INCLUDE_DIRECTORIES (/home/ksb12101/local/rapidjson/include)
 LINK_DIRECTORIES (/usr/lib)
 # INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/../FindOpenCL.cmake)
 INCLUDE_DIRECTORIES(${OPENCL_INCLUDE_DIR})
