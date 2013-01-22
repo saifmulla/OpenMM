@@ -199,13 +199,7 @@ public:
     OpenCLArray<mm_float4>& getPosq() {
         return *posq;
     }
-    /**
-     * get the array which contains accelerations (the xyz components) of each atom
-     * (*w components is still to be populated @todo: accomodate some value in this component
-     */
-    OpenCLArray<mm_float4>& getAcln(){
-	return *acln;
-    }
+
     /**
      * Get the array which contains the velocity (the xyz components) and inverse mass (the w component) of each atom.
      */
@@ -533,11 +527,6 @@ private:
     OpenCLNonbondedUtilities* nonbonded;
     WorkThread* thread;
     
-    /**
-     * newly added variable
-     * @Saif Mulla
-     */
-    OpenCLArray<mm_float4>* acln;
 };
 
 struct OpenCLContext::MoleculeGroup {

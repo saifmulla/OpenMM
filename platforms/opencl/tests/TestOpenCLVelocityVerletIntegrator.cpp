@@ -67,6 +67,31 @@ static double computeEnergy(const State& state, const System& system, double dt)
     return energy+state.getPotentialEnergy();
 }
 
+void testforOF()
+{
+	OpenCLPlatform platform;
+	System system;
+	system.addParticle(2.0);
+	system.addParticle(2.0);
+	VelocityVerletIntegrator integrator(0.01);
+	HarmonicBondForce* forceField = new HarmonicBondForce();
+	forceField->addBond(0, 1, 1.5, 1);
+	system.addForce(forceField);
+	Context context(system, integrator, platform);
+	vector<Vec3> positions(2);
+	positions[0] = Vec3(-1, 0, 0);
+	positions[1] = Vec3(1, 0, 0);
+	context.setPositions(positions);
+
+	for(int i = 0;i<1000;++i)
+	{
+		State state = context.getState(State::Energy);
+		double time = state.getTime();
+		double ke = state.getKineticEnergy();
+		printf("KE %3.8f time@ %3.5f\n",ke,time);
+		integrator.step(1);
+	}
+}
 void testSingleBond() {
     OpenCLPlatform platform;
     System system;
@@ -223,7 +248,8 @@ void testConstrainedClusters() {
 
 int main() {
     try {
-        testSingleBond();
+    	testforOF();
+        //testSingleBond();
 //        testConstraints();
   //      testConstrainedClusters();
     }

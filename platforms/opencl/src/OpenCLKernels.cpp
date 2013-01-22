@@ -198,41 +198,6 @@ void OpenCLUpdateStateDataKernel::setVelocities(ContextImpl& context, const std:
     velm.upload();
 }
 
-/**
- * newly added code which implements setter and accessor functions for 
- * accelerations on OpenCL platform 
- */
-void OpenCLUpdateStateDataKernel::setAccelerations(ContextImpl& context, const std::vector<Vec3>& accelerations){
-    OpenCLArray<mm_float4>& acln = cl.getAcln();
-    OpenCLArray<cl_int>& order = cl.getAtomIndex();
-    int numParticles = context.getSystem().getNumParticles();
-    for(int i = 0;i < numParticles; ++i)
-    {
-	mm_float4& acl = acln[i];
-	const Vec3& p = accelerations[order[i]];
-	acl.x = (cl_float) p[0];
-	acl.y = (cl_float) p[1];
-	acl.z = (cl_float) p[2];
-    }
-//     for(int i = 0;i<cl.getPaddedNumAtoms();i++)
-// 	acln[i] = mm_float4(0.0f,0.0f,0.0f,0.0f);
-    
-    acln.upload();
-}
-
-
-void OpenCLUpdateStateDataKernel::getAccelerations(ContextImpl& context, std::vector<Vec3>& accelerations){
-    OpenCLArray<mm_float4>& acln = cl.getAcln();
-    acln.download();
-    OpenCLArray<cl_int>& order = cl.getAtomIndex();
-    int numParticles = context.getSystem().getNumParticles();
-    accelerations.resize(numParticles);
-    for (int i = 0; i < numParticles; ++i) {
-        mm_float4 acl = acln[i];
-        accelerations[order[i]] = Vec3(acl.x, acl.y, acl.z);
-    }
-}
-
 void OpenCLUpdateStateDataKernel::getForces(ContextImpl& context, std::vector<Vec3>& forces) {
     OpenCLArray<mm_float4>& force = cl.getForce();
     force.download();
@@ -4344,9 +4309,11 @@ double OpenCLCalcKineticEnergyKernel::execute(ContextImpl& context) {
     double energy = 0.0;
     for (size_t i = 0; i < masses.size(); ++i) {
         mm_float4 v = velm[i];
-        energy += masses[i]*(v.x*v.x+v.y*v.y+v.z*v.z);
+        //energy += masses[i]*(v.x*v.x+v.y*v.y+v.z*v.z);
+        energy += 0.5*masses[i]*((v.x*v.x)+(v.y*v.y)+(v.z*v.z));
     }
-    return 0.5*energy;
+    
+    return energy;
 }
 
 OpenCLRemoveCMMotionKernel::~OpenCLRemoveCMMotionKernel() {

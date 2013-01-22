@@ -92,16 +92,13 @@ State Context::getState(int types, bool enforcePeriodicBox, int groups) const {
     state.setPeriodicBoxVectors(periodicBoxSize[0], periodicBoxSize[1], periodicBoxSize[2]);
     bool includeForces = types&State::Forces;
     bool includeEnergy = types&State::Energy;
-    bool includeAccelerations = types&State::Accelerations;
 
-    if (includeForces || includeEnergy || includeAccelerations) {
+    if (includeForces || includeEnergy) {
         double energy = impl->calcForcesAndEnergy(includeForces, includeEnergy, groups);
         if (includeEnergy)
             state.setEnergy(impl->calcKineticEnergy(), energy);
         if (includeForces)
             impl->getForces(state.updForces());
-        if(includeAccelerations)
-        	impl->getAccelerations(state.updAccelerations());
     }
     if (types&State::Parameters) {
         for (map<string, double>::const_iterator iter = impl->parameters.begin(); iter != impl->parameters.end(); iter++)
@@ -161,11 +158,6 @@ void Context::setVelocities(const vector<Vec3>& velocities) {
     impl->setVelocities(velocities);
 }
 
-void Context::setAccelerations(const vector<Vec3>& accelerations) {
-    if ((int) accelerations.size() != impl->getSystem().getNumParticles())
-	throw OpenMMException("Called setAccelerations() on a context with the wrong number of Accelerations");
-    impl->setAccelerations(accelerations);
-}
 double Context::getParameter(const string& name) {
     return impl->getParameter(name);
 }

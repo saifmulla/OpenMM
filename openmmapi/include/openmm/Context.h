@@ -147,15 +147,6 @@ public:
      * contains the position of the i'th particle.
      */
     void setPositions(const std::vector<Vec3>& positions);
-    
-    /**
-     * Set the accelerations of all particles in the System (measured in nm/picosecond).
-     * 
-     * @param accelerations  a vector whose length equals the number of particles in the System.  The i'th element
-     * contains the velocity of the i'th particle.
-     */
-    void setAccelerations(const std::vector<Vec3>& accelerations);
-    
     /**
      * Set the velocities of all particles in the System (measured in nm/picosecond).
      * 

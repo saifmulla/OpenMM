@@ -182,20 +182,6 @@ void ContextImpl::setVelocities(const std::vector<Vec3>& velocities) {
     integrator.stateChanged(State::Velocities);
 }
 
-void ContextImpl::setAccelerations(const std::vector<Vec3>& accelerations)
-{
-    dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).setAccelerations(*this, accelerations);
-    /*
-     * @todo: check if you really need below function invocation
-     *
-     */
-    integrator.stateChanged(State::Accelerations);
-}
-
-void ContextImpl::getAccelerations(std::vector<Vec3>& accelerations)
-{
-	dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).getAccelerations(*this,accelerations);
-}
 void ContextImpl::getForces(std::vector<Vec3>& forces) {
     dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).getForces(*this, forces);
 }

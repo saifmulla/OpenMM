@@ -158,23 +158,6 @@ public:
      * @param velocities  on exit, this contains the particle velocities
      */
     virtual void getVelocities(ContextImpl& context, std::vector<Vec3>& velocities) = 0;
-    
-    /**
-     * @update
-     * this is the newly added function for acceleration
-     * @param ContextImpl
-     * @param acceleration a vector containing the particle acceleration
-     */
-    virtual void setAccelerations(ContextImpl& context, const std::vector<Vec3>& accelerations) = 0;
-    
-    /**
-     * @update
-     * this is the newly added function for acceleration
-     * essentially this is a accessor function
-     * @param ContextImpl
-     * @param acceleration a vector containing the particle acceleration
-     */
-    virtual void getAccelerations(ContextImpl& context, std::vector<Vec3>& accelerations) = 0;
     /**
      * Set the velocities of all particles.
      *

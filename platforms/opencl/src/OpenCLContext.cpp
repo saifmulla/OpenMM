@@ -214,7 +214,6 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
         nonbonded = new OpenCLNonbondedUtilities(*this);
         posq = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "posq", true);
         velm = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "velm", true);
-	acln = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "acln", true);
         posCellOffsets.resize(paddedNumAtoms, mm_int4(0, 0, 0, 0));
     }
     catch (cl::Error err) {
@@ -317,9 +316,6 @@ OpenCLContext::~OpenCLContext() {
         delete nonbonded;
     if (thread != NULL)
         delete thread;
-    /* new addition */
-    if	(acln != NULL)
-	delete acln;
     
 }
 
@@ -757,11 +753,8 @@ void OpenCLContext::reorderAtoms() {
 
     posq->download();
     velm->download();
-    /**
-     * new code added to update acceleration index
-     */
-    acln->download();
     
+
     float minx = posq->get(0).x, maxx = posq->get(0).x;
     float miny = posq->get(0).y, maxy = posq->get(0).y;
     float minz = posq->get(0).z, maxz = posq->get(0).z;
@@ -788,8 +781,7 @@ void OpenCLContext::reorderAtoms() {
     vector<int> originalIndex(numAtoms);
     vector<mm_float4> newPosq(numAtoms);
     vector<mm_float4> newVelm(numAtoms);
-    //@new
-    vector<mm_float4> newAcln(numAtoms);
+
     vector<mm_int4> newCellOffsets(numAtoms);
     for (int group = 0; group < (int) moleculeGroups.size(); group++) {
         // Find the center of each molecule.
@@ -887,7 +879,6 @@ void OpenCLContext::reorderAtoms() {
                 originalIndex[newIndex] = atomIndex->get(oldIndex);
                 newPosq[newIndex] = posq->get(oldIndex);
                 newVelm[newIndex] = velm->get(oldIndex);
-		 newAcln[newIndex] = acln->get(oldIndex);
                 newCellOffsets[newIndex] = posCellOffsets[oldIndex];
             }
         }
@@ -898,13 +889,11 @@ void OpenCLContext::reorderAtoms() {
     for (int i = 0; i < numAtoms; i++) {
         posq->set(i, newPosq[i]);
         velm->set(i, newVelm[i]);
-	acln->set(i, newAcln[i]);
         atomIndex->set(i, originalIndex[i]);
         posCellOffsets[i] = newCellOffsets[i];
     }
     posq->upload();
     velm->upload();
-    acln->upload();
     atomIndex->upload();
     for (int i = 0; i < (int) reorderListeners.size(); i++)
         reorderListeners[i]->execute();
