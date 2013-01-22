@@ -56,7 +56,7 @@ public:
      * This is an enumeration of the types of data which may be stored in a State.  When you create
      * a State, use these values to specify which data types it should contain.
      */
-    enum DataType {Positions=1, Velocities=2, Forces=4, Energy=8, Parameters=16, Accelerations=32};
+    enum DataType {Positions=1, Velocities=2, Forces=4, Energy=8, Parameters=16};
     /**
      * Construct an empty State containing no data.  This exists so State objects can be used in STL containers.
      */
@@ -77,10 +77,7 @@ public:
      * Get the force acting on each particle.  If this State does not contain forces, this will throw an exception.
      */
     const std::vector<Vec3>& getForces() const;
-    /**
-     * Get the acceleration acting on each particle. If this State does not contain acceleration, this will throw an exception.
-     */
-    const std::vector<Vec3>& getAccelerations() const;
+
     /**
      * Get the total kinetic energy of the system.  If this State does not contain energies, this will throw an exception.
      */
@@ -107,7 +104,6 @@ private:
     std::vector<Vec3>& updPositions();
     std::vector<Vec3>& updVelocities();
     std::vector<Vec3>& updForces();
-    std::vector<Vec3>& updAccelerations();
     std::map<std::string, double>& updParameters();
     void setEnergy(double ke, double pe);
     void setPeriodicBoxVectors(const Vec3& a, const Vec3& b, const Vec3& c);
@@ -116,7 +112,6 @@ private:
     std::vector<Vec3> positions;
     std::vector<Vec3> velocities;
     std::vector<Vec3> forces;
-    std::vector<Vec3> accelerations;
     Vec3 periodicBoxVectors[3];
     std::map<std::string, double> parameters;
 };

@@ -66,7 +66,6 @@ public:
     void* positions;
     void* velocities;
     void* forces;
-    void* accelerations;
     void* periodicBoxSize;
 };
 } // namespace OpenMM
