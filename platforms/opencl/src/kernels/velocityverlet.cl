@@ -25,7 +25,7 @@ __kernel void velocityVerletPart1(int numAtoms,
 	  {
 	      float4 accel;
 	      accel.xyz = forces[idx].xyz*velocity.w;
-	      velocity.xyz = accel.xyz * dtVel;
+	      velocity.xyz += accel.xyz * dtVel;
 	      posq[idx].xyz += velocity.xyz * dtPos;
 	      velm[idx] = velocity;
 	  }
@@ -56,7 +56,7 @@ __kernel void velocityVerletPart2(int numAtoms,
 	  {
 	      float4 accel;
 	      accel.xyz = forces[idx].xyz*velocity.w;
-	      velocity.xyz = accel.xyz * dtVel;
+	      velocity.xyz += accel.xyz * dtVel;
 	      velm[idx] = velocity;
 	  }
 	   //increment the loop
