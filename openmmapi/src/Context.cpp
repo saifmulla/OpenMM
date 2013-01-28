@@ -56,6 +56,11 @@ Context::Context(System& system, Integrator& integrator, Platform& platform,
 	//impl->setControls(controls);
 }
 
+Context::Context(System& system, Integrator& integrator, Platform& platform, MeasurementTools& measurements)
+:properties(map<string,string>())
+{
+    impl = new ContextImpl(*this,system,integrator,&platform,properties,0,&measurements);
+}
 Context::~Context() {
 	delete impl;
 }
@@ -83,6 +88,10 @@ const Platform& Context::getPlatform() const {
 
 Platform& Context::getPlatform() {
     return impl->getPlatform();
+}
+
+MeasurementTools& Context::getMeasurements(){
+    return impl->getMeasurements();
 }
 
 State Context::getState(int types, bool enforcePeriodicBox, int groups) const {

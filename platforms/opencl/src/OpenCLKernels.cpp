@@ -4459,25 +4459,25 @@ void OpenCLMeasureCombinedFieldsKernel::initialize(ContextImpl& impl){
 
 	numBlocks = (cl.getNumAtoms()+(OpenCLContext::ThreadBlockSize - 1))/OpenCLContext::ThreadBlockSize;
 	totalVelm = new OpenCLArray<mm_float4>(cl,numBlocks,"totalVelm",true);
-	totalMols = new OpenCLArray<cl_float>(cl,numBlocks,"totalMols",true);
+	totalMols = new OpenCLArray<mm_float2>(cl,numBlocks,"totalMols",true);
 	newVelocity = new OpenCLArray<mm_float4>(cl,1,"newVelocity",true);
 	KeDof = new OpenCLArray<mm_float2>(cl,numBlocks,"KeDof",true);
 	cl::Program program = cl.createProgram(OpenCLKernelSources::combinedfields);
 	kernel1 = cl::Kernel(program,"measureTotalMass");
-	kernel2 = cl::Kernel(program,"measureKE");
+//	kernel2 = cl::Kernel(program,"measureKE");
 	//kernel1 - calculateTotalMass
 	kernel1.setArg<cl_int>(0,cl.getNumAtoms());
 	kernel1.setArg<cl::Buffer>(1,cl.getVelm().getDeviceBuffer());
 	kernel1.setArg<cl::Buffer>(2,totalVelm->getDeviceBuffer());
 	kernel1.setArg<cl::Buffer>(3,totalMols->getDeviceBuffer());
 	kernel1.setArg(4,OpenCLContext::ThreadBlockSize*sizeof(mm_float4),NULL);
-	kernel1.setArg(5,OpenCLContext::ThreadBlockSize*sizeof(cl_float),NULL);
+	kernel1.setArg(5,OpenCLContext::ThreadBlockSize*sizeof(mm_float2),NULL);
 	//kernel2 - calculateKE
-	kernel2.setArg<cl_int>(0,cl.getNumAtoms());
-	kernel2.setArg<cl::Buffer>(1,cl.getVelm().getDeviceBuffer());
-	kernel2.setArg<cl::Buffer>(2,newVelocity->getDeviceBuffer());
-	kernel2.setArg<cl::Buffer>(3,KeDof->getDeviceBuffer());
-	kernel2.setArg(4,OpenCLContext::ThreadBlockSize*sizeof(mm_float2),NULL);
+//	kernel2.setArg<cl_int>(0,cl.getNumAtoms());
+//	kernel2.setArg<cl::Buffer>(1,cl.getVelm().getDeviceBuffer());
+//	kernel2.setArg<cl::Buffer>(2,newVelocity->getDeviceBuffer());
+//	kernel2.setArg<cl::Buffer>(3,KeDof->getDeviceBuffer());
+//	kernel2.setArg(4,OpenCLContext::ThreadBlockSize*sizeof(mm_float2),NULL);
 }
 
 void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
@@ -4486,41 +4486,42 @@ void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
 	totalMols->download();
 
 	mm_float4 mom = mm_float4(0.0f,0.0f,0.0f,0.0f);
-	float totalmol = 0.0f;
+	mm_float2 totalmol = mm_float2(0.0f,0.0f);
 	for(int i = 0;i<numBlocks;i++){
 		mm_float4 t = totalVelm->get(i);
-		float t2 = totalMols->get(i);
+		mm_float2 t2 = totalMols->get(i);
 		mom.x += t.x;
 		mom.y += t.y;
 		mom.z += t.z;
 		mom.w += t.w;
-		totalmol += t2;
+		totalmol.x += t2.x;
+        totalmol.y += t2.y;
 	}
 
-	vector<mm_float4> newvelm(1);
-	newvelm[0] = mm_float4(mom.x/mom.w,mom.y/mom.w,mom.z/mom.w,0.0f);
-	newVelocity->upload(newvelm);
-
-	cl.executeKernel(kernel2,cl.getNumAtoms());
-
-	KeDof->download();
-	float ke = 0.0f;
-	float dof = 0.0f;
-	for(int k=0;k<numBlocks;k++){
-		mm_float2 t = KeDof->get(k);
-		ke += t.x;
-		dof = t.y;
-	}
+//	vector<mm_float4> newvelm(1);
+//	newvelm[0] = mm_float4(mom.x/mom.w,mom.y/mom.w,mom.z/mom.w,0.0f);
+//	newVelocity->upload(newvelm);
+//
+//	cl.executeKernel(kernel2,cl.getNumAtoms());
+//
+//	KeDof->download();
+//	float ke = 0.0f;
+//	float dof = 0.0f;
+//	for(int k=0;k<numBlocks;k++){
+//		mm_float2 t = KeDof->get(k);
+//		ke += t.x;
+//		dof = t.y;
+//	}
 
 	impl.getMeasurements().setTotalMass((double) mom.w);
 	double volume = impl.getOwner().getSystem().getBoxVolume();
-	double numberdensity = totalmol/volume;
+	double numberdensity = (double)totalmol.y/volume;
 	impl.getMeasurements().setNumberDensity(numberdensity);
-	impl.getMeasurements().setNumberMolecules((double) totalmol);
-	impl.getMeasurements().setKe((double) ke);
-	impl.getMeasurements().setDof((double) dof);
-	double temp = ((2.0*ke)/(BOLTZ*dof));
-	impl.getMeasurements().setTemperature((double) temp);
+	impl.getMeasurements().setNumberMolecules((double) totalmol.y);
+	impl.getMeasurements().setKe((double) totalmol.x);
+//	impl.getMeasurements().setDof((double) dof);
+//	double temp = ((2.0*ke)/(BOLTZ*dof));
+//	impl.getMeasurements().setTemperature((double) temp);
 	double massdensity = (double)mom.w/volume;
 	impl.getMeasurements().setMassDensity(massdensity);
 	impl.getMeasurements().setMomentum(OpenMM::Vec3(mom.x,mom.y,mom.z));

@@ -97,6 +97,11 @@ public:
      */
     Context(System& system, Integrator& integrator, Platform& platform,
 		ControlTools& controls, MeasurementTools& measurements);
+    
+    /**
+     * overloaded constructor only measurement tools
+     */
+    Context(System& system, Integrator& integrator, Platform& platform, MeasurementTools& measurements);
     ~Context();
     /**
      * Get System being simulated in this context.
@@ -122,6 +127,7 @@ public:
      * Get the Platform being used for calculations.
      */
     Platform& getPlatform();
+    MeasurementTools& getMeasurements();
     /**
      * Get a State object recording the current state information stored in this context.
      * 

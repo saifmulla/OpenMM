@@ -1200,7 +1200,7 @@ public:
 private:
 	OpenCLContext& cl;
 	OpenCLArray<mm_float4>* totalVelm;//to store total velocity and mass
-	OpenCLArray<cl_float>* totalMols;//to store total molecules
+	OpenCLArray<mm_float2>* totalMols;//to store total molecules
 	OpenCLArray<mm_float4>* newVelocity;//to store new velocity
 	OpenCLArray<mm_float2>* KeDof;
 	cl::Kernel kernel1,kernel2;

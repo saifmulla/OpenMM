@@ -14,16 +14,16 @@
 __kernel void measureTotalMass(int numAtoms,
 				__global const float4* restrict velm,
 				__global float4* restrict totalVelm,
-				__global float* restrict totalMols,
+				__global float2* restrict totalMols,
 				__local volatile float4* restrict localVelm,
-				__local volatile float* restrict localMol
+				__local volatile float2* restrict localMol
 				)
 {
 
 	unsigned int idx = get_global_id(0);
 	unsigned int tid = get_local_id(0);
 	float4 tempvel = (float4) 0.0f;
-	float tempmol = 0.0f;
+	float2 tempmol = (float2) 0.0f;
 	//copy the velocity from its global location to shared/local memory
 	while(idx<numAtoms)
 	{
@@ -32,7 +32,9 @@ __kernel void measureTotalMass(int numAtoms,
 		if(velocity.w != 0.0){
 			tempvel.xyz += velocity.w * velocity.xyz;
 			tempvel.w += velocity.w;
-			tempmol += 1.0;
+            float sqr = ((velocity.x*velocity.x)+(velocity.y*velocity.y)+(velocity.z*velocity.z));
+            tempmol.x += 0.5 * velocity.w * sqr;
+			tempmol.y += 1.0;
 		}
 		idx += get_global_size(0);
 	}
