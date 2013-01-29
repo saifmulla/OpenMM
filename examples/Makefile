@@ -29,7 +29,8 @@ FFLAGS = -g -ffree-line-length-none
 FCPPLIBS = -lstdc++
 
 LIB_DIR=$(OpenMM_INSTALL_DIR)/lib
-INCLUDE_DIR=$(OpenMM_INSTALL_DIR)/include
+INCLUDE_DIR=$(OpenMM_INSTALL_DIR)/include \
+    -I/home/ksb12101/local/rapidjson/include
 LIBS= -lOpenMM
 
 ALL_CPP_EXAMPLES = HelloArgon HelloSodiumChloride HelloEthane HelloWaterBox

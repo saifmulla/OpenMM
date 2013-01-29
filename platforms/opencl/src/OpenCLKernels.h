@@ -1199,11 +1199,9 @@ public:
 	void calculate(ContextImpl& impl);
 private:
 	OpenCLContext& cl;
-	OpenCLArray<mm_float4>* totalVelm;//to store total velocity and mass
-	OpenCLArray<mm_float2>* totalMols;//to store total molecules
-	OpenCLArray<mm_float4>* newVelocity;//to store new velocity
-	OpenCLArray<mm_float2>* KeDof;
-	cl::Kernel kernel1,kernel2;
+	OpenCLArray<mm_float4>* totalMomm;//to store total velocity and mass
+	OpenCLArray<cl_float>* totalKe;//to store total molecules
+	cl::Kernel kernel1;
 	unsigned short numBlocks;
 };
 } // namespace OpenMM
