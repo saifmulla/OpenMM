@@ -61,6 +61,12 @@ Context::Context(System& system, Integrator& integrator, Platform& platform, Mea
 {
     impl = new ContextImpl(*this,system,integrator,&platform,properties,0,&measurements);
 }
+
+Context::Context(System& system, Integrator& integrator, Platform& platform, ControlTools& controls)
+:properties(map<string,string>())
+{
+    impl = new ContextImpl(*this,system,integrator,&platform,properties,&controls,0);
+}
 Context::~Context() {
 	delete impl;
 }

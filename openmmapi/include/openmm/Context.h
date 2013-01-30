@@ -102,6 +102,15 @@ public:
      * overloaded constructor only measurement tools
      */
     Context(System& system, Integrator& integrator, Platform& platform, MeasurementTools& measurements);
+    
+    /**
+     * overloaded constructor taking only ControlTools
+     * @system
+     * @integrator
+     * @platform
+     * @controltools
+     */
+    Context(System& system, Integrator& integrator, Platform& platform, ControlTools& controls);
     ~Context();
     /**
      * Get System being simulated in this context.
