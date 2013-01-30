@@ -4392,7 +4392,7 @@ void OpenCLBerendsenThermostatKernel::initialize(ContextImpl& impl)
 	kernel3.setArg<cl::Buffer>(1,chi->getDeviceBuffer());
 }
 
-void OpenCLBerendsenThermostatKernel::controlBeforeForces(ContextImpl& impl)
+void OpenCLBerendsenThermostatKernel::controlAfterForces(ContextImpl& impl)
 {
 
 	cl.executeKernel(kernel1,cl.getNumAtoms());
@@ -4434,7 +4434,7 @@ void OpenCLBerendsenThermostatKernel::controlBeforeForces(ContextImpl& impl)
 	cl.executeKernel(kernel3,cl.getNumAtoms());
 }
 
-void OpenCLBerendsenThermostatKernel::controlAfterForces(ContextImpl& impl)
+void OpenCLBerendsenThermostatKernel::controlBeforeForces(ContextImpl& impl)
 {
 }
 

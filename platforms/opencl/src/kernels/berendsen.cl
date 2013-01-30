@@ -72,7 +72,7 @@ __kernel void calculateKEDOF(__global float4* restrict velm,
 		float4 velocity = velm[idx];
 		float4 diffvel = velocity - newVelocity[0];
 		float sqr = ((diffvel.x*diffvel.x)+(diffvel.y*diffvel.y)+(diffvel.z*diffvel.z));
-		tempkedof.x += 0.5*velocity.w*sqr;
+		tempkedof.x += (0.5*sqr)/velocity.w;
 		tempkedof.y += 3.0;
 		idx += get_global_size(0);
 	}
