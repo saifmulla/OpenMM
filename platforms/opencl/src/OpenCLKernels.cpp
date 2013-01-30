@@ -4439,7 +4439,12 @@ void OpenCLBerendsenThermostatKernel::controlAfterForces(ContextImpl& impl)
 }
 
 OpenCLMeasureCombinedFieldsKernel::~OpenCLMeasureCombinedFieldsKernel()
-{}
+{
+    if(totalMomm!=NULL)
+        delete totalMomm;
+    if(totalKe!=NULL)
+        delete totalKe;
+}
 
 void OpenCLMeasureCombinedFieldsKernel::initialize(ContextImpl& impl){
 	/**
@@ -4459,7 +4464,7 @@ void OpenCLMeasureCombinedFieldsKernel::initialize(ContextImpl& impl){
 
 	numBlocks = (cl.getNumAtoms()+(OpenCLContext::ThreadBlockSize - 1))/OpenCLContext::ThreadBlockSize;
 	totalMomm = new OpenCLArray<mm_float4>(cl,numBlocks,"totalMomm",true);
-    totalKe = new OpenCLArray<cl_float>(cl,numBlocks,"totalKeMols",true);
+    	totalKe = new OpenCLArray<cl_float>(cl,numBlocks,"totalKeMols",true);
 
 	cl::Program program = cl.createProgram(OpenCLKernelSources::combinedfields);
 	kernel1 = cl::Kernel(program,"measureCombinedFields");
@@ -4467,28 +4472,28 @@ void OpenCLMeasureCombinedFieldsKernel::initialize(ContextImpl& impl){
 	//kernel1 - calculateTotalMass
 	kernel1.setArg<cl_int>(0,cl.getNumAtoms());
 	kernel1.setArg<cl::Buffer>(1,cl.getVelm().getDeviceBuffer());
-    kernel1.setArg<cl::Buffer>(2,totalKe->getDeviceBuffer());
+    	kernel1.setArg<cl::Buffer>(2,totalKe->getDeviceBuffer());
 	kernel1.setArg(3,OpenCLContext::ThreadBlockSize*sizeof(cl_float),NULL);
+    
+    printf("Num blocks %d numatoms %d threadblocksize %d",numBlocks,cl.getNumAtoms(),(int) OpenCLContext::ThreadBlockSize);
 }
 
 void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
-	cl.executeKernel(kernel1,cl.getNumAtoms());
+    cl.executeKernel(kernel1,cl.getNumAtoms());
     totalKe->download();
 
     int numatoms = cl.getNumAtoms();
     float ke = 0.0;
     for(int i=0;i<numBlocks;i++){
-        ke +=
-        totalKe->get(i);
+        ke += totalKe->get(i);
     }
-    printf("total KE %3.8f\n",ke);
 
 //	impl.getMeasurements().setTotalMass((double) mom.w);
 //	double volume = impl.getOwner().getSystem().getBoxVolume();
 //	double numberdensity = (double)totalmol.y/volume;
 //	impl.getMeasurements().setNumberDensity(numberdensity);
 //	impl.getMeasurements().setNumberMolecules((double) totalmol.y);
-//	impl.getMeasurements().setKe((double) totalmol.x);
+	impl.getMeasurements().setKe((double) ke);
 //	impl.getMeasurements().setDof((double) dof);
 //	double temp = ((2.0*ke)/(BOLTZ*dof));
 //	impl.getMeasurements().setTemperature((double) temp);

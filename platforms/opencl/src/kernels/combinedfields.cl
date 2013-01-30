@@ -27,62 +27,34 @@ __kernel void measureCombinedFields(int numAtoms,
 		ke += 0.5 * sqr / velocity.w;
 		gid += get_global_size(0);
 	}
+	
 	unsigned int tid = get_local_id(0);
 	localKe[tid] = ke;
 	barrier(CLK_LOCAL_MEM_FENCE);
-/*	
-#ifdef WARPS_ARE_ATOMIC
+
 	if(tid<32){
 		localKe[tid] += localKe[tid+32];
-//		localMols[tid] += localMols[tid+32];
-		if(tid<16){
-			localKe[tid] += localKe[tid+16];
-//			localMols[tid] += localMols[tid+16];
-		}
-		if(tid<8){
-			localKe[tid] += localKe[tid+8];
-//			localMols[tid] += localMols[tid+8];
-		}
-		if(tid<4){
-			localKe[tid] += localKe[tid+4];
-//			localMols[tid] += localMols[tid+4];
-		}
-		if(tid<2){
-			localKe[tid] += localKe[tid+2];
-//			localMols[tid] += localMols[tid+2];
-		}	
-	}
-#else
-*/
-	if(tid<32){
-		localKe[tid] += localKe[tid+32];
-	//	localMols[tid] += localMols[tid+32];
 	}
 	barrier(CLK_LOCAL_MEM_FENCE);
 	if(tid<16){
 		localKe[tid] += localKe[tid+16];
-	//	localMols[tid] += localMols[tid+16];
 	}
 	barrier(CLK_LOCAL_MEM_FENCE);
 	if(tid<8){
 		localKe[tid] += localKe[tid+8];
-	//	localMols[tid] += localMols[tid+8];
 	}
 	barrier(CLK_LOCAL_MEM_FENCE);
 	if(tid<4){
 		localKe[tid] += localKe[tid+4];
-	//	localMols[tid] += localMols[tid+4];
 	}
 	barrier(CLK_LOCAL_MEM_FENCE);
 	if(tid<2){
 		localKe[tid] += localKe[tid+2];
-	//	localMols[tid] += localMols[tid+2];
 	}
 	barrier(CLK_LOCAL_MEM_FENCE);
-//#endif
+
 	if(tid==0){
 		totalKe[get_group_id(0)] = localKe[tid] + localKe[tid+1];
-		//totalMols[get_group_id(0)] = localMols[tid] + localMols[tid+1];
 	}
 }
 
