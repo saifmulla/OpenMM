@@ -4365,7 +4365,7 @@ void OpenCLBerendsenThermostatKernel::initialize(ContextImpl& impl)
 	temperature = impl.getControls().getTemperature();
 	tauT = impl.getControls().getTauT();
 	deltaT = impl.getIntegrator().getStepSize();
-	threads = (cl.getNumAtoms()+(OpenCLContext::ThreadBlockSize - 1))/OpenCLContext::ThreadBlockSize;
+	threads = cl.getNumThreadBlocks();
 	totalMomM = new OpenCLArray<mm_float4>(cl,threads,"totalMomM",true);
 	totalKeDof = new OpenCLArray<mm_float2>(cl,threads,"totalKeDof",true);
 	newVelocity = new OpenCLArray<mm_float4>(cl,1,"newVelocity",true);
@@ -4462,7 +4462,7 @@ void OpenCLMeasureCombinedFieldsKernel::initialize(ContextImpl& impl){
 	impl.getMeasurements().setMomentum(OpenMM::Vec3(0.0,0.0,0.0));
 
 
-	numBlocks = (cl.getNumAtoms()+(OpenCLContext::ThreadBlockSize - 1))/OpenCLContext::ThreadBlockSize;
+	numBlocks = cl.getNumThreadBlocks();
 	totalMomm = new OpenCLArray<mm_float4>(cl,numBlocks,"totalMomm",true);
     	totalKe = new OpenCLArray<cl_float>(cl,numBlocks,"totalKeMols",true);
 
