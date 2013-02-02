@@ -100,6 +100,10 @@ MeasurementTools& Context::getMeasurements(){
     return impl->getMeasurements();
 }
 
+ControlTools& Context::getControls(){
+    return impl->getControls();
+}
+
 State Context::getState(int types, bool enforcePeriodicBox, int groups) const {
     State state(impl->getTime(), impl->getSystem().getNumParticles(), types);
     Vec3 periodicBoxSize[3];

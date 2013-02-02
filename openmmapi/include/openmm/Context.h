@@ -137,6 +137,7 @@ public:
      */
     Platform& getPlatform();
     MeasurementTools& getMeasurements();
+    ControlTools& getControls();
     /**
      * Get a State object recording the current state information stored in this context.
      * 
