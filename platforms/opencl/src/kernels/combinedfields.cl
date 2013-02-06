@@ -14,17 +14,20 @@
 
 __kernel void measureCombinedFields(int numAtoms,
 					__global const float4* restrict velm,
-					__global float* restrict totalKe,
-					__local volatile float* restrict localKe
+					__global float4* restrict totalKe,
+					__local volatile float4* restrict localKe
 				)
 {
 	unsigned int gid = get_global_id(0);
-	float ke = 0.0f;
+	float4 ke = (float4) 0.0f;
 	while(gid<numAtoms)
 	{
 		float4 velocity = velm[gid];
 		float sqr = ((velocity.x*velocity.x)+(velocity.y*velocity.y)+(velocity.z*velocity.z));
-		ke += 0.5 * sqr / velocity.w;
+		ke.x += 0.5 * sqr / velocity.w;
+		ke.y += 1.0;
+		ke.z = 0.0f;
+		ke.w = 0.0f;
 		gid += get_global_size(0);
 	}
 	

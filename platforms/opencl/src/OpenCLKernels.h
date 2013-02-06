@@ -1200,7 +1200,7 @@ public:
 private:
 	OpenCLContext& cl;
 	OpenCLArray<mm_float4>* totalMomm;//to store total velocity and mass
-	OpenCLArray<cl_float>* totalKe;//to store total molecules
+	OpenCLArray<mm_float4>* totalKe;//to store total molecules
 	cl::Kernel kernel1;
 	unsigned short numBlocks;
 };
