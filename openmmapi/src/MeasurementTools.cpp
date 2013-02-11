@@ -56,7 +56,7 @@ nBins_(nBins),writeInterval_(writeInterval)
     double diffmag = mag(diff);
     unitVector_ = OpenMM::Vec3(diff[0]/diffmag,diff[1]/diffmag,diff[2]/diffmag);
     rSEMag_ = diffmag;
-    binWidth_ = diffmag/nBins_;
+    binWidth_ = diffmag/(double) nBins_;
     //initialize the allocated arrays to zero
     for(int i=0;i<nBins_;i++){
 	    mols_[i] = 0;
@@ -113,7 +113,7 @@ void MeasurementTools::measureAtEnd(ContextImpl& impl){
 }
 
 double MeasurementTools::mag(OpenMM::Vec3& point){
-    double magsqr = ((point[0]*point[0])+(point[1]*point[1]),(point[2]*point[2]));
+    double magsqr = ((point[0]*point[0])+(point[1]*point[1])+(point[2]*point[2]));
     double root = sqrt(magsqr);
     return root;
 }
