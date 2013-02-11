@@ -76,6 +76,7 @@ OpenCLPlatform::OpenCLPlatform() {
     registerKernelFactory(RemoveCMMotionKernel::Name(), factory);
     registerKernelFactory(BerendsenThermostatKernel::Name(),factory);
     registerKernelFactory(MeasureCombinedFieldsKernel::Name(),factory);
+    registerKernelFactory(MeasureBinPropertiesKernel::Name(),factory);
     platformProperties.push_back(OpenCLDeviceIndex());
     platformProperties.push_back(OpenCLPlatformIndex());
     setPropertyDefaultValue(OpenCLDeviceIndex(), "");

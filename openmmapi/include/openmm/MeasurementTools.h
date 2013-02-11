@@ -2,6 +2,8 @@
 #define OPENMM_MEASUREMENTTOOLS_H
 
 #include<iostream>
+#include<cmath>
+#include<math.h>
 #include "openmm/Kernel.h"
 #include "internal/windowsExport.h"
 
@@ -16,21 +18,29 @@ class OPENMM_EXPORT MeasurementTools {
 private:
 	std::vector<std::string> tools;
 	double averagingTime;
-	std::vector<std::vector<unsigned int> > zoneParticles;//use this variables inside zone calculation
-	std::vector<std::vector<unsigned int> > binParticles;//use this variables inside bin calculation
 	std::vector<Kernel> kernels;
-	double totalMass;
-	double massDensity;
-	double numberMolecules;
-	OpenMM::Vec3 momentum;
-	double Ke;
-	double Dof;
-	double temperature;
-	double numberDensity;
+	int nBins_;
+	int* mols_;   //size of this array is dependent of nBins values
+    double* binKE_; //""
+    double* binMom_;
+    int writeInterval_;
+    OpenMM::Vec3 startPoint_;
+    OpenMM::Vec3 endPoint_;
+    OpenMM::Vec3 unitVector_;
+    double binWidth_;
+    double rSEMag_;
+    
 protected:
 	friend class ContextImpl;
 public:
 	MeasurementTools(std::vector<std::string> tools,double averagingTime = 1.0);
+    
+    //following constructor must be used to invoke measurement inside bins
+    MeasurementTools(std::vector<std::string> tools, OpenMM::Vec3 startPoint, OpenMM::Vec3 endPoint,
+                     int nBins=1, int writeInterval=1);
+    
+    //- Destructor
+    ~MeasurementTools();
 	int getToolSize(){
 		return tools.size();
 	}
@@ -40,55 +50,25 @@ public:
 	double getAveragingTime(){
 		return averagingTime;
 	}
-	void setTotalMass(double mass){
-		totalMass = mass;
+	int getWriteInterval(){
+		return writeInterval_;
 	}
-	void setNumberMolecules(double mols){
-		numberMolecules = mols;
+	int getNBins(){
+		return nBins_;
 	}
-	void setMomentum(OpenMM::Vec3 mom){
-		momentum = OpenMM::Vec3(mom[0],mom[1],mom[2]);
+	int* getMols(){
+		return mols_;
 	}
-	void setKe(double ke){
-		Ke = ke;
+	double* getBinKe(){
+		return binKE_;
 	}
-	void setDof(double dof){
-		Dof = dof;
+    double* getBinMom(){
+		return binMom_;
 	}
-	void setTemperature(double temp){
-		temperature = temp;
-	}
-	void setNumberDensity(double nd){
-		numberDensity = nd;
-	}
-	void setMassDensity(double mass){
-		massDensity = mass;
-	}
-
-	double getTotalMass(){
-		return totalMass;
-	}
-	double getNumberMolecules(){
-		return numberMolecules;
-	}
-	OpenMM::Vec3 getMomentum(){
-		return momentum;
-	}
-	double getKe(){
-		return Ke;
-	}
-	double getDof(){
-		return Dof;
-	}
-	double getTemperature(){
-		return temperature;
-	}
-	double getNumberDensity(){
-		return numberDensity;
-	}
-	double getMassDensity(){
-		return massDensity;
-	}
+    inline double getRSEMag(){
+        return rSEMag_;
+    }
+    double mag(OpenMM::Vec3& point);
 	std::vector<std::string> getKernelNames();
 
 	void initialize(ContextImpl& impl);

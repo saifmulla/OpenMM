@@ -4447,20 +4447,6 @@ OpenCLMeasureCombinedFieldsKernel::~OpenCLMeasureCombinedFieldsKernel()
 }
 
 void OpenCLMeasureCombinedFieldsKernel::initialize(ContextImpl& impl){
-	/**
-	 * first initilise all the variables related with this class which are member
-	 * variables inside measurement tools class so that they become valid
-	 * and give an indication that the variables are set and ready to be used
-	 */
-	impl.getMeasurements().setTotalMass(0.0);
-	impl.getMeasurements().setNumberDensity(0.0);
-	impl.getMeasurements().setNumberMolecules(0.0);
-	impl.getMeasurements().setKe(0.0);
-	impl.getMeasurements().setDof(0.0);
-	impl.getMeasurements().setTemperature(0.0);
-	impl.getMeasurements().setMassDensity(0.0);
-	impl.getMeasurements().setMomentum(OpenMM::Vec3(0.0,0.0,0.0));
-
 
 	numBlocks = cl.getNumThreadBlocks();
 	totalMomm = new OpenCLArray<mm_float4>(cl,numBlocks,"totalMomm",true);
@@ -4472,7 +4458,7 @@ void OpenCLMeasureCombinedFieldsKernel::initialize(ContextImpl& impl){
 	//kernel1 - calculateTotalMass
 	kernel1.setArg<cl_int>(0,cl.getNumAtoms());
 	kernel1.setArg<cl::Buffer>(1,cl.getVelm().getDeviceBuffer());
-    	kernel1.setArg<cl::Buffer>(2,totalKe->getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(2,totalKe->getDeviceBuffer());
 	kernel1.setArg(3,OpenCLContext::ThreadBlockSize*sizeof(mm_float4),NULL);
     
 }
@@ -4489,19 +4475,34 @@ void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
         mols += t.y;
     }
 
-//	impl.getMeasurements().setTotalMass((double) mom.w);
-//	double volume = impl.getOwner().getSystem().getBoxVolume();
-//	double numberdensity = (double)totalmol.y/volume;
-//	impl.getMeasurements().setNumberDensity(numberdensity);
-	impl.getMeasurements().setNumberMolecules((double) mols);
-	impl.getMeasurements().setKe((double) ke);
-//	impl.getMeasurements().setDof((double) dof);
-//	double temp = ((2.0*ke)/(BOLTZ*dof));
-//	impl.getMeasurements().setTemperature((double) temp);
-//	double massdensity = (double)mom.w/volume;
-//	impl.getMeasurements().setMassDensity(massdensity);
-//	impl.getMeasurements().setMomentum(OpenMM::Vec3(mom.x,mom.y,mom.z));
+    int nBins = impl.getMeasurements().getNBins();
+    int* tempmols = impl.getMeasurements().getMols();
+    double* tempbinke = impl.getMeasurements().getBinKe();
+    
+    for(int j=0;j<nBins;j++){
+        tempmols[j] = (double) mols;
+        tempbinke[j] = (double) ke;
+    }
+    
+//	impl.getMeasurements().setNumberMolecules((double) mols);
+//	impl.getMeasurements().setKe((double) ke);
 
 }
+
+//implementation for OpenCLMeasureBinProperties class
+//-------------------------------------------------//
+
+OpenCLMeasureBinPropertiesKernel::~OpenCLMeasureBinPropertiesKernel()
+{
+}
+void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
+{
+}
+void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
+{
+}
+
+
+//-------------------------------------------------//
 
 

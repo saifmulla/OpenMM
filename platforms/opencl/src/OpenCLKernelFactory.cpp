@@ -128,5 +128,8 @@ KernelImpl* OpenCLKernelFactory::createKernelImpl(std::string name, const Platfo
     	return new OpenCLBerendsenThermostatKernel(name,platform,cl);
     if (name == MeasureCombinedFieldsKernel::Name())
     	return new OpenCLMeasureCombinedFieldsKernel(name,platform,cl);
+    if (name == MeasureBinPropertiesKernel::Name()) {
+        return new OpenCLMeasureBinPropertiesKernel(name,platform,cl);
+    }
     throw OpenMMException((std::string("Tried to create kernel with illegal kernel name '")+name+"'").c_str());
 }

@@ -1090,6 +1090,21 @@ public:
 		KernelImpl(name,platform){
 	}
 };
+    
+/*
+ * class BinProperties
+ * this class defination is for measurebinproperties kernel 
+ * inside opencl platform
+ */
+class MeasureBinPropertiesKernel : public Measure, public KernelImpl{
+public:
+    static std::string Name(){
+        return "MeasureBinProperties";
+    }
+    MeasureBinPropertiesKernel(std::string name, const Platform& platform):
+    KernelImpl(name,platform){
+    }
+};//end measurembin properties
 } // namespace OpenMM
 
 #endif /*OPENMM_KERNELS_H_*/

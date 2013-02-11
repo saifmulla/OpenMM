@@ -1204,6 +1204,24 @@ private:
 	cl::Kernel kernel1;
 	unsigned short numBlocks;
 };
+    
+/**
+ * class MeasureBinProperties
+ * this class implements functionality to measure atomistic properties inside bins
+ * it calculate KE, momentum, number of molecules inside specified number of bins
+ */
+    class OpenCLMeasureBinPropertiesKernel : public MeasureBinPropertiesKernel {
+    public:
+        OpenCLMeasureBinPropertiesKernel(std::string name, const Platform& platform, OpenCLContext& cl)
+        :MeasureBinPropertiesKernel(name,platform),cl(cl){
+        }
+        ~OpenCLMeasureBinPropertiesKernel();
+        void initialize(ContextImpl& impl);
+        void calculate(ContextImpl& impl);
+    private:
+        OpenCLContext& cl;
+    };
+    
 } // namespace OpenMM
 
 #endif /*OPENMM_OPENCLKERNELS_H_*/

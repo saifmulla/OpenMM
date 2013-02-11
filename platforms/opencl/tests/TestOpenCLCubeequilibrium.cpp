@@ -140,7 +140,7 @@ TEST(TESTTEMPERATURE,FIRSTTEST) {
 //        State state = context.getState(State::Energy);
 //        ke += state.getKineticEnergy();
 	double temp = tools.getTempValue();
-	EXPECT_EQ(exnummols,measurements.getNumberMolecules());
+//	EXPECT_EQ(exnummols,measurements.getNumberMolecules());
 	/*EXPECT_EQ(extmass,measurements.getTotalMass());
 	EXPECT_EQ(exnumden,measurements.getNumberDensity());
 	EXPECT_EQ(exmassden,measurements.getMassDensity());

@@ -96,11 +96,12 @@ TEST(TESTTEMPERATURE,FIRSTTEST) {
 //        State state = context.getState(State::Energy);
 //        ke += state.getKineticEnergy();
 	double temp = tools.getTempValue();
-	EXPECT_EQ(exnummols,measurements.getNumberMolecules());
-	EXPECT_EQ(extmass,measurements.getTotalMass());
-	EXPECT_EQ(exnumden,measurements.getNumberDensity());
-	EXPECT_EQ(exmassden,measurements.getMassDensity());
-	EXPECT_EQ(exdof,measurements.getDof());
+        //the following function calls in measurement tools are deprecated in the class
+//	EXPECT_EQ(exnummols,measurements.getNumberMolecules());
+//	EXPECT_EQ(extmass,measurements.getTotalMass());
+//	EXPECT_EQ(exnumden,measurements.getNumberDensity());
+//	EXPECT_EQ(exmassden,measurements.getMassDensity());
+//	EXPECT_EQ(exdof,measurements.getDof());
 
 //	ke += temp;
         integrator.step(1);
