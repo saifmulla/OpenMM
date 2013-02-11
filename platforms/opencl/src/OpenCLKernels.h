@@ -1220,6 +1220,11 @@ private:
         void calculate(ContextImpl& impl);
     private:
         OpenCLContext& cl;
+        OpenCLArray<cl_float>* binWidth;
+        OpenCLArray<mm_float4>* startPoint;
+        OpenCLArray<mm_float4>* unitVector;
+        OpenCLArray<mm_float4>* measurements;
+        unsigned int numBlocks;
     };
     
 } // namespace OpenMM

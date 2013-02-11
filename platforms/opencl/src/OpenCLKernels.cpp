@@ -4450,7 +4450,7 @@ void OpenCLMeasureCombinedFieldsKernel::initialize(ContextImpl& impl){
 
 	numBlocks = cl.getNumThreadBlocks();
 	totalMomm = new OpenCLArray<mm_float4>(cl,numBlocks,"totalMomm",true);
-    	totalKe = new OpenCLArray<mm_float4>(cl,numBlocks,"totalKeMols",true);
+    totalKe = new OpenCLArray<mm_float4>(cl,numBlocks,"totalKeMols",true);
 
 	cl::Program program = cl.createProgram(OpenCLKernelSources::combinedfields);
 	kernel1 = cl::Kernel(program,"measureCombinedFields");
@@ -4494,12 +4494,38 @@ void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
 
 OpenCLMeasureBinPropertiesKernel::~OpenCLMeasureBinPropertiesKernel()
 {
+    if(binWidth!=NULL)
+        delete binWidth;
+    if(startPoint!=NULL)
+        delete startPoint;
+    if(unitVector!=NULL)
+        delete unitVector;
+    if(measurements!=NULL)
+        delete measurements;
 }
 void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
 {
+    numBlocks = cl.getNumThreadBlocks();
+    binWidth = new OpenCLArray<cl_float>(cl,1,"binWidth",true);
+    startPoint = new OpenCLArray<mm_float4>(cl,1,"startPoint",true);
+    unitVector = new OpenCLArray<mm_float4>(cl,1,"unitVector",true);
+    measurements = new OpenCLArray<mm_float4>(cl,numBlocks,"measurements",true);
+    
+    cl::Program program = cl.createProgram(OpenCLKernelSources::binproperties);
+	kernel1 = cl::Kernel(program,"binproperties");
+    
+    double tempbinwidth = impl.getMeasurements().getBinWidth();
+    OpenMM::Vec3 tempstartpoint& = impl.getMeasurements().getStartPoint();
+    OpenMM::Vec3 tempunitvector& = impl.getMeasurements().getUnitVector();
+    unsigned int nbins = impl.getMeasurements().getNBins();
+    
+    printf("binwidth %f\n",tempbinwidth);
+    printf("startpoint %2.3f %2.3f %2.3f\n",tempstartpoint[0],tempstartpoint[1],tempstartpoint[2]);
+    printf("Unit vector %2.3f %2.3f %2.3f\n",tempunitvector[0],tempunitvector[1],tempunitvector[2]);
 }
 void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
 {
+    std::cout<<"calculate on measurebinproperties\n";
 }
 
 

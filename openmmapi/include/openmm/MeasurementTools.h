@@ -68,6 +68,15 @@ public:
     inline double getRSEMag(){
         return rSEMag_;
     }
+    OpenMM::Vec3& getStartPoint(){
+        return startPoint_;
+    }
+    OpenMM::Vec3& getUnitVector(){
+        return unitVector_;
+    }
+    double getBinWidth(){
+        return binWidth_;
+    }
     double mag(OpenMM::Vec3& point);
 	std::vector<std::string> getKernelNames();
 
