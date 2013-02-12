@@ -4530,12 +4530,15 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
     int na = cl.getNumAtoms();
     OpenMM::Vec3& sp = impl.getMeasurements().getStartPoint();
     OpenMM::Vec3& uv = impl.getMeasurements().getUnitVector();
+    OpenMM::Vec3& bw = impl.getMeasurements().getBinWidth();
     
-    for(int j=0;j<na;j++){
+    for(int j=0;j<10;j++){
         mm_float4 p = pos[j];
         int binNumber = -1;
         OpenMM::Vec3 rSI = sp - OpenMM::Vec3(p.x,p.y,p.z);
-        double rD = rSI & uv;
+        double rD = ((rSI[0]*uv[0])+(rSI[1]*uv[1])+(rSI[2]*uv[2]));
+        int n = floor(rD/bw);
+        printf("N %d",n);
     }
 }
 
