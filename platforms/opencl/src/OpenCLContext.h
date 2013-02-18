@@ -287,6 +287,13 @@ public:
      */
     void executeKernel(cl::Kernel& kernel, int workUnits, int blockSize = -1);
     /**
+     * Execute a kernel
+     * overloaded function with provision for kernel profilling
+     * @param kernel        the kernel to execute
+     * @param workunits     the maximum number of work units that should be used
+     * @param blocksize     the size of each thread block to use
+     * @param event         the event to be profiled
+    /**
      * Set all elements of an array to 0.
      */
     void clearBuffer(OpenCLArray<float>& array);

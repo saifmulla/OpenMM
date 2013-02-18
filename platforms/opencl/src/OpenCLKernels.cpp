@@ -4502,44 +4502,112 @@ OpenCLMeasureBinPropertiesKernel::~OpenCLMeasureBinPropertiesKernel()
         delete unitVector;
     if(measurements!=NULL)
         delete measurements;
+    if(mols!=NULL)
+        delete mols;
 }
 void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
 {
     numBlocks = cl.getNumThreadBlocks();
-    binWidth = new OpenCLArray<cl_float>(cl,1,"binWidth",true);
-    startPoint = new OpenCLArray<mm_float4>(cl,1,"startPoint",true);
-    unitVector = new OpenCLArray<mm_float4>(cl,1,"unitVector",true);
-    measurements = new OpenCLArray<mm_float4>(cl,1,"measurements",true);
-    
-//    cl::Program program = cl.createProgram(OpenCLKernelSources::binproperties);
-//	kernel1 = cl::Kernel(program,"binproperties");
-    
     double tempbinwidth = impl.getMeasurements().getBinWidth();
     OpenMM::Vec3& tempstartpoint = impl.getMeasurements().getStartPoint();
     OpenMM::Vec3& tempunitvector = impl.getMeasurements().getUnitVector();
-    unsigned int nbins = impl.getMeasurements().getNBins();
+    nBins = impl.getMeasurements().getNBins();
+    int numatoms = cl.getNumAtoms();
+
+    binWidth = new OpenCLArray<cl_float>(cl,1,"binWidth",true);
+    startPoint = new OpenCLArray<mm_float4>(cl,1,"startPoint",true);
+    unitVector = new OpenCLArray<mm_float4>(cl,1,"unitVector",true);
+    measurements = new OpenCLArray<mm_float4>(cl,numatoms*nBins,"measurements",true);
+    mols = new OpenCLArray<cl_int>(cl,numatoms*nBins,"mols",true);
     
+    cl::Program program = cl.createProgram(OpenCLKernelSources::binproperties);
+    kernel1 = cl::Kernel(program,"binproperties");
+    //set arguments for binproperties kernel
+    kernel1.setArg<cl_int>(0,cl.getNumAtoms());
+    kernel1.setArg<cl_int>(1,nBins);
+    kernel1.setArg<cl::Buffer>(2,cl.getPosq().getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(3,cl.getVelm().getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(4,startPoint->getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(5,unitVector->getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(6,mols->getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(7,measurements->getDeviceBuffer());
+
+    std::vector<mm_float4> tempsp(1);
+    tempsp[0] = mm_float4((float) tempstartpoint[0],
+                          (float) tempstartpoint[1],
+                          (float) tempstartpoint[2],
+                          0.0f
+                          );
+    std::vector<mm_float4> tempuv(1);
+    tempuv[0] = mm_float4((float) tempunitvector[0],
+                          (float) tempunitvector[1],
+                          (float) tempunitvector[2],
+                          (float) tempbinwidth);
+    
+    startPoint->upload(tempsp);
+    unitVector->upload(tempuv);
+//    measurements->upload(temp);
 }
 void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
 {
-    std::cout<<"calculate on measurebinproperties\n";
-    //use floor
+    //set the static invocation counter to 0
+    static int invocationCounter = 0;
     
-    OpenCLArray<mm_float4>& pos = cl.getPosq();
-    pos.download();
-    int na = cl.getNumAtoms();
-    OpenMM::Vec3& sp = impl.getMeasurements().getStartPoint();
-    OpenMM::Vec3& uv = impl.getMeasurements().getUnitVector();
-    OpenMM::Vec3& bw = impl.getMeasurements().getBinWidth();
+    cl.executeKernel(kernel1,cl.getNumAtoms());
+    invocationCounter++;//increment the invocation counter by 1
+    int writeinterval = impl.getMeasurements().getWriteInterval();
     
-    for(int j=0;j<10;j++){
-        mm_float4 p = pos[j];
-        int binNumber = -1;
-        OpenMM::Vec3 rSI = sp - OpenMM::Vec3(p.x,p.y,p.z);
-        double rD = ((rSI[0]*uv[0])+(rSI[1]*uv[1])+(rSI[2]*uv[2]));
-        int n = floor(rD/bw);
-        printf("N %d",n);
+    if(invocationCounter==writeinterval)
+    {
+        /*
+         * downloaded mols and measurement arrays from device
+         * mols array is of cl_int type storing total molecules
+         * measurments array stores total Mom inside xyz components
+         * and KE inside W component.
+         */
+        mols->download();
+        measurements->download();
+        
+        //temporary array to store calculated values
+        std::vector<int> molls(nBins,0);
+        std::vector<mm_float4> momke(nBins);
+        
+        //another set of temporary array to set mols and momke zeros
+        std::vector<cl_int> temp(cl.getNumAtoms()*nBins);
+        std::vector<mm_float4> temp2(cl.getNumAtoms()*nBins);
+        
+        for(int j=0;j<cl.getNumAtoms();j++)
+        {
+            for(int s=0;s<nBins;s++)
+            {
+                int index = j*nBins+s;
+                cl_int t = mols->get(index);
+                molls[s] += t;
+                mm_float4 t2 = measurements->get(index);
+                momke[s].x += t2.x;
+                momke[s].y += t2.y;
+                momke[s].z += t2.z;
+                momke[s].w += t2.w;
+                temp[index] = 0;
+                temp2[index] = mm_float4(0.0f,0.0f,0.0f,0.0f);
+            }
+        }
+        
+        int* tempmols = impl.getMeasurements().getMols();
+        double* tempbinke = impl.getMeasurements().getBinKe();
+        OpenMM::Vec3* tempbinmom = impl.getMeasurements().getBinMom();
+        
+        for(int k=0;k<nBins;k++)
+        {
+            tempmols[k] = molls[k];
+            tempbinmom[k] = OpenMM::Vec3(momke[k].x,momke[k].y,momke[k].z);
+            tempbinke[k] = momke[k].w;
+        }
+        mols->upload(temp);
+        measurements->upload(temp2);
+        invocationCounter = 0;//set counter to zero again
     }
+
 }
 
 

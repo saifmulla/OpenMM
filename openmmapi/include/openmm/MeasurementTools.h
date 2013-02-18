@@ -22,7 +22,7 @@ private:
 	int nBins_;
 	int* mols_;   //size of this array is dependent of nBins values
     double* binKE_; //""
-    double* binMom_;
+    OpenMM::Vec3* binMom_;
     int writeInterval_;
     OpenMM::Vec3 startPoint_;
     OpenMM::Vec3 endPoint_;
@@ -62,7 +62,7 @@ public:
 	double* getBinKe(){
 		return binKE_;
 	}
-    double* getBinMom(){
+    OpenMM::Vec3* getBinMom(){
 		return binMom_;
 	}
     inline double getRSEMag(){

@@ -1224,7 +1224,10 @@ private:
         OpenCLArray<mm_float4>* startPoint;
         OpenCLArray<mm_float4>* unitVector;
         OpenCLArray<mm_float4>* measurements;
+        OpenCLArray<cl_int>* mols;
+        unsigned int nBins;
         unsigned int numBlocks;
+        cl::Kernel kernel1;
     };
     
 } // namespace OpenMM

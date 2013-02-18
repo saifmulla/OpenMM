@@ -49,7 +49,7 @@ nBins_(nBins),writeInterval_(writeInterval)
 {
     mols_ = new int[nBins_];
     binKE_ = new double[nBins_];
-    binMom_ = new double[nBins_];
+    binMom_ = new OpenMM::Vec3[nBins_];
 
     //calculate values for appropriate variables
     OpenMM::Vec3 diff = OpenMM::Vec3(endPoint_[0] - startPoint_[0],endPoint_[1] - startPoint_[1],endPoint_[2] - startPoint_[2]);
@@ -61,7 +61,7 @@ nBins_(nBins),writeInterval_(writeInterval)
     for(int i=0;i<nBins_;i++){
 	    mols_[i] = 0;
 	    binKE_[i] = 0.0f;
-	    binMom_[i] = 0.0f;
+	    binMom_[i] = OpenMM::Vec3(0.0f,0.0f,0.0f);
     }
 }
 
