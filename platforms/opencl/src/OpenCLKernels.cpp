@@ -4511,6 +4511,7 @@ void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
     double tempbinwidth = impl.getMeasurements().getBinWidth();
     OpenMM::Vec3& tempstartpoint = impl.getMeasurements().getStartPoint();
     OpenMM::Vec3& tempunitvector = impl.getMeasurements().getUnitVector();
+    writeInterval = impl.getMeasurements().getWriteInterval();
     nBins = impl.getMeasurements().getNBins();
     int numatoms = cl.getNumAtoms();
 
@@ -4551,14 +4552,11 @@ void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
 void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
 {
     //set the static invocation counter to 0
-    static int invocationCounter = 0;
     
     cl.executeKernel(kernel1,cl.getNumAtoms());
-    invocationCounter++;//increment the invocation counter by 1
-    int writeinterval = impl.getMeasurements().getWriteInterval();
     
-    if(invocationCounter==writeinterval)
-    {
+//    if(invocationCounter==writeinterval)
+//    {
         /*
          * downloaded mols and measurement arrays from device
          * mols array is of cl_int type storing total molecules
@@ -4567,7 +4565,6 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
          */
         mols->download();
         measurements->download();
-        
         //temporary array to store calculated values
         std::vector<int> molls(nBins,0);
         std::vector<mm_float4> momke(nBins);
@@ -4599,17 +4596,45 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
         
         for(int k=0;k<nBins;k++)
         {
+            printf("Bin %d => %d\n",k,molls[k]);
             tempmols[k] = molls[k];
             tempbinmom[k] = OpenMM::Vec3(momke[k].x,momke[k].y,momke[k].z);
             tempbinke[k] = momke[k].w;
         }
         mols->upload(temp);
         measurements->upload(temp2);
-        invocationCounter = 0;//set counter to zero again
-    }
+//    }
 
 }
 
+OpenCLControlBerendsenInBinsKernel::~OpenCLControlBerendsenInBinsKernel(){
+    if(startPoint_!=NULL)
+        delete startPoint_;
+    if(unitVector_!=NULL)
+        delete unitVector_;
+}
+void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
+{
+    //obtain appropriate values set for this control inside control tools class
+    double tempbinwidth = impl.getMeasurements().getBinWidth();
+    OpenMM::Vec3& tempstartpoint = impl.getControls().getStartPoint();
+    OpenMM::Vec3& tempunitvector = impl.getControls().getUnitVector();
+    nBins_ = impl.getControls().getNBins();
+    numAtoms_ = cl_.getNumAtoms();
+    
+    //initialize opencl arrays
+    startPoint_ = new OpenCLArray<mm_float4>(cl_,1,"startPoint",true);
+    unitVector_ = new OpenCLArray<mm_float4>(cl_,1,"unitVector",true);
+//    mols = new OpenCLArray<cl_int>(cl,numatoms*nBins,"mols",true);
+}
+void OpenCLControlBerendsenInBinsKernel::controlBeforeForces(ContextImpl& impl)
+{
+    std::cout<<"Berendsen control before forces\n";
+}
+void OpenCLControlBerendsenInBinsKernel::controlAfterForces(ContextImpl& impl)
+{
+    std::cout<<"Berendsen control after forces\n";
+}
 
 //-------------------------------------------------//
 

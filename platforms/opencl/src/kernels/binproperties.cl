@@ -29,7 +29,7 @@ __kernel void binproperties(int numAtoms,
         float4 rSI = position - sp;
         //calculate dot product rSI * unitVector
         float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
-        bn = (int) (rD/uv.w);//try will ceil if the  sums aren't appropriate
+        bn = (int) rD/uv.w;//try will ceil if the  sums aren't appropriate
         unsigned int s = bn == nBins;
         bn -= s;
         mols[idx*nBins+bn] += 1;

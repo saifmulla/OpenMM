@@ -1184,6 +1184,29 @@ private:
 	cl::Kernel kernel1,kernel2,kernel3;
 };
 
+/**
+ * class ControlBerendsenInBins
+ * this class is an opencl implementation to perform
+ * thermostating inside bins. The thermostating equation applied is of berendsen
+ * thermostat
+ */
+    
+class OpenCLControlBerendsenInBinsKernel : public ControlBerendsenInBinsKernel {
+public:
+    OpenCLControlBerendsenInBinsKernel(std::string name, const Platform& platform,OpenCLContext& cl)
+    :ControlBerendsenInBinsKernel(name,platform),cl_(cl){
+    }
+    ~OpenCLControlBerendsenInBinsKernel();
+    void initialize(ContextImpl& impl);
+    void controlBeforeForces(ContextImpl& impl);
+    void controlAfterForces(ContextImpl& impl);
+private:
+    OpenCLContext& cl_;
+    double tauT_,temperature_,deltaT_,nBins_,writeInterval_,numAtoms_;
+    OpenCLArray<mm_float4>* unitVector_;
+    OpenCLArray<mm_float4>* startPoint_;
+    cl::Kernel kernel1;
+};
 
 /**
  * implementation for Measurement tools classes
@@ -1227,9 +1250,10 @@ private:
         OpenCLArray<cl_int>* mols;
         unsigned int nBins;
         unsigned int numBlocks;
+        unsigned int writeInterval;
         cl::Kernel kernel1;
     };
-    
+        
 } // namespace OpenMM
 
 #endif /*OPENMM_OPENCLKERNELS_H_*/

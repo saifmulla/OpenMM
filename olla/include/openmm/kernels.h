@@ -1062,6 +1062,18 @@ public:
 	{
 	}
 };
+    
+class ControlBerendsenInBinsKernel : public Controls, public KernelImpl
+{
+public:
+    static std::string Name(){
+        return "ControlBerendsenInBins";
+    }
+    ControlBerendsenInBinsKernel(std::string name, const Platform& platform):
+        KernelImpl(name,platform)
+    {
+    }
+};
 
 
 /**
