@@ -4612,6 +4612,8 @@ OpenCLControlBerendsenInBinsKernel::~OpenCLControlBerendsenInBinsKernel(){
         delete startPoint_;
     if(unitVector_!=NULL)
         delete unitVector_;
+    if(glMomentum_!=NULL)
+        delete glMomentum_;
 }
 void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
 {
@@ -4625,15 +4627,61 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
     //initialize opencl arrays
     startPoint_ = new OpenCLArray<mm_float4>(cl_,1,"startPoint",true);
     unitVector_ = new OpenCLArray<mm_float4>(cl_,1,"unitVector",true);
+    glMomentum_ = new OpenCLArray<mm_float4>(cl_,numAtoms_,"glMomentum",true);
+    
+	map<string,string> defines;
+	defines["NUM_ATOMS"] = intToString(numAtoms_);
+    cl::Program program = cl_.createProgram(OpenCLKernelSources::berendsen,defines);
+	kernel1 = cl::Kernel(program,"binMomentum");
+    kernel1.setArg<cl::Buffer>(0,cl_.getVelm().getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(1,glMomentum_->getDeviceBuffer());
+    
 //    mols = new OpenCLArray<cl_int>(cl,numatoms*nBins,"mols",true);
 }
 void OpenCLControlBerendsenInBinsKernel::controlBeforeForces(ContextImpl& impl)
 {
-    std::cout<<"Berendsen control before forces\n";
 }
 void OpenCLControlBerendsenInBinsKernel::controlAfterForces(ContextImpl& impl)
 {
-    std::cout<<"Berendsen control after forces\n";
+	cl_.executeKernel(kernel1,numAtoms_);
+    glMomentum_->download();
+    OpenCLArray<mm_float4>& posq = cl_.getPosq();
+    posq.download();
+    
+    OpenMM::Vec3& sp = impl.getControls().getStartPoint();
+    OpenMM::Vec3& uv = impl.getControls().getUnitVector();
+    double bw = impl.getControls().getBinWidth();
+    std::vector<mm_float4> tmom(nBins_);
+    std::vector<int> mols(nBins_);
+    
+    for(int i=0;i<numAtoms_;i++)
+    {
+        mm_float4 mom = glMomentum_->get(i);
+        mm_float4 p = posq[i];
+        int bn = -1;
+        mm_float4 rSI = mm_float4(p.x - sp[0],p.y - sp[1],p.z - sp[2],0.0f);
+        //calculate dot product rSI * unitVector
+        float rD = ((rSI.x*uv[0])+(rSI.y*uv[1])+(rSI.z*uv[2]));
+        bn = (int) rD/(float) bw;//try will ceil if the  sums aren't appropriate
+//        printf("BB %d\n",bn);
+        unsigned int s = bn == nBins_;
+        bn -= s;
+//        printf("BA %d\n",bn);
+        mols[bn] += 1;
+        tmom[bn].x += mom.x;
+        tmom[bn].y += mom.y;
+        tmom[bn].z += mom.z;
+        tmom[bn].w += mom.w;
+    }
+    
+    OpenMM::Vec3* testarray = impl.getControls().getTestVariable();
+    double* temperature = impl.getControls().getBinTemperature();
+    for(int b=0;b<nBins_;b++)
+    {
+//        printf("Bin %d => %d\n",b,mols[b]);
+        testarray[b] = OpenMM::Vec3(tmom[b].x,tmom[b].y,tmom[b].z);
+        temperature[b] = (double) mols[b];
+    }
 }
 
 //-------------------------------------------------//

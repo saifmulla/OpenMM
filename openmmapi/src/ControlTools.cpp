@@ -26,6 +26,10 @@ deltaT(deltaT),tauT(tauT),nBins_(nBins),writeInterval_(writeInterval)
 {
     binTemperature_ = new double[nBins_];
     
+    //initializing debug variable
+    //TODO: delete alter in production
+    testVariable_ = new Vec3[nBins_];
+    
     //calculate values for appropriate variables
     Vec3 diff = Vec3(endPoint_[0] - startPoint_[0],endPoint_[1] - startPoint_[1],endPoint_[2] - startPoint_[2]);
     double diffmag = mag(diff);
@@ -42,6 +46,8 @@ ControlTools::~ControlTools()
     std::cout<<"Destructor: ControlTools\n";
     if(binTemperature_!=NULL)
         delete binTemperature_;
+    if(testVariable_!=NULL)
+        delete testVariable_;
 }
 std::vector<std::string> ControlTools::getKernelNames()
 {

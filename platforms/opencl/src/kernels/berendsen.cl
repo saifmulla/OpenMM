@@ -59,6 +59,20 @@ __kernel void berendsen1(int numAtoms,
 
 }
 
+__kernel void binMomentum(__global const float4* restrict velm,
+                          __global float4* restrict glMomentum
+                          )
+{
+    unsigned int idx = get_global_id(0);
+    while(idx<NUM_ATOMS)
+    {
+        float4 velocity = velm[idx];
+        glMomentum[idx].xyz = velocity.xyz * velocity.w;
+        glMomentum[idx].w = velocity.w;
+	idx += get_global_size(0);
+    }
+}
+
 __kernel void calculateKEDOF(__global float4* restrict velm,
 				__global float4* restrict newVelocity,
 				__global float2* restrict KeDof,

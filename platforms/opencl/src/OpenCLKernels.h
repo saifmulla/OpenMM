@@ -1205,6 +1205,7 @@ private:
     double tauT_,temperature_,deltaT_,nBins_,writeInterval_,numAtoms_;
     OpenCLArray<mm_float4>* unitVector_;
     OpenCLArray<mm_float4>* startPoint_;
+    OpenCLArray<mm_float4>* glMomentum_;
     cl::Kernel kernel1;
 };
 

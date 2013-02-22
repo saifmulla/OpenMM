@@ -37,6 +37,8 @@ private:
     OpenMM::Vec3 unitVector_;
     double binWidth_;
     double rSEMag_;
+    //debug variable
+    Vec3* testVariable_;
 
 protected:
     friend class ContextImpl;
@@ -51,6 +53,15 @@ public:
                  double tauT = 0.1,int nBins = 1,int writeInterval = 1);
     //- destructor
     ~ControlTools();
+    
+    /*
+     * accessor function for test variable
+     * TODO: delete in production
+     */
+    Vec3* getTestVariable(){
+        return testVariable_;
+    }
+    
     int getNBins(){
         return nBins_;
     }
