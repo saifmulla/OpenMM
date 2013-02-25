@@ -1202,11 +1202,14 @@ public:
     void controlAfterForces(ContextImpl& impl);
 private:
     OpenCLContext& cl_;
-    double tauT_,temperature_,deltaT_,nBins_,writeInterval_,numAtoms_;
+    double tauT_,temperature_,deltaT_;
+    int nBins_,writeInterval_,numAtoms_;
     OpenCLArray<mm_float4>* unitVector_;
     OpenCLArray<mm_float4>* startPoint_;
     OpenCLArray<mm_float4>* glMomentum_;
-    cl::Kernel kernel1;
+    OpenCLArray<mm_float4>* glSumMomentum_;
+    OpenCLArray<cl_float>* testArray_; //for debugging delete later
+    cl::Kernel kernel1,kernel2;
 };
 
 /**

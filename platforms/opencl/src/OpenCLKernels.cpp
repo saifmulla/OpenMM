@@ -4614,71 +4614,100 @@ OpenCLControlBerendsenInBinsKernel::~OpenCLControlBerendsenInBinsKernel(){
         delete unitVector_;
     if(glMomentum_!=NULL)
         delete glMomentum_;
+    //TODO: delete this later in production
+    if(testArray_!=NULL)
+        delete testArray_;
 }
 void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
 {
     //obtain appropriate values set for this control inside control tools class
-    double tempbinwidth = impl.getMeasurements().getBinWidth();
+    double tempbinwidth = impl.getControls().getBinWidth();
     OpenMM::Vec3& tempstartpoint = impl.getControls().getStartPoint();
     OpenMM::Vec3& tempunitvector = impl.getControls().getUnitVector();
     nBins_ = impl.getControls().getNBins();
     numAtoms_ = cl_.getNumAtoms();
+    vector<cl_float> temparray(numAtoms_*nBins_);
+    vector<mm_float4> temparray2(numAtoms_*nBins_);
     
     //initialize opencl arrays
     startPoint_ = new OpenCLArray<mm_float4>(cl_,1,"startPoint",true);
     unitVector_ = new OpenCLArray<mm_float4>(cl_,1,"unitVector",true);
-    glMomentum_ = new OpenCLArray<mm_float4>(cl_,numAtoms_,"glMomentum",true);
+    glMomentum_ = new OpenCLArray<mm_float4>(cl_,numAtoms_*nBins_,"glMomentum",true);
+//    glSumMomentum_ = new OpenCLArray<mm_float4>(cl_,numAtoms_*nBins_,"glSumMomentum",true);
+    testArray_ = new OpenCLArray<cl_float>(cl_,numAtoms_*nBins_,"testArray",true);
     
 	map<string,string> defines;
 	defines["NUM_ATOMS"] = intToString(numAtoms_);
+	defines["NBINS"] = intToString(nBins_);
     cl::Program program = cl_.createProgram(OpenCLKernelSources::berendsen,defines);
 	kernel1 = cl::Kernel(program,"binMomentum");
     kernel1.setArg<cl::Buffer>(0,cl_.getVelm().getDeviceBuffer());
-    kernel1.setArg<cl::Buffer>(1,glMomentum_->getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(1,cl_.getPosq().getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(2,startPoint_->getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(3,unitVector_->getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(4,glMomentum_->getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(5,testArray_->getDeviceBuffer());
+    kernel1.setArg<cl_int>(6,nBins_);
     
-//    mols = new OpenCLArray<cl_int>(cl,numatoms*nBins,"mols",true);
+    std::vector<mm_float4> tempsp(1);
+    tempsp[0] = mm_float4((float) tempstartpoint[0],
+                          (float) tempstartpoint[1],
+                          (float) tempstartpoint[2],
+                          0.0f
+                          );
+    std::vector<mm_float4> tempuv(1);
+    tempuv[0] = mm_float4((float) tempunitvector[0],
+                          (float) tempunitvector[1],
+                          (float) tempunitvector[2],
+                          (float) tempbinwidth);
+    for(int i=0;i<numAtoms_*nBins_;i++){
+        temparray[i] = 0.0f;
+        temparray2[i] = mm_float4(0.0f,0.0f,0.0f,0.0f);
+    }
+    
+    startPoint_->upload(tempsp);
+    unitVector_->upload(tempuv);
+    testArray_->upload(temparray);
+    glMomentum_->upload(temparray2);
 }
 void OpenCLControlBerendsenInBinsKernel::controlBeforeForces(ContextImpl& impl)
 {
 }
 void OpenCLControlBerendsenInBinsKernel::controlAfterForces(ContextImpl& impl)
 {
-	cl_.executeKernel(kernel1,numAtoms_);
-    glMomentum_->download();
-    OpenCLArray<mm_float4>& posq = cl_.getPosq();
-    posq.download();
-    
+    cl_.executeKernel(kernel1,numAtoms_);
+  //  glMomentum_->download();
+    testArray_->download();
+
     OpenMM::Vec3& sp = impl.getControls().getStartPoint();
     OpenMM::Vec3& uv = impl.getControls().getUnitVector();
     double bw = impl.getControls().getBinWidth();
     std::vector<mm_float4> tmom(nBins_);
-    std::vector<int> mols(nBins_);
+    std::vector<float> mols(nBins_);
+    float totalMass = 0.0f;
     
     for(int i=0;i<numAtoms_;i++)
     {
-        mm_float4 mom = glMomentum_->get(i);
-        mm_float4 p = posq[i];
-        int bn = -1;
-        mm_float4 rSI = mm_float4(p.x - sp[0],p.y - sp[1],p.z - sp[2],0.0f);
-        //calculate dot product rSI * unitVector
-        float rD = ((rSI.x*uv[0])+(rSI.y*uv[1])+(rSI.z*uv[2]));
-        bn = (int) rD/(float) bw;//try will ceil if the  sums aren't appropriate
-//        printf("BB %d\n",bn);
-        unsigned int s = bn == nBins_;
-        bn -= s;
-//        printf("BA %d\n",bn);
-        mols[bn] += 1;
-        tmom[bn].x += mom.x;
-        tmom[bn].y += mom.y;
-        tmom[bn].z += mom.z;
-        tmom[bn].w += mom.w;
+        for(int j=0;j<nBins_;j++){
+            int idx = (i*nBins_)+j;
+//            mm_float4 mom = glMomentum_->get(idx);
+            cl_float m = testArray_->get(idx);
+//            printf("BN %d => %f\t%f\t%f\t%f\tM=%f\n",idx,mom.x,mom.y,mom.z,mom.w,m);
+//            tmom[j].x += mom.x;
+//            tmom[j].y += mom.y;
+//            tmom[j].z += mom.z;
+//            tmom[j].w += mom.w;
+            mols[j] += m;
+        }
+//	mm_float4 v = velm[i];
+//	totalMass += v.w;
     }
     
     OpenMM::Vec3* testarray = impl.getControls().getTestVariable();
     double* temperature = impl.getControls().getBinTemperature();
     for(int b=0;b<nBins_;b++)
     {
-//        printf("Bin %d => %d\n",b,mols[b]);
+        printf("Bin %d => %f\n",b,mols[b]);
         testarray[b] = OpenMM::Vec3(tmom[b].x,tmom[b].y,tmom[b].z);
         temperature[b] = (double) mols[b];
     }
