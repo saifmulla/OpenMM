@@ -75,25 +75,18 @@ __kernel void binMomentum(
     int nbins = (int) NBINS;
     while(idx<NUM_ATOMS)
     {
-        int bn = -1;
         float4 velocity = velm[idx];
         float4 position = posq[idx];
         float4 rSI = position - sp;
         float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
-        bn = (int) rD/uv.w;//try will ceil if the  sums aren't appropriate
-	if(bn>=0 && bn<= nBins){
-		unsigned int s = bn == nBins;
-		bn -= s;
-		for(unsigned int y=0;y<nBins;y++)
-		{	
-			unsigned int index = idx * nBins + bn;
-			if(bn == y)
-				testArray[index] = (float) 1.0;
-			else
-				testArray[index] = 0.0f;	
-		}
-	}
-        idx += get_global_size(0);
+        int bn = (int) rD/uv.w;//try will ceil if the  sums aren't appropriate
+	if(bn==nBins)
+	bn--;
+	if(bn>=0 && bn<nBins)
+		testArray[idx*nBins+bn] = 1.0f;
+	else
+		testArray[idx*nBins+bn] = 0.0f;
+	idx += get_global_size(0);
     }
 }
 
