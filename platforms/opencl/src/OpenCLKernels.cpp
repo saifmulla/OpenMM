@@ -4591,7 +4591,6 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
         
         for(int k=0;k<nBins;k++)
         {
-            printf("Bins %d=>%d\n",k,molls[k]);//TODO: remove this line in production run
             tempmols[k] = molls[k];
             tempbinmom[k] = OpenMM::Vec3(momke[k].x,momke[k].y,momke[k].z);
             tempbinke[k] = momke[k].w;
