@@ -4550,21 +4550,10 @@ void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
 }
 void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
 {
-    //set the static invocation counter to 0
-    static int invocationCounter = 0;
     
     cl.executeKernel(kernel1,cl.getNumAtoms());
-    invocationCounter++;//increment the invocation counter by 1
     int writeinterval = impl.getMeasurements().getWriteInterval();
     
-    if(invocationCounter==writeinterval)
-    {
-        /*
-         * downloaded mols and measurement arrays from device
-         * mols array is of cl_int type storing total molecules
-         * measurments array stores total Mom inside xyz components
-         * and KE inside W component.
-         */
         mols->download();
         measurements->download();
         
@@ -4605,9 +4594,6 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
         }
         mols->upload(temp);
         measurements->upload(temp2);
-        invocationCounter = 0;//set counter to zero again
-    }
-
 }
 
 
