@@ -91,6 +91,13 @@ public:
      * @param steps   the number of time steps to take
      */
     virtual void step(int steps) = 0;
+    /**
+     * get the value of step counter which is been incremented by 
+     * velocity verlet derived class
+     */
+    int getStepCounter(){
+        return stepCounter;
+    }
 protected:
     friend class ContextImpl;
     /**
@@ -114,6 +121,7 @@ protected:
      */
     virtual void stateChanged(State::DataType changed) {
     }
+    int stepCounter;
 private:
     double stepSize, constraintTol;
 };

@@ -4550,9 +4550,12 @@ void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
 }
 void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
 {
-    
-    cl.executeKernel(kernel1,cl.getNumAtoms());
     int writeinterval = impl.getMeasurements().getWriteInterval();
+    int incrementcounter = impl.getIntegrator().getStepCounter();
+    cl.executeKernel(kernel1,cl.getNumAtoms());
+    
+    if(incrementcounter==writeinterval)
+    {
     
         mols->download();
         measurements->download();
@@ -4594,6 +4597,7 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
         }
         mols->upload(temp);
         measurements->upload(temp2);
+    }
 }
 
 

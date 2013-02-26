@@ -43,6 +43,7 @@ using std::vector;
 VelocityVerletIntegrator::VelocityVerletIntegrator(double stepSize) : owner(NULL) {
     setStepSize(stepSize);
     setConstraintTolerance(1e-4);
+    stepCounter = 0;
 }
 
 void VelocityVerletIntegrator::initialize(ContextImpl& contextRef) {
@@ -61,13 +62,14 @@ vector<string> VelocityVerletIntegrator::getKernelNames() {
 }
 
 void VelocityVerletIntegrator::step(int steps) {
-
+    stepCounter = 0;
 	//check if controltools are set
 	bool cs = context->getControlSet();
 	//check if measurement tools are set
 	bool ms = context->getMeasurementSet();
     for (int i = 0; i < steps; ++i)
     {
+        stepCounter = stepCounter + 1;
     	context->updateContextState();
     	if(cs)
     		context->getControls().controlBeforeForces(*context);

@@ -67,6 +67,8 @@ protected:
      * Get the names of all Kernels used by this Integrator.
      */
     std::vector<std::string> getKernelNames();
+    
+    
 private:
     ContextImpl* context;
     Context* owner;
