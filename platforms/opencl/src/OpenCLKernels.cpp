@@ -4551,6 +4551,7 @@ void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
 }
 void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
 {
+<<<<<<< HEAD
     //set the static invocation counter to 0
     
     cl.executeKernel(kernel1,cl.getNumAtoms());
@@ -4574,6 +4575,48 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
     for(int j=0;j<cl.getNumAtoms();j++)
     {
         for(int s=0;s<nBins;s++)
+=======
+    int writeinterval = impl.getMeasurements().getWriteInterval();
+    int incrementcounter = impl.getIntegrator().getStepCounter();
+    cl.executeKernel(kernel1,cl.getNumAtoms());
+    
+    if(incrementcounter==writeinterval)
+    {
+    
+        mols->download();
+        measurements->download();
+        
+        //temporary array to store calculated values
+        std::vector<int> molls(nBins,0);
+        std::vector<mm_float4> momke(nBins);
+        
+        //another set of temporary array to set mols and momke zeros
+        std::vector<cl_int> temp(cl.getNumAtoms()*nBins);
+        std::vector<mm_float4> temp2(cl.getNumAtoms()*nBins);
+        
+        for(int j=0;j<cl.getNumAtoms();j++)
+        {
+            for(int s=0;s<nBins;s++)
+            {
+                int index = j*nBins+s;
+                cl_int t = mols->get(index);
+                molls[s] += t;
+                mm_float4 t2 = measurements->get(index);
+                momke[s].x += t2.x;
+                momke[s].y += t2.y;
+                momke[s].z += t2.z;
+                momke[s].w += t2.w;
+                temp[index] = 0;
+                temp2[index] = mm_float4(0.0f,0.0f,0.0f,0.0f);
+            }
+        }
+        
+        int* tempmols = impl.getMeasurements().getMols();
+        double* tempbinke = impl.getMeasurements().getBinKe();
+        OpenMM::Vec3* tempbinmom = impl.getMeasurements().getBinMom();
+        
+        for(int k=0;k<nBins;k++)
+>>>>>>> master
         {
             int index = j*nBins+s;
             cl_int t = mols->get(index);
@@ -4586,6 +4629,7 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
             temp[index] = 0;
             temp2[index] = mm_float4(0.0f,0.0f,0.0f,0.0f);
         }
+<<<<<<< HEAD
     }
     
     int* tempmols = impl.getMeasurements().getMols();
@@ -4602,6 +4646,11 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
     mols->upload(temp);
     measurements->upload(temp2);
 
+=======
+        mols->upload(temp);
+        measurements->upload(temp2);
+    }
+>>>>>>> master
 }
 
 OpenCLControlBerendsenInBinsKernel::~OpenCLControlBerendsenInBinsKernel(){
