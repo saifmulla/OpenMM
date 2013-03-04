@@ -37,6 +37,7 @@ private:
     OpenMM::Vec3 unitVector_;
     double binWidth_;
     double rSEMag_;
+    Vec3* binForces_;    
     //debug variable
     Vec3* testVariable_;
 
@@ -50,6 +51,9 @@ public:
      */
     ControlTools(std::vector<std::string> toolnames,double temperature, double deltaT,
                  Vec3 startPoint, Vec3 endPoint,
+                 double tauT = 0.1,int nBins = 1,int writeInterval = 1);
+    ControlTools(std::vector<std::string> toolnames,double temperature, double deltaT,
+                 Vec3 startPoint, Vec3 endPoint, Vec3& binForces,
                  double tauT = 0.1,int nBins = 1,int writeInterval = 1);
     //- destructor
     ~ControlTools();
@@ -120,6 +124,9 @@ public:
     }
     double getBinWidth(){
         return binWidth_;
+    }
+    Vec3* getBinForces(){
+	return binForces_;
     }
     double mag(OpenMM::Vec3& point);
     std::vector<std::string> getKernelNames();
