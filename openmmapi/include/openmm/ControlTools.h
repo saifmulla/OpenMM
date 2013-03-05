@@ -53,7 +53,7 @@ public:
                  Vec3 startPoint, Vec3 endPoint,
                  double tauT = 0.1,int nBins = 1,int writeInterval = 1);
     ControlTools(std::vector<std::string> toolnames,double temperature, double deltaT,
-                 Vec3 startPoint, Vec3 endPoint, Vec3& binForces,
+                 Vec3 startPoint, Vec3 endPoint, Vec3 binForces,
                  double tauT = 0.1,int nBins = 1,int writeInterval = 1);
     //- destructor
     ~ControlTools();
@@ -127,6 +127,9 @@ public:
     }
     Vec3* getBinForces(){
 	return binForces_;
+    }
+    void setBinForces(Vec3* binForces){
+        binForces_ = binForces;
     }
     double mag(OpenMM::Vec3& point);
     std::vector<std::string> getKernelNames();

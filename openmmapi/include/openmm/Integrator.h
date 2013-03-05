@@ -121,6 +121,11 @@ protected:
      */
     virtual void stateChanged(State::DataType changed) {
     }
+    /**
+     * this variable will be used by derived class velocityverlet
+     * to increment the counter of number of times the kernels are invoked
+     * this helps to pass the values along with the class to required classes
+     */
     int stepCounter;
 private:
     double stepSize, constraintTol;

@@ -71,10 +71,10 @@ void VelocityVerletIntegrator::step(int steps) {
     {
         stepCounter = stepCounter + 1;
     	context->updateContextState();
-    	if(cs)
-    		context->getControls().controlBeforeForces(*context);
     	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).execute(*context, *this,false);
     	context->calcForcesAndEnergy(true, false);
+        if(cs)
+    		context->getControls().controlBeforeForces(*context);
     	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).execute(*context, *this,true);
     	if(cs)
     		context->getControls().controlAfterForces(*context);

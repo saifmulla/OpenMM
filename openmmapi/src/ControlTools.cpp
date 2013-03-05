@@ -29,7 +29,7 @@ startPoint_(startPoint),endPoint_(endPoint),
 deltaT(deltaT),tauT(tauT),nBins_(nBins),writeInterval_(writeInterval)
 {
     binTemperature_ = new double[nBins_];
-    
+    binForces_ = new Vec3[nBins_];
     //initializing debug variable
     //TODO: delete alter in production
     testVariable_ = new Vec3[nBins_];
@@ -46,7 +46,7 @@ deltaT(deltaT),tauT(tauT),nBins_(nBins),writeInterval_(writeInterval)
 }
 
 ControlTools::ControlTools(std::vector<std::string> toolnames, double temperature,
-			double deltaT, Vec3 startPoint, Vec3 endPoint, Vec3& binForces,
+			double deltaT, Vec3 startPoint, Vec3 endPoint, Vec3 binForces,
 			double tauT, int nBins, int writeInterval)
 	:toolNames(toolnames),temperature(temperature),startPoint_(startPoint),
 	 endPoint_(endPoint),
@@ -72,11 +72,13 @@ ControlTools::ControlTools(std::vector<std::string> toolnames, double temperatur
 }
 ControlTools::~ControlTools()
 {
-    std::cout<<"Destructor: ControlTools\n";
     if(binTemperature_!=NULL)
         delete binTemperature_;
+    if(binForces_!=NULL)
+        delete binForces_;
     if(testVariable_!=NULL)
         delete testVariable_;
+    
 }
 std::vector<std::string> ControlTools::getKernelNames()
 {

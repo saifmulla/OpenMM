@@ -1213,6 +1213,29 @@ private:
 };
 
 /**
+ * class ControlBinForces
+ * this class is an opencl implementation of ControlBinForcesKernel
+ * this class takes list of forces for each bin, the force for each 
+ * bin will be used to update forces related to equivalent bin number
+ */
+class OpenCLControlBinForcesKernel : public ControlBinForcesKernel {
+public:
+    OpenCLControlBinForcesKernel(std::string name, const Platform& platform, OpenCLContext& cl)
+    :ControlBinForcesKernel(name,platform),cl_(cl){
+    }
+    ~OpenCLControlBinForcesKernel();
+    void initialize(ContextImpl& impl);
+    void controlBeforeForces(ContextImpl& impl);
+    void controlAfterForces(ContextImpl& impl);
+private:
+    OpenCLArray<mm_float4>* binForces_;
+    OpenCLArray<mm_float4>* startPoint_;
+    OpenCLArray<mm_float4>* unitVector_;
+    unsigned int nBins_;
+    OpenCLContext& cl_;
+    cl::Kernel kernel1_;
+};
+/**
  * implementation for Measurement tools classes
  */
 //- class measureCombinedFields

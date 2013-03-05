@@ -1075,6 +1075,17 @@ public:
     }
 };
 
+class ControlBinForcesKernel : public Controls, public KernelImpl
+{
+public:
+    static std::string Name(){
+        return "ControlBinForces";
+    }
+    ControlBinForcesKernel(std::string name, const Platform& platform)
+    :KernelImpl(name,platform)
+    {
+    }
+};
 
 /**
  * skeleton classes for all the measurement tools

@@ -133,5 +133,7 @@ KernelImpl* OpenCLKernelFactory::createKernelImpl(std::string name, const Platfo
     }
     if (name == ControlBerendsenInBinsKernel::Name())
         return new OpenCLControlBerendsenInBinsKernel(name,platform,cl);
+    if (name == ControlBinForcesKernel::Name())
+        return new OpenCLControlBinForcesKernel(name,platform,cl);
     throw OpenMMException((std::string("Tried to create kernel with illegal kernel name '")+name+"'").c_str());
 }
