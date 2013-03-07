@@ -316,6 +316,10 @@ OpenCLContext::~OpenCLContext() {
         delete nonbonded;
     if (thread != NULL)
         delete thread;
+    if (atomInMolecule!=NULL)
+        delete atomInMolecule;
+    if (moleculeAtoms!=NULL)
+        delete moleculeAtoms;
     
 }
 
@@ -347,6 +351,7 @@ void OpenCLContext::initialize(const System& system) {
     for (int i = 0; i < paddedNumAtoms; ++i)
         (*atomIndex)[i] = i;
     atomIndex->upload();
+    atomInMolecule = new OpenCLArray<cl_int>(*this,paddedNumAtoms,"atomInMolecule",true);
     findMoleculeGroups(system);
     integration = new OpenCLIntegrationUtilities(*this, system);
     nonbonded->initialize(system);
@@ -657,6 +662,52 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
     for (int i = 0; i < numAtoms; i++)
         atomIndices[atomMolecule[i]].push_back(i);
 
+    //now assign the number of molecules to global variable
+    numOfMolecules = numMolecules;
+    //initialize atomInMolecule array
+    moleculeAtoms = new OpenCLArray<mm_int4>(*this,numOfMolecules,"moleculeAtoms",true);
+
+    //check which atom is in which molecule and update
+    // and create and initial list
+    for (int i = 0; i < numAtoms; i++)
+	(*atomInMolecule)[i] = atomMolecule[i];
+
+    for (int i = numAtoms; i < paddedNumAtoms; i++)
+	(*atomInMolecule)[i] = -1;
+
+    for (int i = 0; i < numOfMolecules; i++)
+    {
+	 switch(atomIndices[i].size())
+	 {
+		case 1:
+			(*moleculeAtoms)[i].x = atomIndices[i][0];
+			(*moleculeAtoms)[i].y = -1;
+			(*moleculeAtoms)[i].z = -1;
+			(*moleculeAtoms)[i].w = -1;
+			break;
+		case 2:
+			(*moleculeAtoms)[i].x = atomIndices[i][0];
+			(*moleculeAtoms)[i].y = atomIndices[i][1];
+			(*moleculeAtoms)[i].z = -1;
+			(*moleculeAtoms)[i].w = -1;
+			break;
+		case 3:
+			(*moleculeAtoms)[i].x = atomIndices[i][0];
+			(*moleculeAtoms)[i].y = atomIndices[i][1];
+			(*moleculeAtoms)[i].z = atomIndices[i][2];
+			(*moleculeAtoms)[i].w = -1;
+			break;
+		case 4:
+			(*moleculeAtoms)[i].x = atomIndices[i][0];
+			(*moleculeAtoms)[i].y = atomIndices[i][1];
+			(*moleculeAtoms)[i].z = atomIndices[i][2];
+			(*moleculeAtoms)[i].w = atomIndices[i][3];
+			break;
+		default:
+			break;
+
+	 }
+    }
     // Construct a description of each molecule.
 
     vector<Molecule> molecules(numMolecules);

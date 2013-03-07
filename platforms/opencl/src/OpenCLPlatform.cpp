@@ -79,6 +79,7 @@ OpenCLPlatform::OpenCLPlatform() {
     registerKernelFactory(MeasureBinPropertiesKernel::Name(),factory);
     registerKernelFactory(ControlBerendsenInBinsKernel::Name(),factory);
     registerKernelFactory(ControlBinForcesKernel::Name(),factory);
+    registerKernelFactory(MeasureBinVirialKernel::Name(),factory);
     platformProperties.push_back(OpenCLDeviceIndex());
     platformProperties.push_back(OpenCLPlatformIndex());
     setPropertyDefaultValue(OpenCLDeviceIndex(), "");
