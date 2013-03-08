@@ -238,7 +238,12 @@ public:
     MeasurementTools& getMeasurements();
 
     bool getMeasurementSet(){
-	return measurementSet;
+        return measurementSet;
+    }
+    
+    //get the bool value to check if virial measurement is included
+    bool getVirialIncluded(){
+        return virialIncluded;
     }
 private:
     friend class Context;
@@ -258,6 +263,7 @@ private:
     MeasurementTools* measurements; 
     bool controlSet;
     bool measurementSet;
+    bool virialIncluded;
 };
 
 } // namespace OpenMM

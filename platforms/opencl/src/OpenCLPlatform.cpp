@@ -132,6 +132,7 @@ OpenCLPlatform::PlatformData::PlatformData(int numParticles, const string& platf
             unsigned int deviceIndex;
             stringstream(devices[i]) >> deviceIndex;
             contexts.push_back(new OpenCLContext(numParticles, platformIndex, deviceIndex, *this));
+            contexts[i]->setCalculateVirial(true);
         }
     }
     if (contexts.size() == 0)

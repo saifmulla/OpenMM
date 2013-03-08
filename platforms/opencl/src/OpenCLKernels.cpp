@@ -4778,9 +4778,8 @@ void OpenCLMeasureBinVirialKernel::initialize(ContextImpl& impl){
 	atomMasses_ = new OpenCLArray<mm_float4>(cl_,numOfMolecules_,"atomMasses",false);
 	moleculeCentresOfMass_ = new OpenCLArray<mm_float4>(cl_,numOfMolecules_,"moleculeCentresOfMass",false);
 	OpenCLArray<mm_int4>& ma = cl_.getMoleculeAtoms();
-    for(int j=0;j<numatoms;j++)
-        printf("%d\n",ma[j].x);
 //	findAtomMasses(impl.getSystem(),ma);
+    //TODO fix atom masses problem
 	cl_.getAtomInMolecule().upload();
 	cl_.getMoleculeAtoms().upload();
 //	atomMasses_->upload();
@@ -4791,12 +4790,12 @@ void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
 void OpenCLMeasureBinVirialKernel::findAtomMasses(const System& system,OpenCLArray<mm_int4>& moleculeAtoms_){
 	for (int i = 0; i < numOfMolecules_; i++)
 	{
-		if(moleculeAtoms_[i].x != -1)
+//		if(moleculeAtoms_[i].x != -1)
 			(*atomMasses_)[i].x = system.getParticleMass(moleculeAtoms_[i].x);
-		if(moleculeAtoms_[i].y != -1)
-		        (*atomMasses_)[i].y = system.getParticleMass(moleculeAtoms_[i].y);
-		if(moleculeAtoms_[i].z != -1)
-		        (*atomMasses_)[i].z = system.getParticleMass(moleculeAtoms_[i].z);
+//		if(moleculeAtoms_[i].y != -1)
+//		        (*atomMasses_)[i].y = system.getParticleMass(moleculeAtoms_[i].y);
+//		if(moleculeAtoms_[i].z != -1)
+//		        (*atomMasses_)[i].z = system.getParticleMass(moleculeAtoms_[i].z);
 	}
 }
 
