@@ -536,6 +536,13 @@ cl::Kernel OpenCLNonbondedUtilities::createInteractionKernel(const string& sourc
     else {
         kernel.setArg<cl_uint>(index++, numTiles);
     }
+    //check for availability of virial calculation
+    if(context.getCalculateVirial()){
+        index += 5;//these five arguments will be assigned inside MeasureBinvirial kernel
+                    // if viral measurement is included therefore the increment is done
+                    // by 5 to accomomodate appropriate virial calculation arguments.
+    }
+    std::cout<<"Printed outside calculate virial\n";
     for (int i = 0; i < (int) params.size(); i++) {
         kernel.setArg<cl::Memory>(index++, params[i].getMemory());
     }

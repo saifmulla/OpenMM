@@ -215,6 +215,9 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
         posq = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "posq", true);
         velm = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "velm", true);
         posCellOffsets.resize(paddedNumAtoms, mm_int4(0, 0, 0, 0));
+        //initially set virial related arrays to NULL
+        atomInMolecule = NULL;
+        moleculeAtoms = NULL;
     }
     catch (cl::Error err) {
         std::stringstream str;
@@ -352,7 +355,7 @@ void OpenCLContext::initialize(const System& system) {
         (*atomIndex)[i] = i;
     atomIndex->upload();
     if(calculateVirial)
-        atomInMolecule = new OpenCLArray<cl_int>(*this,paddedNumAtoms,"atomInMolecule",false);
+        atomInMolecule = new OpenCLArray<cl_int>(*this,paddedNumAtoms,"atomInMolecule",true);
     findMoleculeGroups(system);
     integration = new OpenCLIntegrationUtilities(*this, system);
     nonbonded->initialize(system);
@@ -673,7 +676,7 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
     if(calculateVirial)
     {
         //initialize atomInMolecule array
-        moleculeAtoms = new OpenCLArray<mm_int4>(*this,numOfMolecules,"moleculeAtoms",false);
+        moleculeAtoms = new OpenCLArray<mm_int4>(*this,numOfMolecules,"moleculeAtoms",true);
 
         //check which atom is in which molecule and update
         // and create and initial list

@@ -1306,10 +1306,10 @@ private:
 	OpenCLArray<cl_long>* longVirialBuffer1_;
 	OpenCLArray<cl_long>* longVirialBuffer2_;
 	OpenCLArray<cl_long>* longVirialBuffer3_;
-	OpenCLArray<cl_float>* moleculeVirial_;
-	unsigned int moleculeSize_; //size of each molecule such as argon=>1, sodium=>2,water=>3
+//	OpenCLArray<cl_float>* moleculeVirial_;
+//	unsigned int moleculeSize_; //size of each molecule such as argon=>1, sodium=>2,water=>3
 	OpenCLContext& cl_;
-	cl::Kernel kernel1_;
+	cl::Kernel mcomKernel_;
 };
 } // namespace OpenMM
 #endif /*OPENMM_OPENCLKERNELS_H_*/

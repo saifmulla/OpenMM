@@ -122,10 +122,11 @@ ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator,
 			measurementSet = true;
             int it = 0;
             while(it<measurementkernels.size()){
-                if(measurementkernels[it]=="MeasureBinVirial"){
+                if(measurementkernels[it].compare("MeasureBinVirial") == 0){
                     virialIncluded = true;
                     break;
                 }
+                it++;
             }
 		}
 		else

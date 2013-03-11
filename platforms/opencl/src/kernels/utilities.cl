@@ -105,3 +105,59 @@ __kernel void determineNativeAccuracy(__global float8* restrict values, int numV
         values[i] = (float8) (v, native_sqrt(v), native_rsqrt(v), native_recip(v), native_exp(v), native_log(v), 0.0f, 0.0f);
     }
 }
+
+/**
+ * @kernel - computeMoleculeCentresofMass
+ * this kernel is used to calculate centres of mass while calculating virial
+ * in fact it is a pre requisite of virial calculation therefore this kernel 
+ * will be called after all the arrays are copied to gpu every time step.
+ */
+
+__kernel void computeMoleculeCentresOfMass(__global float4* posq,
+                                           __global float4* atomMasses,
+                                           __global int4*   moleculeAtoms,
+                                           __global int*    atomIndex,
+                                           __global float4* moleculeCentresOfMass,
+                                           int numOfMolecules
+                                           )
+{
+    int id = get_global_id(0);
+    
+    if(id < numOfMolecules)
+    {
+        float4 centreOfMass = 0.0;
+        float4 atom = 0.0;
+        float sumOfMasses = 0.0;
+        
+        if(moleculeAtoms[id].x != -1)
+        {
+            atom.xyz = posq[moleculeAtoms[id].x].xyz;                 // atomIndex is not used. This code is referring to the original array
+            centreOfMass.xyz += atom.xyz*atomMasses[id].x;           // the masses are not reordered
+            sumOfMasses += atomMasses[id].x;
+        }
+        
+        if(moleculeAtoms[id].y != -1)
+        {
+            atom.xyz = posq[moleculeAtoms[id].y].xyz;
+            centreOfMass.xyz += atom.xyz*atomMasses[id].y;
+            sumOfMasses += atomMasses[id].y;
+        }
+        
+        if(moleculeAtoms[id].z != -1)
+        {
+            atom.xyz = posq[moleculeAtoms[id].z].xyz;
+            centreOfMass.xyz += atom.xyz*atomMasses[id].z;
+            sumOfMasses += atomMasses[id].z;
+        }
+        if(moleculeAtoms[id].w != -1){
+            atom.xyz = posq[moleculeAtoms[id].w].xyz;
+            centreOfMass.xyz += atom.xyz*atomMasses[id].w;
+            sumOfMasses += atomMasses[id].w;
+        }
+        
+        centreOfMass.xyz /= sumOfMasses;
+        
+        moleculeCentresOfMass[id].xyz = centreOfMass.xyz;
+    }
+}
+
