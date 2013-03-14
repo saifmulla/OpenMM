@@ -33,13 +33,22 @@ deltaT(deltaT),tauT(tauT),nBins_(nBins),writeInterval_(writeInterval)
     //initializing debug variable
     //TODO: delete alter in production
     testVariable_ = new Vec3[nBins_];
-    
+    //TODO: delete these two line later
+    printf("Number of control bins %d\n",nBins_);
+    printf("Start Point %2.5f %2.5f %2.5f\n",startPoint_[0],startPoint_[1],startPoint_[2]);
+    printf("End Point %2.5f %2.5f %2.5f\n",endPoint_[0],endPoint_[1],endPoint_[2]);
+    //end
     //calculate values for appropriate variables
-    Vec3 diff = Vec3(endPoint_[0] - startPoint_[0],endPoint_[1] - startPoint_[1],endPoint_[2] - startPoint_[2]);
+//    Vec3 diff = Vec3(endPoint_[0] - startPoint_[0],endPoint_[1] - startPoint_[1],endPoint_[2] - startPoint_[2]);
+    Vec3 diff = endPoint_ - startPoint_;
+    printf("diff Point %2.5f %2.5f %2.5f\n",diff[0],diff[1],diff[2]);
     double diffmag = mag(diff);
+    printf("DiffMag %3.8f\n",diffmag);
     unitVector_ = OpenMM::Vec3(diff[0]/diffmag,diff[1]/diffmag,diff[2]/diffmag);
+    printf("Unit Vector %2.5f %2.5f %2.5f\n",unitVector_[0],unitVector_[1],unitVector_[2]);
     rSEMag_ = diffmag;
     binWidth_ = diffmag/(double) nBins_;
+    printf("Binwidth %3.8f\n",binWidth_);
     
     for(int i=0;i<nBins_;i++)
         binTemperature_[i] = 0.0f;
@@ -60,6 +69,7 @@ ControlTools::ControlTools(std::vector<std::string> toolnames, double temperatur
     testVariable_ = new Vec3[nBins_];
     
     //calculate values for appropriate variables
+    
     Vec3 diff = Vec3(endPoint_[0] - startPoint_[0],endPoint_[1] - startPoint_[1],endPoint_[2] - startPoint_[2]);
     double diffmag = mag(diff);
     unitVector_ = OpenMM::Vec3(diff[0]/diffmag,diff[1]/diffmag,diff[2]/diffmag);

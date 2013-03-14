@@ -1,9 +1,8 @@
 #ifndef OPENMM_CONTROLTOOLS_H
 #define OPENMM_CONTROLTOOLS_H
 
-
+#include <stdio.h>
 #include <iostream>
-
 #include "openmm/Kernel.h"
 #include "internal/windowsExport.h"
 

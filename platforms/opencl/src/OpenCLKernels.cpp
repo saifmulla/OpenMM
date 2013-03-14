@@ -4493,13 +4493,14 @@ void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
 //implementation for OpenCLControlBinForcesKernel class
 OpenCLControlBinForcesKernel::~OpenCLControlBinForcesKernel(){
     if(binForces_!=NULL)
-	delete binForces_;
+        delete binForces_;
     if(startPoint_!=NULL)
         delete startPoint_;
     if(unitVector_!=NULL)
         delete unitVector_;
 }
 void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
+    std::cout<<"ControlbinForceskernel initialize\n";
     OpenMM::Vec3* temp = impl.getControls().getBinForces();
     double tempbinwidth = impl.getControls().getBinWidth();
     OpenMM::Vec3& tempstartpoint = impl.getControls().getStartPoint();
@@ -4508,9 +4509,9 @@ void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
     int numatoms = cl_.getNumAtoms();
 
     //initialize global gpu arrays
-    binForces_ = new OpenCLArray<mm_float4>(cl_,nBins_,"BinForces",false);
-    startPoint_ = new OpenCLArray<mm_float4>(cl_,1,"StartPoint",false);
-    unitVector_ = new OpenCLArray<mm_float4>(cl_,1,"UnitVector",false);
+    binForces_ = new OpenCLArray<mm_float4>(cl_,nBins_,"BinForces",true);
+    startPoint_ = new OpenCLArray<mm_float4>(cl_,1,"StartPoint",true);
+    unitVector_ = new OpenCLArray<mm_float4>(cl_,1,"UnitVector",true);
 
     cl::Program program = cl_.createProgram(OpenCLKernelSources::binforces);
     kernel1_ = cl::Kernel(program,"binForcesKernel");
@@ -4522,12 +4523,18 @@ void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
     kernel1_.setArg<cl_int>(5,nBins_); 
     kernel1_.setArg<cl_int>(6,numatoms);
     
-    std::vector<mm_float4> tempsp(1);
-    tempsp[0] = mm_float4((float) tempstartpoint[0],
-                          (float) tempstartpoint[1],
-                          (float) tempstartpoint[2],
-                          0.0f
-                          );
+    (*startPoint_)[0] = mm_float4((float) tempstartpoint[0],
+                                  (float) tempstartpoint[1],
+                                  (float) tempstartpoint[2],
+                                  0.0f);
+
+    
+//    std::vector<mm_float4> tempsp(1);
+//    tempsp[0] = mm_float4((float) tempstartpoint[0],
+//                          (float) tempstartpoint[1],
+//                          (float) tempstartpoint[2],
+//                          0.0f
+//                          );
     std::vector<mm_float4> tempuv(1);
     tempuv[0] = mm_float4((float) tempunitvector[0],
                           (float) tempunitvector[1],
@@ -4538,11 +4545,12 @@ void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
         tempbinforces[b] = mm_float4(temp[b][0],temp[b][1],temp[b][2],0.0f);
     }
 
-    startPoint_->upload(tempsp);
+    startPoint_->upload();
     unitVector_->upload(tempuv);
     binForces_->upload(tempbinforces);
 }
 void OpenCLControlBinForcesKernel::controlBeforeForces(ContextImpl& impl){
+    std::cout<<"ControlBinForces control Before forces \n";
     cl_.executeKernel(kernel1_,cl_.getNumAtoms());
 }
 void OpenCLControlBinForcesKernel::controlAfterForces(ContextImpl& impl){
