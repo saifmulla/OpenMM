@@ -1231,6 +1231,7 @@ private:
     OpenCLArray<mm_float4>* binForces_;
     OpenCLArray<mm_float4>* startPoint_;
     OpenCLArray<mm_float4>* unitVector_;
+    OpenCLArray<mm_float4>* temp_;
     unsigned int nBins_;
     OpenCLContext& cl_;
     cl::Kernel kernel1_;

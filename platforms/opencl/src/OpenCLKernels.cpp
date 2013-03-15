@@ -4498,6 +4498,9 @@ OpenCLControlBinForcesKernel::~OpenCLControlBinForcesKernel(){
         delete startPoint_;
     if(unitVector_!=NULL)
         delete unitVector_;
+    //TODO: delete later
+    if(temp_!=NULL)
+        delete temp_;
 }
 void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
     std::cout<<"ControlbinForceskernel initialize\n";
@@ -4512,6 +4515,8 @@ void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
     binForces_ = new OpenCLArray<mm_float4>(cl_,nBins_,"BinForces",true);
     startPoint_ = new OpenCLArray<mm_float4>(cl_,1,"StartPoint",true);
     unitVector_ = new OpenCLArray<mm_float4>(cl_,1,"UnitVector",true);
+    //TODO: temp delete later
+    temp_ = new OpenCLArray<mm_float4>(cl_,numatoms,"temp",true);
 
     cl::Program program = cl_.createProgram(OpenCLKernelSources::binforces);
     kernel1_ = cl::Kernel(program,"binForcesKernel");
@@ -4527,31 +4532,28 @@ void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
                                   (float) tempstartpoint[1],
                                   (float) tempstartpoint[2],
                                   0.0f);
-
     
-//    std::vector<mm_float4> tempsp(1);
-//    tempsp[0] = mm_float4((float) tempstartpoint[0],
-//                          (float) tempstartpoint[1],
-//                          (float) tempstartpoint[2],
-//                          0.0f
-//                          );
-    std::vector<mm_float4> tempuv(1);
-    tempuv[0] = mm_float4((float) tempunitvector[0],
-                          (float) tempunitvector[1],
-                          (float) tempunitvector[2],
-                          (float) tempbinwidth);
-    std::vector<mm_float4> tempbinforces(nBins_);
+    (*unitVector_)[0] = mm_float4((float) tempunitvector[0],
+                                  (float) tempunitvector[1],
+                                  (float) tempunitvector[2],
+                                  (float) tempbinwidth);
+    
     for(int b=0;b<nBins_;b++){
-        tempbinforces[b] = mm_float4(temp[b][0],temp[b][1],temp[b][2],0.0f);
+        (*binForces_)[b] = mm_float4(temp[b][0],temp[b][1],temp[b][2],0.0f);
     }
 
     startPoint_->upload();
-    unitVector_->upload(tempuv);
-    binForces_->upload(tempbinforces);
+    unitVector_->upload();
+    binForces_->upload();
 }
 void OpenCLControlBinForcesKernel::controlBeforeForces(ContextImpl& impl){
     std::cout<<"ControlBinForces control Before forces \n";
     cl_.executeKernel(kernel1_,cl_.getNumAtoms());
+//    temp_->download();
+//    for(int i=0;i<cl_.getNumAtoms();i++){
+//	    mm_float4 t = temp_->get(i);
+//	    printf("%d => %2.5f %2.5f %2.5f %2.5f\n",i,t.x,t.y,t.z,t.w);
+//    }
 }
 void OpenCLControlBinForcesKernel::controlAfterForces(ContextImpl& impl){
     

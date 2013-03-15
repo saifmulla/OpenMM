@@ -21,15 +21,14 @@ __kernel void binForcesKernel(
 	float4 sp = startPoint[0];
 	float4 uv = unitVector[0];
 
-	while(idx<numAtoms){
-		int bn = -1;
+	if(idx<numAtoms)
+	{
 		float4 position = posq[idx];
-		float4 rSI = position - sp;
-		float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
-		bn = (int) rD/uv.w;
-		unsigned int s = bn == nBins;
-		bn -= s;
-		forces[idx].xyz += binForces[bn].xyz;
-		idx += get_global_size(0);
+                float4 rSI = position - sp;
+                float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
+                int bn = (int) rD/uv.w;
+                unsigned int s = bn == nBins;
+                bn -= s;
+		forces[idx].xyz += binForces[bn];
 	}
 }
