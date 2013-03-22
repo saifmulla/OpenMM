@@ -4503,7 +4503,6 @@ OpenCLControlBinForcesKernel::~OpenCLControlBinForcesKernel(){
         delete temp_;
 }
 void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
-    std::cout<<"ControlbinForceskernel initialize\n";
     OpenMM::Vec3* temp = impl.getControls().getBinForces();
     double tempbinwidth = impl.getControls().getBinWidth();
     OpenMM::Vec3& tempstartpoint = impl.getControls().getStartPoint();
@@ -4539,7 +4538,7 @@ void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
                                   (float) tempbinwidth);
     
     for(int b=0;b<nBins_;b++){
-        (*binForces_)[b] = mm_float4(temp[b][0],temp[b][1],temp[b][2],0.0f);
+        (*binForces_)[b] = mm_float4((double) temp[b][0],(double) temp[b][1],(double) temp[b][2],(double) 0.0);
     }
 
     startPoint_->upload();
@@ -4547,13 +4546,7 @@ void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
     binForces_->upload();
 }
 void OpenCLControlBinForcesKernel::controlBeforeForces(ContextImpl& impl){
-    std::cout<<"ControlBinForces control Before forces \n";
     cl_.executeKernel(kernel1_,cl_.getNumAtoms());
-//    temp_->download();
-//    for(int i=0;i<cl_.getNumAtoms();i++){
-//	    mm_float4 t = temp_->get(i);
-//	    printf("%d => %2.5f %2.5f %2.5f %2.5f\n",i,t.x,t.y,t.z,t.w);
-//    }
 }
 void OpenCLControlBinForcesKernel::controlAfterForces(ContextImpl& impl){
     

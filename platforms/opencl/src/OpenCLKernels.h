@@ -36,6 +36,7 @@
 #include "openmm/kernels.h"
 #include "openmm/System.h"
 
+using namespace OpenMM;
 namespace OpenMM {
 
 /**
