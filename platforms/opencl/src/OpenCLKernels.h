@@ -822,7 +822,7 @@ private:
     OpenCLContext& cl;
     double prevStepSize;
     bool hasInitializedKernels;
-    cl::Kernel kernel1, kernel2;
+    cl::Kernel kernel1, kernel2, kernel3;
 };
 /**
  * This kernel is invoked by LangevinIntegrator to take one time step.
@@ -1210,7 +1210,9 @@ private:
     OpenCLArray<mm_float4>* glMomentum_;
     OpenCLArray<mm_float4>* glSumMomentum_;
     OpenCLArray<cl_float>* testArray_; //for debugging delete later
-    cl::Kernel kernel1,kernel2;
+    OpenCLArray<mm_float4>* glNewVelocity_;
+    OpenCLArray<cl_float>* glBinChi_;
+    cl::Kernel kernel1,kernel2,kernel3;
 };
 
 /**
