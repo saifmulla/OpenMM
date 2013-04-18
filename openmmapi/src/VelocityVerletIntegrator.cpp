@@ -67,14 +67,13 @@ void VelocityVerletIntegrator::step(int steps) {
 	bool cs = context->getControlSet();
 	//check if measurement tools are set
 	bool ms = context->getMeasurementSet();
+
     for (int i = 0; i < steps; ++i)
     {
         stepCounter = stepCounter + 1;
     	context->updateContextState();
     	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).execute(*context, *this,false);
     	context->calcForcesAndEnergy(true, false);
-//        if(cs)
-//    		context->getControls().controlBeforeForces(*context);
     	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).execute(*context, *this,true);
     	if(cs)
     		context->getControls().controlAfterForces(*context);

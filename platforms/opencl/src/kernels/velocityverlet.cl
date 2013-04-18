@@ -11,7 +11,8 @@ __kernel void velocityVerletPart1(int numAtoms,
 				   __global const float2* deltaT,
 				   __global float4* restrict posq,
 				   __global float4* restrict velm,
-				   __global const float4* restrict forces) {
+				   __global const float4* restrict forces
+                  ) {
     
     float2 stepSize = deltaT[0];
     float dtPos = stepSize.y;
@@ -19,15 +20,18 @@ __kernel void velocityVerletPart1(int numAtoms,
     unsigned int idx = get_global_id(0);
     if(idx < numAtoms)
     {
-	  //store the velocity locally
-	  float4 velocity = velm[idx];
-	  if(velocity.w != 0.0)
-	  {
-          velocity.xyz += forces[idx].xyz*velocity.w*dtVel;
-          posq[idx].xyz += (velocity.xyz * dtPos);
-	      velm[idx] = velocity;
-	  }
-    }//end if
+        //store the velocity locally
+        float4 velocity = velm[idx];
+        if(velocity.w != 0.0)
+        {
+            float4 accel = (float4) (forces[idx].xyz*velocity.w,0.0f);
+            accel.xyz *= dtVel;
+            velocity.xyz += accel.xyz;
+            accel = (float4) (velocity.xyz * dtPos,0.0f);
+            posq[idx].xyz += accel.xyz;
+            velm[idx] = velocity;
+        }
+    }
 }
 
 /**
@@ -36,8 +40,8 @@ __kernel void velocityVerletPart1(int numAtoms,
 
 __kernel void velocityVerletPart2(int numAtoms, 
 				   __global const float2* deltaT,
-				   __global float4* velm,
-				   __global const float4* forces
+				   __global float4* restrict velm,
+				   __global const float4* restrict forces
 				  ) {
     float2 stepSize = deltaT[0];
     float dtPos = stepSize.y;
@@ -49,23 +53,16 @@ __kernel void velocityVerletPart2(int numAtoms,
 	  float4 velocity = velm[idx];
 	  if(velocity.w != 0.0)
 	  {
-          velocity.xyz += forces[idx].xyz*velocity.w*dtVel;
-	      velm[idx] = velocity;
+          //store the velocity locally
+          float4 velocity = velm[idx];
+          if(velocity.w != 0.0)
+          {
+              float4 accel = (float4) (forces[idx].xyz*velocity.w,0.0f);
+              accel.xyz *= dtVel;
+              velocity.xyz += accel.xyz;
+              velm[idx] = velocity;
+          }
 	  }
     
     }//end if
-}
-
-__kernel void externalForce(int numAtoms,
-				__global float4* forces
-			   )
-{
-	unsigned int idx = get_global_id(0);
-    float big = (float) 1.0/(float) 1.6605e-12;
-	float xval = (0.0001*(float)4.87288629354e-12)/(float)1.6605e-12;
-	float4 extf = (float4) (xval,0.0f,0.0f,0.0f);
-	if(idx < numAtoms)
-	{
-		forces[idx].xyz += extf.xyz;
-	}
 }

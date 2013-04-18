@@ -1,6 +1,5 @@
-#ifdef SUPPORTS_64_BIT_ATOMICS
-    #pragma OPENCL EXTENSION cl_khr_global_int32_base_atomics : enable
-    #pragma OPENCL EXTENSION cl_khr_int64_base_atomics : enable 
+#ifdef SUPPORTS_DOUBLE_PRECISION
+    #pragma OPENCL EXTENSION cl_khr_fp64 : enable
 #endif
 /**
  * binProperties
@@ -11,29 +10,30 @@ __kernel void binproperties(int numAtoms,
                             int nBins,
                             __global const float4* restrict posq,
                             __global const float4* restrict velm,
-                            __global const float4* restrict startPoint,
-                            __global const float4* restrict unitVector,
-                            __global int* restrict mols,
-                            __global float4* restrict measure
+                            __global const float4* startPoint,
+                            __global const float4* unitVector,
+                            __global int* mols,
+                            __global float4* measure
                             )
 {
     unsigned int idx = get_global_id(0);
     float4 sp = startPoint[0];
     float4 uv = unitVector[0];
-    
+    float rD = 0.0;
     if(idx<numAtoms)
     {
-        float4 position = posq[idx];
         float4 velocity = velm[idx];
-        float4 rSI = position - sp;
+        float4 rSI = posq[idx] - sp;
         //calculate dot product rSI * unitVector
-        float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
+        rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
         int bn = (int) rD/uv.w;//try will ceil if the  sums aren't appropriate
         unsigned int s = bn == nBins;
         bn -= s;
+        rD = ((velocity.x*velocity.x)+(velocity.y*velocity.y)+(velocity.z*velocity.z));//reuse of rD variable
         mols[idx*nBins+bn] += 1;
-        float sqr = ((velocity.x*velocity.x)+(velocity.y*velocity.y)+(velocity.z*velocity.z));
-        measure[idx*nBins+bn].xyz += velocity.w * velocity.xyz;
-        measure[idx*nBins+bn].w += 0.5 * sqr / velocity.w;
+        measure[idx*nBins+bn] += (float4) (velocity.x * (1.0f/velocity.w),
+                                           velocity.y * (1.0f/velocity.w),
+                                           velocity.z * (1.0f/velocity.w),
+                                           0.5f * (1.0f/velocity.w) * rD);
     }
 }
