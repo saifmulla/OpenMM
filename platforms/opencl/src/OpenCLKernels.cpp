@@ -3268,7 +3268,6 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
     cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet, "");
     kernel1 = cl::Kernel(program, "velocityVerletPart1");
     kernel2 = cl::Kernel(program, "velocityVerletPart2");
-    kernel3 = cl::Kernel(program, "externalForce");
     prevStepSize = -1.0;
 }
 
@@ -3326,20 +3325,17 @@ void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, cons
     
     if (!hasInitializedKernels) {
         hasInitializedKernels = true;
-	kernel1.setArg<cl_int>(0, numAtoms);
-	kernel1.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-	kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
-	kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
-	kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
+        kernel1.setArg<cl_int>(0, numAtoms);
+        kernel1.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
+        kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
+        kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
+        kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
 
-	kernel2.setArg<cl_int>(0, numAtoms);
-	kernel2.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-	kernel2.setArg<cl::Buffer>(2, cl.getVelm().getDeviceBuffer());
-	kernel2.setArg<cl::Buffer>(3, cl.getForce().getDeviceBuffer());
+        kernel2.setArg<cl_int>(0, numAtoms);
+        kernel2.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
+        kernel2.setArg<cl::Buffer>(2, cl.getVelm().getDeviceBuffer());
+        kernel2.setArg<cl::Buffer>(3, cl.getForce().getDeviceBuffer());
 
-	//kernel3 TODO: may need to delete this kernel later
-	kernel3.setArg<cl_int>(0,numAtoms);
-	kernel3.setArg<cl::Buffer>(1,cl.getForce().getDeviceBuffer());
     }
     if (dt != prevStepSize) {
         vector<mm_float2> stepSizeVec(1);
@@ -3349,7 +3345,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, cons
     }
     
      // Call the first integration kernel.
-
+    int k = 0;
     if(!called)
     {
       cl.executeKernel(kernel1, numAtoms);
@@ -3359,14 +3355,11 @@ void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, cons
 
     if(called)
     {
-      cl.executeKernel(kernel3, numAtoms);
       cl.executeKernel(kernel2, numAtoms);
       // Update the time and step count.
       cl.setTime(cl.getTime()+dt);
       cl.setStepCount(cl.getStepCount()+1);
     }
-
-
 }
 
 OpenCLIntegrateLangevinStepKernel::~OpenCLIntegrateLangevinStepKernel() {
@@ -4575,6 +4568,7 @@ OpenCLMeasureBinPropertiesKernel::~OpenCLMeasureBinPropertiesKernel()
 }
 void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
 {
+    std::cout<<"Initializing bin properties kernel\n";
     numBlocks = cl.getNumThreadBlocks();
     double tempbinwidth = impl.getMeasurements().getBinWidth();
     OpenMM::Vec3& tempstartpoint = impl.getMeasurements().getStartPoint();
@@ -4601,28 +4595,29 @@ void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
     kernel1.setArg<cl::Buffer>(6,mols->getDeviceBuffer());
     kernel1.setArg<cl::Buffer>(7,measurements->getDeviceBuffer());
 
-    std::vector<mm_float4> tempsp(1);
-    tempsp[0] = mm_float4((float) tempstartpoint[0],
+    
+    (*startPoint)[0] = mm_float4((float) tempstartpoint[0],
                           (float) tempstartpoint[1],
                           (float) tempstartpoint[2],
                           0.0f
                           );
-    std::vector<mm_float4> tempuv(1);
-    tempuv[0] = mm_float4((float) tempunitvector[0],
+    (*unitVector)[0] = mm_float4((float) tempunitvector[0],
                           (float) tempunitvector[1],
                           (float) tempunitvector[2],
                           (float) tempbinwidth);
     
-    startPoint->upload(tempsp);
-    unitVector->upload(tempuv);
-//    measurements->upload(temp);
+    startPoint->upload();
+    unitVector->upload();
+    std::cout<<"finished initialization for bin properties kernel\n";
 }
 void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
 {
     int writeinterval = impl.getMeasurements().getWriteInterval();
     int incrementcounter = impl.getIntegrator().getStepCounter();
+    std::cout<<"Calculate called inside bin properties kernel\n";
+    printf("Value of write interval and incrementcounter is %d & %d\n",writeinterval,incrementcounter);
     cl.executeKernel(kernel1,cl.getNumAtoms());
-    
+
     if(incrementcounter==writeinterval)
     {
     
@@ -4630,7 +4625,7 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
         measurements->download();
         
         //temporary array to store calculated values
-        std::vector<int> molls(nBins,0);
+        std::vector<int> molls(nBins);
         std::vector<mm_float4> momke(nBins);
         
         //another set of temporary array to set mols and momke zeros
@@ -4654,18 +4649,19 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
             }
         }
          
-    int* tempmols = impl.getMeasurements().getMols();
-    double* tempbinke = impl.getMeasurements().getBinKe();
-    OpenMM::Vec3* tempbinmom = impl.getMeasurements().getBinMom();
-    
-    for(int k=0;k<nBins;k++)
-    {
-        tempmols[k] = molls[k];
-        tempbinmom[k] = OpenMM::Vec3(momke[k].x,momke[k].y,momke[k].z);
-        tempbinke[k] = momke[k].w;
-    }
-    mols->upload(temp);
-    measurements->upload(temp2);
+        int* tempmols = impl.getMeasurements().getMols();
+        double* tempbinke = impl.getMeasurements().getBinKe();
+        OpenMM::Vec3* tempbinmom = impl.getMeasurements().getBinMom();
+        
+        for(int k=0;k<nBins;k++)
+        {
+            tempmols[k] = molls[k];
+            tempbinmom[k] = OpenMM::Vec3((double)momke[k].x,(double)momke[k].y,(double)momke[k].z);
+            tempbinke[k] = (double) momke[k].w;
+        }
+            
+        mols->upload(temp);
+        measurements->upload(temp2);
 
     }
 }

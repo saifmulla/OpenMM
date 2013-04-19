@@ -822,7 +822,7 @@ private:
     OpenCLContext& cl;
     double prevStepSize;
     bool hasInitializedKernels;
-    cl::Kernel kernel1, kernel2, kernel3;
+    cl::Kernel kernel1, kernel2;
 };
 /**
  * This kernel is invoked by LangevinIntegrator to take one time step.
