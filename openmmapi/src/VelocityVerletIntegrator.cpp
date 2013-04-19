@@ -67,26 +67,17 @@ void VelocityVerletIntegrator::step(int steps) {
 	bool cs = context->getControlSet();
 	//check if measurement tools are set
 	bool ms = context->getMeasurementSet();
-    if(ms)
-        std::cout<<"measurement tools set\n";
+
     for (int i = 0; i < steps; ++i)
     {
         stepCounter = stepCounter + 1;
     	context->updateContextState();
-        printf("Updated context step %d\n",stepCounter);
     	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).execute(*context, *this,false);
-        printf("finished verlet 1\n");
     	context->calcForcesAndEnergy(true, false);
-        printf("Forces done\n");
-        std::cout<<"call 1 and 2";
-//        if(cs)
-//    		context->getControls().controlBeforeForces(*context);
     	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).execute(*context, *this,true);
-        printf("finished verlet 2\n");
     	if(cs)
     		context->getControls().controlAfterForces(*context);
     	if(ms)
     		context->getMeasurements().measureAtEnd(*context);
-        std::cout<<"call 5\n";
     }
 }
