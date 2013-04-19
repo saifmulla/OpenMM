@@ -3348,14 +3348,14 @@ void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, cons
     int k = 0;
     if(!called)
     {
-      cl.executeKernel(kernel1, numAtoms);
+        cl.executeKernel(kernel1, numAtoms);
     }
 
     // Call the second integration kernel.
 
     if(called)
     {
-      cl.executeKernel(kernel2, numAtoms);
+        //cl.executeKernel(kernel2, numAtoms);
       // Update the time and step count.
       cl.setTime(cl.getTime()+dt);
       cl.setStepCount(cl.getStepCount()+1);
