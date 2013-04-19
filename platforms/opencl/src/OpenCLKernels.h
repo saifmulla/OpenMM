@@ -820,8 +820,8 @@ public:
     void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called);
 private:
     OpenCLContext& cl;
-    double prevStepSize;
-    bool hasInitializedKernels;
+    OpenCLArray<cl_float>* deltaT;
+    double dt;
     cl::Kernel kernel1, kernel2;
 };
 /**

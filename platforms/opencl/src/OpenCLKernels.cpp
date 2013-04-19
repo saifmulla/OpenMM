@@ -3261,97 +3261,50 @@ void OpenCLIntegrateVerletStepKernel::execute(ContextImpl& context, const Verlet
  */
 
 OpenCLIntegrateVelocityVerletStepKernel::~OpenCLIntegrateVelocityVerletStepKernel() {
+    if(deltaT!=NULL)
+        delete deltaT;
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, const VelocityVerletIntegrator& integrator) {
     cl.getPlatformData().initializeContexts(system);
-    cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet, "");
+    cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet);
     kernel1 = cl::Kernel(program, "velocityVerletPart1");
     kernel2 = cl::Kernel(program, "velocityVerletPart2");
-    prevStepSize = -1.0;
+    int numAtoms = cl.getNumAtoms();
+    dt = integrator.getStepSize();
+    deltaT = new OpenCLArray<cl_float>(cl,1,"deltaT");
+    (*deltaT)[0] = (float) dt;
+
+    //kernel1 initializations
+    kernel1.setArg<cl_int>(0, numAtoms);
+    kernel1.setArg<cl::Buffer>(1, deltaT->getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
+
+    //kernel2 initializations
+    kernel2.setArg<cl_int>(0, numAtoms);
+    kernel2.setArg<cl::Buffer>(1, deltaT->getDeviceBuffer());
+    kernel2.setArg<cl::Buffer>(2, cl.getVelm().getDeviceBuffer());
+    kernel2.setArg<cl::Buffer>(3, cl.getForce().getDeviceBuffer());
+    
+    deltaT->upload();
+    
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator) {
-  
     
-//    OpenCLIntegrationUtilities& integration = cl.getIntegrationUtilities();
-//    int numAtoms = cl.getNumAtoms();
-//    double dt = integrator.getStepSize();
-//    if (!hasInitializedKernels) {
-//        hasInitializedKernels = true;
-//        kernel1.setArg<cl_int>(0, numAtoms);
-//        kernel1.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-//        kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
-//        kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
-//        kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
-//        kernel1.setArg<cl::Buffer>(5, integration.getPosDelta().getDeviceBuffer());
-//        kernel2.setArg<cl_int>(0, numAtoms);
-//        kernel2.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-//        kernel2.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
-//        kernel2.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
-//        kernel2.setArg<cl::Buffer>(4, integration.getPosDelta().getDeviceBuffer());
-//    }
-//    if (dt != prevStepSize) {
-//        vector<mm_float2> stepSizeVec(1);
-//        stepSizeVec[0] = mm_float2((cl_float) dt, (cl_float) dt);
-//        cl.getIntegrationUtilities().getStepSize().upload(stepSizeVec);
-//        prevStepSize = dt;
-//    }
-//
-//    // Call the first integration kernel.
-//
-//    cl.executeKernel(kernel1, numAtoms);
-//
-//    // Apply constraints.
-//
-//    integration.applyConstraints(integrator.getConstraintTolerance());
-//
-//    // Call the second integration kernel.
-//
-//    cl.executeKernel(kernel2, numAtoms);
-//    integration.computeVirtualSites();
-//
-//    // Update the time and step count.
-//
-//    cl.setTime(cl.getTime()+dt);
-//    cl.setStepCount(cl.getStepCount()+1);
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called)
-{   
-    OpenCLIntegrationUtilities& integration = cl.getIntegrationUtilities();
-    int numAtoms = cl.getNumAtoms();
-    double dt = integrator.getStepSize();
-    
-    if (!hasInitializedKernels) {
-        hasInitializedKernels = true;
-        kernel1.setArg<cl_int>(0, numAtoms);
-        kernel1.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-        kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
-        kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
-        kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
-
-        kernel2.setArg<cl_int>(0, numAtoms);
-        kernel2.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-        kernel2.setArg<cl::Buffer>(2, cl.getVelm().getDeviceBuffer());
-        kernel2.setArg<cl::Buffer>(3, cl.getForce().getDeviceBuffer());
-
-    }
-    if (dt != prevStepSize) {
-        vector<mm_float2> stepSizeVec(1);
-        stepSizeVec[0] = mm_float2((cl_float) dt, (cl_float) dt);
-        cl.getIntegrationUtilities().getStepSize().upload(stepSizeVec);
-        prevStepSize = dt;
-    }
-    
-     // Call the first integration kernel.
-    int k = 0;
+{
+     // Call the first integrator kernel.
     if(!called)
     {
       cl.executeKernel(kernel1, numAtoms);
     }
 
-    // Call the second integration kernel.
+    // Call the second integrator kernel.
 
     if(called)
     {
