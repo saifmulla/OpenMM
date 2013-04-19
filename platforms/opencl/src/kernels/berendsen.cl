@@ -16,19 +16,20 @@ __kernel void binMomentum(
                           )
 {
     unsigned int idx = get_global_id(0);
-    float4 sp = startPoint[0];
-    float4 uv = unitVector[0];
     int nbins = (int) NBINS;
     if(idx<NUM_ATOMS)
     {
         float4 pos = posq[idx];
         float4 velocity = velm[idx];
-        float4 rSI = pos - sp;
-        float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
-        int bn = (int) rD/uv.w;
+        float4 rSI = pos - startPoint[0];
+        float rD = ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
+        int bn = (int) rD/unitVector[0].w;
         unsigned int s = bn == nBins;
         bn -= s;
-        glMomentum[idx*nbins+bn] += (float4) (velocity.xyz * velocity.w,velocity.w);
+        glMomentum[idx*nbins+bn] += (float4) (velocity.x * (1.0f/velocity.w),
+						velocity.y * (1.0f/velocity.w),
+						velocity.z * (1.0f/velocity.w),
+						velocity.w);
     }
     
 }
@@ -42,21 +43,19 @@ __kernel void calculatebinke(__global const float4* restrict velm,
                              )
 {
     unsigned int idx = get_global_id(0);
-    float4 sp = startPoint[0];
-    float4 uv = unitVector[0];
     int nbins = (int) NBINS;
     if(idx < NUM_ATOMS)
     {
         float4 pos = posq[idx];
         float4 velocity = velm[idx];
-        float4 rSI = pos - sp;
-        float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
-        int bn = (int) rD/uv.w;
+	float4 rSI = pos - startPoint[0];
+        float rD = ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
+        int bn = (int) rD/unitVector[0].w;
         unsigned int s = bn == nbins;
         bn -= s;
         float4 diffvel = velocity - newVelocity[bn];
-        float sqr = ((diffvel.x*diffvel.x)+(diffvel.y*diffvel.y)+(diffvel.z*diffvel.z));
-        glKe[idx*nbins+bn] += (float4) ((0.5*sqr)/velocity.w,3.0f,1.0f,0.0f);
+        rD = ((diffvel.x*diffvel.x)+(diffvel.y*diffvel.y)+(diffvel.z*diffvel.z));
+        glKe[idx*nbins+bn] += (float4) (0.5*(1.0f/velocity.w)*rD,3.0f,1.0f,0.0f);
     }
 }
 
@@ -69,16 +68,14 @@ __kernel void updateVelocitiesInBins(__global const float4* restrict posq,
                                      )
 {
     unsigned int idx = get_global_id(0);
-    float4 sp = startPoint[0];
-    float4 uv = unitVector[0];
     int nbins = (int) NBINS;
     if(idx<NUM_ATOMS)
     {
         float4 pos = posq[idx];
         float4 velocity = velm[idx];
-        float4 rSI = pos - sp;
-        float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
-        int bn = (int) rD/uv.w;
+	float4 rSI = pos - startPoint[0];
+        float rD = ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
+        int bn = (int) rD/unitVector[0].w;
         unsigned int s = bn == nbins;
         bn -= s;
         if(velocity.x!=0.0)
