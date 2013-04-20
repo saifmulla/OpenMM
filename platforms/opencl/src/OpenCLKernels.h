@@ -799,8 +799,7 @@ private:
  */
 class OpenCLIntegrateVelocityVerletStepKernel : public IntegrateVelocityVerletStepKernel {
 public:
-    OpenCLIntegrateVelocityVerletStepKernel(std::string name, const Platform& platform, OpenCLContext& cl) : IntegrateVelocityVerletStepKernel(name, platform), cl(cl),
-            hasInitializedKernels(false) {
+    OpenCLIntegrateVelocityVerletStepKernel(std::string name, const Platform& platform, OpenCLContext& cl) : IntegrateVelocityVerletStepKernel(name, platform), cl(cl), dt(0.0){
     }
     ~OpenCLIntegrateVelocityVerletStepKernel();
     /**
@@ -822,6 +821,7 @@ private:
     OpenCLContext& cl;
     OpenCLArray<cl_float>* deltaT;
     double dt;
+    int numAtoms;
     cl::Kernel kernel1, kernel2;
 };
 /**
