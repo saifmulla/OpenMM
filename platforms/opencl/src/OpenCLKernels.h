@@ -815,8 +815,9 @@ public:
      * @param context    the context in which to execute this kernel
      * @param integrator the VelocityVerletIntegrator this kernel is being used for
      */
-    void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator);
-    void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called);
+    void integrator1(ContextImpl& impl);
+    void integrator2(ContextImpl& impl);
+
 private:
     OpenCLContext& cl;
     OpenCLArray<cl_float>* deltaT;
