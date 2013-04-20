@@ -95,9 +95,9 @@ public:
      * get the value of step counter which is been incremented by 
      * velocity verlet derived class
      */
-    int getStepCounter(){
-        return stepCounter;
-    }
+//    int getStepCounter(){
+//        return stepCounter;
+//    }
 protected:
     friend class ContextImpl;
     /**
@@ -126,7 +126,7 @@ protected:
      * to increment the counter of number of times the kernels are invoked
      * this helps to pass the values along with the class to required classes
      */
-    int stepCounter;
+//    int stepCounter;
 private:
     double stepSize, constraintTol;
 };

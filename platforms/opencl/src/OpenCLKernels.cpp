@@ -3270,9 +3270,9 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
     cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet);
     kernel1 = cl::Kernel(program, "velocityVerletPart1");
     kernel2 = cl::Kernel(program, "velocityVerletPart2");
-    int numAtoms = cl.getNumAtoms();
+    numAtoms = cl.getNumAtoms();
     dt = integrator.getStepSize();
-    deltaT = new OpenCLArray<cl_float>(cl,1,"deltaT");
+    deltaT = new OpenCLArray<cl_float>(cl,1,"deltaT",true);
     (*deltaT)[0] = (float) dt;
 
     //kernel1 initializations
@@ -3292,28 +3292,18 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
     
 }
 
-void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator) {
-    
+void OpenCLIntegrateVelocityVerletStepKernel::integrator1(ContextImpl& context) {
+//    cl.executeKernel(kernel1,numAtoms);
 }
 
-void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called)
+void OpenCLIntegrateVelocityVerletStepKernel::integrator2(ContextImpl& context)
 {
-     // Call the first integrator kernel.
-    if(!called)
-    {
-      cl.executeKernel(kernel1, numAtoms);
-    }
-
-    // Call the second integrator kernel.
-
-    if(called)
-    {
-      cl.executeKernel(kernel2, numAtoms);
-      // Update the time and step count.
-      cl.setTime(cl.getTime()+dt);
-      cl.setStepCount(cl.getStepCount()+1);
-    }
+//    cl.executeKernel(kernel2,numAtoms);
+    // Update the time and step count.
+    cl.setTime(cl.getTime()+dt);
+    cl.setStepCount(cl.getStepCount()+1);
 }
+
 
 OpenCLIntegrateLangevinStepKernel::~OpenCLIntegrateLangevinStepKernel() {
     if (params != NULL)

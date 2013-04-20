@@ -732,7 +732,7 @@ public:
      * @param context    the context in which to execute this kernel
      * @param integrator the VelocityVerletIntegrator this kernel is being used for
      */
-    virtual void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator) = 0;
+    virtual void integrator1(ContextImpl& context) = 0;
     /**
      * Execute the kernel
      * This is a modified version of the execute function inorder to enable execute to two step process 
@@ -743,7 +743,7 @@ public:
      * @param integrator the VelocityVerletIntegrator this kernel is being used force
      * @param called	  the boolean variable to enable execution of two different steps
      */
-    virtual void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called) = 0;
+    virtual void integrator2(ContextImpl& context) = 0;
 };
     
 /**
