@@ -3261,107 +3261,49 @@ void OpenCLIntegrateVerletStepKernel::execute(ContextImpl& context, const Verlet
  */
 
 OpenCLIntegrateVelocityVerletStepKernel::~OpenCLIntegrateVelocityVerletStepKernel() {
+    if(deltaT!=NULL)
+        delete deltaT;
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, const VelocityVerletIntegrator& integrator) {
     cl.getPlatformData().initializeContexts(system);
-    cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet, "");
+    cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet);
     kernel1 = cl::Kernel(program, "velocityVerletPart1");
     kernel2 = cl::Kernel(program, "velocityVerletPart2");
-    prevStepSize = -1.0;
+    numAtoms = cl.getNumAtoms();
+    dt = integrator.getStepSize();
+    deltaT = new OpenCLArray<cl_float>(cl,1,"deltaT",true);
+    (*deltaT)[0] = (float) dt;
+
+    //kernel1 initializations
+    kernel1.setArg<cl_int>(0, numAtoms);
+    kernel1.setArg<cl::Buffer>(1, deltaT->getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
+
+    //kernel2 initializations
+    kernel2.setArg<cl_int>(0, numAtoms);
+    kernel2.setArg<cl::Buffer>(1, deltaT->getDeviceBuffer());
+    kernel2.setArg<cl::Buffer>(2, cl.getVelm().getDeviceBuffer());
+    kernel2.setArg<cl::Buffer>(3, cl.getForce().getDeviceBuffer());
+    
+    deltaT->upload();
+    
 }
 
-void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator) {
-  
-    
-    OpenCLIntegrationUtilities& integration = cl.getIntegrationUtilities();
-    int numAtoms = cl.getNumAtoms();
-    double dt = integrator.getStepSize();
-    if (!hasInitializedKernels) {
-        hasInitializedKernels = true;
-        kernel1.setArg<cl_int>(0, numAtoms);
-        kernel1.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-        kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
-        kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
-        kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
-        kernel1.setArg<cl::Buffer>(5, integration.getPosDelta().getDeviceBuffer());
-        kernel2.setArg<cl_int>(0, numAtoms);
-        kernel2.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-        kernel2.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
-        kernel2.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
-        kernel2.setArg<cl::Buffer>(4, integration.getPosDelta().getDeviceBuffer());
-    }
-    if (dt != prevStepSize) {
-        vector<mm_float2> stepSizeVec(1);
-        stepSizeVec[0] = mm_float2((cl_float) dt, (cl_float) dt);
-        cl.getIntegrationUtilities().getStepSize().upload(stepSizeVec);
-        prevStepSize = dt;
-    }
+void OpenCLIntegrateVelocityVerletStepKernel::integrator1(ContextImpl& context) {
+    cl.executeKernel(kernel1,numAtoms);
+}
 
-    // Call the first integration kernel.
-
-    cl.executeKernel(kernel1, numAtoms);
-
-    // Apply constraints.
-
-    integration.applyConstraints(integrator.getConstraintTolerance());
-
-    // Call the second integration kernel.
-
-    cl.executeKernel(kernel2, numAtoms);
-    integration.computeVirtualSites();
-
+void OpenCLIntegrateVelocityVerletStepKernel::integrator2(ContextImpl& context)
+{
+    cl.executeKernel(kernel2,numAtoms);
     // Update the time and step count.
-
     cl.setTime(cl.getTime()+dt);
     cl.setStepCount(cl.getStepCount()+1);
 }
 
-void OpenCLIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called)
-{   
-    OpenCLIntegrationUtilities& integration = cl.getIntegrationUtilities();
-    int numAtoms = cl.getNumAtoms();
-    double dt = integrator.getStepSize();
-    
-    if (!hasInitializedKernels) {
-        hasInitializedKernels = true;
-	kernel1.setArg<cl_int>(0, numAtoms);
-	kernel1.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-	kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
-	kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
-	kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
-
-	kernel2.setArg<cl_int>(0, numAtoms);
-	kernel2.setArg<cl::Buffer>(1, cl.getIntegrationUtilities().getStepSize().getDeviceBuffer());
-	kernel2.setArg<cl::Buffer>(2, cl.getVelm().getDeviceBuffer());
-	kernel2.setArg<cl::Buffer>(3, cl.getForce().getDeviceBuffer());
-    }
-    if (dt != prevStepSize) {
-        vector<mm_float2> stepSizeVec(1);
-        stepSizeVec[0] = mm_float2((cl_float) dt, (cl_float) dt);
-        cl.getIntegrationUtilities().getStepSize().upload(stepSizeVec);
-        prevStepSize = dt;
-    }
-    
-     // Call the first integration kernel.
-
-    if(!called)
-    {
-      cl.executeKernel(kernel1, numAtoms);
-    }
-
-    // Call the second integration kernel.
-
-    if(called)
-    {
-      cl.executeKernel(kernel2, numAtoms);
-      // Update the time and step count.
-      cl.setTime(cl.getTime()+dt);
-      cl.setStepCount(cl.getStepCount()+1);
-    }
-
-
-}
 
 OpenCLIntegrateLangevinStepKernel::~OpenCLIntegrateLangevinStepKernel() {
     if (params != NULL)
@@ -4492,61 +4434,61 @@ void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
 
 //implementation for OpenCLControlBinForcesKernel class
 OpenCLControlBinForcesKernel::~OpenCLControlBinForcesKernel(){
-    if(binForces_!=NULL)
-        delete binForces_;
-    if(startPoint_!=NULL)
-        delete startPoint_;
-    if(unitVector_!=NULL)
-        delete unitVector_;
-    //TODO: delete later
-    if(temp_!=NULL)
-        delete temp_;
+//    if(binForces_!=NULL)
+//        delete binForces_;
+//    if(startPoint_!=NULL)
+//        delete startPoint_;
+//    if(unitVector_!=NULL)
+//        delete unitVector_;
+//    //TODO: delete later
+//    if(temp_!=NULL)
+//        delete temp_;
 }
 void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
-    OpenMM::Vec3* temp = impl.getControls().getBinForces();
-    double tempbinwidth = impl.getControls().getBinWidth();
-    OpenMM::Vec3& tempstartpoint = impl.getControls().getStartPoint();
-    OpenMM::Vec3& tempunitvector = impl.getControls().getUnitVector();
-    nBins_ = impl.getControls().getNBins();
-    int numatoms = cl_.getNumAtoms();
-
-    //initialize global gpu arrays
-    binForces_ = new OpenCLArray<mm_float4>(cl_,nBins_,"BinForces",true);
-    startPoint_ = new OpenCLArray<mm_float4>(cl_,1,"StartPoint",true);
-    unitVector_ = new OpenCLArray<mm_float4>(cl_,1,"UnitVector",true);
-    //TODO: temp delete later
-    temp_ = new OpenCLArray<mm_float4>(cl_,numatoms,"temp",true);
-
-    cl::Program program = cl_.createProgram(OpenCLKernelSources::binforces);
-    kernel1_ = cl::Kernel(program,"binForcesKernel");
-    kernel1_.setArg<cl::Buffer>(0,cl_.getPosq().getDeviceBuffer()); 
-    kernel1_.setArg<cl::Buffer>(1,binForces_->getDeviceBuffer()); 
-    kernel1_.setArg<cl::Buffer>(2,startPoint_->getDeviceBuffer()); 
-    kernel1_.setArg<cl::Buffer>(3,unitVector_->getDeviceBuffer()); 
-    kernel1_.setArg<cl::Buffer>(4,cl_.getForce().getDeviceBuffer()); 
-    kernel1_.setArg<cl_int>(5,nBins_); 
-    kernel1_.setArg<cl_int>(6,numatoms);
-    
-    (*startPoint_)[0] = mm_float4((float) tempstartpoint[0],
-                                  (float) tempstartpoint[1],
-                                  (float) tempstartpoint[2],
-                                  0.0f);
-    
-    (*unitVector_)[0] = mm_float4((float) tempunitvector[0],
-                                  (float) tempunitvector[1],
-                                  (float) tempunitvector[2],
-                                  (float) tempbinwidth);
-    
-    for(int b=0;b<nBins_;b++){
-        (*binForces_)[b] = mm_float4((double) temp[b][0],(double) temp[b][1],(double) temp[b][2],(double) 0.0);
-    }
-
-    startPoint_->upload();
-    unitVector_->upload();
-    binForces_->upload();
+//    OpenMM::Vec3* temp = impl.getControls().getBinForces();
+//    double tempbinwidth = impl.getControls().getBinWidth();
+//    OpenMM::Vec3& tempstartpoint = impl.getControls().getStartPoint();
+//    OpenMM::Vec3& tempunitvector = impl.getControls().getUnitVector();
+//    nBins_ = impl.getControls().getNBins();
+//    int numatoms = cl_.getNumAtoms();
+//
+//    //initialize global gpu arrays
+//    binForces_ = new OpenCLArray<mm_float4>(cl_,nBins_,"BinForces",true);
+//    startPoint_ = new OpenCLArray<mm_float4>(cl_,1,"StartPoint",true);
+//    unitVector_ = new OpenCLArray<mm_float4>(cl_,1,"UnitVector",true);
+//    //TODO: temp delete later
+//    temp_ = new OpenCLArray<mm_float4>(cl_,numatoms,"temp",true);
+//
+//    cl::Program program = cl_.createProgram(OpenCLKernelSources::binforces);
+//    kernel1_ = cl::Kernel(program,"binForcesKernel");
+//    kernel1_.setArg<cl::Buffer>(0,cl_.getPosq().getDeviceBuffer()); 
+//    kernel1_.setArg<cl::Buffer>(1,binForces_->getDeviceBuffer()); 
+//    kernel1_.setArg<cl::Buffer>(2,startPoint_->getDeviceBuffer()); 
+//    kernel1_.setArg<cl::Buffer>(3,unitVector_->getDeviceBuffer()); 
+//    kernel1_.setArg<cl::Buffer>(4,cl_.getForce().getDeviceBuffer()); 
+//    kernel1_.setArg<cl_int>(5,nBins_); 
+//    kernel1_.setArg<cl_int>(6,numatoms);
+//    
+//    (*startPoint_)[0] = mm_float4((float) tempstartpoint[0],
+//                                  (float) tempstartpoint[1],
+//                                  (float) tempstartpoint[2],
+//                                  0.0f);
+//    
+//    (*unitVector_)[0] = mm_float4((float) tempunitvector[0],
+//                                  (float) tempunitvector[1],
+//                                  (float) tempunitvector[2],
+//                                  (float) tempbinwidth);
+//    
+//    //for(int b=0;b<nBins_;b++){
+//        (*binForces_)[0] = mm_float4((float) temp[0][0],(float) temp[0][1],(float) temp[0][2],0.0f);
+//    //}
+//
+//    startPoint_->upload();
+//    unitVector_->upload();
+//    binForces_->upload();
 }
 void OpenCLControlBinForcesKernel::controlBeforeForces(ContextImpl& impl){
-    cl_.executeKernel(kernel1_,cl_.getNumAtoms());
+//    cl_.executeKernel(kernel1_,cl_.getNumAtoms());
 }
 void OpenCLControlBinForcesKernel::controlAfterForces(ContextImpl& impl){
     
@@ -4569,6 +4511,7 @@ OpenCLMeasureBinPropertiesKernel::~OpenCLMeasureBinPropertiesKernel()
 }
 void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
 {
+    std::cout<<"Initializing bin properties kernel\n";
     numBlocks = cl.getNumThreadBlocks();
     double tempbinwidth = impl.getMeasurements().getBinWidth();
     OpenMM::Vec3& tempstartpoint = impl.getMeasurements().getStartPoint();
@@ -4595,28 +4538,30 @@ void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
     kernel1.setArg<cl::Buffer>(6,mols->getDeviceBuffer());
     kernel1.setArg<cl::Buffer>(7,measurements->getDeviceBuffer());
 
-    std::vector<mm_float4> tempsp(1);
-    tempsp[0] = mm_float4((float) tempstartpoint[0],
+    
+    (*startPoint)[0] = mm_float4((float) tempstartpoint[0],
                           (float) tempstartpoint[1],
                           (float) tempstartpoint[2],
                           0.0f
                           );
-    std::vector<mm_float4> tempuv(1);
-    tempuv[0] = mm_float4((float) tempunitvector[0],
+    (*unitVector)[0] = mm_float4((float) tempunitvector[0],
                           (float) tempunitvector[1],
                           (float) tempunitvector[2],
                           (float) tempbinwidth);
     
-    startPoint->upload(tempsp);
-    unitVector->upload(tempuv);
-//    measurements->upload(temp);
+    startPoint->upload();
+    unitVector->upload();
+    std::cout<<"finished initialization for bin properties kernel\n";
 }
 void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
 {
     int writeinterval = impl.getMeasurements().getWriteInterval();
-    int incrementcounter = impl.getIntegrator().getStepCounter();
+    //int incrementcounter = impl.getIntegrator().getStepCounter();
+    int incrementcounter = 1;
+    std::cout<<"Calculate called inside bin properties kernel\n";
+    printf("Value of write interval and incrementcounter is %d & %d\n",writeinterval,incrementcounter);
     cl.executeKernel(kernel1,cl.getNumAtoms());
-    
+
     if(incrementcounter==writeinterval)
     {
     
@@ -4624,7 +4569,7 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
         measurements->download();
         
         //temporary array to store calculated values
-        std::vector<int> molls(nBins,0);
+        std::vector<int> molls(nBins);
         std::vector<mm_float4> momke(nBins);
         
         //another set of temporary array to set mols and momke zeros
@@ -4648,18 +4593,19 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
             }
         }
          
-    int* tempmols = impl.getMeasurements().getMols();
-    double* tempbinke = impl.getMeasurements().getBinKe();
-    OpenMM::Vec3* tempbinmom = impl.getMeasurements().getBinMom();
-    
-    for(int k=0;k<nBins;k++)
-    {
-        tempmols[k] = molls[k];
-        tempbinmom[k] = OpenMM::Vec3(momke[k].x,momke[k].y,momke[k].z);
-        tempbinke[k] = momke[k].w;
-    }
-    mols->upload(temp);
-    measurements->upload(temp2);
+        int* tempmols = impl.getMeasurements().getMols();
+        double* tempbinke = impl.getMeasurements().getBinKe();
+        OpenMM::Vec3* tempbinmom = impl.getMeasurements().getBinMom();
+        
+        for(int k=0;k<nBins;k++)
+        {
+            tempmols[k] = molls[k];
+            tempbinmom[k] = OpenMM::Vec3((double)momke[k].x,(double)momke[k].y,(double)momke[k].z);
+            tempbinke[k] = (double) momke[k].w;
+        }
+            
+        mols->upload(temp);
+        measurements->upload(temp2);
 
     }
 }
@@ -4674,6 +4620,10 @@ OpenCLControlBerendsenInBinsKernel::~OpenCLControlBerendsenInBinsKernel(){
     //TODO: delete this later in production
     if(testArray_!=NULL)
         delete testArray_;
+    if(glNewVelocity_!=NULL)
+        delete glNewVelocity_;
+    if(glBinChi_!=NULL)
+        delete glBinChi_;
 }
 void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
 {
@@ -4682,9 +4632,10 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
     OpenMM::Vec3& tempstartpoint = impl.getControls().getStartPoint();
     OpenMM::Vec3& tempunitvector = impl.getControls().getUnitVector();
     nBins_ = impl.getControls().getNBins();
+    temperature_ = impl.getControls().getTemperature();
+	tauT_ = impl.getControls().getTauT();
+	deltaT_ = impl.getIntegrator().getStepSize();
     numAtoms_ = cl_.getNumAtoms();
-    vector<cl_float> temparray(numAtoms_*nBins_);
-    vector<mm_float4> temparray2(numAtoms_*nBins_);
     
     //initialize opencl arrays
     startPoint_ = new OpenCLArray<mm_float4>(cl_,1,"startPoint",true);
@@ -4692,12 +4643,18 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
     glMomentum_ = new OpenCLArray<mm_float4>(cl_,numAtoms_*nBins_,"glMomentum",true);
 //    glSumMomentum_ = new OpenCLArray<mm_float4>(cl_,numAtoms_*nBins_,"glSumMomentum",true);
     testArray_ = new OpenCLArray<cl_float>(cl_,numAtoms_*nBins_,"testArray",true);
+    glNewVelocity_ = new OpenCLArray<mm_float4>(cl_,nBins_,"glNewVelocity",true);
+    glBinChi_ = new OpenCLArray<cl_float>(cl_,nBins_,"glBinChi",true);
     
 	map<string,string> defines;
 	defines["NUM_ATOMS"] = intToString(numAtoms_);
 	defines["NBINS"] = intToString(nBins_);
     cl::Program program = cl_.createProgram(OpenCLKernelSources::berendsen,defines);
 	kernel1 = cl::Kernel(program,"binMomentum");
+    kernel2 = cl::Kernel(program,"calculatebinke");
+    kernel3 = cl::Kernel(program,"updateVelocitiesInBins");
+    
+    
     kernel1.setArg<cl::Buffer>(0,cl_.getVelm().getDeviceBuffer());
     kernel1.setArg<cl::Buffer>(1,cl_.getPosq().getDeviceBuffer());
     kernel1.setArg<cl::Buffer>(2,startPoint_->getDeviceBuffer());
@@ -4706,26 +4663,38 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
     kernel1.setArg<cl::Buffer>(5,testArray_->getDeviceBuffer());
     kernel1.setArg<cl_int>(6,nBins_);
     
-    std::vector<mm_float4> tempsp(1);
-    tempsp[0] = mm_float4((float) tempstartpoint[0],
-                          (float) tempstartpoint[1],
-                          (float) tempstartpoint[2],
-                          0.0f
-                          );
-    std::vector<mm_float4> tempuv(1);
-    tempuv[0] = mm_float4((float) tempunitvector[0],
-                          (float) tempunitvector[1],
-                          (float) tempunitvector[2],
-                          (float) tempbinwidth);
-    for(int i=0;i<numAtoms_*nBins_;i++){
-        temparray[i] = 0.0f;
-        temparray2[i] = mm_float4(0.0f,0.0f,0.0f,0.0f);
-    }
+    //second kernel calculatebinke
     
-    startPoint_->upload(tempsp);
-    unitVector_->upload(tempuv);
-    testArray_->upload(temparray);
-    glMomentum_->upload(temparray2);
+    kernel2.setArg<cl::Buffer>(0,cl_.getVelm().getDeviceBuffer());
+    kernel2.setArg<cl::Buffer>(1,cl_.getPosq().getDeviceBuffer());
+    kernel2.setArg<cl::Buffer>(2,startPoint_->getDeviceBuffer());
+    kernel2.setArg<cl::Buffer>(3,unitVector_->getDeviceBuffer());
+    kernel2.setArg<cl::Buffer>(4,glNewVelocity_->getDeviceBuffer());
+    kernel2.setArg<cl::Buffer>(5,glMomentum_->getDeviceBuffer());
+    
+    //third kernel updatevelocitiesinbins
+    kernel3.setArg<cl::Buffer>(0,cl_.getPosq().getDeviceBuffer());
+    kernel3.setArg<cl::Buffer>(1,startPoint_->getDeviceBuffer());
+    kernel3.setArg<cl::Buffer>(2,unitVector_->getDeviceBuffer());
+    kernel3.setArg<cl::Buffer>(3,glBinChi_->getDeviceBuffer());
+    kernel3.setArg<cl::Buffer>(4,cl_.getVelm().getDeviceBuffer());
+    
+    
+    (*startPoint_)[0] = mm_float4((float) tempstartpoint[0],
+                                  (float) tempstartpoint[1],
+                                  (float) tempstartpoint[2],
+                                  0.0f
+                                  );
+    (*unitVector_)[0] = mm_float4((float) tempunitvector[0],
+                                  (float) tempunitvector[1],
+                                  (float) tempunitvector[2],
+                                  (float) tempbinwidth);
+    
+
+    startPoint_->upload();
+    unitVector_->upload();
+    testArray_->upload();
+//    glMomentum_->upload(temparray2);
 }
 void OpenCLControlBerendsenInBinsKernel::controlBeforeForces(ContextImpl& impl)
 {
@@ -4733,41 +4702,71 @@ void OpenCLControlBerendsenInBinsKernel::controlBeforeForces(ContextImpl& impl)
 void OpenCLControlBerendsenInBinsKernel::controlAfterForces(ContextImpl& impl)
 {
     cl_.executeKernel(kernel1,numAtoms_);
-  //  glMomentum_->download();
-    testArray_->download();
-
-    OpenMM::Vec3& sp = impl.getControls().getStartPoint();
-    OpenMM::Vec3& uv = impl.getControls().getUnitVector();
-    double bw = impl.getControls().getBinWidth();
-    std::vector<mm_float4> tmom(nBins_);
-    std::vector<float> mols(nBins_);
-    float totalMass = 0.0f;
+    glMomentum_->download();
+    OpenCLArray<mm_float4>& velm = cl_.getVelm();
+//    velm.download();
     
-    for(int i=0;i<numAtoms_;i++)
+    std::vector<mm_float4> mom(nBins_);
+    std::vector<cl_float> ke(nBins_);
+    std::vector<cl_float> dof(nBins_);
+    std::vector<mm_float4> temp(numAtoms_*nBins_);
+
+//    float mass = 0.0;
+    for(int b=0;b<numAtoms_;b++)
     {
         for(int j=0;j<nBins_;j++){
-            int idx = (i*nBins_)+j;
-//            mm_float4 mom = glMomentum_->get(idx);
-            cl_float m = testArray_->get(idx);
-//            printf("BN %d => %f\t%f\t%f\t%f\tM=%f\n",idx,mom.x,mom.y,mom.z,mom.w,m);
-//            tmom[j].x += mom.x;
-//            tmom[j].y += mom.y;
-//            tmom[j].z += mom.z;
-//            tmom[j].w += mom.w;
-            mols[j] += m;
+            mm_float4 t = glMomentum_->get(b*nBins_+j);
+            mom[j].x += t.x;
+            mom[j].y += t.y;
+            mom[j].z += t.z;
+            mom[j].w += t.w;
+            temp[b*nBins_+j] = mm_float4(0.0f,0.0f,0.0f,0.0f);
         }
-//	mm_float4 v = velm[i];
-//	totalMass += v.w;
     }
     
-    OpenMM::Vec3* testarray = impl.getControls().getTestVariable();
-    double* temperature = impl.getControls().getBinTemperature();
-    for(int b=0;b<nBins_;b++)
+    int k=0;
+    while(k<nBins_)
     {
-        printf("Bin %d => %f\n",b,mols[b]);
-        testarray[b] = OpenMM::Vec3(tmom[b].x,tmom[b].y,tmom[b].z);
-        temperature[b] = (double) mols[b];
+        (*glNewVelocity_)[k] = mm_float4(mom[k].x/mom[k].w,mom[k].y/mom[k].w,mom[k].z/mom[k].w,0.0f);
+        k++;
     }
+    
+    glMomentum_->upload(temp);
+    glNewVelocity_->upload();
+    
+    //calculate ke and dof
+    cl_.executeKernel(kernel2,numAtoms_);
+    glMomentum_->download();
+   // velm.download();
+    
+    k = 0;
+    while(k<numAtoms_)
+    {
+        for(int j=0;j<nBins_;j++){
+            mm_float4 t = glMomentum_->get(k*nBins_+j);
+            ke[j] += t.x;
+            dof[j] += t.y;
+            temp[k*nBins_+j] = mm_float4(0.0f,0.0f,0.0f,0.0f);
+        }
+        k++;
+    }
+    
+    int kk=0;
+    float measuretemperature;
+    while(kk<nBins_){
+        if(dof[kk]>0.0)
+            measuretemperature = (2.0*ke[kk])/(BOLTZ*dof[kk]);
+        else
+            measuretemperature = temperature_;
+        printf("Temp %d => %3.8f\n",kk,measuretemperature);
+        (*glBinChi_)[kk] = sqrt(1.0+(deltaT_/tauT_)*((temperature_/measuretemperature)-1.0));
+        printf("CHI %d => %3.8f\n",kk,(*glBinChi_)[kk]);
+        kk++;
+    }
+    
+    glMomentum_->upload(temp);
+    glBinChi_->upload();
+    cl_.executeKernel(kernel3,numAtoms_);
 }
 
 //-------------------------------------------------//

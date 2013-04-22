@@ -1312,6 +1312,7 @@ ReferenceIntegrateVelocityVerletStepKernel::~ReferenceIntegrateVelocityVerletSte
 void ReferenceIntegrateVelocityVerletStepKernel::initialize(const System& system, const VelocityVerletIntegrator& integrator) {
     int numParticles = system.getNumParticles();
     masses.resize(numParticles);
+    stepSize = integrator.getStepSize();
     for (int i = 0; i < numParticles; ++i)
         masses[i] = static_cast<RealOpenMM>(system.getParticleMass(i));
     numConstraints = system.getNumConstraints();
@@ -1327,8 +1328,7 @@ void ReferenceIntegrateVelocityVerletStepKernel::initialize(const System& system
     }
 }
 
-void ReferenceIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator) {
-    double stepSize = integrator.getStepSize();
+void ReferenceIntegrateVelocityVerletStepKernel::integrator1(ContextImpl& context) {
     vector<RealVec>& posData = extractPositions(context);
     vector<RealVec>& velData = extractVelocities(context);
     vector<RealVec>& forceData = extractForces(context);
@@ -1342,19 +1342,18 @@ void ReferenceIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, c
         dynamics = new ReferenceVelocityVerletDynamics(context.getSystem().getNumParticles(), static_cast<RealOpenMM>(stepSize) );
         vector<ReferenceCCMAAlgorithm::AngleInfo> angles;
         findAnglesForCCMA(context.getSystem(), angles);
-        constraints = new ReferenceCCMAAlgorithm(context.getSystem().getNumParticles(), numConstraints, constraintIndices, constraintDistances, masses, angles, (RealOpenMM)integrator.getConstraintTolerance());
+    //    constraints = new ReferenceCCMAAlgorithm(context.getSystem().getNumParticles(), numConstraints, constraintIndices, constraintDistances, masses, angles, (RealOpenMM)integrator.getConstraintTolerance());
         dynamics->setReferenceConstraintAlgorithm(constraints);
         prevStepSize = stepSize;
     }
-    constraints->setTolerance(integrator.getConstraintTolerance());
+    //constraints->setTolerance(integrator.getConstraintTolerance());
     dynamics->update(context.getSystem(), posData, velData, forceData, masses);
     data.time += stepSize;
     data.stepCount++;
 }
 
-void ReferenceIntegrateVelocityVerletStepKernel::execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called)
+void ReferenceIntegrateVelocityVerletStepKernel::integrator2(ContextImpl& context)
 {
-   called = true;
 }
 
 

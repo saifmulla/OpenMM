@@ -34,7 +34,7 @@ FOREACH(TEST_PROG ${TEST_PROGS})
     # Link with shared library
     ADD_EXECUTABLE(${TEST_ROOT} ${TEST_PROG})
 #additional library is added for gtest
-    TARGET_LINK_LIBRARIES(${TEST_ROOT} ${SHARED_TARGET} )
+    TARGET_LINK_LIBRARIES(${TEST_ROOT} ${SHARED_TARGET})
 
     IF( ${TEST_ROOT} STREQUAL "TestOpenCLGBSAOBCForce2" )
 

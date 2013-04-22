@@ -4,6 +4,90 @@
  * using compiler prefix inside opencl
  */
 
+
+__kernel void binMomentum(
+                          __global const float4* restrict velm,
+                          __global const float4* restrict posq,
+                          __global const float4* restrict startPoint,
+                          __global const float4* restrict unitVector,
+                          __global float4* restrict glMomentum,
+                          __global float* restrict testArray,
+                          int nBins
+                          )
+{
+    unsigned int idx = get_global_id(0);
+    int nbins = (int) NBINS;
+    if(idx<NUM_ATOMS)
+    {
+        float4 pos = posq[idx];
+        float4 velocity = velm[idx];
+        float4 rSI = pos - startPoint[0];
+        float rD = ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
+        int bn = (int) rD/unitVector[0].w;
+        unsigned int s = bn == nBins;
+        bn -= s;
+        glMomentum[idx*nbins+bn] += (float4) (velocity.x * (1.0f/velocity.w),
+						velocity.y * (1.0f/velocity.w),
+						velocity.z * (1.0f/velocity.w),
+						velocity.w);
+    }
+    
+}
+
+__kernel void calculatebinke(__global const float4* restrict velm,
+                             __global const float4* restrict posq,
+                             __global const float4* restrict startPoint,
+                             __global const float4* restrict unitVector,
+                             __global const float4* restrict newVelocity,
+                             __global float4* restrict glKe
+                             )
+{
+    unsigned int idx = get_global_id(0);
+    int nbins = (int) NBINS;
+    if(idx < NUM_ATOMS)
+    {
+        float4 pos = posq[idx];
+        float4 velocity = velm[idx];
+	float4 rSI = pos - startPoint[0];
+        float rD = ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
+        int bn = (int) rD/unitVector[0].w;
+        unsigned int s = bn == nbins;
+        bn -= s;
+        float4 diffvel = velocity - newVelocity[bn];
+        rD = ((diffvel.x*diffvel.x)+(diffvel.y*diffvel.y)+(diffvel.z*diffvel.z));
+        glKe[idx*nbins+bn] += (float4) (0.5*(1.0f/velocity.w)*rD,3.0f,1.0f,0.0f);
+    }
+}
+
+//update velocities in bins
+__kernel void updateVelocitiesInBins(__global const float4* restrict posq,
+                                     __global const float4* restrict startPoint,
+                                     __global const float4* restrict unitVector,
+                                     __global const float* restrict binChi,
+                                     __global float4* restrict velm
+                                     )
+{
+    unsigned int idx = get_global_id(0);
+    int nbins = (int) NBINS;
+    if(idx<NUM_ATOMS)
+    {
+        float4 pos = posq[idx];
+        float4 velocity = velm[idx];
+	float4 rSI = pos - startPoint[0];
+        float rD = ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
+        int bn = (int) rD/unitVector[0].w;
+        unsigned int s = bn == nbins;
+        bn -= s;
+        if(velocity.x!=0.0)
+			velocity.x *= binChi[bn];
+		if(velocity.y!=0.0)
+			velocity.y *= binChi[bn];
+		if(velocity.z!=0.0)
+			velocity.z *= binChi[bn];
+		velm[idx] = velocity;
+    }
+}
+
 /**
  * berendsen thermostat kernel
  * this file implements the OpenCL-gpu version
@@ -59,68 +143,6 @@ __kernel void berendsen1(int numAtoms,
 
 }
 
-__kernel void binMomentum(
-              __global const float4* restrict velm,
-			  __global const float4* restrict posq,
-			  __global const float4* restrict startPoint,
-			  __global const float4* restrict unitVector,
-              __global float4* restrict glMomentum,
-              __global float* restrict testArray,
-              int nBins
-              )
-{
-    unsigned int idx = get_global_id(0);
-    float4 sp = startPoint[0];
-    float4 uv = unitVector[0];
-    int nbins = (int) NBINS;
-    while(idx<NUM_ATOMS)
-    {
-        float4 velocity = velm[idx];
-        float4 position = posq[idx];
-        float4 rSI = position - sp;
-        float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
-        int bn = (int) rD/uv.w;//try will ceil if the  sums aren't appropriate
-	if(bn==nBins)
-	bn--;
-	if(bn>=0 && bn<nBins)
-		testArray[idx*nBins+bn] = 1.0f;
-	else
-		testArray[idx*nBins+bn] = 0.0f;
-	idx += get_global_size(0);
-    }
-}
-
-__kernel void binMomentumII(int nBins,
-                            __global const float4* restrict posq,
-                            __global const float4* restrict glMomentum,
-                            __global float4* restrict glSumMomentum,
-                            __global const float4* restrict startPoint,
-                            __global const float4* restrict unitVector
-                            )
-{
-    unsigned int idx = get_global_id(0);
-    float4 sp = startPoint[0];
-    float4 uv = unitVector[0];
-    while(idx<NUM_ATOMS)
-    {
-        float4 momentum = glMomentum[idx];
-        float4 position = posq[idx];
-        float4 rSI = position - sp;
-        //calculate dot product rSI * unitVector
-        float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
-        int bn = -1;
-        bn = (int) rD/uv.w;//try will ceil if the  sums aren't appropriate
-        unsigned int s = bn == nBins;
-        bn -= s;
-	if(bn>=0 && bn<= nBins){
-            glSumMomentum[idx*nBins+bn].x = bn;
-            glSumMomentum[idx*nBins+bn].y = 1.0;
-            glSumMomentum[idx*nBins+bn].z = 1.0;
-            glSumMomentum[idx*nBins+bn].w = 1.0;
-	}
-        idx += get_global_size(0);
-    }
-}
 __kernel void calculateKEDOF(__global float4* restrict velm,
 				__global float4* restrict newVelocity,
 				__global float2* restrict KeDof,

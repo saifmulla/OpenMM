@@ -29,6 +29,8 @@ __kernel void binForcesKernel(
                 int bn = (int) rD/uv.w;
                 unsigned int s = bn == nBins;
                 bn -= s;
-		forces[idx] += binForces[bn];
+		//float4 force = forces[idx];
+		//force.xyz += binForces[0].xyz;
+		//forces[idx] = force;
 	}
 }
