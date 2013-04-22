@@ -12,9 +12,9 @@ ENABLE_TESTING()
 # opencl tests
 # AUTHOR: Saif Mulla
 #
-INCLUDE_DIRECTORIES (/opt/google-test/include)
-INCLUDE_DIRECTORIES (/home/ksb12101/local/rapidjson/include)
-LINK_DIRECTORIES (/usr/lib)
+#INCLUDE_DIRECTORIES (/opt/google-test/include)
+#INCLUDE_DIRECTORIES (/home/ksb12101/local/rapidjson/include)
+#LINK_DIRECTORIES (/usr/lib)
 # INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/../FindOpenCL.cmake)
 INCLUDE_DIRECTORIES(${OPENCL_INCLUDE_DIR})
 
@@ -34,7 +34,7 @@ FOREACH(TEST_PROG ${TEST_PROGS})
     # Link with shared library
     ADD_EXECUTABLE(${TEST_ROOT} ${TEST_PROG})
 #additional library is added for gtest
-    TARGET_LINK_LIBRARIES(${TEST_ROOT} ${SHARED_TARGET} gtest)
+    TARGET_LINK_LIBRARIES(${TEST_ROOT} ${SHARED_TARGET} )
 
     IF( ${TEST_ROOT} STREQUAL "TestOpenCLGBSAOBCForce2" )
 
