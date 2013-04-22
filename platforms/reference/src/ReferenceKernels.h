@@ -770,8 +770,8 @@ public:
      * @param context    the context in which to execute this kernel
      * @param integrator the VelocityVerletIntegrator this kernel is being used for
      */
-    void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator);
-    void execute(ContextImpl& context, const VelocityVerletIntegrator& integrator, bool called);
+    void integrator1(ContextImpl& context);
+    void integrator2(ContextImpl& context);
 private:
     ReferencePlatform::PlatformData& data;
     ReferenceVelocityVerletDynamics* dynamics;
@@ -781,6 +781,7 @@ private:
     int** constraintIndices;
     int numConstraints;
     double prevStepSize;
+    double stepSize;
 };
 /**
  * This kernel is invoked by LangevinIntegrator to take one time step.

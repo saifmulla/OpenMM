@@ -71,7 +71,7 @@ void VelocityVerletIntegrator::step(int steps) {
     for (int i = 0; i < steps; ++i)
     {
 //        stepCounter = stepCounter + 1;
-    	context->updateContextState();
+//    	context->updateContextState();
     	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator1(*context);
     	context->calcForcesAndEnergy(true, false);
     	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator2(*context);

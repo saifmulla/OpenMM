@@ -15,20 +15,23 @@ __kernel void velocityVerletPart1(int numAtoms,
                   ) {
     
     float dtPos = deltaT[0];
-    float dtVel = 0.5f*dtPos;
+    float dtVel = 0.5*dtPos;
     unsigned int idx = get_global_id(0);
     if(idx < numAtoms)
     {
         //store the velocity locally
         float4 velocity = velm[idx];
+	float4 accel = (float4) (0.0);
+	float4 pos = posq[idx];
         if(velocity.w != 0.0)
         {
-            float4 accel = (float4) (forces[idx].xyz*velocity.w,0.0f);
-            accel.xyz *= dtVel;
+            accel.xyz = forces[idx].xyz*velocity.w;
+            accel.xyz = accel.xyz * dtVel;
             velocity.xyz += accel.xyz;
-            accel = (float4) (velocity.xyz * dtPos,0.0f);
-            posq[idx].xyz += accel.xyz;
+            accel.xyz = velocity.xyz * dtPos;
+	    pos = pos + accel;
             velm[idx] = velocity;
+            posq[idx] = pos;
         }
     }
 }
@@ -42,17 +45,17 @@ __kernel void velocityVerletPart2(int numAtoms,
 				   __global float4* restrict velm,
 				   __global const float4* restrict forces
 				  ) {
-    float dtPos = deltaT[0];
-    float dtVel = 0.5f*dtPos;
+    float dtVel = 0.5*deltaT[0];
     unsigned int idx = get_global_id(0);
     if(idx < numAtoms)
     {
 	  //store the velocity locally
 	  float4 velocity = velm[idx];
+	  float4 accel = (float4) (0.0);
 	  if(velocity.w != 0.0)
 	  {
-          float4 accel = (float4) (forces[idx].xyz*velocity.w,0.0f);
-          accel.xyz *= dtVel;
+          accel.xyz = forces[idx].xyz*velocity.w;
+          accel.xyz = accel.xyz * dtVel;
           velocity.xyz += accel.xyz;
           velm[idx] = velocity;
 	  }

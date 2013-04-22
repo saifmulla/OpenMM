@@ -3293,12 +3293,12 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::integrator1(ContextImpl& context) {
-//    cl.executeKernel(kernel1,numAtoms);
+    cl.executeKernel(kernel1,numAtoms);
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::integrator2(ContextImpl& context)
 {
-//    cl.executeKernel(kernel2,numAtoms);
+    cl.executeKernel(kernel2,numAtoms);
     // Update the time and step count.
     cl.setTime(cl.getTime()+dt);
     cl.setStepCount(cl.getStepCount()+1);
@@ -4556,7 +4556,8 @@ void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
 void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
 {
     int writeinterval = impl.getMeasurements().getWriteInterval();
-    int incrementcounter = impl.getIntegrator().getStepCounter();
+    //int incrementcounter = impl.getIntegrator().getStepCounter();
+    int incrementcounter = 1;
     std::cout<<"Calculate called inside bin properties kernel\n";
     printf("Value of write interval and incrementcounter is %d & %d\n",writeinterval,incrementcounter);
     cl.executeKernel(kernel1,cl.getNumAtoms());
@@ -4736,7 +4737,7 @@ void OpenCLControlBerendsenInBinsKernel::controlAfterForces(ContextImpl& impl)
     //calculate ke and dof
     cl_.executeKernel(kernel2,numAtoms_);
     glMomentum_->download();
-    velm.download();
+   // velm.download();
     
     k = 0;
     while(k<numAtoms_)
