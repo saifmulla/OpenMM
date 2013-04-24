@@ -21,15 +21,15 @@ __kernel void velocityVerletPart1(int numAtoms,
     {
         //store the velocity locally
         float4 velocity = velm[idx];
-	float4 accel = (float4) (0.0);
-	float4 pos = posq[idx];
+		float4 accel = (float4) (0.0);
+		float4 pos = posq[idx];
         if(velocity.w != 0.0)
         {
             accel.xyz = forces[idx].xyz*velocity.w;
             accel.xyz = accel.xyz * dtVel;
             velocity.xyz += accel.xyz;
             accel.xyz = velocity.xyz * dtPos;
-	    pos = pos + accel;
+	  		pos = pos + accel;
             velm[idx] = velocity;
             posq[idx] = pos;
         }
@@ -61,4 +61,17 @@ __kernel void velocityVerletPart2(int numAtoms,
 	  }
     
     }//end if
+}
+
+__kernel void binForces(int numAtoms,
+	__global float4* restrict forces
+	)
+{
+	unsigned int idx = get_global_id(0);
+	float x = (0.0001*4.87288629354e-12)/1.6605e-12;
+	float4 binforces = (float4) (x,0.0f,0.0f,0.0f);
+	if(idx<numAtoms)
+	{
+		forces[idx].xyz += binforces.xyz;
+	}
 }

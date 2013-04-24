@@ -823,7 +823,7 @@ private:
     OpenCLArray<cl_float>* deltaT;
     double dt;
     int numAtoms;
-    cl::Kernel kernel1, kernel2;
+    cl::Kernel kernel1, kernel2,kernel3;
 };
 /**
  * This kernel is invoked by LangevinIntegrator to take one time step.

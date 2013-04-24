@@ -1,0 +1,1 @@
+/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestOpenCLCustomBondForce.dir/TestOpenCLCustomBondForce.cpp.o  -o ../../../TestOpenCLCustomBondForce -rdynamic ../../../libOpenMMOpenCL_d.so ../../../libOpenMM_d.so -ldl -lOpenCL -lpthread -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

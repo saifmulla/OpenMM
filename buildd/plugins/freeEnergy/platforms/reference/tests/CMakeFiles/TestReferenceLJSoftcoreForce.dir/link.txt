@@ -1,0 +1,1 @@
+/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestReferenceLJSoftcoreForce.dir/TestReferenceLJSoftcoreForce.cpp.o  -o ../../../../../TestReferenceLJSoftcoreForce -rdynamic ../../../../../libOpenMM_d.so ../../../../../libOpenMMFreeEnergy_d.so ../../../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

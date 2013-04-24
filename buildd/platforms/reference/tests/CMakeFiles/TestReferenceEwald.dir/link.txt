@@ -1,0 +1,1 @@
+/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestReferenceEwald.dir/TestReferenceEwald.cpp.o  -o ../../../TestReferenceEwald -rdynamic ../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

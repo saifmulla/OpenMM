@@ -64,19 +64,19 @@ vector<string> VelocityVerletIntegrator::getKernelNames() {
 void VelocityVerletIntegrator::step(int steps) {
 //    stepCounter = 0;
 	//check if controltools are set
-	bool cs = context->getControlSet();
+//	bool cs = context->getControlSet();
 	//check if measurement tools are set
 	bool ms = context->getMeasurementSet();
 
     for (int i = 0; i < steps; ++i)
     {
 //        stepCounter = stepCounter + 1;
-//    	context->updateContextState();
-    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator1(*context);
+    	context->updateContextState();
+    	static_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator1(*context);
     	context->calcForcesAndEnergy(true, false);
-    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator2(*context);
-    	if(cs)
-    		context->getControls().controlAfterForces(*context);
+    	static_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator2(*context);
+    //	if(cs)
+    	//	context->getControls().controlAfterForces(*context);
     	if(ms)
     		context->getMeasurements().measureAtEnd(*context);
     }

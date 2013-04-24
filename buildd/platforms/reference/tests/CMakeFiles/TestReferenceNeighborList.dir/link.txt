@@ -1,0 +1,1 @@
+/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestReferenceNeighborList.dir/TestReferenceNeighborList.cpp.o  -o ../../../TestReferenceNeighborList -rdynamic ../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

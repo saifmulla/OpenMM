@@ -1,0 +1,931 @@
+Start testing: Apr 22 12:05 BST
+----------------------------------------------------------
+1/82 Testing: TestReferenceNeighborList
+1/82 Test: TestReferenceNeighborList
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceNeighborList"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceNeighborList" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Test Passed
+<end of output>
+Test time =   0.10 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceNeighborList" end time: Apr 22 12:05 BST
+"TestReferenceNeighborList" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/82 Testing: TestReferenceAndersenThermostat
+2/82 Test: TestReferenceAndersenThermostat
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAndersenThermostat"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceAndersenThermostat" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.74 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAndersenThermostat" end time: Apr 22 12:05 BST
+"TestReferenceAndersenThermostat" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/82 Testing: TestReferenceHarmonicAngleForce
+3/82 Test: TestReferenceHarmonicAngleForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceHarmonicAngleForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceHarmonicAngleForce" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceHarmonicAngleForce" end time: Apr 22 12:05 BST
+"TestReferenceHarmonicAngleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/82 Testing: TestReferenceRandom
+4/82 Test: TestReferenceRandom
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceRandom"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceRandom" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.10 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceRandom" end time: Apr 22 12:05 BST
+"TestReferenceRandom" time elapsed: 00:00:01
+----------------------------------------------------------
+
+5/82 Testing: TestReferenceVariableLangevinIntegrator
+5/82 Test: TestReferenceVariableLangevinIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVariableLangevinIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceVariableLangevinIntegrator" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.22 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceVariableLangevinIntegrator" end time: Apr 22 12:05 BST
+"TestReferenceVariableLangevinIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/82 Testing: TestReferenceCustomAngleForce
+6/82 Test: TestReferenceCustomAngleForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomAngleForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomAngleForce" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomAngleForce" end time: Apr 22 12:05 BST
+"TestReferenceCustomAngleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/82 Testing: TestReferenceHarmonicBondForce
+7/82 Test: TestReferenceHarmonicBondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceHarmonicBondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceHarmonicBondForce" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Running test...
+PASS - Test succeeded.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceHarmonicBondForce" end time: Apr 22 12:05 BST
+"TestReferenceHarmonicBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/82 Testing: TestReferenceNonbondedForce
+8/82 Test: TestReferenceNonbondedForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceNonbondedForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceNonbondedForce" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceNonbondedForce" end time: Apr 22 12:05 BST
+"TestReferenceNonbondedForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/82 Testing: TestReferenceCustomTorsionForce
+9/82 Test: TestReferenceCustomTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomTorsionForce" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomTorsionForce" end time: Apr 22 12:05 BST
+"TestReferenceCustomTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/82 Testing: TestReferenceCMAPTorsionForce
+10/82 Test: TestReferenceCMAPTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCMAPTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCMAPTorsionForce" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCMAPTorsionForce" end time: Apr 22 12:05 BST
+"TestReferenceCMAPTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/82 Testing: TestReferenceVariableVerletIntegrator
+11/82 Test: TestReferenceVariableVerletIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVariableVerletIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceVariableVerletIntegrator" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceVariableVerletIntegrator" end time: Apr 22 12:05 BST
+"TestReferenceVariableVerletIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/82 Testing: TestReferenceCustomExternalForce
+12/82 Test: TestReferenceCustomExternalForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomExternalForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomExternalForce" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomExternalForce" end time: Apr 22 12:05 BST
+"TestReferenceCustomExternalForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/82 Testing: TestReferenceGBVIForce
+13/82 Test: TestReferenceGBVIForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceGBVIForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceGBVIForce" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceGBVIForce" end time: Apr 22 12:05 BST
+"TestReferenceGBVIForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/82 Testing: TestReferenceLangevinIntegrator
+14/82 Test: TestReferenceLangevinIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceLangevinIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceLangevinIntegrator" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.38 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceLangevinIntegrator" end time: Apr 22 12:05 BST
+"TestReferenceLangevinIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/82 Testing: TestReferenceLocalEnergyMinimizer
+15/82 Test: TestReferenceLocalEnergyMinimizer
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceLocalEnergyMinimizer"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceLocalEnergyMinimizer" start time: Apr 22 12:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  37.40 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceLocalEnergyMinimizer" end time: Apr 22 12:06 BST
+"TestReferenceLocalEnergyMinimizer" time elapsed: 00:00:37
+----------------------------------------------------------
+
+16/82 Testing: TestReferenceEwald
+16/82 Test: TestReferenceEwald
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceEwald"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceEwald" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   6.62 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceEwald" end time: Apr 22 12:06 BST
+"TestReferenceEwald" time elapsed: 00:00:06
+----------------------------------------------------------
+
+17/82 Testing: TestReferenceRBTorsionForce
+17/82 Test: TestReferenceRBTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceRBTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceRBTorsionForce" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceRBTorsionForce" end time: Apr 22 12:06 BST
+"TestReferenceRBTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/82 Testing: TestReferenceVelocityVerletIntegrator
+18/82 Test: TestReferenceVelocityVerletIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVelocityVerletIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceVelocityVerletIntegrator" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+exception: Assertion failure at TestReferenceVelocityVerletIntegrator.cpp:145.  Expected 1, found 1.00144
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Failed.
+"TestReferenceVelocityVerletIntegrator" end time: Apr 22 12:06 BST
+"TestReferenceVelocityVerletIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/82 Testing: TestReferenceBrownianIntegrator
+19/82 Test: TestReferenceBrownianIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceBrownianIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceBrownianIntegrator" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.69 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceBrownianIntegrator" end time: Apr 22 12:06 BST
+"TestReferenceBrownianIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/82 Testing: TestReferenceCustomGBForce
+20/82 Test: TestReferenceCustomGBForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomGBForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomGBForce" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   7.67 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomGBForce" end time: Apr 22 12:06 BST
+"TestReferenceCustomGBForce" time elapsed: 00:00:07
+----------------------------------------------------------
+
+21/82 Testing: TestReferenceGBSAOBCForce
+21/82 Test: TestReferenceGBSAOBCForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceGBSAOBCForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceGBSAOBCForce" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceGBSAOBCForce" end time: Apr 22 12:06 BST
+"TestReferenceGBSAOBCForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/82 Testing: TestReferenceCustomHbondForce
+22/82 Test: TestReferenceCustomHbondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomHbondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomHbondForce" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomHbondForce" end time: Apr 22 12:06 BST
+"TestReferenceCustomHbondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/82 Testing: TestReferenceKineticEnergy
+23/82 Test: TestReferenceKineticEnergy
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceKineticEnergy"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceKineticEnergy" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceKineticEnergy" end time: Apr 22 12:06 BST
+"TestReferenceKineticEnergy" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/82 Testing: TestReferenceCustomIntegrator
+24/82 Test: TestReferenceCustomIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomIntegrator" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  16.77 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomIntegrator" end time: Apr 22 12:06 BST
+"TestReferenceCustomIntegrator" time elapsed: 00:00:16
+----------------------------------------------------------
+
+25/82 Testing: TestReferencePeriodicTorsionForce
+25/82 Test: TestReferencePeriodicTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferencePeriodicTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferencePeriodicTorsionForce" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferencePeriodicTorsionForce" end time: Apr 22 12:06 BST
+"TestReferencePeriodicTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/82 Testing: TestReferenceMonteCarloBarostat
+26/82 Test: TestReferenceMonteCarloBarostat
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceMonteCarloBarostat"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceMonteCarloBarostat" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.98 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceMonteCarloBarostat" end time: Apr 22 12:06 BST
+"TestReferenceMonteCarloBarostat" time elapsed: 00:00:02
+----------------------------------------------------------
+
+27/82 Testing: TestReferenceVirtualSites
+27/82 Test: TestReferenceVirtualSites
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVirtualSites"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceVirtualSites" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.21 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceVirtualSites" end time: Apr 22 12:06 BST
+"TestReferenceVirtualSites" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/82 Testing: TestReferenceCustomNonbondedForce
+28/82 Test: TestReferenceCustomNonbondedForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomNonbondedForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomNonbondedForce" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.30 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomNonbondedForce" end time: Apr 22 12:06 BST
+"TestReferenceCustomNonbondedForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+29/82 Testing: TestReferenceCustomBondForce
+29/82 Test: TestReferenceCustomBondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomBondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomBondForce" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomBondForce" end time: Apr 22 12:06 BST
+"TestReferenceCustomBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+30/82 Testing: TestReferenceCMMotionRemover
+30/82 Test: TestReferenceCMMotionRemover
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCMMotionRemover"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCMMotionRemover" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCMMotionRemover" end time: Apr 22 12:06 BST
+"TestReferenceCMMotionRemover" time elapsed: 00:00:00
+----------------------------------------------------------
+
+31/82 Testing: TestReferenceVerletIntegrator
+31/82 Test: TestReferenceVerletIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVerletIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceVerletIntegrator" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceVerletIntegrator" end time: Apr 22 12:06 BST
+"TestReferenceVerletIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+32/82 Testing: TestOpenCLVerletIntegrator
+32/82 Test: TestOpenCLVerletIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLVerletIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLVerletIntegrator" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  10.05 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLVerletIntegrator" end time: Apr 22 12:06 BST
+"TestOpenCLVerletIntegrator" time elapsed: 00:00:10
+----------------------------------------------------------
+
+33/82 Testing: TestOpenCLMultipleForces
+33/82 Test: TestOpenCLMultipleForces
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLMultipleForces"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLMultipleForces" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.95 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLMultipleForces" end time: Apr 22 12:06 BST
+"TestOpenCLMultipleForces" time elapsed: 00:00:01
+----------------------------------------------------------
+
+34/82 Testing: TestOpenCLPeriodicTorsionForce
+34/82 Test: TestOpenCLPeriodicTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLPeriodicTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLPeriodicTorsionForce" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.98 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLPeriodicTorsionForce" end time: Apr 22 12:06 BST
+"TestOpenCLPeriodicTorsionForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+35/82 Testing: TestOpenCLMonteCarloBarostat
+35/82 Test: TestOpenCLMonteCarloBarostat
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLMonteCarloBarostat"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLMonteCarloBarostat" start time: Apr 22 12:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  15.60 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLMonteCarloBarostat" end time: Apr 22 12:07 BST
+"TestOpenCLMonteCarloBarostat" time elapsed: 00:00:15
+----------------------------------------------------------
+
+36/82 Testing: TestOpenCLSettle
+36/82 Test: TestOpenCLSettle
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLSettle"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLSettle" start time: Apr 22 12:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.60 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLSettle" end time: Apr 22 12:07 BST
+"TestOpenCLSettle" time elapsed: 00:00:01
+----------------------------------------------------------
+
+37/82 Testing: TestOpenCLNonbondedForce
+37/82 Test: TestOpenCLNonbondedForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLNonbondedForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLNonbondedForce" start time: Apr 22 12:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  22.35 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLNonbondedForce" end time: Apr 22 12:07 BST
+"TestOpenCLNonbondedForce" time elapsed: 00:00:22
+----------------------------------------------------------
+
+38/82 Testing: TestOpenCLCMAPTorsionForce
+38/82 Test: TestOpenCLCMAPTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCMAPTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCMAPTorsionForce" start time: Apr 22 12:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.61 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCMAPTorsionForce" end time: Apr 22 12:07 BST
+"TestOpenCLCMAPTorsionForce" time elapsed: 00:00:01
+----------------------------------------------------------
+
+39/82 Testing: TestOpenCLFFT
+39/82 Test: TestOpenCLFFT
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLFFT"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLFFT" start time: Apr 22 12:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.91 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLFFT" end time: Apr 22 12:07 BST
+"TestOpenCLFFT" time elapsed: 00:00:01
+----------------------------------------------------------
+
+40/82 Testing: TestOpenCLRBTorsionForce
+40/82 Test: TestOpenCLRBTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLRBTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLRBTorsionForce" start time: Apr 22 12:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.99 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLRBTorsionForce" end time: Apr 22 12:07 BST
+"TestOpenCLRBTorsionForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+41/82 Testing: TestOpenCLHarmonicBondForce
+41/82 Test: TestOpenCLHarmonicBondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLHarmonicBondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLHarmonicBondForce" start time: Apr 22 12:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.67 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLHarmonicBondForce" end time: Apr 22 12:07 BST
+"TestOpenCLHarmonicBondForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+42/82 Testing: TestOpenCLBrownianIntegrator
+42/82 Test: TestOpenCLBrownianIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLBrownianIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLBrownianIntegrator" start time: Apr 22 12:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  16.36 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLBrownianIntegrator" end time: Apr 22 12:08 BST
+"TestOpenCLBrownianIntegrator" time elapsed: 00:00:16
+----------------------------------------------------------
+
+43/82 Testing: TestOpenCLCustomGBForce
+43/82 Test: TestOpenCLCustomGBForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomGBForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomGBForce" start time: Apr 22 12:08 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  33.52 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomGBForce" end time: Apr 22 12:08 BST
+"TestOpenCLCustomGBForce" time elapsed: 00:00:33
+----------------------------------------------------------
+
+44/82 Testing: TestOpenCLRandom
+44/82 Test: TestOpenCLRandom
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLRandom"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLRandom" start time: Apr 22 12:08 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.19 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLRandom" end time: Apr 22 12:08 BST
+"TestOpenCLRandom" time elapsed: 00:00:00
+----------------------------------------------------------
+
+45/82 Testing: TestOpenCLLocalEnergyMinimizer
+45/82 Test: TestOpenCLLocalEnergyMinimizer
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLLocalEnergyMinimizer"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLLocalEnergyMinimizer" start time: Apr 22 12:08 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  11.91 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLLocalEnergyMinimizer" end time: Apr 22 12:08 BST
+"TestOpenCLLocalEnergyMinimizer" time elapsed: 00:00:11
+----------------------------------------------------------
+
+46/82 Testing: TestOpenCLGBSAOBCForce
+46/82 Test: TestOpenCLGBSAOBCForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLGBSAOBCForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLGBSAOBCForce" start time: Apr 22 12:08 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  21.21 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLGBSAOBCForce" end time: Apr 22 12:09 BST
+"TestOpenCLGBSAOBCForce" time elapsed: 00:00:21
+----------------------------------------------------------
+
+47/82 Testing: TestOpenCLNonbondForce2
+47/82 Test: TestOpenCLNonbondForce2
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLNonbondForce2"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLNonbondForce2" start time: Apr 22 12:09 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  91.86 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLNonbondForce2" end time: Apr 22 12:10 BST
+"TestOpenCLNonbondForce2" time elapsed: 00:01:31
+----------------------------------------------------------
+
+48/82 Testing: TestOpenCLGBSAOBCForce2
+48/82 Test: TestOpenCLGBSAOBCForce2
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLGBSAOBCForce2"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLGBSAOBCForce2" start time: Apr 22 12:10 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time = 145.26 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLGBSAOBCForce2" end time: Apr 22 12:13 BST
+"TestOpenCLGBSAOBCForce2" time elapsed: 00:02:25
+----------------------------------------------------------
+
+49/82 Testing: TestOpenCLCustomExternalForce
+49/82 Test: TestOpenCLCustomExternalForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomExternalForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomExternalForce" start time: Apr 22 12:13 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.67 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomExternalForce" end time: Apr 22 12:13 BST
+"TestOpenCLCustomExternalForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+50/82 Testing: TestOpenCLCustomBondForce
+50/82 Test: TestOpenCLCustomBondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomBondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomBondForce" start time: Apr 22 12:13 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.64 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomBondForce" end time: Apr 22 12:13 BST
+"TestOpenCLCustomBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+51/82 Testing: TestOpenCLCMMotionRemover
+51/82 Test: TestOpenCLCMMotionRemover
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCMMotionRemover"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCMMotionRemover" start time: Apr 22 12:13 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.67 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCMMotionRemover" end time: Apr 22 12:13 BST
+"TestOpenCLCMMotionRemover" time elapsed: 00:00:00
+----------------------------------------------------------
+
+52/82 Testing: TestOpenCLCustomIntegrator
+52/82 Test: TestOpenCLCustomIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomIntegrator" start time: Apr 22 12:13 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  29.06 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomIntegrator" end time: Apr 22 12:13 BST
+"TestOpenCLCustomIntegrator" time elapsed: 00:00:29
+----------------------------------------------------------
+
+53/82 Testing: TestOpenCLAndersenThermostat
+53/82 Test: TestOpenCLAndersenThermostat
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLAndersenThermostat"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLAndersenThermostat" start time: Apr 22 12:13 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  10.83 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLAndersenThermostat" end time: Apr 22 12:13 BST
+"TestOpenCLAndersenThermostat" time elapsed: 00:00:10
+----------------------------------------------------------
+
+54/82 Testing: TestOpenCLLangevinIntegrator
+54/82 Test: TestOpenCLLangevinIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLLangevinIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLLangevinIntegrator" start time: Apr 22 12:13 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   4.91 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLLangevinIntegrator" end time: Apr 22 12:13 BST
+"TestOpenCLLangevinIntegrator" time elapsed: 00:00:04
+----------------------------------------------------------
+
+55/82 Testing: TestOpenCLCustomNonbondedForce
+55/82 Test: TestOpenCLCustomNonbondedForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomNonbondedForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomNonbondedForce" start time: Apr 22 12:13 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.49 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomNonbondedForce" end time: Apr 22 12:13 BST
+"TestOpenCLCustomNonbondedForce" time elapsed: 00:00:01
+----------------------------------------------------------
+
+56/82 Testing: TestOpenCLSort
+56/82 Test: TestOpenCLSort
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLSort"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLSort" start time: Apr 22 12:13 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.30 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLSort" end time: Apr 22 12:13 BST
+"TestOpenCLSort" time elapsed: 00:00:00
+----------------------------------------------------------
+
+57/82 Testing: TestOpenCLVariableVerletIntegrator
+57/82 Test: TestOpenCLVariableVerletIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLVariableVerletIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLVariableVerletIntegrator" start time: Apr 22 12:13 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.18 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLVariableVerletIntegrator" end time: Apr 22 12:13 BST
+"TestOpenCLVariableVerletIntegrator" time elapsed: 00:00:02
+----------------------------------------------------------
+
+58/82 Testing: TestOpenCLCustomHbondForce
+58/82 Test: TestOpenCLCustomHbondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomHbondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomHbondForce" start time: Apr 22 12:13 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.81 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomHbondForce" end time: Apr 22 12:14 BST
+"TestOpenCLCustomHbondForce" time elapsed: 00:00:02
+----------------------------------------------------------
+

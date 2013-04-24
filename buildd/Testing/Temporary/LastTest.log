@@ -1,0 +1,2333 @@
+Start testing: Apr 22 10:05 BST
+----------------------------------------------------------
+1/82 Testing: TestReferenceNeighborList
+1/82 Test: TestReferenceNeighborList
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceNeighborList"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceNeighborList" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Test Passed
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceNeighborList" end time: Apr 22 10:05 BST
+"TestReferenceNeighborList" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/82 Testing: TestReferenceAndersenThermostat
+2/82 Test: TestReferenceAndersenThermostat
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAndersenThermostat"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceAndersenThermostat" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.75 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAndersenThermostat" end time: Apr 22 10:05 BST
+"TestReferenceAndersenThermostat" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/82 Testing: TestReferenceHarmonicAngleForce
+3/82 Test: TestReferenceHarmonicAngleForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceHarmonicAngleForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceHarmonicAngleForce" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceHarmonicAngleForce" end time: Apr 22 10:05 BST
+"TestReferenceHarmonicAngleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/82 Testing: TestReferenceRandom
+4/82 Test: TestReferenceRandom
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceRandom"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceRandom" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceRandom" end time: Apr 22 10:05 BST
+"TestReferenceRandom" time elapsed: 00:00:01
+----------------------------------------------------------
+
+5/82 Testing: TestReferenceVariableLangevinIntegrator
+5/82 Test: TestReferenceVariableLangevinIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVariableLangevinIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceVariableLangevinIntegrator" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+exception: Assertion failure at TestReferenceVariableLangevinIntegrator.cpp:129.  Expected 9.97741, found 20.2804 (This test is stochastic and may occasionally fail)
+<end of output>
+Test time =   0.17 sec
+----------------------------------------------------------
+Test Failed.
+"TestReferenceVariableLangevinIntegrator" end time: Apr 22 10:05 BST
+"TestReferenceVariableLangevinIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/82 Testing: TestReferenceCustomAngleForce
+6/82 Test: TestReferenceCustomAngleForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomAngleForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomAngleForce" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomAngleForce" end time: Apr 22 10:05 BST
+"TestReferenceCustomAngleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/82 Testing: TestReferenceHarmonicBondForce
+7/82 Test: TestReferenceHarmonicBondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceHarmonicBondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceHarmonicBondForce" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Running test...
+PASS - Test succeeded.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceHarmonicBondForce" end time: Apr 22 10:05 BST
+"TestReferenceHarmonicBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/82 Testing: TestReferenceNonbondedForce
+8/82 Test: TestReferenceNonbondedForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceNonbondedForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceNonbondedForce" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceNonbondedForce" end time: Apr 22 10:05 BST
+"TestReferenceNonbondedForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/82 Testing: TestReferenceCustomTorsionForce
+9/82 Test: TestReferenceCustomTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomTorsionForce" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomTorsionForce" end time: Apr 22 10:05 BST
+"TestReferenceCustomTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/82 Testing: TestReferenceCMAPTorsionForce
+10/82 Test: TestReferenceCMAPTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCMAPTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCMAPTorsionForce" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCMAPTorsionForce" end time: Apr 22 10:05 BST
+"TestReferenceCMAPTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/82 Testing: TestReferenceVariableVerletIntegrator
+11/82 Test: TestReferenceVariableVerletIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVariableVerletIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceVariableVerletIntegrator" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceVariableVerletIntegrator" end time: Apr 22 10:05 BST
+"TestReferenceVariableVerletIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/82 Testing: TestReferenceCustomExternalForce
+12/82 Test: TestReferenceCustomExternalForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomExternalForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomExternalForce" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomExternalForce" end time: Apr 22 10:05 BST
+"TestReferenceCustomExternalForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/82 Testing: TestReferenceGBVIForce
+13/82 Test: TestReferenceGBVIForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceGBVIForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceGBVIForce" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceGBVIForce" end time: Apr 22 10:05 BST
+"TestReferenceGBVIForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/82 Testing: TestReferenceLangevinIntegrator
+14/82 Test: TestReferenceLangevinIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceLangevinIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceLangevinIntegrator" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.40 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceLangevinIntegrator" end time: Apr 22 10:05 BST
+"TestReferenceLangevinIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/82 Testing: TestReferenceLocalEnergyMinimizer
+15/82 Test: TestReferenceLocalEnergyMinimizer
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceLocalEnergyMinimizer"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceLocalEnergyMinimizer" start time: Apr 22 10:05 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  38.37 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceLocalEnergyMinimizer" end time: Apr 22 10:06 BST
+"TestReferenceLocalEnergyMinimizer" time elapsed: 00:00:38
+----------------------------------------------------------
+
+16/82 Testing: TestReferenceEwald
+16/82 Test: TestReferenceEwald
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceEwald"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceEwald" start time: Apr 22 10:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   6.95 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceEwald" end time: Apr 22 10:06 BST
+"TestReferenceEwald" time elapsed: 00:00:06
+----------------------------------------------------------
+
+17/82 Testing: TestReferenceRBTorsionForce
+17/82 Test: TestReferenceRBTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceRBTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceRBTorsionForce" start time: Apr 22 10:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceRBTorsionForce" end time: Apr 22 10:06 BST
+"TestReferenceRBTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/82 Testing: TestReferenceVelocityVerletIntegrator
+18/82 Test: TestReferenceVelocityVerletIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVelocityVerletIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceVelocityVerletIntegrator" start time: Apr 22 10:06 BST
+Output:
+----------------------------------------------------------
+exception: Assertion failure at TestReferenceVelocityVerletIntegrator.cpp:145.  Expected 1, found 1.00144
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"TestReferenceVelocityVerletIntegrator" end time: Apr 22 10:06 BST
+"TestReferenceVelocityVerletIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/82 Testing: TestReferenceBrownianIntegrator
+19/82 Test: TestReferenceBrownianIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceBrownianIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceBrownianIntegrator" start time: Apr 22 10:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.72 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceBrownianIntegrator" end time: Apr 22 10:06 BST
+"TestReferenceBrownianIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/82 Testing: TestReferenceCustomGBForce
+20/82 Test: TestReferenceCustomGBForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomGBForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomGBForce" start time: Apr 22 10:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   7.94 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomGBForce" end time: Apr 22 10:06 BST
+"TestReferenceCustomGBForce" time elapsed: 00:00:07
+----------------------------------------------------------
+
+21/82 Testing: TestReferenceGBSAOBCForce
+21/82 Test: TestReferenceGBSAOBCForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceGBSAOBCForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceGBSAOBCForce" start time: Apr 22 10:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceGBSAOBCForce" end time: Apr 22 10:06 BST
+"TestReferenceGBSAOBCForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/82 Testing: TestReferenceCustomHbondForce
+22/82 Test: TestReferenceCustomHbondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomHbondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomHbondForce" start time: Apr 22 10:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomHbondForce" end time: Apr 22 10:06 BST
+"TestReferenceCustomHbondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/82 Testing: TestReferenceKineticEnergy
+23/82 Test: TestReferenceKineticEnergy
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceKineticEnergy"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceKineticEnergy" start time: Apr 22 10:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceKineticEnergy" end time: Apr 22 10:06 BST
+"TestReferenceKineticEnergy" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/82 Testing: TestReferenceCustomIntegrator
+24/82 Test: TestReferenceCustomIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomIntegrator" start time: Apr 22 10:06 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  17.07 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomIntegrator" end time: Apr 22 10:07 BST
+"TestReferenceCustomIntegrator" time elapsed: 00:00:17
+----------------------------------------------------------
+
+25/82 Testing: TestReferencePeriodicTorsionForce
+25/82 Test: TestReferencePeriodicTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferencePeriodicTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferencePeriodicTorsionForce" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferencePeriodicTorsionForce" end time: Apr 22 10:07 BST
+"TestReferencePeriodicTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/82 Testing: TestReferenceMonteCarloBarostat
+26/82 Test: TestReferenceMonteCarloBarostat
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceMonteCarloBarostat"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceMonteCarloBarostat" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   3.10 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceMonteCarloBarostat" end time: Apr 22 10:07 BST
+"TestReferenceMonteCarloBarostat" time elapsed: 00:00:03
+----------------------------------------------------------
+
+27/82 Testing: TestReferenceVirtualSites
+27/82 Test: TestReferenceVirtualSites
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVirtualSites"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceVirtualSites" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.20 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceVirtualSites" end time: Apr 22 10:07 BST
+"TestReferenceVirtualSites" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/82 Testing: TestReferenceCustomNonbondedForce
+28/82 Test: TestReferenceCustomNonbondedForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomNonbondedForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomNonbondedForce" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.34 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomNonbondedForce" end time: Apr 22 10:07 BST
+"TestReferenceCustomNonbondedForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+29/82 Testing: TestReferenceCustomBondForce
+29/82 Test: TestReferenceCustomBondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomBondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCustomBondForce" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomBondForce" end time: Apr 22 10:07 BST
+"TestReferenceCustomBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+30/82 Testing: TestReferenceCMMotionRemover
+30/82 Test: TestReferenceCMMotionRemover
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCMMotionRemover"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceCMMotionRemover" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCMMotionRemover" end time: Apr 22 10:07 BST
+"TestReferenceCMMotionRemover" time elapsed: 00:00:00
+----------------------------------------------------------
+
+31/82 Testing: TestReferenceVerletIntegrator
+31/82 Test: TestReferenceVerletIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVerletIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+"TestReferenceVerletIntegrator" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceVerletIntegrator" end time: Apr 22 10:07 BST
+"TestReferenceVerletIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+32/82 Testing: TestOpenCLVerletIntegrator
+32/82 Test: TestOpenCLVerletIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLVerletIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLVerletIntegrator" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   9.28 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLVerletIntegrator" end time: Apr 22 10:07 BST
+"TestOpenCLVerletIntegrator" time elapsed: 00:00:09
+----------------------------------------------------------
+
+33/82 Testing: TestOpenCLMultipleForces
+33/82 Test: TestOpenCLMultipleForces
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLMultipleForces"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLMultipleForces" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.03 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLMultipleForces" end time: Apr 22 10:07 BST
+"TestOpenCLMultipleForces" time elapsed: 00:00:02
+----------------------------------------------------------
+
+34/82 Testing: TestOpenCLPeriodicTorsionForce
+34/82 Test: TestOpenCLPeriodicTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLPeriodicTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLPeriodicTorsionForce" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.83 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLPeriodicTorsionForce" end time: Apr 22 10:07 BST
+"TestOpenCLPeriodicTorsionForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+35/82 Testing: TestOpenCLMonteCarloBarostat
+35/82 Test: TestOpenCLMonteCarloBarostat
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLMonteCarloBarostat"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLMonteCarloBarostat" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  15.72 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLMonteCarloBarostat" end time: Apr 22 10:07 BST
+"TestOpenCLMonteCarloBarostat" time elapsed: 00:00:15
+----------------------------------------------------------
+
+36/82 Testing: TestOpenCLSettle
+36/82 Test: TestOpenCLSettle
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLSettle"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLSettle" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.55 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLSettle" end time: Apr 22 10:07 BST
+"TestOpenCLSettle" time elapsed: 00:00:01
+----------------------------------------------------------
+
+37/82 Testing: TestOpenCLNonbondedForce
+37/82 Test: TestOpenCLNonbondedForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLNonbondedForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLNonbondedForce" start time: Apr 22 10:07 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  22.85 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLNonbondedForce" end time: Apr 22 10:08 BST
+"TestOpenCLNonbondedForce" time elapsed: 00:00:22
+----------------------------------------------------------
+
+38/82 Testing: TestOpenCLCMAPTorsionForce
+38/82 Test: TestOpenCLCMAPTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCMAPTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCMAPTorsionForce" start time: Apr 22 10:08 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.57 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCMAPTorsionForce" end time: Apr 22 10:08 BST
+"TestOpenCLCMAPTorsionForce" time elapsed: 00:00:01
+----------------------------------------------------------
+
+39/82 Testing: TestOpenCLFFT
+39/82 Test: TestOpenCLFFT
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLFFT"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLFFT" start time: Apr 22 10:08 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.96 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLFFT" end time: Apr 22 10:08 BST
+"TestOpenCLFFT" time elapsed: 00:00:01
+----------------------------------------------------------
+
+40/82 Testing: TestOpenCLRBTorsionForce
+40/82 Test: TestOpenCLRBTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLRBTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLRBTorsionForce" start time: Apr 22 10:08 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.77 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLRBTorsionForce" end time: Apr 22 10:08 BST
+"TestOpenCLRBTorsionForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+41/82 Testing: TestOpenCLHarmonicBondForce
+41/82 Test: TestOpenCLHarmonicBondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLHarmonicBondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLHarmonicBondForce" start time: Apr 22 10:08 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.69 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLHarmonicBondForce" end time: Apr 22 10:08 BST
+"TestOpenCLHarmonicBondForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+42/82 Testing: TestOpenCLBrownianIntegrator
+42/82 Test: TestOpenCLBrownianIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLBrownianIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLBrownianIntegrator" start time: Apr 22 10:08 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  17.41 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLBrownianIntegrator" end time: Apr 22 10:08 BST
+"TestOpenCLBrownianIntegrator" time elapsed: 00:00:17
+----------------------------------------------------------
+
+43/82 Testing: TestOpenCLCustomGBForce
+43/82 Test: TestOpenCLCustomGBForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomGBForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomGBForce" start time: Apr 22 10:08 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  35.34 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomGBForce" end time: Apr 22 10:09 BST
+"TestOpenCLCustomGBForce" time elapsed: 00:00:35
+----------------------------------------------------------
+
+44/82 Testing: TestOpenCLRandom
+44/82 Test: TestOpenCLRandom
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLRandom"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLRandom" start time: Apr 22 10:09 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.17 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLRandom" end time: Apr 22 10:09 BST
+"TestOpenCLRandom" time elapsed: 00:00:00
+----------------------------------------------------------
+
+45/82 Testing: TestOpenCLLocalEnergyMinimizer
+45/82 Test: TestOpenCLLocalEnergyMinimizer
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLLocalEnergyMinimizer"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLLocalEnergyMinimizer" start time: Apr 22 10:09 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  12.25 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLLocalEnergyMinimizer" end time: Apr 22 10:09 BST
+"TestOpenCLLocalEnergyMinimizer" time elapsed: 00:00:12
+----------------------------------------------------------
+
+46/82 Testing: TestOpenCLGBSAOBCForce
+46/82 Test: TestOpenCLGBSAOBCForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLGBSAOBCForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLGBSAOBCForce" start time: Apr 22 10:09 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  63.41 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLGBSAOBCForce" end time: Apr 22 10:10 BST
+"TestOpenCLGBSAOBCForce" time elapsed: 00:01:03
+----------------------------------------------------------
+
+47/82 Testing: TestOpenCLNonbondForce2
+47/82 Test: TestOpenCLNonbondForce2
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLNonbondForce2"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLNonbondForce2" start time: Apr 22 10:10 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time = 111.08 sec
+----------------------------------------------------------
+Test Failed.
+"TestOpenCLNonbondForce2" end time: Apr 22 10:12 BST
+"TestOpenCLNonbondForce2" time elapsed: 00:01:51
+----------------------------------------------------------
+
+48/82 Testing: TestOpenCLGBSAOBCForce2
+48/82 Test: TestOpenCLGBSAOBCForce2
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLGBSAOBCForce2"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLGBSAOBCForce2" start time: Apr 22 10:12 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time = 170.50 sec
+----------------------------------------------------------
+Test Failed.
+"TestOpenCLGBSAOBCForce2" end time: Apr 22 10:15 BST
+"TestOpenCLGBSAOBCForce2" time elapsed: 00:02:50
+----------------------------------------------------------
+
+49/82 Testing: TestOpenCLCustomExternalForce
+49/82 Test: TestOpenCLCustomExternalForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomExternalForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomExternalForce" start time: Apr 22 10:15 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.81 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomExternalForce" end time: Apr 22 10:15 BST
+"TestOpenCLCustomExternalForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+50/82 Testing: TestOpenCLCustomBondForce
+50/82 Test: TestOpenCLCustomBondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomBondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomBondForce" start time: Apr 22 10:15 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   3.33 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomBondForce" end time: Apr 22 10:15 BST
+"TestOpenCLCustomBondForce" time elapsed: 00:00:03
+----------------------------------------------------------
+
+51/82 Testing: TestOpenCLCMMotionRemover
+51/82 Test: TestOpenCLCMMotionRemover
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCMMotionRemover"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCMMotionRemover" start time: Apr 22 10:15 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.78 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCMMotionRemover" end time: Apr 22 10:15 BST
+"TestOpenCLCMMotionRemover" time elapsed: 00:00:01
+----------------------------------------------------------
+
+52/82 Testing: TestOpenCLCustomIntegrator
+52/82 Test: TestOpenCLCustomIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomIntegrator" start time: Apr 22 10:15 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  49.67 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomIntegrator" end time: Apr 22 10:15 BST
+"TestOpenCLCustomIntegrator" time elapsed: 00:00:49
+----------------------------------------------------------
+
+53/82 Testing: TestOpenCLAndersenThermostat
+53/82 Test: TestOpenCLAndersenThermostat
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLAndersenThermostat"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLAndersenThermostat" start time: Apr 22 10:15 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  12.70 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLAndersenThermostat" end time: Apr 22 10:16 BST
+"TestOpenCLAndersenThermostat" time elapsed: 00:00:12
+----------------------------------------------------------
+
+54/82 Testing: TestOpenCLLangevinIntegrator
+54/82 Test: TestOpenCLLangevinIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLLangevinIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLLangevinIntegrator" start time: Apr 22 10:16 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   4.92 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLLangevinIntegrator" end time: Apr 22 10:16 BST
+"TestOpenCLLangevinIntegrator" time elapsed: 00:00:04
+----------------------------------------------------------
+
+55/82 Testing: TestOpenCLCustomNonbondedForce
+55/82 Test: TestOpenCLCustomNonbondedForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomNonbondedForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomNonbondedForce" start time: Apr 22 10:16 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   7.69 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomNonbondedForce" end time: Apr 22 10:16 BST
+"TestOpenCLCustomNonbondedForce" time elapsed: 00:00:07
+----------------------------------------------------------
+
+56/82 Testing: TestOpenCLSort
+56/82 Test: TestOpenCLSort
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLSort"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLSort" start time: Apr 22 10:16 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.85 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLSort" end time: Apr 22 10:16 BST
+"TestOpenCLSort" time elapsed: 00:00:00
+----------------------------------------------------------
+
+57/82 Testing: TestOpenCLVariableVerletIntegrator
+57/82 Test: TestOpenCLVariableVerletIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLVariableVerletIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLVariableVerletIntegrator" start time: Apr 22 10:16 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.20 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLVariableVerletIntegrator" end time: Apr 22 10:16 BST
+"TestOpenCLVariableVerletIntegrator" time elapsed: 00:00:02
+----------------------------------------------------------
+
+58/82 Testing: TestOpenCLCustomHbondForce
+58/82 Test: TestOpenCLCustomHbondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomHbondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomHbondForce" start time: Apr 22 10:16 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   6.36 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomHbondForce" end time: Apr 22 10:16 BST
+"TestOpenCLCustomHbondForce" time elapsed: 00:00:06
+----------------------------------------------------------
+
+59/82 Testing: TestOpenCLVariableLangevinIntegrator
+59/82 Test: TestOpenCLVariableLangevinIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLVariableLangevinIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLVariableLangevinIntegrator" start time: Apr 22 10:16 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   3.38 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLVariableLangevinIntegrator" end time: Apr 22 10:16 BST
+"TestOpenCLVariableLangevinIntegrator" time elapsed: 00:00:03
+----------------------------------------------------------
+
+60/82 Testing: TestOpenCLCustomTorsionForce
+60/82 Test: TestOpenCLCustomTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomTorsionForce" start time: Apr 22 10:16 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   3.63 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomTorsionForce" end time: Apr 22 10:16 BST
+"TestOpenCLCustomTorsionForce" time elapsed: 00:00:03
+----------------------------------------------------------
+
+61/82 Testing: TestOpenCLHarmonicAngleForce
+61/82 Test: TestOpenCLHarmonicAngleForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLHarmonicAngleForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLHarmonicAngleForce" start time: Apr 22 10:16 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.12 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLHarmonicAngleForce" end time: Apr 22 10:16 BST
+"TestOpenCLHarmonicAngleForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+62/82 Testing: TestOpenCLCustomAngleForce
+62/82 Test: TestOpenCLCustomAngleForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLCustomAngleForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLCustomAngleForce" start time: Apr 22 10:16 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   4.31 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLCustomAngleForce" end time: Apr 22 10:16 BST
+"TestOpenCLCustomAngleForce" time elapsed: 00:00:04
+----------------------------------------------------------
+
+63/82 Testing: TestOpenCLVirtualSites
+63/82 Test: TestOpenCLVirtualSites
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLVirtualSites"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLVirtualSites" start time: Apr 22 10:16 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  12.15 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLVirtualSites" end time: Apr 22 10:16 BST
+"TestOpenCLVirtualSites" time elapsed: 00:00:12
+----------------------------------------------------------
+
+64/82 Testing: TestOpenCLEwald
+64/82 Test: TestOpenCLEwald
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLEwald"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLEwald" start time: Apr 22 10:16 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  75.21 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLEwald" end time: Apr 22 10:18 BST
+"TestOpenCLEwald" time elapsed: 00:01:15
+----------------------------------------------------------
+
+65/82 Testing: TestOpenCLVelocityVerletIntegrator
+65/82 Test: TestOpenCLVelocityVerletIntegrator
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestOpenCLVelocityVerletIntegrator"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/opencl/tests
+"TestOpenCLVelocityVerletIntegrator" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+KE 0.00000000 time@ 0.00000
+KE 0.00001250 time@ 0.01000
+KE 0.00004999 time@ 0.02000
+KE 0.00011246 time@ 0.03000
+KE 0.00019989 time@ 0.04000
+KE 0.00031223 time@ 0.05000
+KE 0.00044945 time@ 0.06000
+KE 0.00061149 time@ 0.07000
+KE 0.00079828 time@ 0.08000
+KE 0.00100975 time@ 0.09000
+KE 0.00124582 time@ 0.10000
+KE 0.00150638 time@ 0.11000
+KE 0.00179135 time@ 0.12000
+KE 0.00210059 time@ 0.13000
+KE 0.00243399 time@ 0.14000
+KE 0.00279142 time@ 0.15000
+KE 0.00317273 time@ 0.16000
+KE 0.00357777 time@ 0.17000
+KE 0.00400638 time@ 0.18000
+KE 0.00445838 time@ 0.19000
+KE 0.00493360 time@ 0.20000
+KE 0.00543185 time@ 0.21000
+KE 0.00595292 time@ 0.22000
+KE 0.00649661 time@ 0.23000
+KE 0.00706270 time@ 0.24000
+KE 0.00765096 time@ 0.25000
+KE 0.00826116 time@ 0.26000
+KE 0.00889305 time@ 0.27000
+KE 0.00954639 time@ 0.28000
+KE 0.01022091 time@ 0.29000
+KE 0.01091634 time@ 0.30000
+KE 0.01163240 time@ 0.31000
+KE 0.01236880 time@ 0.32000
+KE 0.01312526 time@ 0.33000
+KE 0.01390146 time@ 0.34000
+KE 0.01469711 time@ 0.35000
+KE 0.01551187 time@ 0.36000
+KE 0.01634543 time@ 0.37000
+KE 0.01719744 time@ 0.38000
+KE 0.01806758 time@ 0.39000
+KE 0.01895549 time@ 0.40000
+KE 0.01986082 time@ 0.41000
+KE 0.02078320 time@ 0.42000
+KE 0.02172227 time@ 0.43000
+KE 0.02267765 time@ 0.44000
+KE 0.02364895 time@ 0.45000
+KE 0.02463580 time@ 0.46000
+KE 0.02563779 time@ 0.47000
+KE 0.02665453 time@ 0.48000
+KE 0.02768560 time@ 0.49000
+KE 0.02873060 time@ 0.50000
+KE 0.02978910 time@ 0.51000
+KE 0.03086069 time@ 0.52000
+KE 0.03194492 time@ 0.53000
+KE 0.03304138 time@ 0.54000
+KE 0.03414963 time@ 0.55000
+KE 0.03526922 time@ 0.56000
+KE 0.03639970 time@ 0.57000
+KE 0.03754062 time@ 0.58000
+KE 0.03869152 time@ 0.59000
+KE 0.03985194 time@ 0.60000
+KE 0.04102141 time@ 0.61000
+KE 0.04219949 time@ 0.62000
+KE 0.04338567 time@ 0.63000
+KE 0.04457951 time@ 0.64000
+KE 0.04578051 time@ 0.65000
+KE 0.04698820 time@ 0.66000
+KE 0.04820209 time@ 0.67000
+KE 0.04942170 time@ 0.68000
+KE 0.05064654 time@ 0.69000
+KE 0.05187613 time@ 0.70000
+KE 0.05310997 time@ 0.71000
+KE 0.05434756 time@ 0.72000
+KE 0.05558841 time@ 0.73000
+KE 0.05683202 time@ 0.74000
+KE 0.05807789 time@ 0.75000
+KE 0.05932554 time@ 0.76000
+KE 0.06057446 time@ 0.77000
+KE 0.06182415 time@ 0.78000
+KE 0.06307412 time@ 0.79000
+KE 0.06432385 time@ 0.80000
+KE 0.06557284 time@ 0.81000
+KE 0.06682061 time@ 0.82000
+KE 0.06806665 time@ 0.83000
+KE 0.06931047 time@ 0.84000
+KE 0.07055155 time@ 0.85000
+KE 0.07178941 time@ 0.86000
+KE 0.07302356 time@ 0.87000
+KE 0.07425350 time@ 0.88000
+KE 0.07547873 time@ 0.89000
+KE 0.07669878 time@ 0.90000
+KE 0.07791314 time@ 0.91000
+KE 0.07912135 time@ 0.92000
+KE 0.08032291 time@ 0.93000
+KE 0.08151733 time@ 0.94000
+KE 0.08270415 time@ 0.95000
+KE 0.08388288 time@ 0.96000
+KE 0.08505306 time@ 0.97000
+KE 0.08621421 time@ 0.98000
+KE 0.08736588 time@ 0.99000
+KE 0.08850761 time@ 1.00000
+KE 0.08963892 time@ 1.01000
+KE 0.09075938 time@ 1.02000
+KE 0.09186854 time@ 1.03000
+KE 0.09296596 time@ 1.04000
+KE 0.09405119 time@ 1.05000
+KE 0.09512379 time@ 1.06000
+KE 0.09618334 time@ 1.07000
+KE 0.09722944 time@ 1.08000
+KE 0.09826164 time@ 1.09000
+KE 0.09927952 time@ 1.10000
+KE 0.10028270 time@ 1.11000
+KE 0.10127076 time@ 1.12000
+KE 0.10224330 time@ 1.13000
+KE 0.10319997 time@ 1.14000
+KE 0.10414033 time@ 1.15000
+KE 0.10506406 time@ 1.16000
+KE 0.10597075 time@ 1.17000
+KE 0.10686006 time@ 1.18000
+KE 0.10773162 time@ 1.19000
+KE 0.10858508 time@ 1.20000
+KE 0.10942011 time@ 1.21000
+KE 0.11023637 time@ 1.22000
+KE 0.11103354 time@ 1.23000
+KE 0.11181132 time@ 1.24000
+KE 0.11256935 time@ 1.25000
+KE 0.11330736 time@ 1.26000
+KE 0.11402503 time@ 1.27000
+KE 0.11472212 time@ 1.28000
+KE 0.11539830 time@ 1.29000
+KE 0.11605331 time@ 1.30000
+KE 0.11668692 time@ 1.31000
+KE 0.11729884 time@ 1.32000
+KE 0.11788885 time@ 1.33000
+KE 0.11845669 time@ 1.34000
+KE 0.11900216 time@ 1.35000
+KE 0.11952503 time@ 1.36000
+KE 0.12002509 time@ 1.37000
+KE 0.12050215 time@ 1.38000
+KE 0.12095599 time@ 1.39000
+KE 0.12138645 time@ 1.40000
+KE 0.12179334 time@ 1.41000
+KE 0.12217653 time@ 1.42000
+KE 0.12253584 time@ 1.43000
+KE 0.12287114 time@ 1.44000
+KE 0.12318229 time@ 1.45000
+KE 0.12346918 time@ 1.46000
+KE 0.12373169 time@ 1.47000
+KE 0.12396970 time@ 1.48000
+KE 0.12418313 time@ 1.49000
+KE 0.12437187 time@ 1.50000
+KE 0.12453586 time@ 1.51000
+KE 0.12467504 time@ 1.52000
+KE 0.12478936 time@ 1.53000
+KE 0.12487876 time@ 1.54000
+KE 0.12494322 time@ 1.55000
+KE 0.12498268 time@ 1.56000
+KE 0.12499715 time@ 1.57000
+KE 0.12498662 time@ 1.58000
+KE 0.12495110 time@ 1.59000
+KE 0.12489060 time@ 1.60000
+KE 0.12480515 time@ 1.61000
+KE 0.12469479 time@ 1.62000
+KE 0.12455954 time@ 1.63000
+KE 0.12439946 time@ 1.64000
+KE 0.12421462 time@ 1.65000
+KE 0.12400509 time@ 1.66000
+KE 0.12377094 time@ 1.67000
+KE 0.12351231 time@ 1.68000
+KE 0.12322928 time@ 1.69000
+KE 0.12292195 time@ 1.70000
+KE 0.12259045 time@ 1.71000
+KE 0.12223492 time@ 1.72000
+KE 0.12185550 time@ 1.73000
+KE 0.12145232 time@ 1.74000
+KE 0.12102557 time@ 1.75000
+KE 0.12057540 time@ 1.76000
+KE 0.12010200 time@ 1.77000
+KE 0.11960556 time@ 1.78000
+KE 0.11908629 time@ 1.79000
+KE 0.11854437 time@ 1.80000
+KE 0.11798003 time@ 1.81000
+KE 0.11739350 time@ 1.82000
+KE 0.11678501 time@ 1.83000
+KE 0.11615481 time@ 1.84000
+KE 0.11550316 time@ 1.85000
+KE 0.11483031 time@ 1.86000
+KE 0.11413652 time@ 1.87000
+KE 0.11342207 time@ 1.88000
+KE 0.11268727 time@ 1.89000
+KE 0.11193238 time@ 1.90000
+KE 0.11115772 time@ 1.91000
+KE 0.11036360 time@ 1.92000
+KE 0.10955033 time@ 1.93000
+KE 0.10871824 time@ 1.94000
+KE 0.10786766 time@ 1.95000
+KE 0.10699894 time@ 1.96000
+KE 0.10611242 time@ 1.97000
+KE 0.10520845 time@ 1.98000
+KE 0.10428740 time@ 1.99000
+KE 0.10334963 time@ 2.00000
+KE 0.10239551 time@ 2.01000
+KE 0.10142545 time@ 2.02000
+KE 0.10043981 time@ 2.03000
+KE 0.09943900 time@ 2.04000
+KE 0.09842341 time@ 2.05000
+KE 0.09739346 time@ 2.06000
+KE 0.09634954 time@ 2.07000
+KE 0.09529208 time@ 2.08000
+KE 0.09422151 time@ 2.09000
+KE 0.09313826 time@ 2.10000
+KE 0.09204274 time@ 2.11000
+KE 0.09093541 time@ 2.12000
+KE 0.08981670 time@ 2.13000
+KE 0.08868708 time@ 2.14000
+KE 0.08754697 time@ 2.15000
+KE 0.08639685 time@ 2.16000
+KE 0.08523716 time@ 2.17000
+KE 0.08406839 time@ 2.18000
+KE 0.08289099 time@ 2.19000
+KE 0.08170541 time@ 2.20000
+KE 0.08051217 time@ 2.21000
+KE 0.07931172 time@ 2.22000
+KE 0.07810454 time@ 2.23000
+KE 0.07689112 time@ 2.24000
+KE 0.07567194 time@ 2.25000
+KE 0.07444749 time@ 2.26000
+KE 0.07321826 time@ 2.27000
+KE 0.07198475 time@ 2.28000
+KE 0.07074743 time@ 2.29000
+KE 0.06950682 time@ 2.30000
+KE 0.06826340 time@ 2.31000
+KE 0.06701767 time@ 2.32000
+KE 0.06577015 time@ 2.33000
+KE 0.06452131 time@ 2.34000
+KE 0.06327167 time@ 2.35000
+KE 0.06202173 time@ 2.36000
+KE 0.06077197 time@ 2.37000
+KE 0.05952290 time@ 2.38000
+KE 0.05827503 time@ 2.39000
+KE 0.05702883 time@ 2.40000
+KE 0.05578483 time@ 2.41000
+KE 0.05454351 time@ 2.42000
+KE 0.05330539 time@ 2.43000
+KE 0.05207093 time@ 2.44000
+KE 0.05084065 time@ 2.45000
+KE 0.04961503 time@ 2.46000
+KE 0.04839456 time@ 2.47000
+KE 0.04717973 time@ 2.48000
+KE 0.04597102 time@ 2.49000
+KE 0.04476893 time@ 2.50000
+KE 0.04357394 time@ 2.51000
+KE 0.04238651 time@ 2.52000
+KE 0.04120712 time@ 2.53000
+KE 0.04003625 time@ 2.54000
+KE 0.03887437 time@ 2.55000
+KE 0.03772194 time@ 2.56000
+KE 0.03657941 time@ 2.57000
+KE 0.03544726 time@ 2.58000
+KE 0.03432592 time@ 2.59000
+KE 0.03321584 time@ 2.60000
+KE 0.03211749 time@ 2.61000
+KE 0.03103128 time@ 2.62000
+KE 0.02995767 time@ 2.63000
+KE 0.02889706 time@ 2.64000
+KE 0.02784990 time@ 2.65000
+KE 0.02681660 time@ 2.66000
+KE 0.02579757 time@ 2.67000
+KE 0.02479322 time@ 2.68000
+KE 0.02380395 time@ 2.69000
+KE 0.02283017 time@ 2.70000
+KE 0.02187224 time@ 2.71000
+KE 0.02093057 time@ 2.72000
+KE 0.02000552 time@ 2.73000
+KE 0.01909747 time@ 2.74000
+KE 0.01820678 time@ 2.75000
+KE 0.01733380 time@ 2.76000
+KE 0.01647889 time@ 2.77000
+KE 0.01564239 time@ 2.78000
+KE 0.01482463 time@ 2.79000
+KE 0.01402594 time@ 2.80000
+KE 0.01324664 time@ 2.81000
+KE 0.01248704 time@ 2.82000
+KE 0.01174745 time@ 2.83000
+KE 0.01102815 time@ 2.84000
+KE 0.01032944 time@ 2.85000
+KE 0.00965160 time@ 2.86000
+KE 0.00899490 time@ 2.87000
+KE 0.00835960 time@ 2.88000
+KE 0.00774595 time@ 2.89000
+KE 0.00715420 time@ 2.90000
+KE 0.00658459 time@ 2.91000
+KE 0.00603735 time@ 2.92000
+KE 0.00551269 time@ 2.93000
+KE 0.00501082 time@ 2.94000
+KE 0.00453195 time@ 2.95000
+KE 0.00407627 time@ 2.96000
+KE 0.00364395 time@ 2.97000
+KE 0.00323517 time@ 2.98000
+KE 0.00285010 time@ 2.99000
+KE 0.00248889 time@ 3.00000
+KE 0.00215168 time@ 3.01000
+KE 0.00183861 time@ 3.02000
+KE 0.00154980 time@ 3.03000
+KE 0.00128537 time@ 3.04000
+KE 0.00104543 time@ 3.05000
+KE 0.00083006 time@ 3.06000
+KE 0.00063936 time@ 3.07000
+KE 0.00047341 time@ 3.08000
+KE 0.00033227 time@ 3.09000
+KE 0.00021599 time@ 3.10000
+KE 0.00012462 time@ 3.11000
+KE 0.00005820 time@ 3.12000
+KE 0.00001676 time@ 3.13000
+KE 0.00000031 time@ 3.14000
+KE 0.00000886 time@ 3.15000
+KE 0.00004241 time@ 3.16000
+KE 0.00010093 time@ 3.17000
+KE 0.00018442 time@ 3.18000
+KE 0.00029283 time@ 3.19000
+KE 0.00042612 time@ 3.20000
+KE 0.00058424 time@ 3.21000
+KE 0.00076712 time@ 3.22000
+KE 0.00097470 time@ 3.23000
+KE 0.00120688 time@ 3.24000
+KE 0.00146359 time@ 3.25000
+KE 0.00174470 time@ 3.26000
+KE 0.00205012 time@ 3.27000
+KE 0.00237971 time@ 3.28000
+KE 0.00273335 time@ 3.29000
+KE 0.00311090 time@ 3.30000
+KE 0.00351220 time@ 3.31000
+KE 0.00393710 time@ 3.32000
+KE 0.00438542 time@ 3.33000
+KE 0.00485698 time@ 3.34000
+KE 0.00535160 time@ 3.35000
+KE 0.00586908 time@ 3.36000
+KE 0.00640921 time@ 3.37000
+KE 0.00697178 time@ 3.38000
+KE 0.00755655 time@ 3.39000
+KE 0.00816330 time@ 3.40000
+KE 0.00879179 time@ 3.41000
+KE 0.00944176 time@ 3.42000
+KE 0.01011295 time@ 3.43000
+KE 0.01080509 time@ 3.44000
+KE 0.01151791 time@ 3.45000
+KE 0.01225112 time@ 3.46000
+KE 0.01300443 time@ 3.47000
+KE 0.01377754 time@ 3.48000
+KE 0.01457013 time@ 3.49000
+KE 0.01538190 time@ 3.50000
+KE 0.01621251 time@ 3.51000
+KE 0.01706164 time@ 3.52000
+KE 0.01792894 time@ 3.53000
+KE 0.01881407 time@ 3.54000
+KE 0.01971667 time@ 3.55000
+KE 0.02063639 time@ 3.56000
+KE 0.02157285 time@ 3.57000
+KE 0.02252568 time@ 3.58000
+KE 0.02349449 time@ 3.59000
+KE 0.02447891 time@ 3.60000
+KE 0.02547853 time@ 3.61000
+KE 0.02649297 time@ 3.62000
+KE 0.02752180 time@ 3.63000
+KE 0.02856463 time@ 3.64000
+KE 0.02962103 time@ 3.65000
+KE 0.03069058 time@ 3.66000
+KE 0.03177285 time@ 3.67000
+KE 0.03286741 time@ 3.68000
+KE 0.03397383 time@ 3.69000
+KE 0.03509165 time@ 3.70000
+KE 0.03622043 time@ 3.71000
+KE 0.03735973 time@ 3.72000
+KE 0.03850908 time@ 3.73000
+KE 0.03966803 time@ 3.74000
+KE 0.04083611 time@ 3.75000
+KE 0.04201286 time@ 3.76000
+KE 0.04319780 time@ 3.77000
+KE 0.04439046 time@ 3.78000
+KE 0.04559036 time@ 3.79000
+KE 0.04679703 time@ 3.80000
+KE 0.04800998 time@ 3.81000
+KE 0.04922872 time@ 3.82000
+KE 0.05045278 time@ 3.83000
+KE 0.05168165 time@ 3.84000
+KE 0.05291484 time@ 3.85000
+KE 0.05415186 time@ 3.86000
+KE 0.05539222 time@ 3.87000
+KE 0.05663543 time@ 3.88000
+KE 0.05788098 time@ 3.89000
+KE 0.05912839 time@ 3.90000
+KE 0.06037714 time@ 3.91000
+KE 0.06162674 time@ 3.92000
+KE 0.06287669 time@ 3.93000
+KE 0.06412649 time@ 3.94000
+KE 0.06537563 time@ 3.95000
+KE 0.06662364 time@ 3.96000
+KE 0.06786998 time@ 3.97000
+KE 0.06911416 time@ 3.98000
+KE 0.07035571 time@ 3.99000
+KE 0.07159413 time@ 4.00000
+KE 0.07282890 time@ 4.01000
+KE 0.07405953 time@ 4.02000
+KE 0.07528555 time@ 4.03000
+KE 0.07650644 time@ 4.04000
+KE 0.07772174 time@ 4.05000
+KE 0.07893094 time@ 4.06000
+KE 0.08013357 time@ 4.07000
+KE 0.08132915 time@ 4.08000
+KE 0.08251721 time@ 4.09000
+KE 0.08369725 time@ 4.10000
+KE 0.08486882 time@ 4.11000
+KE 0.08603143 time@ 4.12000
+KE 0.08718463 time@ 4.13000
+KE 0.08832795 time@ 4.14000
+KE 0.08946095 time@ 4.15000
+KE 0.09058317 time@ 4.16000
+KE 0.09169415 time@ 4.17000
+KE 0.09279346 time@ 4.18000
+KE 0.09388064 time@ 4.19000
+KE 0.09495527 time@ 4.20000
+KE 0.09601692 time@ 4.21000
+KE 0.09706517 time@ 4.22000
+KE 0.09809958 time@ 4.23000
+KE 0.09911975 time@ 4.24000
+KE 0.10012527 time@ 4.25000
+KE 0.10111574 time@ 4.26000
+KE 0.10209077 time@ 4.27000
+KE 0.10304996 time@ 4.28000
+KE 0.10399294 time@ 4.29000
+KE 0.10491931 time@ 4.30000
+KE 0.10582871 time@ 4.31000
+KE 0.10672080 time@ 4.32000
+KE 0.10759519 time@ 4.33000
+KE 0.10845155 time@ 4.34000
+KE 0.10928951 time@ 4.35000
+KE 0.11010876 time@ 4.36000
+KE 0.11090896 time@ 4.37000
+KE 0.11168980 time@ 4.38000
+KE 0.11245097 time@ 4.39000
+KE 0.11319217 time@ 4.40000
+KE 0.11391309 time@ 4.41000
+KE 0.11461344 time@ 4.42000
+KE 0.11529294 time@ 4.43000
+KE 0.11595134 time@ 4.44000
+KE 0.11658835 time@ 4.45000
+KE 0.11720371 time@ 4.46000
+KE 0.11779719 time@ 4.47000
+KE 0.11836856 time@ 4.48000
+KE 0.11891758 time@ 4.49000
+KE 0.11944404 time@ 4.50000
+KE 0.11994770 time@ 4.51000
+KE 0.12042839 time@ 4.52000
+KE 0.12088592 time@ 4.53000
+KE 0.12132010 time@ 4.54000
+KE 0.12173074 time@ 4.55000
+KE 0.12211768 time@ 4.56000
+KE 0.12248079 time@ 4.57000
+KE 0.12281991 time@ 4.58000
+KE 0.12313490 time@ 4.59000
+KE 0.12342565 time@ 4.60000
+KE 0.12369201 time@ 4.61000
+KE 0.12393388 time@ 4.62000
+KE 0.12415120 time@ 4.63000
+KE 0.12434386 time@ 4.64000
+KE 0.12451178 time@ 4.65000
+KE 0.12465489 time@ 4.66000
+KE 0.12477313 time@ 4.67000
+KE 0.12486646 time@ 4.68000
+KE 0.12493484 time@ 4.69000
+KE 0.12497826 time@ 4.70000
+KE 0.12499669 time@ 4.71000
+KE 0.12499012 time@ 4.72000
+KE 0.12495854 time@ 4.73000
+KE 0.12490200 time@ 4.74000
+KE 0.12482049 time@ 4.75000
+KE 0.12471405 time@ 4.76000
+KE 0.12458272 time@ 4.77000
+KE 0.12442654 time@ 4.78000
+KE 0.12424561 time@ 4.79000
+KE 0.12403996 time@ 4.80000
+KE 0.12380971 time@ 4.81000
+KE 0.12355494 time@ 4.82000
+KE 0.12327576 time@ 4.83000
+KE 0.12297226 time@ 4.84000
+KE 0.12264457 time@ 4.85000
+KE 0.12229282 time@ 4.86000
+KE 0.12191717 time@ 4.87000
+KE 0.12151774 time@ 4.88000
+KE 0.12109470 time@ 4.89000
+KE 0.12064822 time@ 4.90000
+KE 0.12017849 time@ 4.91000
+KE 0.11968569 time@ 4.92000
+KE 0.11917002 time@ 4.93000
+KE 0.11863167 time@ 4.94000
+KE 0.11807086 time@ 4.95000
+KE 0.11748783 time@ 4.96000
+KE 0.11688282 time@ 4.97000
+KE 0.11625605 time@ 4.98000
+KE 0.11560778 time@ 4.99000
+KE 0.11493826 time@ 5.00000
+KE 0.11424776 time@ 5.01000
+KE 0.11353657 time@ 5.02000
+KE 0.11280495 time@ 5.03000
+KE 0.11205322 time@ 5.04000
+KE 0.11128165 time@ 5.05000
+KE 0.11049057 time@ 5.06000
+KE 0.10968029 time@ 5.07000
+KE 0.10885116 time@ 5.08000
+KE 0.10800348 time@ 5.09000
+KE 0.10713759 time@ 5.10000
+KE 0.10625385 time@ 5.11000
+KE 0.10535260 time@ 5.12000
+KE 0.10443422 time@ 5.13000
+KE 0.10349907 time@ 5.14000
+KE 0.10254751 time@ 5.15000
+KE 0.10157993 time@ 5.16000
+KE 0.10059673 time@ 5.17000
+KE 0.09959828 time@ 5.18000
+KE 0.09858499 time@ 5.19000
+KE 0.09755727 time@ 5.20000
+KE 0.09651552 time@ 5.21000
+KE 0.09546018 time@ 5.22000
+KE 0.09439164 time@ 5.23000
+KE 0.09331036 time@ 5.24000
+KE 0.09221675 time@ 5.25000
+KE 0.09111126 time@ 5.26000
+KE 0.08999431 time@ 5.27000
+KE 0.08886638 time@ 5.28000
+KE 0.08772790 time@ 5.29000
+KE 0.08657932 time@ 5.30000
+KE 0.08542111 time@ 5.31000
+KE 0.08425373 time@ 5.32000
+KE 0.08307765 time@ 5.33000
+KE 0.08189334 time@ 5.34000
+KE 0.08070128 time@ 5.35000
+KE 0.07950193 time@ 5.36000
+KE 0.07829577 time@ 5.37000
+KE 0.07708330 time@ 5.38000
+KE 0.07586502 time@ 5.39000
+KE 0.07464138 time@ 5.40000
+KE 0.07341287 time@ 5.41000
+KE 0.07218000 time@ 5.42000
+KE 0.07094326 time@ 5.43000
+KE 0.06970313 time@ 5.44000
+KE 0.06846012 time@ 5.45000
+KE 0.06721473 time@ 5.46000
+KE 0.06596745 time@ 5.47000
+KE 0.06471879 time@ 5.48000
+KE 0.06346925 time@ 5.49000
+KE 0.06221931 time@ 5.50000
+KE 0.06096948 time@ 5.51000
+KE 0.05972026 time@ 5.52000
+KE 0.05847216 time@ 5.53000
+KE 0.05722567 time@ 5.54000
+KE 0.05598128 time@ 5.55000
+KE 0.05473950 time@ 5.56000
+KE 0.05350082 time@ 5.57000
+KE 0.05226575 time@ 5.58000
+KE 0.05103477 time@ 5.59000
+KE 0.04980838 time@ 5.60000
+KE 0.04858706 time@ 5.61000
+KE 0.04737130 time@ 5.62000
+KE 0.04616158 time@ 5.63000
+KE 0.04495841 time@ 5.64000
+KE 0.04376226 time@ 5.65000
+KE 0.04257359 time@ 5.66000
+KE 0.04139290 time@ 5.67000
+KE 0.04022065 time@ 5.68000
+KE 0.03905731 time@ 5.69000
+KE 0.03790335 time@ 5.70000
+KE 0.03675923 time@ 5.71000
+KE 0.03562540 time@ 5.72000
+KE 0.03450232 time@ 5.73000
+KE 0.03339045 time@ 5.74000
+KE 0.03229021 time@ 5.75000
+KE 0.03120206 time@ 5.76000
+KE 0.03012642 time@ 5.77000
+KE 0.02906374 time@ 5.78000
+KE 0.02801442 time@ 5.79000
+KE 0.02697890 time@ 5.80000
+KE 0.02595758 time@ 5.81000
+KE 0.02495089 time@ 5.82000
+KE 0.02395921 time@ 5.83000
+KE 0.02298294 time@ 5.84000
+KE 0.02202249 time@ 5.85000
+KE 0.02107823 time@ 5.86000
+KE 0.02015053 time@ 5.87000
+KE 0.01923977 time@ 5.88000
+KE 0.01834632 time@ 5.89000
+KE 0.01747052 time@ 5.90000
+KE 0.01661273 time@ 5.91000
+KE 0.01577330 time@ 5.92000
+KE 0.01495256 time@ 5.93000
+KE 0.01415084 time@ 5.94000
+KE 0.01336846 time@ 5.95000
+KE 0.01260573 time@ 5.96000
+KE 0.01186295 time@ 5.97000
+KE 0.01114042 time@ 5.98000
+KE 0.01043844 time@ 5.99000
+KE 0.00975729 time@ 6.00000
+KE 0.00909723 time@ 6.01000
+KE 0.00845853 time@ 6.02000
+KE 0.00784144 time@ 6.03000
+KE 0.00724622 time@ 6.04000
+KE 0.00667310 time@ 6.05000
+KE 0.00612231 time@ 6.06000
+KE 0.00559407 time@ 6.07000
+KE 0.00508858 time@ 6.08000
+KE 0.00460607 time@ 6.09000
+KE 0.00414671 time@ 6.10000
+KE 0.00371068 time@ 6.11000
+KE 0.00329818 time@ 6.12000
+KE 0.00290935 time@ 6.13000
+KE 0.00254436 time@ 6.14000
+KE 0.00220335 time@ 6.15000
+KE 0.00188645 time@ 6.16000
+KE 0.00159381 time@ 6.17000
+KE 0.00132552 time@ 6.18000
+KE 0.00108170 time@ 6.19000
+KE 0.00086245 time@ 6.20000
+KE 0.00066785 time@ 6.21000
+KE 0.00049798 time@ 6.22000
+KE 0.00035291 time@ 6.23000
+KE 0.00023270 time@ 6.24000
+KE 0.00013740 time@ 6.25000
+KE 0.00006704 time@ 6.26000
+KE 0.00002165 time@ 6.27000
+KE 0.00000125 time@ 6.28000
+KE 0.00000585 time@ 6.29000
+KE 0.00003544 time@ 6.30000
+KE 0.00009002 time@ 6.31000
+KE 0.00016957 time@ 6.32000
+KE 0.00027404 time@ 6.33000
+KE 0.00040341 time@ 6.34000
+KE 0.00055761 time@ 6.35000
+KE 0.00073659 time@ 6.36000
+KE 0.00094027 time@ 6.37000
+KE 0.00116857 time@ 6.38000
+KE 0.00142141 time@ 6.39000
+KE 0.00169867 time@ 6.40000
+KE 0.00200026 time@ 6.41000
+KE 0.00232604 time@ 6.42000
+KE 0.00267589 time@ 6.43000
+KE 0.00304967 time@ 6.44000
+KE 0.00344723 time@ 6.45000
+KE 0.00386841 time@ 6.46000
+KE 0.00431304 time@ 6.47000
+KE 0.00478095 time@ 6.48000
+KE 0.00527194 time@ 6.49000
+KE 0.00578582 time@ 6.50000
+KE 0.00632239 time@ 6.51000
+KE 0.00688142 time@ 6.52000
+KE 0.00746270 time@ 6.53000
+KE 0.00806600 time@ 6.54000
+KE 0.00869107 time@ 6.55000
+KE 0.00933766 time@ 6.56000
+KE 0.01000551 time@ 6.57000
+KE 0.01069437 time@ 6.58000
+KE 0.01140394 time@ 6.59000
+KE 0.01213395 time@ 6.60000
+KE 0.01288410 time@ 6.61000
+KE 0.01365410 time@ 6.62000
+KE 0.01444364 time@ 6.63000
+KE 0.01525240 time@ 6.64000
+KE 0.01608006 time@ 6.65000
+KE 0.01692629 time@ 6.66000
+KE 0.01779074 time@ 6.67000
+KE 0.01867308 time@ 6.68000
+KE 0.01957294 time@ 6.69000
+KE 0.02048998 time@ 6.70000
+KE 0.02142381 time@ 6.71000
+KE 0.02237408 time@ 6.72000
+KE 0.02334039 time@ 6.73000
+KE 0.02432237 time@ 6.74000
+KE 0.02531962 time@ 6.75000
+KE 0.02633175 time@ 6.76000
+KE 0.02735833 time@ 6.77000
+KE 0.02839898 time@ 6.78000
+KE 0.02945326 time@ 6.79000
+KE 0.03052076 time@ 6.80000
+KE 0.03160105 time@ 6.81000
+KE 0.03269370 time@ 6.82000
+KE 0.03379828 time@ 6.83000
+KE 0.03491433 time@ 6.84000
+KE 0.03604141 time@ 6.85000
+KE 0.03717906 time@ 6.86000
+KE 0.03832685 time@ 6.87000
+KE 0.03948431 time@ 6.88000
+KE 0.04065097 time@ 6.89000
+KE 0.04182639 time@ 6.90000
+KE 0.04301007 time@ 6.91000
+KE 0.04420154 time@ 6.92000
+KE 0.04540033 time@ 6.93000
+KE 0.04660596 time@ 6.94000
+KE 0.04781794 time@ 6.95000
+KE 0.04903580 time@ 6.96000
+KE 0.05025904 time@ 6.97000
+KE 0.05148718 time@ 6.98000
+KE 0.05271972 time@ 6.99000
+KE 0.05395617 time@ 7.00000
+KE 0.05519603 time@ 7.01000
+KE 0.05643883 time@ 7.02000
+KE 0.05768405 time@ 7.03000
+KE 0.05893119 time@ 7.04000
+KE 0.06017977 time@ 7.05000
+KE 0.06142927 time@ 7.06000
+KE 0.06267919 time@ 7.07000
+KE 0.06392906 time@ 7.08000
+KE 0.06517834 time@ 7.09000
+KE 0.06642655 time@ 7.10000
+KE 0.06767318 time@ 7.11000
+KE 0.06891775 time@ 7.12000
+KE 0.07015976 time@ 7.13000
+KE 0.07139869 time@ 7.14000
+KE 0.07263406 time@ 7.15000
+KE 0.07386538 time@ 7.16000
+KE 0.07509215 time@ 7.17000
+KE 0.07631389 time@ 7.18000
+KE 0.07753011 time@ 7.19000
+KE 0.07874031 time@ 7.20000
+KE 0.07994401 time@ 7.21000
+KE 0.08114073 time@ 7.22000
+KE 0.08233000 time@ 7.23000
+KE 0.08351134 time@ 7.24000
+KE 0.08468427 time@ 7.25000
+KE 0.08584832 time@ 7.26000
+KE 0.08700304 time@ 7.27000
+KE 0.08814795 time@ 7.28000
+KE 0.08928261 time@ 7.29000
+KE 0.09040655 time@ 7.30000
+KE 0.09151933 time@ 7.31000
+KE 0.09262049 time@ 7.32000
+KE 0.09370963 time@ 7.33000
+KE 0.09478626 time@ 7.34000
+KE 0.09584998 time@ 7.35000
+KE 0.09690037 time@ 7.36000
+KE 0.09793699 time@ 7.37000
+KE 0.09895945 time@ 7.38000
+KE 0.09996731 time@ 7.39000
+KE 0.10096019 time@ 7.40000
+KE 0.10193768 time@ 7.41000
+KE 0.10289940 time@ 7.42000
+KE 0.10384497 time@ 7.43000
+KE 0.10477398 time@ 7.44000
+KE 0.10568608 time@ 7.45000
+KE 0.10658092 time@ 7.46000
+KE 0.10745813 time@ 7.47000
+KE 0.10831735 time@ 7.48000
+KE 0.10915824 time@ 7.49000
+KE 0.10998046 time@ 7.50000
+KE 0.11078369 time@ 7.51000
+KE 0.11156761 time@ 7.52000
+KE 0.11233190 time@ 7.53000
+KE 0.11307627 time@ 7.54000
+KE 0.11380040 time@ 7.55000
+KE 0.11450400 time@ 7.56000
+KE 0.11518682 time@ 7.57000
+KE 0.11584856 time@ 7.58000
+KE 0.11648895 time@ 7.59000
+KE 0.11710776 time@ 7.60000
+KE 0.11770473 time@ 7.61000
+KE 0.11827961 time@ 7.62000
+KE 0.11883219 time@ 7.63000
+KE 0.11936222 time@ 7.64000
+KE 0.11986951 time@ 7.65000
+KE 0.12035384 time@ 7.66000
+KE 0.12081504 time@ 7.67000
+KE 0.12125290 time@ 7.68000
+KE 0.12166727 time@ 7.69000
+KE 0.12205797 time@ 7.70000
+KE 0.12242485 time@ 7.71000
+KE 0.12276776 time@ 7.72000
+KE 0.12308656 time@ 7.73000
+KE 0.12338112 time@ 7.74000
+KE 0.12365133 time@ 7.75000
+KE 0.12389708 time@ 7.76000
+KE 0.12411826 time@ 7.77000
+KE 0.12431481 time@ 7.78000
+KE 0.12448665 time@ 7.79000
+KE 0.12463367 time@ 7.80000
+KE 0.12475584 time@ 7.81000
+KE 0.12485312 time@ 7.82000
+KE 0.12492544 time@ 7.83000
+KE 0.12497281 time@ 7.84000
+KE 0.12499517 time@ 7.85000
+KE 0.12499255 time@ 7.86000
+KE 0.12496492 time@ 7.87000
+KE 0.12491232 time@ 7.88000
+KE 0.12483474 time@ 7.89000
+KE 0.12473222 time@ 7.90000
+KE 0.12460482 time@ 7.91000
+KE 0.12445258 time@ 7.92000
+KE 0.12427554 time@ 7.93000
+KE 0.12407380 time@ 7.94000
+KE 0.12384742 time@ 7.95000
+KE 0.12359652 time@ 7.96000
+KE 0.12332118 time@ 7.97000
+KE 0.12302151 time@ 7.98000
+KE 0.12269762 time@ 7.99000
+KE 0.12234966 time@ 8.00000
+KE 0.12197778 time@ 8.01000
+KE 0.12158209 time@ 8.02000
+KE 0.12116276 time@ 8.03000
+KE 0.12071998 time@ 8.04000
+KE 0.12025391 time@ 8.05000
+KE 0.11976473 time@ 8.06000
+KE 0.11925264 time@ 8.07000
+KE 0.11871786 time@ 8.08000
+KE 0.11816058 time@ 8.09000
+KE 0.11758104 time@ 8.10000
+KE 0.11697947 time@ 8.11000
+KE 0.11635612 time@ 8.12000
+KE 0.11571121 time@ 8.13000
+KE 0.11504503 time@ 8.14000
+KE 0.11435782 time@ 8.15000
+KE 0.11364987 time@ 8.16000
+KE 0.11292147 time@ 8.17000
+KE 0.11217290 time@ 8.18000
+KE 0.11140445 time@ 8.19000
+KE 0.11061644 time@ 8.20000
+KE 0.10980918 time@ 8.21000
+KE 0.10898300 time@ 8.22000
+KE 0.10813823 time@ 8.23000
+KE 0.10727520 time@ 8.24000
+KE 0.10639426 time@ 8.25000
+KE 0.10549576 time@ 8.26000
+KE 0.10458006 time@ 8.27000
+KE 0.10364754 time@ 8.28000
+KE 0.10269856 time@ 8.29000
+KE 0.10173349 time@ 8.30000
+KE 0.10075273 time@ 8.31000
+KE 0.09975668 time@ 8.32000
+KE 0.09874573 time@ 8.33000
+KE 0.09772026 time@ 8.34000
+KE 0.09668071 time@ 8.35000
+KE 0.09562749 time@ 8.36000
+KE 0.09456102 time@ 8.37000
+KE 0.09348172 time@ 8.38000
+KE 0.09239002 time@ 8.39000
+KE 0.09128637 time@ 8.40000
+KE 0.09017121 time@ 8.41000
+KE 0.08904497 time@ 8.42000
+KE 0.08790813 time@ 8.43000
+KE 0.08676112 time@ 8.44000
+KE 0.08560441 time@ 8.45000
+KE 0.08443846 time@ 8.46000
+KE 0.08326373 time@ 8.47000
+KE 0.08208068 time@ 8.48000
+KE 0.08088982 time@ 8.49000
+KE 0.07969160 time@ 8.50000
+KE 0.07848649 time@ 8.51000
+KE 0.07727499 time@ 8.52000
+KE 0.07605758 time@ 8.53000
+KE 0.07483475 time@ 8.54000
+KE 0.07360698 time@ 8.55000
+KE 0.07237478 time@ 8.56000
+KE 0.07113862 time@ 8.57000
+KE 0.06989900 time@ 8.58000
+KE 0.06865642 time@ 8.59000
+KE 0.06741139 time@ 8.60000
+KE 0.06616438 time@ 8.61000
+KE 0.06491591 time@ 8.62000
+KE 0.06366646 time@ 8.63000
+KE 0.06241655 time@ 8.64000
+KE 0.06116669 time@ 8.65000
+KE 0.05991734 time@ 8.66000
+KE 0.05866903 time@ 8.67000
+KE 0.05742225 time@ 8.68000
+KE 0.05617750 time@ 8.69000
+KE 0.05493528 time@ 8.70000
+KE 0.05369609 time@ 8.71000
+KE 0.05246042 time@ 8.72000
+KE 0.05122875 time@ 8.73000
+KE 0.05000160 time@ 8.74000
+KE 0.04877945 time@ 8.75000
+KE 0.04756278 time@ 8.76000
+KE 0.04635209 time@ 8.77000
+KE 0.04514786 time@ 8.78000
+KE 0.04395058 time@ 8.79000
+KE 0.04276071 time@ 8.80000
+KE 0.04157874 time@ 8.81000
+KE 0.04040513 time@ 8.82000
+KE 0.03924036 time@ 8.83000
+KE 0.03808489 time@ 8.84000
+KE 0.03693919 time@ 8.85000
+KE 0.03580371 time@ 8.86000
+KE 0.03467891 time@ 8.87000
+KE 0.03356523 time@ 8.88000
+KE 0.03246312 time@ 8.89000
+KE 0.03137302 time@ 8.90000
+KE 0.03029539 time@ 8.91000
+KE 0.02923063 time@ 8.92000
+KE 0.02817918 time@ 8.93000
+KE 0.02714146 time@ 8.94000
+KE 0.02611788 time@ 8.95000
+KE 0.02510885 time@ 8.96000
+KE 0.02411478 time@ 8.97000
+KE 0.02313606 time@ 8.98000
+KE 0.02217308 time@ 8.99000
+KE 0.02122623 time@ 9.00000
+KE 0.02029589 time@ 9.01000
+KE 0.01938244 time@ 9.02000
+KE 0.01848623 time@ 9.03000
+KE 0.01760762 time@ 9.04000
+KE 0.01674697 time@ 9.05000
+KE 0.01590462 time@ 9.06000
+KE 0.01508091 time@ 9.07000
+KE 0.01427616 time@ 9.08000
+KE 0.01349070 time@ 9.09000
+KE 0.01272485 time@ 9.10000
+KE 0.01197890 time@ 9.11000
+KE 0.01125316 time@ 9.12000
+KE 0.01054792 time@ 9.13000
+KE 0.00986346 time@ 9.14000
+KE 0.00920005 time@ 9.15000
+KE 0.00855796 time@ 9.16000
+KE 0.00793744 time@ 9.17000
+KE 0.00733875 time@ 9.18000
+KE 0.00676213 time@ 9.19000
+KE 0.00620779 time@ 9.20000
+KE 0.00567598 time@ 9.21000
+KE 0.00516689 time@ 9.22000
+KE 0.00468073 time@ 9.23000
+KE 0.00421770 time@ 9.24000
+KE 0.00377798 time@ 9.25000
+KE 0.00336175 time@ 9.26000
+KE 0.00296918 time@ 9.27000
+KE 0.00260041 time@ 9.28000
+KE 0.00225560 time@ 9.29000
+KE 0.00193489 time@ 9.30000
+KE 0.00163841 time@ 9.31000
+KE 0.00136626 time@ 9.32000
+KE 0.00111857 time@ 9.33000
+KE 0.00089544 time@ 9.34000
+KE 0.00069694 time@ 9.35000
+KE 0.00052316 time@ 9.36000
+KE 0.00037417 time@ 9.37000
+KE 0.00025003 time@ 9.38000
+KE 0.00015079 time@ 9.39000
+KE 0.00007649 time@ 9.40000
+KE 0.00002715 time@ 9.41000
+KE 0.00000281 time@ 9.42000
+KE 0.00000346 time@ 9.43000
+KE 0.00002911 time@ 9.44000
+KE 0.00007974 time@ 9.45000
+KE 0.00015535 time@ 9.46000
+KE 0.00025588 time@ 9.47000
+KE 0.00038132 time@ 9.48000
+KE 0.00053160 time@ 9.49000
+KE 0.00070667 time@ 9.50000
+KE 0.00090645 time@ 9.51000
+KE 0.00113087 time@ 9.52000
+KE 0.00137984 time@ 9.53000
+KE 0.00165325 time@ 9.54000
+KE 0.00195101 time@ 9.55000
+KE 0.00227297 time@ 9.56000
+KE 0.00261903 time@ 9.57000
+KE 0.00298904 time@ 9.58000
+KE 0.00338286 time@ 9.59000
+KE 0.00380031 time@ 9.60000
+KE 0.00424125 time@ 9.61000
+KE 0.00470549 time@ 9.62000
+KE 0.00519285 time@ 9.63000
+KE 0.00570312 time@ 9.64000
+KE 0.00623612 time@ 9.65000
+KE 0.00679162 time@ 9.66000
+KE 0.00736940 time@ 9.67000
+KE 0.00796923 time@ 9.68000
+KE 0.00859088 time@ 9.69000
+KE 0.00923408 time@ 9.70000
+KE 0.00989859 time@ 9.71000
+KE 0.01058415 time@ 9.72000
+KE 0.01129046 time@ 9.73000
+KE 0.01201726 time@ 9.74000
+KE 0.01276425 time@ 9.75000
+KE 0.01353113 time@ 9.76000
+KE 0.01431760 time@ 9.77000
+KE 0.01512334 time@ 9.78000
+KE 0.01594803 time@ 9.79000
+KE 0.01679135 time@ 9.80000
+KE 0.01765294 time@ 9.81000
+KE 0.01853247 time@ 9.82000
+KE 0.01942958 time@ 9.83000
+KE 0.02034393 time@ 9.84000
+KE 0.02127513 time@ 9.85000
+KE 0.02222283 time@ 9.86000
+KE 0.02318663 time@ 9.87000
+KE 0.02416616 time@ 9.88000
+KE 0.02516102 time@ 9.89000
+KE 0.02617082 time@ 9.90000
+KE 0.02719514 time@ 9.91000
+KE 0.02823359 time@ 9.92000
+KE 0.02928574 time@ 9.93000
+KE 0.03035118 time@ 9.94000
+KE 0.03142948 time@ 9.95000
+KE 0.03252020 time@ 9.96000
+KE 0.03362292 time@ 9.97000
+KE 0.03473718 time@ 9.98000
+KE 0.03586255 time@ 9.99000
+Done
+<end of output>
+Test time =   0.96 sec
+----------------------------------------------------------
+Test Passed.
+"TestOpenCLVelocityVerletIntegrator" end time: Apr 22 10:18 BST
+"TestOpenCLVelocityVerletIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+66/82 Testing: TestReferenceGBVISoftcoreForce
+66/82 Test: TestReferenceGBVISoftcoreForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceGBVISoftcoreForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/freeEnergy/platforms/reference/tests
+"TestReferenceGBVISoftcoreForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.14 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceGBVISoftcoreForce" end time: Apr 22 10:18 BST
+"TestReferenceGBVISoftcoreForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+67/82 Testing: TestReferenceLJSoftcoreForce
+67/82 Test: TestReferenceLJSoftcoreForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceLJSoftcoreForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/freeEnergy/platforms/reference/tests
+"TestReferenceLJSoftcoreForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.67 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceLJSoftcoreForce" end time: Apr 22 10:18 BST
+"TestReferenceLJSoftcoreForce" time elapsed: 00:00:01
+----------------------------------------------------------
+
+68/82 Testing: TestReferenceOBCSoftcoreForce
+68/82 Test: TestReferenceOBCSoftcoreForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceOBCSoftcoreForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/freeEnergy/platforms/reference/tests
+"TestReferenceOBCSoftcoreForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   6.76 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceOBCSoftcoreForce" end time: Apr 22 10:18 BST
+"TestReferenceOBCSoftcoreForce" time elapsed: 00:00:06
+----------------------------------------------------------
+
+69/82 Testing: TestReferenceAmoebaHarmonicBondForce
+69/82 Test: TestReferenceAmoebaHarmonicBondForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAmoebaHarmonicBondForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaHarmonicBondForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+TestReferenceAmoebaHarmonicBondForce running test...
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaHarmonicBondForce" end time: Apr 22 10:18 BST
+"TestReferenceAmoebaHarmonicBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+70/82 Testing: TestReferenceAmoebaTorsionTorsionForce
+70/82 Test: TestReferenceAmoebaTorsionTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAmoebaTorsionTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaTorsionTorsionForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+TestReferenceAmoebaTorsionTorsionForce running test...
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaTorsionTorsionForce" end time: Apr 22 10:18 BST
+"TestReferenceAmoebaTorsionTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+71/82 Testing: TestReferenceAmoebaUreyBradleyForce
+71/82 Test: TestReferenceAmoebaUreyBradleyForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAmoebaUreyBradleyForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaUreyBradleyForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+TestCudaAmoebaUreyBradleyForce running test...
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaUreyBradleyForce" end time: Apr 22 10:18 BST
+"TestReferenceAmoebaUreyBradleyForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+72/82 Testing: TestReferenceAmoebaVdwForce
+72/82 Test: TestReferenceAmoebaVdwForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAmoebaVdwForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaVdwForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+TestReferenceAmoebaVdwForce running test...
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaVdwForce" end time: Apr 22 10:18 BST
+"TestReferenceAmoebaVdwForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+73/82 Testing: TestReferenceAmoebaTorsionForce
+73/82 Test: TestReferenceAmoebaTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAmoebaTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaTorsionForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+TestReferenceAmoebaTorsionForce running test...
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaTorsionForce" end time: Apr 22 10:18 BST
+"TestReferenceAmoebaTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+74/82 Testing: TestReferenceAmoebaHarmonicInPlaneAngleForce
+74/82 Test: TestReferenceAmoebaHarmonicInPlaneAngleForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAmoebaHarmonicInPlaneAngleForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaHarmonicInPlaneAngleForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+TestReferenceAmoebaHarmonicInPlaneAngleForce running test...
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaHarmonicInPlaneAngleForce" end time: Apr 22 10:18 BST
+"TestReferenceAmoebaHarmonicInPlaneAngleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+75/82 Testing: TestReferenceAmoebaOutOfPlaneBendForce
+75/82 Test: TestReferenceAmoebaOutOfPlaneBendForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAmoebaOutOfPlaneBendForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaOutOfPlaneBendForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+TestReferenceAmoebaOutOfPlaneBendForce running test...
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaOutOfPlaneBendForce" end time: Apr 22 10:18 BST
+"TestReferenceAmoebaOutOfPlaneBendForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+76/82 Testing: TestReferenceAmoebaPiTorsionForce
+76/82 Test: TestReferenceAmoebaPiTorsionForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAmoebaPiTorsionForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaPiTorsionForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+TestReferenceAmoebaPiTorsionForce running test...
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaPiTorsionForce" end time: Apr 22 10:18 BST
+"TestReferenceAmoebaPiTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+77/82 Testing: TestReferenceAmoebaHarmonicAngleForce
+77/82 Test: TestReferenceAmoebaHarmonicAngleForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAmoebaHarmonicAngleForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaHarmonicAngleForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+TestCudaAmoebaHarmonicAngleForce running test...
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaHarmonicAngleForce" end time: Apr 22 10:18 BST
+"TestReferenceAmoebaHarmonicAngleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+78/82 Testing: TestReferenceAmoebaStretchBendForce
+78/82 Test: TestReferenceAmoebaStretchBendForce
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAmoebaStretchBendForce"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaStretchBendForce" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+TestReferenceAmoebaStretchBendForce running test...
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaStretchBendForce" end time: Apr 22 10:18 BST
+"TestReferenceAmoebaStretchBendForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+79/82 Testing: TestReferenceRpmd
+79/82 Test: TestReferenceRpmd
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceRpmd"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/plugins/rpmd/platforms/reference/tests
+"TestReferenceRpmd" start time: Apr 22 10:18 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  45.98 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceRpmd" end time: Apr 22 10:19 BST
+"TestReferenceRpmd" time elapsed: 00:00:45
+----------------------------------------------------------
+
+80/82 Testing: TestSplineFitter
+80/82 Test: TestSplineFitter
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestSplineFitter"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/tests
+"TestSplineFitter" start time: Apr 22 10:19 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSplineFitter" end time: Apr 22 10:19 BST
+"TestSplineFitter" time elapsed: 00:00:00
+----------------------------------------------------------
+
+81/82 Testing: TestParser
+81/82 Test: TestParser
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestParser"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/tests
+"TestParser" start time: Apr 22 10:19 BST
+Output:
+----------------------------------------------------------
+square(x)
+cube(x)
+cube(x)
+6*(x)
+recip(1+(x))
+sqrt(x)
+1
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestParser" end time: Apr 22 10:19 BST
+"TestParser" time elapsed: 00:00:00
+----------------------------------------------------------
+
+82/82 Testing: TestFindExclusions
+82/82 Test: TestFindExclusions
+Command: "/home/saifmulla/openmm/OpenMM/buildd/TestFindExclusions"
+Directory: /home/saifmulla/openmm/OpenMM/buildd/tests
+"TestFindExclusions" start time: Apr 22 10:19 BST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestFindExclusions" end time: Apr 22 10:19 BST
+"TestFindExclusions" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 22 10:19 BST

@@ -1,0 +1,37 @@
+# CMake generated Testfile for 
+# Source directory: /home/saifmulla/openmm/OpenMM/platforms/reference/tests
+# Build directory: /home/saifmulla/openmm/OpenMM/buildd/platforms/reference/tests
+# 
+# This file includes the relevent testing commands required for 
+# testing this directory and lists subdirectories to be tested as well.
+ADD_TEST(TestReferenceNeighborList "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceNeighborList")
+ADD_TEST(TestReferenceAndersenThermostat "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceAndersenThermostat")
+ADD_TEST(TestReferenceHarmonicAngleForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceHarmonicAngleForce")
+ADD_TEST(TestReferenceRandom "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceRandom")
+ADD_TEST(TestReferenceVariableLangevinIntegrator "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVariableLangevinIntegrator")
+ADD_TEST(TestReferenceCustomAngleForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomAngleForce")
+ADD_TEST(TestReferenceHarmonicBondForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceHarmonicBondForce")
+ADD_TEST(TestReferenceNonbondedForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceNonbondedForce")
+ADD_TEST(TestReferenceCustomTorsionForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomTorsionForce")
+ADD_TEST(TestReferenceCMAPTorsionForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCMAPTorsionForce")
+ADD_TEST(TestReferenceVariableVerletIntegrator "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVariableVerletIntegrator")
+ADD_TEST(TestReferenceCustomExternalForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomExternalForce")
+ADD_TEST(TestReferenceGBVIForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceGBVIForce")
+ADD_TEST(TestReferenceLangevinIntegrator "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceLangevinIntegrator")
+ADD_TEST(TestReferenceLocalEnergyMinimizer "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceLocalEnergyMinimizer")
+ADD_TEST(TestReferenceEwald "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceEwald")
+ADD_TEST(TestReferenceRBTorsionForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceRBTorsionForce")
+ADD_TEST(TestReferenceVelocityVerletIntegrator "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVelocityVerletIntegrator")
+ADD_TEST(TestReferenceBrownianIntegrator "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceBrownianIntegrator")
+ADD_TEST(TestReferenceCustomGBForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomGBForce")
+ADD_TEST(TestReferenceGBSAOBCForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceGBSAOBCForce")
+ADD_TEST(TestReferenceCustomHbondForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomHbondForce")
+ADD_TEST(TestReferenceKineticEnergy "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceKineticEnergy")
+ADD_TEST(TestReferenceCustomIntegrator "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomIntegrator")
+ADD_TEST(TestReferencePeriodicTorsionForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferencePeriodicTorsionForce")
+ADD_TEST(TestReferenceMonteCarloBarostat "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceMonteCarloBarostat")
+ADD_TEST(TestReferenceVirtualSites "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVirtualSites")
+ADD_TEST(TestReferenceCustomNonbondedForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomNonbondedForce")
+ADD_TEST(TestReferenceCustomBondForce "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCustomBondForce")
+ADD_TEST(TestReferenceCMMotionRemover "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceCMMotionRemover")
+ADD_TEST(TestReferenceVerletIntegrator "/home/saifmulla/openmm/OpenMM/buildd/TestReferenceVerletIntegrator")
