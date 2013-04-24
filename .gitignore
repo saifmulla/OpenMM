@@ -8,6 +8,8 @@ OpenMM.kdev4
 examples/*.cpp
 examples/Makefile
 ._*
-exec
+release
 build
+build*
 debug
+Debug
