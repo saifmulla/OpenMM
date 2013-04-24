@@ -1,1 +1,0 @@
-/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestReferenceCustomGBForce.dir/TestReferenceCustomGBForce.cpp.o  -o ../../../TestReferenceCustomGBForce -rdynamic ../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

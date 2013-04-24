@@ -1,1 +1,0 @@
-/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestParser.dir/TestParser.cpp.o  -o ../TestParser -rdynamic ../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

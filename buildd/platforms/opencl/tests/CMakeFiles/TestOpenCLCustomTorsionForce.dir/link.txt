@@ -1,1 +1,0 @@
-/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestOpenCLCustomTorsionForce.dir/TestOpenCLCustomTorsionForce.cpp.o  -o ../../../TestOpenCLCustomTorsionForce -rdynamic ../../../libOpenMMOpenCL_d.so ../../../libOpenMM_d.so -ldl -lOpenCL -lpthread -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

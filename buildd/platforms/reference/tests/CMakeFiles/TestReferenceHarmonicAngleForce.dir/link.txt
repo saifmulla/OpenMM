@@ -1,1 +1,0 @@
-/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestReferenceHarmonicAngleForce.dir/TestReferenceHarmonicAngleForce.cpp.o  -o ../../../TestReferenceHarmonicAngleForce -rdynamic ../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

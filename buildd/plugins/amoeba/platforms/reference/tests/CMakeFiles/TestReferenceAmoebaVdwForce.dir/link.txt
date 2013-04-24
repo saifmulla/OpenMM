@@ -1,1 +1,0 @@
-/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestReferenceAmoebaVdwForce.dir/TestReferenceAmoebaVdwForce.cpp.o  -o ../../../../../TestReferenceAmoebaVdwForce -rdynamic ../../../../../libOpenMM_d.so ../../../../../libOpenMMAmoeba_d.so ../../../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

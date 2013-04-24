@@ -1,1 +1,0 @@
-/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestReferencePeriodicTorsionForce.dir/TestReferencePeriodicTorsionForce.cpp.o  -o ../../../TestReferencePeriodicTorsionForce -rdynamic ../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

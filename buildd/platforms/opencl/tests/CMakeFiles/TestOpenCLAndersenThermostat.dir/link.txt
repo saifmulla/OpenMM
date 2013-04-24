@@ -1,1 +1,0 @@
-/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestOpenCLAndersenThermostat.dir/TestOpenCLAndersenThermostat.cpp.o  -o ../../../TestOpenCLAndersenThermostat -rdynamic ../../../libOpenMMOpenCL_d.so ../../../libOpenMM_d.so -ldl -lOpenCL -lpthread -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

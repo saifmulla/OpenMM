@@ -1,1 +1,0 @@
-/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestReferenceRpmd.dir/TestReferenceRpmd.cpp.o  -o ../../../../../TestReferenceRpmd -rdynamic ../../../../../libOpenMM_d.so ../../../../../libOpenMMRPMD_d.so ../../../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

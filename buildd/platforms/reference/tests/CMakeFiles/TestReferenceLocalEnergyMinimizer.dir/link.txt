@@ -1,1 +1,0 @@
-/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestReferenceLocalEnergyMinimizer.dir/TestReferenceLocalEnergyMinimizer.cpp.o  -o ../../../TestReferenceLocalEnergyMinimizer -rdynamic ../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 

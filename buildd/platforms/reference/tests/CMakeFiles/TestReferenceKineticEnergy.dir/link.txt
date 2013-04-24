@@ -1,1 +1,0 @@
-/usr/bin/c++   -g -O0 -Wall    CMakeFiles/TestReferenceKineticEnergy.dir/TestReferenceKineticEnergy.cpp.o  -o ../../../TestReferenceKineticEnergy -rdynamic ../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM/buildd 
