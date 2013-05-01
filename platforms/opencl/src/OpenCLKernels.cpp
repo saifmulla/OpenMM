@@ -4775,6 +4775,56 @@ void OpenCLControlBerendsenInBinsKernel::controlAfterForces(ContextImpl& impl)
     cl_.executeKernel(kernel3,numAtoms_);
 }
 
+//implementation for OpenCLMeasureBinVirialKernel
+OpenCLMeasureBinVirialKernel::~OpenCLMeasureBinVirialKernel(){
+    if(virialBuffers1_!=NULL)
+        delete virialBuffers1_;
+    if(virialBuffers2_!=NULL)
+        delete virialBuffers2_;
+    if(virialBuffers3_!=NULL)
+        delete virialBuffers3_;
+}
+void OpenCLMeasureBinVirialKernel::initialize(ContextImpl& impl){
+	std::cout<<"Measure bin virial initialized \n";
+	int pna = cl_.getPaddedNumAtoms();
+	int numatoms = cl_.getNumAtoms();
+    int numForceBuffers = cl_.getNumForceBuffers();
+    
+	numOfMolecules_ = cl_.getNumOfMolecules();
+    
+    cl::Kernel tempkernel = cl_.getNonbondedUtilities().getForceKernel();
+    atomMasses_ = new OpenCLArray<mm_float4>(cl_,numOfMolecules_,"atomMasses",false);
+    const System& system = impl.getSystem();
+//    findAtomMasses(system,ma);
+	moleculeCentresOfMass_ = new OpenCLArray<mm_float4>(cl_,numOfMolecules_,"moleculeCentresOfMass",false);
+    virialBuffers1_ = new OpenCLArray<mm_float4>(cl_, pna*numForceBuffers, "virialBuffers1", true);
+    virialBuffers2_ = new OpenCLArray<mm_float4>(cl_, pna*numForceBuffers, "virialBuffers2", true);
+    virialBuffers3_ = new OpenCLArray<mm_float4>(cl_, pna*numForceBuffers, "virialBuffers3", true);
+    if(cl_.getSupports64BitGlobalAtomics())
+    {
+        longVirialBuffer1_ = new OpenCLArray<cl_long>(cl_, 3*pna, "longVirialBuffer1", false);
+        longVirialBuffer2_ = new OpenCLArray<cl_long>(cl_, 3*pna, "longVirialBuffer2", false);
+        longVirialBuffer3_ = new OpenCLArray<cl_long>(cl_, 3*pna, "longVirialBuffer3", false);
+    }
+    cl::Program program = cl_.createProgram(OpenCLKernelSources::utilities);
+    mcomKernel_ = cl::Kernel(program,"computeMoleculeCentresOfMass");
+    
+	cl_.getAtomInMolecule().upload();
+	cl_.getMoleculeAtoms().upload();
+}
+void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
+}
+void OpenCLMeasureBinVirialKernel::findAtomMasses(const System& system, OpenCLArray<mm_int4>& moleculeAtoms)
+{
+    for(int i = 0;i<numOfMolecules_;i++){
+        mm_int4 ma = moleculeAtoms[i];
+        if(ma.x != -1)
+            (*atomMasses_)[i].x = system.getParticleMass(ma.x);
+        if(ma.y != -1)
+            (*atomMasses_)[i].y = system.getParticleMass(ma.y);
+        if(ma.z != -1)
+            (*atomMasses_)[i].z = system.getParticleMass(ma.z);
+    }
+}
 //-------------------------------------------------//
-
 

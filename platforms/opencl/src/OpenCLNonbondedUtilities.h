@@ -243,6 +243,13 @@ public:
      * @param isSymmetric   specifies whether the interaction is symmetric
      */
     cl::Kernel createInteractionKernel(const std::string& source, const std::vector<ParameterInfo>& params, const std::vector<ParameterInfo>& arguments, bool useExclusions, bool isSymmetric) const;
+    /**
+     * get the force kernel initilialized by the nonbonded utilities
+     */
+    cl::Kernel getForceKernel(){
+        return forceKernel;
+    }
+
 private:
     static int findExclusionIndex(int x, int y, const std::vector<cl_uint>& exclusionIndices, const std::vector<cl_uint>& exclusionRowIndices);
     OpenCLContext& context;

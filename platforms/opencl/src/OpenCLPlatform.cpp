@@ -79,6 +79,7 @@ OpenCLPlatform::OpenCLPlatform() {
     registerKernelFactory(MeasureBinPropertiesKernel::Name(),factory);
     registerKernelFactory(ControlBerendsenInBinsKernel::Name(),factory);
     registerKernelFactory(ControlBinForcesKernel::Name(),factory);
+    registerKernelFactory(MeasureBinVirialKernel::Name(),factory);
     platformProperties.push_back(OpenCLDeviceIndex());
     platformProperties.push_back(OpenCLPlatformIndex());
     setPropertyDefaultValue(OpenCLDeviceIndex(), "");
@@ -107,7 +108,9 @@ void OpenCLPlatform::contextCreated(ContextImpl& context, const map<string, stri
     const string& devicePropValue = (properties.find(OpenCLDeviceIndex()) == properties.end() ?
             getPropertyDefaultValue(OpenCLDeviceIndex()) : properties.find(OpenCLDeviceIndex())->second);
     int numParticles = context.getSystem().getNumParticles();
-    context.setPlatformData(new PlatformData(numParticles, platformPropValue, devicePropValue));
+    bool includevirial = context.getVirialIncluded();
+    std::cout<<"Include virial value "<<includevirial<<std::endl;
+    context.setPlatformData(new PlatformData(numParticles, platformPropValue, devicePropValue, includevirial));
 }
 
 void OpenCLPlatform::contextDestroyed(ContextImpl& context) const {
@@ -115,7 +118,7 @@ void OpenCLPlatform::contextDestroyed(ContextImpl& context) const {
     delete data;
 }
 
-OpenCLPlatform::PlatformData::PlatformData(int numParticles, const string& platformPropValue, const string& deviceIndexProperty) : removeCM(false), stepCount(0), computeForceCount(0), time(0.0)  {
+OpenCLPlatform::PlatformData::PlatformData(int numParticles, const string& platformPropValue, const string& deviceIndexProperty, bool includeVirial) : removeCM(false), stepCount(0), computeForceCount(0), time(0.0)  {
     int platformIndex = 0;
     if (platformPropValue.length() > 0)
         stringstream(platformPropValue) >> platformIndex;
@@ -131,10 +134,13 @@ OpenCLPlatform::PlatformData::PlatformData(int numParticles, const string& platf
             unsigned int deviceIndex;
             stringstream(devices[i]) >> deviceIndex;
             contexts.push_back(new OpenCLContext(numParticles, platformIndex, deviceIndex, *this));
+            contexts[i]->setCalculateVirial(includeVirial);
         }
     }
-    if (contexts.size() == 0)
+    if (contexts.size() == 0){
         contexts.push_back(new OpenCLContext(numParticles, platformIndex, -1, *this));
+        contexts[0]->setCalculateVirial(includeVirial);
+    }
     stringstream device;
     for (int i = 0; i < (int) contexts.size(); i++) {
         if (i > 0)

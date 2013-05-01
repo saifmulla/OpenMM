@@ -1128,6 +1128,20 @@ public:
     KernelImpl(name,platform){
     }
 };//end measurembin properties
+
+/**
+ * class MeasureBinVirial
+ * this class implements calculating the virial inside bins
+ */
+class MeasureBinVirialKernel : public Measure, public KernelImpl{
+public:
+	static std::string Name(){
+	    return "MeasureBinVirial";
+	}
+	MeasureBinVirialKernel(std::string name, const Platform& platform)
+		:KernelImpl(name,platform){
+	}
+};
 } // namespace OpenMM
 
 #endif /*OPENMM_KERNELS_H_*/

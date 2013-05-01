@@ -53,7 +53,7 @@ using std::string;
 ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator, Platform* platform, const map<string, string>& properties,
 		ControlTools* tools,
 		MeasurementTools* measuretools) :
-         owner(owner), system(system), integrator(integrator), hasInitializedForces(false), lastForceGroups(-1), platform(platform), platformData(NULL),controls(tools),controlSet(false),measurements(measuretools),measurementSet(false) {
+         owner(owner), system(system), integrator(integrator), hasInitializedForces(false), lastForceGroups(-1), platform(platform), platformData(NULL),controls(tools),controlSet(false),measurements(measuretools),measurementSet(false),virialIncluded(false) {
     if (system.getNumParticles() == 0)
         throw OpenMMException("Cannot create a Context for a System with no particles");
     
@@ -120,6 +120,14 @@ ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator,
 				throw OpenMMException("Not all measurement kernels are supported by "
 							+platform->getName()+" platform");
 			measurementSet = true;
+            int it = 0;
+            while(it<measurementkernels.size()){
+                if(measurementkernels[it].compare("MeasureBinVirial") == 0){
+                    virialIncluded = true;
+                    break;
+                }
+                it++;
+            }
 		}
 		else
 			throw OpenMMException("No measurement tools mentioned");

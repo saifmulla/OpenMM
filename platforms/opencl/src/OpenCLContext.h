@@ -481,6 +481,32 @@ public:
      * assumes ownership of the object, and deletes it when the context itself is deleted.
      */
     void addReorderListener(ReorderListener* listener);
+    /**
+     * get the number of molecules inside the system
+     */
+    int getNumOfMolecules(){
+	    return numOfMolecules;
+    }
+    OpenCLArray<cl_int>& getAtomInMolecule() {
+        return *atomInMolecule;
+    }
+    
+    OpenCLArray<mm_int4>& getMoleculeAtoms() {
+        return *moleculeAtoms;
+    }
+    
+    /**
+     * setter function to set virial calculation values
+     */
+    void setCalculateVirial(bool val){
+        calculateVirial = val;
+    }
+    /**
+     * accessor function to get virial calculation bool value
+     */
+    bool getCalculateVirial(){
+        return calculateVirial;
+    }
 private:
     struct Molecule;
     struct MoleculeGroup;
@@ -533,7 +559,15 @@ private:
     OpenCLBondedUtilities* bonded;
     OpenCLNonbondedUtilities* nonbonded;
     WorkThread* thread;
-    
+ /**
+  * get the number of molecules in the simulation
+  * ideally this should be similar to number of atoms in atomistic cases,
+  * however it will differ with regards to molecular cases
+  */
+    int numOfMolecules;
+    OpenCLArray<cl_int>*  atomInMolecule; //atomInMolecule
+    OpenCLArray<mm_int4>* moleculeAtoms; //moleculeAtoms
+    bool calculateVirial; //check if virial calculation is to be included
 };
 
 struct OpenCLContext::MoleculeGroup {

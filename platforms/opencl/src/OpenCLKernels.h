@@ -1284,8 +1284,37 @@ private:
         unsigned int numBlocks;
         unsigned int writeInterval;
         cl::Kernel kernel1;
-    };
-        
+    };        
+/**
+ * class MeasureBinVirialKernel
+ * this class is opencl platform implementation of measuring
+ * virial values inside bins while the forces are being calculated
+ */
+class OpenCLMeasureBinVirialKernel : public MeasureBinVirialKernel {
+public:
+	OpenCLMeasureBinVirialKernel(std::string name, const Platform& platform, OpenCLContext& cl)
+	:MeasureBinVirialKernel(name,platform),cl_(cl){
+	}
+	~OpenCLMeasureBinVirialKernel();
+	void initialize(ContextImpl& impl);
+	void calculate(ContextImpl& impl);
+	void findAtomMasses(const System& system,OpenCLArray<mm_int4>& moleculeAtoms);
+private:
+	OpenCLArray<mm_float4>* atomMasses_; //atom masses
+	int numOfMolecules_;	//numofMolecules for cpu values
+	OpenCLArray<mm_float4>* moleculeCentresOfMass_; //molecules centers of mass
+	//virial buffers
+	OpenCLArray<mm_float4>* virialBuffers1_;
+	OpenCLArray<mm_float4>* virialBuffers2_;
+	OpenCLArray<mm_float4>* virialBuffers3_;
+	//long virial buffers
+	OpenCLArray<cl_long>* longVirialBuffer1_;
+	OpenCLArray<cl_long>* longVirialBuffer2_;
+	OpenCLArray<cl_long>* longVirialBuffer3_;
+//	OpenCLArray<cl_float>* moleculeVirial_;
+//	unsigned int moleculeSize_; //size of each molecule such as argon=>1, sodium=>2,water=>3
+	OpenCLContext& cl_;
+	cl::Kernel mcomKernel_;
+};
 } // namespace OpenMM
-
 #endif /*OPENMM_OPENCLKERNELS_H_*/
