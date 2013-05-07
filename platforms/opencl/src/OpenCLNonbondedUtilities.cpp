@@ -495,6 +495,12 @@ cl::Kernel OpenCLNonbondedUtilities::createInteractionKernel(const string& sourc
         defines["USE_EXCLUSIONS"] = "1";
     if (isSymmetric)
         defines["USE_SYMMETRIC"] = "1";
+    /**
+     * this condition below checks to see if virial calculation to be included
+     * if it is then the variable will be set else it would not exist
+     */
+    if	(context.getCalculateVirial())
+    	defines["CALCULATE_VIRIAL"] = "1";
     defines["FORCE_WORK_GROUP_SIZE"] = OpenCLExpressionUtilities::intToString(forceThreadBlockSize);
     defines["CUTOFF_SQUARED"] = OpenCLExpressionUtilities::doubleToString(cutoff*cutoff);
     defines["NUM_ATOMS"] = OpenCLExpressionUtilities::intToString(context.getNumAtoms());
@@ -503,11 +509,13 @@ cl::Kernel OpenCLNonbondedUtilities::createInteractionKernel(const string& sourc
     if ((localDataSize/4)%2 == 0)
         defines["PARAMETER_SIZE_IS_EVEN"] = "1";
     string file;
-    if (deviceIsCpu)
+    // the code below is commented to enable default invocation
+    // of nonbonded_default.cl file for opencl platform
+    /*if (deviceIsCpu)
         file = OpenCLKernelSources::nonbonded_cpu;
     else if (context.getSIMDWidth() == 32)
         file = OpenCLKernelSources::nonbonded_nvidia;
-    else
+    else*/
         file = OpenCLKernelSources::nonbonded_default;
     cl::Program program = context.createProgram(context.replaceStrings(file, replacements), defines);
     cl::Kernel kernel(program, "computeNonbonded");
@@ -526,6 +534,7 @@ cl::Kernel OpenCLNonbondedUtilities::createInteractionKernel(const string& sourc
     kernel.setArg<cl::Buffer>(index++, exclusionRowIndices->getDeviceBuffer());
     kernel.setArg<cl_uint>(index++, startTileIndex);
     kernel.setArg<cl_uint>(index++, startTileIndex+numTiles);
+    std::cout<<"increment counter for kernel value before cuttoff is "<<index<<std::endl;
     if (useCutoff) {
         kernel.setArg<cl::Buffer>(index++, interactingTiles->getDeviceBuffer());
         kernel.setArg<cl::Buffer>(index++, interactionCount->getDeviceBuffer());
@@ -536,11 +545,15 @@ cl::Kernel OpenCLNonbondedUtilities::createInteractionKernel(const string& sourc
     else {
         kernel.setArg<cl_uint>(index++, numTiles);
     }
+    std::cout<<"increment counter for kernel value after cuttoff is "<<index<<std::endl;
     //check for availability of virial calculation
     if(context.getCalculateVirial()){
-        index += 5;//these five arguments will be assigned inside MeasureBinvirial kernel
-                    // if viral measurement is included therefore the increment is done
-                    // by 5 to accomomodate appropriate virial calculation arguments.
+        index += 5;
+        /*
+         * these five arguments will be assigned inside MeasureBinvirial kernel
+         * if viral measurement is included therefore the increment is done
+         * by 5 to accomomodate appropriate virial calculation arguments.
+		*/
     }
     std::cout<<"Printed outside calculate virial\n";
     for (int i = 0; i < (int) params.size(); i++) {

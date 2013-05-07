@@ -19,6 +19,7 @@ MeasurementTools::MeasurementTools(std::vector<std::string> tools,double averagi
     mols_ = NULL;
     binKE_ = NULL;
     binMom_ = NULL;
+    virial_ = NULL;
 /*	totalMass = (double) -1.0;
 	massDensity = (double) -1.0;
 	numberMolecules = (double) -1.0;
@@ -43,13 +44,14 @@ MeasurementTools::MeasurementTools(std::vector<std::string> tools,double averagi
  */
 
 MeasurementTools::MeasurementTools(std::vector<std::string> tools, OpenMM::Vec3 startPoint, OpenMM::Vec3 endPoint,
-                                   int nBins, int writeInterval)
+                                   int molecules,int nBins, int writeInterval)
 :tools(tools),startPoint_(startPoint),endPoint_(endPoint),binWidth_(0.0),
 nBins_(nBins),writeInterval_(writeInterval)
 {
     mols_ = new int[nBins_];
     binKE_ = new double[nBins_];
     binMom_ = new OpenMM::Vec3[nBins_];
+    virial_ = new OpenMM::Tensor[molecules];
 
     //calculate values for appropriate variables
     OpenMM::Vec3 diff = OpenMM::Vec3(endPoint_[0] - startPoint_[0],endPoint_[1] - startPoint_[1],endPoint_[2] - startPoint_[2]);
@@ -73,13 +75,14 @@ nBins_(nBins),writeInterval_(writeInterval)
  */
 MeasurementTools::~MeasurementTools()
 {
-    std::cout<<"Destructor for measurement tools\n";
     if(mols_!=NULL)
        delete mols_;
     if(binKE_!=NULL)
         delete binKE_;
     if(binMom_!=NULL)
         delete binMom_;
+    if(virial_ != NULL)
+    	delete virial_;
 }
 std::vector<std::string> MeasurementTools::getKernelNames(){
 	return tools;
@@ -107,11 +110,23 @@ void MeasurementTools::initialize(ContextImpl& impl){
 
 }
 
+void MeasurementTools::measureAtBegin(ContextImpl& impl){
+	/**
+	 * at this point only molecule centeres of mass kernel is required
+	 * to be invoked before the forces are calculated therefore explicity
+	 * invocation is used however in future if there are more than one implemenation
+	 * for calculateAtBeginning then invoke kernels implicitly using loop
+	 */
+	dynamic_cast<MeasureBinVirialKernel&>(kernels[0].getImpl()).calculateAtBeginning();
+}
 void MeasurementTools::measureAtEnd(ContextImpl& impl){
 	for(int k=0;k<this->getNumKernels();k++)
 		dynamic_cast<Measure&>(kernels[k].getImpl()).calculate(impl);
 }
 
+void calculateMoleculeCenterofMass(){
+//	dynamic_cast<MeasureBinVirialKernel&>(kernels[0].getImpl()).calculateAtBeginning();
+}
 double MeasurementTools::mag(OpenMM::Vec3& point){
     double magsqr = ((point[0]*point[0])+(point[1]*point[1])+(point[2]*point[2]));
     double root = sqrt(magsqr);

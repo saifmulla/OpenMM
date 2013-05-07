@@ -215,7 +215,14 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
         posq = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "posq", true);
         velm = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "velm", true);
         posCellOffsets.resize(paddedNumAtoms, mm_int4(0, 0, 0, 0));
-        //initially set virial related arrays to NULL
+        /*
+         * initially set virial related arrays to NULL
+         * this will help to avoid segfalt at runtime garbage
+         * collection
+         * because we are determining virial functionality at runtime however
+         * arrays are already initialized by context to avoid further conflicts with
+         * implementation
+         */
         atomInMolecule = NULL;
         moleculeAtoms = NULL;
     }
@@ -356,6 +363,10 @@ void OpenCLContext::initialize(const System& system) {
     atomIndex->upload();
     if(calculateVirial)
         atomInMolecule = new OpenCLArray<cl_int>(*this,paddedNumAtoms,"atomInMolecule",true);
+    /**
+     * the above array atomInMolecule is required to be initialised before next function
+     * call because in this function the array is filled with molecule indexes
+     */
     findMoleculeGroups(system);
     integration = new OpenCLIntegrationUtilities(*this, system);
     nonbonded->initialize(system);

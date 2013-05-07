@@ -1043,6 +1043,7 @@ public:
 class Measure {
 public:
 	virtual void initialize(ContextImpl& impl) = 0;
+	virtual void calculateAtBeginning() = 0;
 	virtual void calculate(ContextImpl& impl) = 0;
 	~Measure(){
 	}
@@ -1099,17 +1100,6 @@ public:
 		return "MeasureCombinedFields";
 	}
 	MeasureCombinedFieldsKernel(std::string name, const Platform& platform):
-		KernelImpl(name,platform){
-	}
-};
-
-//- class maxvelocitykernel
-class MeasureMaxVelocityKernel : public Measure, public KernelImpl{
-public:
-	static std::string Name(){
-		return "MeasureMaxVelocity";
-	}
-	MeasureMaxVelocityKernel(std::string name, const Platform& platform):
 		KernelImpl(name,platform){
 	}
 };

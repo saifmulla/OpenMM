@@ -4411,6 +4411,9 @@ void OpenCLMeasureCombinedFieldsKernel::initialize(ContextImpl& impl){
     
 }
 
+void OpenCLMeasureCombinedFieldsKernel::calculateAtBeginning(){
+
+}
 void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
     cl.executeKernel(kernel1,cl.getNumAtoms());
     totalKe->download();
@@ -4559,6 +4562,11 @@ void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
     unitVector->upload();
     std::cout<<"finished initialization for bin properties kernel\n";
 }
+
+void OpenCLMeasureBinPropertiesKernel::calculateAtBeginning(){
+
+}
+
 void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
 {
     int writeinterval = impl.getMeasurements().getWriteInterval();
@@ -4783,9 +4791,19 @@ OpenCLMeasureBinVirialKernel::~OpenCLMeasureBinVirialKernel(){
         delete virialBuffers2_;
     if(virialBuffers3_!=NULL)
         delete virialBuffers3_;
+    if(longVirialBuffer1_!=NULL)
+        delete longVirialBuffer1_;
+    if(longVirialBuffer2_!=NULL)
+        delete longVirialBuffer2_;
+    if(longVirialBuffer3_!=NULL)
+        delete longVirialBuffer3_;
+    if(atomMasses_!=NULL)
+    	delete atomMasses_;
+    if(moleculeCentresOfMass_!=NULL)
+    	delete moleculeCentresOfMass_;
+    
 }
 void OpenCLMeasureBinVirialKernel::initialize(ContextImpl& impl){
-	std::cout<<"Measure bin virial initialized \n";
 	int pna = cl_.getPaddedNumAtoms();
 	int numatoms = cl_.getNumAtoms();
     int numForceBuffers = cl_.getNumForceBuffers();
@@ -4793,28 +4811,155 @@ void OpenCLMeasureBinVirialKernel::initialize(ContextImpl& impl){
 	numOfMolecules_ = cl_.getNumOfMolecules();
     
     cl::Kernel tempkernel = cl_.getNonbondedUtilities().getForceKernel();
-    atomMasses_ = new OpenCLArray<mm_float4>(cl_,numOfMolecules_,"atomMasses",false);
-    const System& system = impl.getSystem();
-//    findAtomMasses(system,ma);
-	moleculeCentresOfMass_ = new OpenCLArray<mm_float4>(cl_,numOfMolecules_,"moleculeCentresOfMass",false);
+    atomMasses_ = new OpenCLArray<mm_float4>(cl_,numOfMolecules_,"atomMasses",true);
+    System& system = impl.getSystem();
+    OpenCLArray<mm_int4>& ma = cl_.getMoleculeAtoms();
+    findAtomMasses(system,ma);
+	moleculeCentresOfMass_ = new OpenCLArray<mm_float4>(cl_,numOfMolecules_,"moleculeCentresOfMass",true);//TODDO: later make true to false to remove CPU memory allocation for this array
     virialBuffers1_ = new OpenCLArray<mm_float4>(cl_, pna*numForceBuffers, "virialBuffers1", true);
     virialBuffers2_ = new OpenCLArray<mm_float4>(cl_, pna*numForceBuffers, "virialBuffers2", true);
     virialBuffers3_ = new OpenCLArray<mm_float4>(cl_, pna*numForceBuffers, "virialBuffers3", true);
+    //add autoclear buffers
+    cl_.addAutoclearBuffer(virialBuffers1_->getDeviceBuffer(), virialBuffers1_->getSize()*4);
+    cl_.addAutoclearBuffer(virialBuffers2_->getDeviceBuffer(), virialBuffers2_->getSize()*4);
+    cl_.addAutoclearBuffer(virialBuffers3_->getDeviceBuffer(), virialBuffers3_->getSize()*4);
+
     if(cl_.getSupports64BitGlobalAtomics())
     {
         longVirialBuffer1_ = new OpenCLArray<cl_long>(cl_, 3*pna, "longVirialBuffer1", false);
         longVirialBuffer2_ = new OpenCLArray<cl_long>(cl_, 3*pna, "longVirialBuffer2", false);
         longVirialBuffer3_ = new OpenCLArray<cl_long>(cl_, 3*pna, "longVirialBuffer3", false);
+        cl_.addAutoclearBuffer(longVirialBuffer1_->getDeviceBuffer(), longVirialBuffer1_->getSize()*2);
+        cl_.addAutoclearBuffer(longVirialBuffer2_->getDeviceBuffer(), longVirialBuffer2_->getSize()*2);
+        cl_.addAutoclearBuffer(longVirialBuffer3_->getDeviceBuffer(), longVirialBuffer3_->getSize()*2);
     }
     cl::Program program = cl_.createProgram(OpenCLKernelSources::utilities);
     mcomKernel_ = cl::Kernel(program,"computeMoleculeCentresOfMass");
+    reduceLongVirialKernel_ = cl::Kernel(program,"reduceVirials");
+    reduceFloat4VirialKernel_ = cl::Kernel(program,"reduceFloat4VirialBuffer");
     
+    mcomKernel_.setArg<cl::Buffer>(0,cl_.getPosq().getDeviceBuffer());
+    mcomKernel_.setArg<cl::Buffer>(1,atomMasses_->getDeviceBuffer());
+    mcomKernel_.setArg<cl::Buffer>(2,cl_.getMoleculeAtoms().getDeviceBuffer());
+    mcomKernel_.setArg<cl::Buffer>(3,cl_.getAtomIndex().getDeviceBuffer());
+    mcomKernel_.setArg<cl::Buffer>(4,moleculeCentresOfMass_->getDeviceBuffer());
+    mcomKernel_.setArg<cl_int>(5,numOfMolecules_);
+
+    /**
+     * obtain the object of forcekernel of kernel type and set appropriate parameters which are
+     * incremented inside nonbondedutilities create kernel function. Precisely the argument counter
+     * is incremented by 5, starting from either 14 if using cuttoff or 9
+     * TODO: to make provisions to get the cutoff values from nonbondedutilities class
+     * so that appropriate argument numbers are assigned.The functionality below is hard-
+     * coded argument numbers this will develop a bug if cutoffdistance is now used in simulation
+     */
+
+    cl::Kernel& forcekernel = cl_.getNonbondedUtilities().getForceKernel();
+    if(cl_.getSupports64BitGlobalAtomics()){
+    	forcekernel.setArg<cl::Memory>(14,longVirialBuffer1_->getDeviceBuffer());
+    	forcekernel.setArg<cl::Memory>(15,longVirialBuffer2_->getDeviceBuffer());
+    	forcekernel.setArg<cl::Memory>(16,longVirialBuffer3_->getDeviceBuffer());
+    }
+    else{
+    	forcekernel.setArg<cl::Buffer>(14,virialBuffers1_->getDeviceBuffer());
+    	forcekernel.setArg<cl::Buffer>(15,virialBuffers2_->getDeviceBuffer());
+    	forcekernel.setArg<cl::Buffer>(16,virialBuffers3_->getDeviceBuffer());
+    }
+    forcekernel.setArg<cl::Buffer>(17,moleculeCentresOfMass_->getDeviceBuffer());
+    forcekernel.setArg<cl::Buffer>(18,cl_.getAtomInMolecule().getDeviceBuffer());
+
+    atomMasses_->upload();
 	cl_.getAtomInMolecule().upload();
 	cl_.getMoleculeAtoms().upload();
+	cl_.getAtomIndex().upload();
+}
+
+void OpenCLMeasureBinVirialKernel::calculateAtBeginning(){
+	cl_.executeKernel(mcomKernel_,numOfMolecules_);
 }
 void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
+	OpenMM::Tensor* ptrvirial = impl.getMeasurements().getVirial();
+	int pna = cl_.getPaddedNumAtoms();
+	int nfb = cl_.getNumForceBuffers();
+	if(cl_.getSupports64BitGlobalAtomics()){
+		//reduction of virial buffer1
+		reduceLongVirialKernel_.setArg<cl::Buffer>(0,longVirialBuffer1_->getDeviceBuffer());
+		reduceLongVirialKernel_.setArg<cl::Buffer>(1,virialBuffers1_->getDeviceBuffer());
+		reduceLongVirialKernel_.setArg<cl_int>(2,pna);
+		reduceLongVirialKernel_.setArg<cl_int>(3,nfb);
+		cl_.executeKernel(reduceLongVirialKernel_,pna,128);
+		//reduction of virial buffer2
+		reduceLongVirialKernel_.setArg<cl::Buffer>(0,longVirialBuffer2_->getDeviceBuffer());
+		reduceLongVirialKernel_.setArg<cl::Buffer>(1,virialBuffers2_->getDeviceBuffer());
+		reduceLongVirialKernel_.setArg<cl_int>(2,pna);
+		reduceLongVirialKernel_.setArg<cl_int>(3,nfb);
+		cl_.executeKernel(reduceLongVirialKernel_,pna,128);
+		//reduction of virial buffer3
+		reduceLongVirialKernel_.setArg<cl::Buffer>(0,longVirialBuffer3_->getDeviceBuffer());
+		reduceLongVirialKernel_.setArg<cl::Buffer>(1,virialBuffers3_->getDeviceBuffer());
+		reduceLongVirialKernel_.setArg<cl_int>(2,pna);
+		reduceLongVirialKernel_.setArg<cl_int>(3,nfb);
+		cl_.executeKernel(reduceLongVirialKernel_,pna,128);
+	}
+	else{
+		int buffersize = (pna*nfb)/nfb;
+		//reduction of virial buffer1
+		reduceFloat4VirialKernel_.setArg<cl::Buffer>(0,virialBuffers1_->getDeviceBuffer());
+		reduceFloat4VirialKernel_.setArg<cl_int>(1,buffersize);
+		reduceFloat4VirialKernel_.setArg<cl_int>(2,nfb);
+		cl_.executeKernel(reduceFloat4VirialKernel_,buffersize,128);
+		//reduction of virial buffer1
+		reduceFloat4VirialKernel_.setArg<cl::Buffer>(0,virialBuffers2_->getDeviceBuffer());
+		reduceFloat4VirialKernel_.setArg<cl_int>(1,buffersize);
+		reduceFloat4VirialKernel_.setArg<cl_int>(2,nfb);
+		cl_.executeKernel(reduceFloat4VirialKernel_,buffersize,128);
+		//reduction of virial buffer1
+		reduceFloat4VirialKernel_.setArg<cl::Buffer>(0,virialBuffers3_->getDeviceBuffer());
+		reduceFloat4VirialKernel_.setArg<cl_int>(1,buffersize);
+		reduceFloat4VirialKernel_.setArg<cl_int>(2,nfb);
+		cl_.executeKernel(reduceFloat4VirialKernel_,buffersize,128);
+	}
+
+
+	int m = 0;
+	virialBuffers1_->download();
+	virialBuffers2_->download();
+	virialBuffers3_->download();
+	OpenCLArray<mm_int4>& ma = cl_.getMoleculeAtoms();
+	OpenCLArray<cl_int>& order = cl_.getAtomIndex();
+	/*while(m<numOfMolecules_){
+		mm_int4 ml = ma[m];
+		if(ml.x != -1){
+			mm_float4 v1 = virialBuffers1_->get(ml.x);
+			mm_float4 v2 = virialBuffers2_->get(ml.x);
+			mm_float4 v3 = virialBuffers3_->get(ml.x);
+			printf("%d => %3.10f\t%3.10f\t%3.10f\n%3.10f\t%3.10f\t%3.10f\n%3.10f\t%3.10f\t%3.10f\n\n",
+					m,v1.x,v1.y,v1.z,v2.x,v2.y,v2.z,v3.x,v3.y,v3.z);
+		}
+		m++;
+	}*/
+
+	while(m<numOfMolecules_){
+		mm_int4 ml = ma[m];
+		if(ml.x != -1){
+			mm_float4 v1 = virialBuffers1_->get(ml.x);
+			mm_float4 v2 = virialBuffers2_->get(ml.x);
+			mm_float4 v3 = virialBuffers3_->get(ml.x);
+			ptrvirial[order[m]][0] = v1.x;
+			ptrvirial[order[m]][1] = v1.y;
+			ptrvirial[order[m]][2] = v1.z;
+			ptrvirial[order[m]][3] = v2.x;
+			ptrvirial[order[m]][4] = v2.y;
+			ptrvirial[order[m]][5] = v2.z;
+			ptrvirial[order[m]][6] = v3.x;
+			ptrvirial[order[m]][7] = v3.y;
+			ptrvirial[order[m]][8] = v3.z;
+		}
+		m++;
+	}
 }
-void OpenCLMeasureBinVirialKernel::findAtomMasses(const System& system, OpenCLArray<mm_int4>& moleculeAtoms)
+
+void OpenCLMeasureBinVirialKernel::findAtomMasses(System& system, OpenCLArray<mm_int4>& moleculeAtoms)
 {
     for(int i = 0;i<numOfMolecules_;i++){
         mm_int4 ma = moleculeAtoms[i];

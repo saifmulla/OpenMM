@@ -67,14 +67,24 @@ void VelocityVerletIntegrator::step(int steps) {
 //	bool cs = context->getControlSet();
 	//check if measurement tools are set
 	bool ms = context->getMeasurementSet();
+	bool includeVirial = context->getVirialIncluded();
+	printf("Virial include value in integrator %d\n",includeVirial);
 
     for (int i = 0; i < steps; ++i)
     {
 //        stepCounter = stepCounter + 1;
     	context->updateContextState();
-    	static_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator1(*context);
+    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator1(*context);
+    	/**
+    	 * the if condition below make a invocation considering virial includsion
+    	 * however if in future there are more than one implementation of calculateAtBeginning
+    	 * function then please invoke using
+    	 * if(ms)
+    	 */
+    	if(includeVirial)
+    		context->getMeasurements().measureAtBegin(*context);
     	context->calcForcesAndEnergy(true, false);
-    	static_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator2(*context);
+    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator2(*context);
     //	if(cs)
     	//	context->getControls().controlAfterForces(*context);
     	if(ms)

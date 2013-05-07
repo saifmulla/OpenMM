@@ -107,6 +107,36 @@ __kernel void determineNativeAccuracy(__global float8* restrict values, int numV
 }
 
 /**
+ * Sum a collection of buffers into the first one for virial.
+ */
+
+__kernel void reduceFloat4VirialBuffer(__global float4* restrict buffer, int bufferSize, int numBuffers) {
+    int index = get_global_id(0);
+    int totalSize = bufferSize*numBuffers;
+    while (index < bufferSize) {
+        float4 sum = buffer[index];
+        for (int i = index+bufferSize; i < totalSize; i += bufferSize)
+            sum += buffer[i];
+        buffer[index] = sum;
+        index += get_global_size(0);
+    }
+}
+
+/**
+ * Sum the various buffers containing forces.
+ */
+__kernel void reduceVirials(__global const long* restrict longBuffer, __global float4* restrict buffer, int bufferSize, int numBuffers) {
+    int totalSize = bufferSize*numBuffers;
+    float scale = 1.0f/(float) 0xFFFFFFFF;
+    for (int index = get_global_id(0); index < bufferSize; index += get_global_size(0)) {
+        float4 sum = (float4) (scale*longBuffer[index], scale*longBuffer[index+bufferSize], scale*longBuffer[index+2*bufferSize], 0.0f);
+        for (int i = index; i < totalSize; i += bufferSize)
+            sum += buffer[i];
+        buffer[index] = sum;
+    }
+}
+
+/**
  * @kernel - computeMoleculeCentresofMass
  * this kernel is used to calculate centres of mass while calculating virial
  * in fact it is a pre requisite of virial calculation therefore this kernel 

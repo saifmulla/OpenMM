@@ -70,4 +70,6 @@
 #include "openmm/Platform.h"
 #include "openmm/ControlTools.h"
 #include "openmm/MeasurementTools.h"
+/* newly included custom type */
+#include "openmm/Tensor.h"
 #endif /*OPENMM_H_*/

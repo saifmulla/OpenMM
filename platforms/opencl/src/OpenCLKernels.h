@@ -1251,6 +1251,7 @@ public:
 	}
 	~OpenCLMeasureCombinedFieldsKernel();
 	void initialize(ContextImpl& impl);
+	void calculateAtBeginning();
 	void calculate(ContextImpl& impl);
 private:
 	OpenCLContext& cl;
@@ -1272,6 +1273,7 @@ private:
         }
         ~OpenCLMeasureBinPropertiesKernel();
         void initialize(ContextImpl& impl);
+        void calculateAtBeginning();
         void calculate(ContextImpl& impl);
     private:
         OpenCLContext& cl;
@@ -1297,8 +1299,9 @@ public:
 	}
 	~OpenCLMeasureBinVirialKernel();
 	void initialize(ContextImpl& impl);
+	void calculateAtBeginning();
 	void calculate(ContextImpl& impl);
-	void findAtomMasses(const System& system,OpenCLArray<mm_int4>& moleculeAtoms);
+	void findAtomMasses(System& system,OpenCLArray<mm_int4>& moleculeAtoms);
 private:
 	OpenCLArray<mm_float4>* atomMasses_; //atom masses
 	int numOfMolecules_;	//numofMolecules for cpu values
@@ -1314,7 +1317,7 @@ private:
 //	OpenCLArray<cl_float>* moleculeVirial_;
 //	unsigned int moleculeSize_; //size of each molecule such as argon=>1, sodium=>2,water=>3
 	OpenCLContext& cl_;
-	cl::Kernel mcomKernel_;
+	cl::Kernel mcomKernel_,reduceLongVirialKernel_,reduceFloat4VirialKernel_;
 };
 } // namespace OpenMM
 #endif /*OPENMM_OPENCLKERNELS_H_*/

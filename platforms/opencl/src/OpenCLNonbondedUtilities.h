@@ -246,7 +246,7 @@ public:
     /**
      * get the force kernel initilialized by the nonbonded utilities
      */
-    cl::Kernel getForceKernel(){
+    cl::Kernel& getForceKernel(){
         return forceKernel;
     }
 

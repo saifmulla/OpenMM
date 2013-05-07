@@ -4,6 +4,7 @@
 #include<iostream>
 #include<cmath>
 #include<math.h>
+#include "openmm/Tensor.h"
 #include "openmm/Kernel.h"
 #include "internal/windowsExport.h"
 
@@ -29,6 +30,7 @@ private:
     OpenMM::Vec3 unitVector_;
     double binWidth_;
     double rSEMag_;
+    OpenMM::Tensor* virial_;
     
 protected:
 	friend class ContextImpl;
@@ -37,7 +39,7 @@ public:
     
     //following constructor must be used to invoke measurement inside bins
     MeasurementTools(std::vector<std::string> tools, OpenMM::Vec3 startPoint, OpenMM::Vec3 endPoint,
-                     int nBins=1, int writeInterval=1);
+                     int molecules=1,int nBins=1, int writeInterval=1);
     
     //- Destructor
     ~MeasurementTools();
@@ -65,6 +67,9 @@ public:
     OpenMM::Vec3* getBinMom(){
 		return binMom_;
 	}
+    OpenMM::Tensor* getVirial(){
+    	return virial_;
+    }
     inline double getRSEMag(){
         return rSEMag_;
     }
@@ -81,7 +86,20 @@ public:
 	std::vector<std::string> getKernelNames();
 
 	void initialize(ContextImpl& impl);
+	void measureAtBegin(ContextImpl& impl);
 	void measureAtEnd(ContextImpl& impl);
+	/**
+	 * this function invokes calculate moleculeCenters of mass
+	 * it is invoked from contextImplement set positions kernel conditionally
+	 * if virial is set
+	 * this function call is used to calculate molecule centers of mass to enable its values for
+	 * the force calculation kernel which also calculates virial and subsequently the virial would
+	 * require sensible values of mcom
+	 * Moreover this kernel will only be called when positions are set and essentially in our case
+	 * we would only expect the call once before the actual loop starts in which integrator
+	 * step function is invoked which essentially comprises call to mcom kernel
+	 */
+	void calculateMoleculeCenterofMass();
 };
 }//end of OPENMM namespace
 #endif
