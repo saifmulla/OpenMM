@@ -109,7 +109,6 @@ void OpenCLPlatform::contextCreated(ContextImpl& context, const map<string, stri
             getPropertyDefaultValue(OpenCLDeviceIndex()) : properties.find(OpenCLDeviceIndex())->second);
     int numParticles = context.getSystem().getNumParticles();
     bool includevirial = context.getVirialIncluded();
-    std::cout<<"Include virial value "<<includevirial<<std::endl;
     context.setPlatformData(new PlatformData(numParticles, platformPropValue, devicePropValue, includevirial));
 }
 

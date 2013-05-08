@@ -534,7 +534,6 @@ cl::Kernel OpenCLNonbondedUtilities::createInteractionKernel(const string& sourc
     kernel.setArg<cl::Buffer>(index++, exclusionRowIndices->getDeviceBuffer());
     kernel.setArg<cl_uint>(index++, startTileIndex);
     kernel.setArg<cl_uint>(index++, startTileIndex+numTiles);
-    std::cout<<"increment counter for kernel value before cuttoff is "<<index<<std::endl;
     if (useCutoff) {
         kernel.setArg<cl::Buffer>(index++, interactingTiles->getDeviceBuffer());
         kernel.setArg<cl::Buffer>(index++, interactionCount->getDeviceBuffer());
@@ -545,7 +544,6 @@ cl::Kernel OpenCLNonbondedUtilities::createInteractionKernel(const string& sourc
     else {
         kernel.setArg<cl_uint>(index++, numTiles);
     }
-    std::cout<<"increment counter for kernel value after cuttoff is "<<index<<std::endl;
     //check for availability of virial calculation
     if(context.getCalculateVirial()){
         index += 5;
@@ -555,7 +553,6 @@ cl::Kernel OpenCLNonbondedUtilities::createInteractionKernel(const string& sourc
          * by 5 to accomomodate appropriate virial calculation arguments.
 		*/
     }
-    std::cout<<"Printed outside calculate virial\n";
     for (int i = 0; i < (int) params.size(); i++) {
         kernel.setArg<cl::Memory>(index++, params[i].getMemory());
     }

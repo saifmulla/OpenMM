@@ -68,7 +68,6 @@ void VelocityVerletIntegrator::step(int steps) {
 	//check if measurement tools are set
 	bool ms = context->getMeasurementSet();
 	bool includeVirial = context->getVirialIncluded();
-	printf("Virial include value in integrator %d\n",includeVirial);
 
     for (int i = 0; i < steps; ++i)
     {
