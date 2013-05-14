@@ -219,6 +219,13 @@ public:
      * This is an expensive operation, so you should try to avoid calling it too frequently.
      */
     void reinitialize();
+    /**
+     * getImpl function
+     * this acccessor function is used to get object of ContextImpl for context
+     */
+    ContextImpl& getImpl(){
+	return *impl;
+    }
 private:
     friend class Platform;
     ContextImpl* impl;

@@ -286,6 +286,7 @@ public:
      * @param blockSize    the size of each thread block to use
      */
     void executeKernel(cl::Kernel& kernel, int workUnits, int blockSize = -1);
+    void executeKernel(cl::Kernel& kernel, int workUnits, cl::Event& evt, int blockSize = -1);
     /**
      * Execute a kernel
      * overloaded function with provision for kernel profilling

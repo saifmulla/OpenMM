@@ -461,6 +461,10 @@ void OpenCLContext::executeKernel(cl::Kernel& kernel, int workUnits, int blockSi
     }
 }
 
+void OpenCLContext::executeKernel(cl::Kernel& kernel, int workUnits, cl::Event& evt, int blockSize){
+
+}
+
 void OpenCLContext::clearBuffer(OpenCLArray<float>& array) {
     clearBuffer(array.getDeviceBuffer(), array.getSize());
 }

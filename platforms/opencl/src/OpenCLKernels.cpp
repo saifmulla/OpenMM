@@ -3303,7 +3303,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::integrator1(ContextImpl& context) 
 
 void OpenCLIntegrateVelocityVerletStepKernel::integrator2(ContextImpl& context)
 {
-    cl.executeKernel(kernel3,numAtoms);
+//    cl.executeKernelel(kernel3,numAtoms);
     cl.executeKernel(kernel2,numAtoms);
     // Update the time and step count.
     cl.setTime(cl.getTime()+dt);
@@ -4927,18 +4927,7 @@ void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
 	virialBuffers3_->download();
 	OpenCLArray<mm_int4>& ma = cl_.getMoleculeAtoms();
 	OpenCLArray<cl_int>& order = cl_.getAtomIndex();
-	/*while(m<numOfMolecules_){
-		mm_int4 ml = ma[m];
-		if(ml.x != -1){
-			mm_float4 v1 = virialBuffers1_->get(ml.x);
-			mm_float4 v2 = virialBuffers2_->get(ml.x);
-			mm_float4 v3 = virialBuffers3_->get(ml.x);
-			printf("%d => %3.10f\t%3.10f\t%3.10f\n%3.10f\t%3.10f\t%3.10f\n%3.10f\t%3.10f\t%3.10f\n\n",
-					m,v1.x,v1.y,v1.z,v2.x,v2.y,v2.z,v3.x,v3.y,v3.z);
-		}
-		m++;
-	}*/
-
+	
 	while(m<numOfMolecules_){
 		mm_int4 ml = ma[m];
 		if(ml.x != -1){
