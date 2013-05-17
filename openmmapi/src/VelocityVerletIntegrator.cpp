@@ -73,16 +73,16 @@ void VelocityVerletIntegrator::step(int steps) {
     {
 //        stepCounter = stepCounter + 1;
     	context->updateContextState();
-//    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator1(*context);
+    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator1(*context);
     	/*
     	 * the if condition below make a invocation considering virial includsion
     	 * however if in future there are more than one implementation of calculateAtBeginning
     	 * function then please invoke using
     	 * if(ms)
 		 */
-    	/*if(includeVirial)
+    	if(includeVirial)
     		context->getMeasurements().measureAtBegin(*context);
-    	context->calcForcesAndEnergy(true, false);*/
+    	context->calcForcesAndEnergy(true, false);
     	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator2(*context);
     	if(ms)
     		context->getMeasurements().measureAtEnd(*context);
