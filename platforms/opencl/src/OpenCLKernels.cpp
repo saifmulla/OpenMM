@@ -4925,7 +4925,7 @@ void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
 	virialBuffers1_->download();
 	virialBuffers2_->download();
 	virialBuffers3_->download();
-
+	OpenCLArray<mm_float4>& force = cl_.getForce();
 	//get reference to forces in api
 	std::vector<OpenMM::Vec3>& forces = impl.getMeasurements().updForces();
 
@@ -4933,9 +4933,11 @@ void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
 	OpenCLArray<cl_int>& order = cl_.getAtomIndex();
 	int numparticles = impl.getSystem().getNumParticles();
 	forces.clear();
+	forces.resize(numparticles);
 	
 	while(m<numOfMolecules_){
 		mm_int4 ml = ma[m];
+		mm_float4 f = force[m];
 		if(ml.x != -1){
 			mm_float4 v1 = virialBuffers1_->get(ml.x);
 			mm_float4 v2 = virialBuffers2_->get(ml.x);
@@ -4950,9 +4952,9 @@ void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
 			ptrvirial[order[m]][7] = v3.y;
 			ptrvirial[order[m]][8] = v3.z;
 		}
+		forces[order[m]] = OpenMM::Vec3(f.x,f.y,f.z);
 		m++;
 	}
-	impl.getForces(forces);
 }
 
 void OpenCLMeasureBinVirialKernel::findAtomMasses(System& system, OpenCLArray<mm_int4>& moleculeAtoms)
