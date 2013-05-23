@@ -32,6 +32,7 @@ private:
     double rSEMag_;
     OpenMM::Tensor* virial_;
     std::vector<OpenMM::Vec3> forces_;
+    std::vector<OpenMM::Vec3> positions_;
     
 protected:
 	friend class ContextImpl;
@@ -65,9 +66,18 @@ public:
 	double* getBinKe(){
 		return binKE_;
 	}
+	std::vector<OpenMM::Vec3>& updForces(){
+			return forces_;
+	}
 	std::vector<OpenMM::Vec3>& getForces(){
 		return forces_;
 	}	
+	std::vector<OpenMM::Vec3>& updPositions(){
+		return positions_;
+	}
+	std::vector<OpenMM::Vec3>& getPositions(){
+		return positions_;
+	}
     OpenMM::Vec3* getBinMom(){
 		return binMom_;
 	}

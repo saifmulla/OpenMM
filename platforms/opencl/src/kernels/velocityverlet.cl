@@ -6,7 +6,6 @@
  * Perform the first step of velocity verlet integration.
  */
 
-
 __kernel void velocityVerletPart1(int numAtoms, 
 				   __global const float* deltaT,
 				   __global float4* restrict posq,
@@ -15,7 +14,7 @@ __kernel void velocityVerletPart1(int numAtoms,
                   ) {
     
     float dtPos = deltaT[0];
-    float dtVel = 0.5f*dtPos;
+    float dtVel = 0.5f*deltaT[0];
     unsigned int index = get_global_id(0);
     if(index < numAtoms)
     {
@@ -42,20 +41,16 @@ __kernel void velocityVerletPart2(int numAtoms,
 				   __global const float4* restrict forces
 				  ) {
     float dtVel = 0.5f*deltaT[0];
-    unsigned int idx = get_global_id(0);
-    if(idx < numAtoms)
+    unsigned int index = get_global_id(0);
+    if(index < numAtoms)
     {
 	  //store the velocity locally
-	  float4 velocity = velm[idx];
-	  float4 accel = (float4) (0.0);
+	  float4 velocity = velm[index];
 	  if(velocity.w != 0.0)
 	  {
-          accel.xyz = forces[idx].xyz*velocity.w;
-          accel.xyz = accel.xyz * dtVel;
-          velocity.xyz += accel.xyz;
-          velm[idx] = velocity;
+		velocity.xyz += forces[index].xyz*dtVel*velocity.w;
+		velm[index] = velocity;
 	  }
-    
     }//end if
 }
 
