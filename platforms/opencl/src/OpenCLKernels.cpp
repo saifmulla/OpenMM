@@ -4088,6 +4088,11 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
         }
         if (invalidatesForces[i])
             forcesAreValid = false;
+        /**
+         * this chunk of code is added to perform measurements at the end of time step
+         *
+         */
+        context.getMeasurements().measureAtEnd(context);
     }
     recordChangedParameters(context);
 
@@ -4926,6 +4931,7 @@ void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
 	virialBuffers2_->download();
 	virialBuffers3_->download();
 	OpenCLArray<mm_float4>& force = cl_.getForce();
+	force.download();
 	//get reference to forces in api
 	std::vector<OpenMM::Vec3>& forces = impl.getMeasurements().updForces();
 
