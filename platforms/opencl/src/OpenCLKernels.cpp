@@ -3742,6 +3742,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
         // Initialize various data structures.
         
         const map<string, double>& params = context.getParameters();
+        printf("SIze of parameters %d and numsteps is %d\n",params.size(),numSteps);
         contextParameterValues = new OpenCLArray<cl_float>(cl, max(1, (int) params.size()), "contextParameters", true);
         for (map<string, double>::const_iterator iter = params.begin(); iter != params.end(); ++iter) {
             contextParameterValues->set(parameterNames.size(), (float) iter->second);
@@ -3786,10 +3787,10 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
         affectsForce.insert("x");
         for (vector<ForceImpl*>::const_iterator iter = context.getForceImpls().begin(); iter != context.getForceImpls().end(); ++iter) {
             const map<string, double> params = (*iter)->getDefaultParameters();
-            for (map<string, double>::const_iterator param = params.begin(); param != params.end(); ++param)
+            for (map<string, double>::const_iterator param = params.begin(); param != params.end(); ++param){
                 affectsForce.insert(param->first);
+            }
         }
-        
         // Record information about all the computation steps.
         
         stepType.resize(numSteps);
@@ -3801,6 +3802,8 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             str << "f" << i;
             forceGroupName.push_back(str.str());
         }
+
+
         vector<string> forceName(numSteps, "f");
         for (int step = 0; step < numSteps; step++) {
             string expr;
@@ -3905,6 +3908,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
                     numGaussian += numAtoms*usesVariable(expression[j], "gaussian");
                     numUniform += numAtoms*usesVariable(expression[j], "uniform");
                 }
+
                 map<string, string> replacements;
                 replacements["COMPUTE_STEP"] = compute.str();
                 stringstream args;
@@ -4034,6 +4038,8 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
 
     for (int i = 0; i < numSteps; i++) {
         if ((needsForces[i] || needsEnergy[i]) && (!forcesAreValid || context.getLastForceGroups() != forceGroup[i])) {
+        	//compute molecule centers of masses
+        	context.getMeasurements().measureAtBegin(context);
             // Recompute forces and/or energy.  Figure out what is actually needed
             // between now and the next time they get invalidated again.
             
@@ -4525,7 +4531,6 @@ OpenCLMeasureBinPropertiesKernel::~OpenCLMeasureBinPropertiesKernel()
 }
 void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
 {
-    std::cout<<"Initializing bin properties kernel\n";
     numBlocks = cl.getNumThreadBlocks();
     double tempbinwidth = impl.getMeasurements().getBinWidth();
     OpenMM::Vec3& tempstartpoint = impl.getMeasurements().getStartPoint();
@@ -4565,7 +4570,7 @@ void OpenCLMeasureBinPropertiesKernel::initialize(ContextImpl& impl)
     
     startPoint->upload();
     unitVector->upload();
-    std::cout<<"finished initialization for bin properties kernel\n";
+
 }
 
 void OpenCLMeasureBinPropertiesKernel::calculateAtBeginning(){
@@ -4577,8 +4582,7 @@ void OpenCLMeasureBinPropertiesKernel::calculate(ContextImpl& impl)
     int writeinterval = impl.getMeasurements().getWriteInterval();
     //int incrementcounter = impl.getIntegrator().getStepCounter();
     int incrementcounter = 1;
-    std::cout<<"Calculate called inside bin properties kernel\n";
-    printf("Value of write interval and incrementcounter is %d & %d\n",writeinterval,incrementcounter);
+
     cl.executeKernel(kernel1,cl.getNumAtoms());
 
     if(incrementcounter==writeinterval)
