@@ -66,3 +66,36 @@ __kernel void generateRandomNumbers(__global float4* restrict random, __global u
     }
     seed[get_global_id(0)] = state;
 }
+
+#ifdef SUPPORTS_DOUBLE_PRECISION
+#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+#endif
+
+__kernel void externalForceInBin(__global const float4* restrict posq,
+				__global const float4* restrict extforce,
+				__global float4* restrict force,
+				unsigned int nBins,
+				unsigned int numAtoms)
+{
+	int index = get_global_id(0);
+	while(index<numAtoms)
+	{
+/*		float4 rSI = posq[index] - sp;
+                float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
+                int bn = (int) rD/uv.w;
+                unsigned int s = bn == nBins;
+                bn -= s;		*/
+		double4 f = convert_double4(force[index]);
+		double4 ef = convert_double4(extforce[0]);
+		double tx = f.x + ef.x;
+		f.x = tx;
+		double ty = f.y + ef.y;
+		f.y = ty;
+		double tz = f.z + ef.z;
+		f.z = tz;
+		force[index] = convert_float4(f);
+		index += get_global_size(0);
+	}
+}
+
+

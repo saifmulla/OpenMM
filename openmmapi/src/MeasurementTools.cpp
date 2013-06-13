@@ -52,6 +52,7 @@ nBins_(nBins),writeInterval_(writeInterval)
     binKE_ = new double[nBins_];
     binMom_ = new OpenMM::Vec3[nBins_];
     virial_ = new OpenMM::Tensor[molecules];
+    extForces_ = new OpenMM::Vec3[nBins_];
 
     //calculate values for appropriate variables
     OpenMM::Vec3 diff = OpenMM::Vec3(endPoint_[0] - startPoint_[0],endPoint_[1] - startPoint_[1],endPoint_[2] - startPoint_[2]);
@@ -83,6 +84,8 @@ MeasurementTools::~MeasurementTools()
         delete binMom_;
     if(virial_ != NULL)
     	delete virial_;
+    if(extForces_!=NULL)
+    	delete extForces_;
 }
 std::vector<std::string> MeasurementTools::getKernelNames(){
 	return tools;

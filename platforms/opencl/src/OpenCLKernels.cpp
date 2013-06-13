@@ -98,6 +98,7 @@ void OpenCLCalcForcesAndEnergyKernel::initialize(const System& system) {
 void OpenCLCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
     OpenCLNonbondedUtilities& nb = cl.getNonbondedUtilities();
     bool includeNonbonded = ((groups&(1<<nb.getForceGroup())) != 0);
+    std::cout<<"include nonbonded begin computation "<<includeNonbonded<<std::endl;
     cl.setAtomsWereReordered(false);
     if (nb.getUseCutoff() && includeNonbonded && cl.getComputeForceCount()%100 == 0) {
         cl.reorderAtoms();
@@ -111,6 +112,8 @@ void OpenCLCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, boo
 
 double OpenCLCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
     cl.getBondedUtilities().computeInteractions(groups);
+	int outcome = groups&(1<<cl.getNonbondedUtilities().getForceGroup());
+	std::cout<<"Groups "<<groups<<" outcome "<<outcome<<std::endl;
     if ((groups&(1<<cl.getNonbondedUtilities().getForceGroup())) != 0)
         cl.getNonbondedUtilities().computeInteractions();
     cl.reduceForces();
@@ -1354,6 +1357,7 @@ OpenCLCalcCustomNonbondedForceKernel::~OpenCLCalcCustomNonbondedForceKernel() {
 }
 
 void OpenCLCalcCustomNonbondedForceKernel::initialize(const System& system, const CustomNonbondedForce& force) {
+	std::cout<<"CustomNonbonded initialise"<<std::endl;
     int forceIndex;
     for (forceIndex = 0; forceIndex < system.getNumForces() && &system.getForce(forceIndex) != &force; ++forceIndex)
         ;
@@ -1462,6 +1466,7 @@ void OpenCLCalcCustomNonbondedForceKernel::initialize(const System& system, cons
 }
 
 double OpenCLCalcCustomNonbondedForceKernel::execute(ContextImpl& context, bool includeForces, bool includeEnergy) {
+	std::cout<<"CustomNonbonded Execute"<<std::endl;
     if (globals != NULL) {
         bool changed = false;
         for (int i = 0; i < (int) globalParamNames.size(); i++) {
@@ -3742,7 +3747,6 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
         // Initialize various data structures.
         
         const map<string, double>& params = context.getParameters();
-        printf("SIze of parameters %d and numsteps is %d\n",params.size(),numSteps);
         contextParameterValues = new OpenCLArray<cl_float>(cl, max(1, (int) params.size()), "contextParameters", true);
         for (map<string, double>::const_iterator iter = params.begin(); iter != params.end(); ++iter) {
             contextParameterValues->set(parameterNames.size(), (float) iter->second);
@@ -3775,7 +3779,26 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             seed[i].w = r = (1664525*r + 1013904223) & 0xFFFFFFFF;
         }
         randomSeed->upload(seed);
+
         cl::Program randomProgram = cl.createProgram(OpenCLKernelSources::customIntegrator, defines);
+        //initialize external force
+        int nbins = context.getMeasurements().getNBins();
+        Vec3* extforces = context.getMeasurements().getExtForces();
+        extForce = new OpenCLArray<mm_float4>(cl,(int) nbins,"extForce",true);
+        int b = 0;
+        while(b<nbins){
+        	(*extForce)[b] = mm_float4(extforces[b][0],extforces[b][1],extforces[b][2],0.0);
+        	b++;
+        }
+        extForce->upload();
+        //initialize external force in bins kernel
+        extForceKernel = cl::Kernel(randomProgram,"externalForceInBin");
+        extForceKernel.setArg<cl::Buffer>(0,cl.getPosq().getDeviceBuffer());
+        extForceKernel.setArg<cl::Buffer>(1,extForce->getDeviceBuffer());
+        extForceKernel.setArg<cl::Buffer>(2,cl.getForce().getDeviceBuffer());
+        extForceKernel.setArg<cl_int>(3,nbins);
+        extForceKernel.setArg<cl_int>(4,cl.getNumAtoms());
+        //random kernel
         randomKernel = cl::Kernel(randomProgram, "generateRandomNumbers");
         randomKernel.setArg<cl::Buffer>(0, uniformRandoms->getDeviceBuffer());
         randomKernel.setArg<cl::Buffer>(1, randomSeed->getDeviceBuffer());
@@ -3832,7 +3855,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             if (forceGroup[step] == -2 && step > 0)
                 forceGroup[step] = forceGroup[step-1];
         }
-        
+
         // Determine how each step will represent the position (as just a value, or a value plus a delta).
         
         vector<bool> storePosAsDelta(numSteps, false);
@@ -3853,6 +3876,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
                 storedAsDelta = false;
         }
         
+
         // Identify steps that can be merged into a single kernel.
         
         for (int step = 1; step < numSteps; step++) {
@@ -3865,6 +3889,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
                 merged[step] = true;
         }
         
+
         // Loop over all steps and create the kernels for them.
         
         for (int step = 0; step < numSteps; step++) {
@@ -3918,10 +3943,12 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
                     args << ", __global " << buffer.getType() << "* restrict " << valueName;
                 }
                 replacements["PARAMETER_ARGUMENTS"] = args.str();
+
                 if (loadPosAsDelta[step])
                     defines["LOAD_POS_AS_DELTA"] = "1";
                 else if (defines.find("LOAD_POS_AS_DELTA") != defines.end())
                     defines.erase("LOAD_POS_AS_DELTA");
+                
                 cl::Program program = cl.createProgram(cl.replaceStrings(OpenCLKernelSources::customIntegratorPerDof, replacements), defines);
                 cl::Kernel kernel = cl::Kernel(program, "computePerDof");
                 kernels[step].push_back(kernel);
@@ -3944,6 +3971,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
                     kernel.setArg<cl::Memory>(index++, perDofValues->getBuffers()[i].getMemory());
                 if (stepType[step] == CustomIntegrator::ComputeSum) {
                     // Create a second kernel for this step that sums the values.
+
 
                     program = cl.createProgram(OpenCLKernelSources::customIntegrator, defines);
                     kernel = cl::Kernel(program, "computeSum");
@@ -3989,7 +4017,6 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             }
             else if (stepType[step] == CustomIntegrator::ConstrainPositions) {
                 // Apply position constraints.
-
                 cl::Program program = cl.createProgram(OpenCLKernelSources::customIntegrator, defines);
                 cl::Kernel kernel = cl::Kernel(program, "applyPositionDeltas");
                 kernels[step].push_back(kernel);
@@ -4035,7 +4062,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
         contextParameterValues->upload();
 
     // Loop over computation steps in the integrator and execute them.
-
+    int integratorcnt = 0;
     for (int i = 0; i < numSteps; i++) {
         if ((needsForces[i] || needsEnergy[i]) && (!forcesAreValid || context.getLastForceGroups() != forceGroup[i])) {
         	//compute molecule centers of masses
@@ -4056,6 +4083,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
                 if (j == i-1)
                     break;
             }
+
             recordChangedParameters(context);
             context.calcForcesAndEnergy(computeForce, computeEnergy, forceGroup[i]);
             if (computeEnergy)
@@ -4067,6 +4095,8 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             if (requiredUniform[i] > 0)
                 cl.executeKernel(randomKernel, numAtoms);
             cl.executeKernel(kernels[i][0], numAtoms);
+            if(i==0)
+            	cl.executeKernel(extForceKernel,numAtoms);
         }
         else if (stepType[i] == CustomIntegrator::ComputeGlobal && !merged[i]) {
             kernels[i][0].setArg<cl_float>(3, SimTKOpenMMUtilities::getUniformlyDistributedRandomNumber());
@@ -4094,12 +4124,10 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
         }
         if (invalidatesForces[i])
             forcesAreValid = false;
-        /**
-         * this chunk of code is added to perform measurements at the end of time step
-         *
-         */
-        context.getMeasurements().measureAtEnd(context);
+
     }
+    //the next line invoked reduction of virial kernel and downloads forces
+    context.getMeasurements().measureAtEnd(context);
     recordChangedParameters(context);
 
     // Update the time and step count.

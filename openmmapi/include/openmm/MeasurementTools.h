@@ -33,6 +33,8 @@ private:
     OpenMM::Tensor* virial_;
     std::vector<OpenMM::Vec3> forces_;
     std::vector<OpenMM::Vec3> positions_;
+    //external force dynamic variable
+    Vec3* extForces_;
     
 protected:
 	friend class ContextImpl;
@@ -95,6 +97,17 @@ public:
     }
     double getBinWidth(){
         return binWidth_;
+    }
+    /**
+     * set the N bin number of external forces
+     * to be applied to forces
+     */
+    void setExtForces(Vec3* extforce){
+    	extForces_ = extforce;
+    }
+    /* getExternal forces */
+    Vec3* getExtForces(){
+    	return extForces_;
     }
     double mag(OpenMM::Vec3& point);
 	std::vector<std::string> getKernelNames();

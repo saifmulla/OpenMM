@@ -39,3 +39,4 @@ __kernel void computePerDof(__global float4* restrict posq, __global float4* res
         index += get_global_size(0);
     }
 }
+

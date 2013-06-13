@@ -1029,7 +1029,7 @@ private:
     OpenCLParameterSet* perDofValues;
     mutable std::vector<std::vector<cl_float> > localPerDofValues;
     std::vector<std::vector<cl::Kernel> > kernels;
-    cl::Kernel sumEnergyKernel, randomKernel;
+    cl::Kernel sumEnergyKernel, randomKernel, extForceKernel;
     std::vector<CustomIntegrator::ComputationType> stepType;
     std::vector<bool> needsForces;
     std::vector<bool> needsEnergy;
@@ -1039,6 +1039,7 @@ private:
     std::vector<int> requiredGaussian;
     std::vector<int> requiredUniform;
     std::vector<std::string> parameterNames;
+    OpenCLArray<mm_float4>* extForce;
 };
 
 /**
