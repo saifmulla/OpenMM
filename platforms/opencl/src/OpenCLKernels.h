@@ -1040,6 +1040,8 @@ private:
     std::vector<int> requiredUniform;
     std::vector<std::string> parameterNames;
     OpenCLArray<mm_float4>* extForce;
+    bool firstForceCall;//this variable will be used to determine the first time nonbonded
+    //forces are called
 };
 
 /**

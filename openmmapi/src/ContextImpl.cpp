@@ -240,7 +240,6 @@ double ContextImpl::calcForcesAndEnergy(bool includeForces, bool includeEnergy, 
     lastForceGroups = groups;
     CalcForcesAndEnergyKernel& kernel = dynamic_cast<CalcForcesAndEnergyKernel&>(initializeForcesKernel.getImpl());
     double energy = 0.0;
-    printf("ForceImpls size %d\n",forceImpls.size());
     kernel.beginComputation(*this, includeForces, includeEnergy, groups);
     for (int i = 0; i < (int) forceImpls.size(); ++i)
         energy += forceImpls[i]->calcForcesAndEnergy(*this, includeForces, includeEnergy, groups);

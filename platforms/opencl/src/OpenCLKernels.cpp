@@ -98,7 +98,6 @@ void OpenCLCalcForcesAndEnergyKernel::initialize(const System& system) {
 void OpenCLCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
     OpenCLNonbondedUtilities& nb = cl.getNonbondedUtilities();
     bool includeNonbonded = ((groups&(1<<nb.getForceGroup())) != 0);
-    std::cout<<"include nonbonded begin computation "<<includeNonbonded<<std::endl;
     cl.setAtomsWereReordered(false);
     if (nb.getUseCutoff() && includeNonbonded && cl.getComputeForceCount()%100 == 0) {
         cl.reorderAtoms();
@@ -113,7 +112,6 @@ void OpenCLCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, boo
 double OpenCLCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
     cl.getBondedUtilities().computeInteractions(groups);
 	int outcome = groups&(1<<cl.getNonbondedUtilities().getForceGroup());
-	std::cout<<"Groups "<<groups<<" outcome "<<outcome<<std::endl;
     if ((groups&(1<<cl.getNonbondedUtilities().getForceGroup())) != 0)
         cl.getNonbondedUtilities().computeInteractions();
     cl.reduceForces();
@@ -1357,7 +1355,7 @@ OpenCLCalcCustomNonbondedForceKernel::~OpenCLCalcCustomNonbondedForceKernel() {
 }
 
 void OpenCLCalcCustomNonbondedForceKernel::initialize(const System& system, const CustomNonbondedForce& force) {
-	std::cout<<"CustomNonbonded initialise"<<std::endl;
+
     int forceIndex;
     for (forceIndex = 0; forceIndex < system.getNumForces() && &system.getForce(forceIndex) != &force; ++forceIndex)
         ;
@@ -1466,7 +1464,6 @@ void OpenCLCalcCustomNonbondedForceKernel::initialize(const System& system, cons
 }
 
 double OpenCLCalcCustomNonbondedForceKernel::execute(ContextImpl& context, bool includeForces, bool includeEnergy) {
-	std::cout<<"CustomNonbonded Execute"<<std::endl;
     if (globals != NULL) {
         bool changed = false;
         for (int i = 0; i < (int) globalParamNames.size(); i++) {
@@ -3669,6 +3666,7 @@ void OpenCLIntegrateCustomStepKernel::initialize(const System& system, const Cus
     cl.addReorderListener(new ReorderListener(cl, *perDofValues, localPerDofValues, deviceValuesAreCurrent));
     prevStepSize = -1.0;
     SimTKOpenMMUtilities::setRandomNumberSeed(integrator.getRandomNumberSeed());
+    firstForceCall = false;
 }
 
 string OpenCLIntegrateCustomStepKernel::createGlobalComputation(const string& variable, const Lepton::ParsedExpression& expr, CustomIntegrator& integrator) {
@@ -3738,6 +3736,7 @@ string OpenCLIntegrateCustomStepKernel::createPerDofComputation(const string& va
 }
 
 void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegrator& integrator, bool& forcesAreValid) {
+
     OpenCLIntegrationUtilities& integration = cl.getIntegrationUtilities();
     int numAtoms = cl.getNumAtoms();
     int numSteps = integrator.getNumComputations();
@@ -4085,7 +4084,13 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             }
 
             recordChangedParameters(context);
-            context.calcForcesAndEnergy(computeForce, computeEnergy, forceGroup[i]);
+            if(!firstForceCall && i==0){
+            	context.calcForcesAndEnergy(computeForce, computeEnergy, forceGroup[i]);
+            	firstForceCall = true;
+            }
+            else if(i==2){
+            	context.calcForcesAndEnergy(computeForce, computeEnergy, forceGroup[i]);
+            }
             if (computeEnergy)
                 cl.executeKernel(sumEnergyKernel, OpenCLContext::ThreadBlockSize, OpenCLContext::ThreadBlockSize);
             forcesAreValid = true;
