@@ -4084,13 +4084,14 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             }
 
             recordChangedParameters(context);
-            if(!firstForceCall && i==0){
+            /*if(!firstForceCall && i==0){
             	context.calcForcesAndEnergy(computeForce, computeEnergy, forceGroup[i]);
             	firstForceCall = true;
             }
             else if(i==2){
             	context.calcForcesAndEnergy(computeForce, computeEnergy, forceGroup[i]);
-            }
+            }*/
+            context.calcForcesAndEnergy(computeForce, computeEnergy, forceGroup[i]);
             if (computeEnergy)
                 cl.executeKernel(sumEnergyKernel, OpenCLContext::ThreadBlockSize, OpenCLContext::ThreadBlockSize);
             forcesAreValid = true;
@@ -4099,9 +4100,12 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             kernels[i][0].setArg<cl_uint>(9, integration.prepareRandomNumbers(requiredGaussian[i]));
             if (requiredUniform[i] > 0)
                 cl.executeKernel(randomKernel, numAtoms);
+            if(i==2){
+				cl.executeKernel(extForceKernel,numAtoms);
+			}
             cl.executeKernel(kernels[i][0], numAtoms);
-            if(i==0)
-            	cl.executeKernel(extForceKernel,numAtoms);
+
+
         }
         else if (stepType[i] == CustomIntegrator::ComputeGlobal && !merged[i]) {
             kernels[i][0].setArg<cl_float>(3, SimTKOpenMMUtilities::getUniformlyDistributedRandomNumber());
