@@ -4084,14 +4084,13 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             }
 
             recordChangedParameters(context);
-            /*if(!firstForceCall && i==0){
+            if(!firstForceCall && i==0){
             	context.calcForcesAndEnergy(computeForce, computeEnergy, forceGroup[i]);
             	firstForceCall = true;
             }
             else if(i==2){
             	context.calcForcesAndEnergy(computeForce, computeEnergy, forceGroup[i]);
-            }*/
-            context.calcForcesAndEnergy(computeForce, computeEnergy, forceGroup[i]);
+            }
             if (computeEnergy)
                 cl.executeKernel(sumEnergyKernel, OpenCLContext::ThreadBlockSize, OpenCLContext::ThreadBlockSize);
             forcesAreValid = true;
