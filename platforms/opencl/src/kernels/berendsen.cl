@@ -4,6 +4,9 @@
  * using compiler prefix inside opencl
  */
 
+#ifdef SUPPORTSDOUBLEPRECISION
+#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+#endif
 
 __kernel void binMomentum(
                           __global const float4* restrict velm,
@@ -17,19 +20,22 @@ __kernel void binMomentum(
 {
     unsigned int idx = get_global_id(0);
     int nbins = (int) NBINS;
-    if(idx<NUM_ATOMS)
+    int bn = -1;
+    while(idx<NUM_ATOMS)
     {
-        float4 pos = posq[idx];
-        float4 velocity = velm[idx];
-        float4 rSI = pos - startPoint[0];
-        float rD = ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
-        int bn = (int) rD/unitVector[0].w;
-        unsigned int s = bn == nBins;
-        bn -= s;
-        glMomentum[idx*nbins+bn] += (float4) (velocity.x * (1.0f/velocity.w),
-						velocity.y * (1.0f/velocity.w),
-						velocity.z * (1.0f/velocity.w),
-						velocity.w);
+        double4 velocity = convert_double4(velm[idx]);
+	if(velocity.w!=0.0){
+		double mass = 1.0f/velocity.w;
+	        float4 rSI = posq[idx] - startPoint[0];
+        	float rD = ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
+		float t = rD/unitVector[0].w;
+		glMomentum[idx].x = t;
+		glMomentum[idx].y = floor(t);
+		glMomentum[idx].z = (int) t;
+        	//int n = (int) rD/unitVector[0].w;
+        	//unsigned int s = bn == nBins;
+	}
+	idx += get_global_size(0);
     }
     
 }
@@ -69,22 +75,20 @@ __kernel void updateVelocitiesInBins(__global const float4* restrict posq,
 {
     unsigned int idx = get_global_id(0);
     int nbins = (int) NBINS;
-    if(idx<NUM_ATOMS)
+    while(idx<NUM_ATOMS)
     {
-        float4 pos = posq[idx];
+	int bn = -1;
         float4 velocity = velm[idx];
-	float4 rSI = pos - startPoint[0];
-        float rD = ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
-        int bn = (int) rD/unitVector[0].w;
-        unsigned int s = bn == nbins;
-        bn -= s;
-        if(velocity.x!=0.0)
-			velocity.x *= binChi[bn];
-		if(velocity.y!=0.0)
-			velocity.y *= binChi[bn];
-		if(velocity.z!=0.0)
-			velocity.z *= binChi[bn];
+	if(velocity.w!=0.0){
+		float4 rSI = posq[idx] - startPoint[0];
+        	float rD = ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
+        	bn = (int) floor(rD/unitVector[0].w);
+		velocity.x *= binChi[bn];
+		velocity.y *= binChi[bn];
+		velocity.z *= binChi[bn];
 		velm[idx] = velocity;
+	}
+	idx += get_global_id(0);
     }
 }
 

@@ -36,7 +36,7 @@ private:
     OpenMM::Vec3 unitVector_;
     double binWidth_;
     double rSEMag_;
-    Vec3* binForces_;    
+    Vec3* binForces_;
     //debug variable
     Vec3* testVariable_;
 

@@ -29,7 +29,6 @@ startPoint_(startPoint),endPoint_(endPoint),
 deltaT(deltaT),tauT(tauT),nBins_(nBins),writeInterval_(writeInterval)
 {
     binTemperature_ = new double[nBins_];
-    binForces_ = new Vec3[nBins_];
     //initializing debug variable
     //TODO: delete alter in production
     testVariable_ = new Vec3[nBins_];
