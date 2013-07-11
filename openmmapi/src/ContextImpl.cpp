@@ -179,9 +179,9 @@ void ContextImpl::getPositions(std::vector<Vec3>& positions) {
 void ContextImpl::setPositions(const std::vector<Vec3>& positions) {
     dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).setPositions(*this, positions);
     integrator.stateChanged(State::Positions);
-    if(virialIncluded){
+    /*if(virialIncluded){
     	measurements->measureAtBegin(*this);
-    }
+    }*/
 }
 
 void ContextImpl::getVelocities(std::vector<Vec3>& velocities) {
