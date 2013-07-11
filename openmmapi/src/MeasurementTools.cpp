@@ -31,6 +31,14 @@ MeasurementTools::MeasurementTools(std::vector<std::string> tools,double averagi
 	*/
 }
 
+MeasurementTools::MeasurementTools(){
+    this->averagingTime = 1;
+    //- set pointers to null
+    mols_ = NULL;
+    binKE_ = NULL;
+    binMom_ = NULL;
+    virial_ = NULL;
+}
 /**
  *  This overloaded constructor must be used while invoking measurement inside bins it 
  *  initializes several variables which are vital for executing measureBin class

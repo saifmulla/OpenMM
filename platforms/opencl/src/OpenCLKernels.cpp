@@ -3781,7 +3781,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
 
         cl::Program randomProgram = cl.createProgram(OpenCLKernelSources::customIntegrator, defines);
         //initialize external force
-        int nbins = context.getMeasurements().getNBins();
+        /*int nbins = context.getMeasurements().getNBins();
         Vec3* extforces = context.getMeasurements().getExtForces();
         extForce = new OpenCLArray<mm_float4>(cl,(int) nbins,"extForce",true);
         int b = 0;
@@ -3796,7 +3796,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
         extForceKernel.setArg<cl::Buffer>(1,extForce->getDeviceBuffer());
         extForceKernel.setArg<cl::Buffer>(2,cl.getForce().getDeviceBuffer());
         extForceKernel.setArg<cl_int>(3,nbins);
-        extForceKernel.setArg<cl_int>(4,cl.getNumAtoms());
+        extForceKernel.setArg<cl_int>(4,cl.getNumAtoms());*/
         //random kernel
         randomKernel = cl::Kernel(randomProgram, "generateRandomNumbers");
         randomKernel.setArg<cl::Buffer>(0, uniformRandoms->getDeviceBuffer());
@@ -4065,7 +4065,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
     for (int i = 0; i < numSteps; i++) {
         if ((needsForces[i] || needsEnergy[i]) && (!forcesAreValid || context.getLastForceGroups() != forceGroup[i])) {
         	//compute molecule centers of masses
-        	context.getMeasurements().measureAtBegin(context);
+        	//context.getMeasurements().measureAtBegin(context);
             // Recompute forces and/or energy.  Figure out what is actually needed
             // between now and the next time they get invalidated again.
             
@@ -4100,9 +4100,9 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             kernels[i][0].setArg<cl_uint>(9, integration.prepareRandomNumbers(requiredGaussian[i]));
             if (requiredUniform[i] > 0)
                 cl.executeKernel(randomKernel, numAtoms);
-            if(i==2){
+            /*if(i==2){
 				cl.executeKernel(extForceKernel,numAtoms);
-			}
+			}*/
             cl.executeKernel(kernels[i][0], numAtoms);
 
 
@@ -4141,9 +4141,11 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
      * ideally check if controltools class is set and if it's set then
      * invoke the function on controltools class
      */
-    context.getControls().controlAfterForces(context);
+//    context.getControls().controlAfterForces(context);
     //the next line invoked reduction of virial kernel and downloads forces
-    context.getMeasurements().measureAtEnd(context);
+//    context.getMeasurements().measureAtEnd(context);
+    std::vector<OpenMM::Vec3>& forces = context.getMeasurements().updForces();
+    context.getForces(forces);
     recordChangedParameters(context);
 
     // Update the time and step count.

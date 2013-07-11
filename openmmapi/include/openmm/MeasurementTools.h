@@ -40,6 +40,7 @@ protected:
 	friend class ContextImpl;
 public:
 	MeasurementTools(std::vector<std::string> tools,double averagingTime = 1.0);
+	MeasurementTools();
     
     //following constructor must be used to invoke measurement inside bins
     MeasurementTools(std::vector<std::string> tools, OpenMM::Vec3 startPoint, OpenMM::Vec3 endPoint,
