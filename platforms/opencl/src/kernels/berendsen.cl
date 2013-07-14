@@ -3,8 +3,7 @@
  * @todo: replace the preprocessor with dynamic values
  * using compiler prefix inside opencl
  */
-
-#ifdef SUPPORTSDOUBLEPRECISION
+#ifdef SUPPORTS_DOUBLE_PRECISION
 #pragma OPENCL EXTENSION cl_khr_fp64 : enable
 #endif
 
@@ -112,8 +111,9 @@ __kernel void berendsen1(int numAtoms,
 	{
 		float4 velocity = velm[idx];
 		if(velocity.w != 0.0){
-			tempvel.xyz += velocity.w*velocity.xyz;
-			tempvel.w += velocity.w;
+			float mass = 1.0f/velocity.w;
+			tempvel.xyz += velocity.xyz*mass;
+			tempvel.w += mass;
 		}
 		idx += get_global_size(0);
 	}
@@ -149,42 +149,61 @@ __kernel void berendsen1(int numAtoms,
 
 __kernel void calculateKEDOF(__global float4* restrict velm,
 				__global float4* restrict newVelocity,
-				__global float2* restrict KeDof,
-				__local volatile float2* restrict localKeDof
+				__global float* ke,
+				__global float* dof,
+				__local volatile float* restrict localDof,
+				__local volatile float* restrict localKe
 				)
 {
 	unsigned int idx = get_global_id(0);
-	float2 tempkedof = (float2) 0.0f;
+	float tempke = 0.0;
+	float tempdof = 0.0;
 	while(idx<NUM_ATOMS)
 	{
 		float4 velocity = velm[idx];
-		float4 diffvel = velocity - newVelocity[0];
-		float sqr = ((diffvel.x*diffvel.x)+(diffvel.y*diffvel.y)+(diffvel.z*diffvel.z));
-		tempkedof.x += (0.5*sqr)/velocity.w;
-		tempkedof.y += 3.0;
+		if(velocity.w!=0.0){
+			float mass = 1.0f/velocity.w;
+			float4 diffvel = velocity - newVelocity[0];
+			float sqr = ((diffvel.x*diffvel.x)+(diffvel.y*diffvel.y)+(diffvel.z*diffvel.z));
+			tempke += 0.5f * mass * sqr;
+			tempdof += 3.0;
+		}
 		idx += get_global_size(0);
 	}
 	unsigned int tid = get_local_id(0);
-	localKeDof[tid] = tempkedof;
+	localDof[tid] = tempdof;
+	localKe[tid] = tempke;
 
-	if(tid<32)
-		localKeDof[tid] += localKeDof[tid+32];
+	if(tid<32){
+		localKe[tid] += localKe[tid+32];
+		localDof[tid] += localDof[tid+32];
+	}
 	barrier(CLK_LOCAL_MEM_FENCE);
-	if(tid<16)
-		localKeDof[tid] += localKeDof[tid+16];
+	if(tid<16){
+		localKe[tid] += localKe[tid+16];
+		localDof[tid] += localDof[tid+16];
+	}
 	barrier(CLK_LOCAL_MEM_FENCE);
-	if(tid<8)
-		localKeDof[tid] += localKeDof[tid+8];
+	if(tid<8){
+		localKe[tid] += localKe[tid+8];
+		localDof[tid] += localDof[tid+8];
+	}
 	barrier(CLK_LOCAL_MEM_FENCE);
-	if(tid<4)
-		localKeDof[tid] += localKeDof[tid+4];
+	if(tid<4){
+		localKe[tid] += localKe[tid+4];
+		localDof[tid] += localDof[tid+4];
+	}
 	barrier(CLK_LOCAL_MEM_FENCE);
-	if(tid<2)
-		localKeDof[tid] += localKeDof[tid+2];
+	if(tid<2){
+		localKe[tid] += localKe[tid+2];
+		localDof[tid] += localDof[tid+2];
+	}
 	barrier(CLK_LOCAL_MEM_FENCE);
 
-	if(tid==0)
-		KeDof[get_group_id(0)] = localKeDof[tid] + localKeDof[tid+1];
+	if(tid==0){
+		ke[get_group_id(0)] += localKe[tid] + localKe[tid+1];
+		dof[get_group_id(0)] += localDof[tid] + localDof[tid+1];
+	}
 }
 
 
@@ -197,13 +216,17 @@ __kernel void updateVelocities(__global float4* restrict velm,
 	while(idx<NUM_ATOMS)
 	{
 		float4 velocity = velm[idx];
-		if(velocity.x!=0.0)
+		if(velocity.w!=0.0){
+
+			//if(velocity.x!=0.0)
 			velocity.x *= tempchi;
-		if(velocity.y!=0.0)
+			//if(velocity.y!=0.0)
 			velocity.y *= tempchi;
-		if(velocity.z!=0.0)
+			//if(velocity.z!=0.0)
 			velocity.z *= tempchi;
-		velm[idx] = velocity;
+		
+			velm[idx] = velocity;
+		}
 		idx+=get_global_size(0);
 	}
 }

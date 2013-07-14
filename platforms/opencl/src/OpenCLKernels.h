@@ -1186,6 +1186,8 @@ private:
 	OpenCLArray<mm_float2>* totalKeDof;
 	OpenCLArray<mm_float4>* newVelocity;
 	OpenCLArray<cl_float>* chi; 
+	OpenCLArray<cl_float>* ke; 
+	OpenCLArray<cl_float>* dof; 
 	cl::Kernel kernel1,kernel2,kernel3;
 };
 

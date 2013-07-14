@@ -43,7 +43,8 @@ private:
 protected:
     friend class ContextImpl;
 public:
-    ControlTools(std::vector<std::string> toolnames);
+    ControlTools(std::vector<std::string> toolnames,double temperature=0.0,double deltaT = 0.0,
+		double tauT = 0.1,int nBins = 1, int writeInterval = 1);
     /**
      * overloaded constructor to accomodate 
      * controltools under bins and setting appropriate values

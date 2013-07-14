@@ -9,11 +9,10 @@
 using namespace OpenMM;
 
 
-ControlTools::ControlTools(std::vector<std::string> tools):toolNames(tools)
+ControlTools::ControlTools(std::vector<std::string> tools,double temperature,double deltaT,
+		double tauT,int nBins,int writeInterval)
+:toolNames(tools),temperature(temperature),deltaT(deltaT),tauT(tauT),nBins_(nBins),writeInterval_(writeInterval)
 {
-	temperature = 0.0;
-	tauT = 0.0;
-	deltaT = 0.0;
 	tempValue = 0.0;
 	binTemperature_ = NULL;
 	binForces_ = NULL;
