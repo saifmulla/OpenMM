@@ -4141,9 +4141,9 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
      * ideally check if controltools class is set and if it's set then
      * invoke the function on controltools class
      */
-    context.getControls().controlAfterForces(context);
+    //context.getControls().controlAfterForces(context);
     //the next line invoked reduction of virial kernel and downloads forces
-//    context.getMeasurements().measureAtEnd(context);
+    context.getMeasurements().measureAtEnd(context);
 //    std::vector<OpenMM::Vec3>& forces = context.getMeasurements().updForces();
 //    forces.clear();
 //    context.getForces(forces);
@@ -4500,9 +4500,11 @@ void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
     int* tempmols = impl.getMeasurements().getMols();
     double* tempbinke = impl.getMeasurements().getBinKe();
     
+printf("NBins %d\n",nBins);
     for(int j=0;j<nBins;j++){
-        tempmols[j] = (double) mols;
-        tempbinke[j] = (double) ke;
+	printf("Mols %d KE %3.10\n",mols,ke);
+        //tempmols[j] =  mols;
+        //tempbinke[j] = (double) ke;
     }
     
 //	impl.getMeasurements().setNumberMolecules((double) mols);

@@ -16,8 +16,8 @@ MeasurementTools::MeasurementTools(std::vector<std::string> tools,double averagi
 {
 	this->averagingTime = averagingTime;
     //- set pointers to null
-    mols_ = NULL;
-    binKE_ = NULL;
+    mols_ = new int[1];
+    binKE_ = new double[1];
     binMom_ = NULL;
     virial_ = NULL;
 /*	totalMass = (double) -1.0;
