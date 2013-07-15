@@ -23,6 +23,7 @@ private:
 	int nBins_;
 	int* mols_;   //size of this array is dependent of nBins values
     double* binKE_; //""
+    double* totalMass_;
     OpenMM::Vec3* binMom_;
     int writeInterval_;
     OpenMM::Vec3 startPoint_;
@@ -68,6 +69,9 @@ public:
 	}
 	double* getBinKe(){
 		return binKE_;
+	}
+	double* getTotalMass(){
+		return totalMass_;
 	}
 	std::vector<OpenMM::Vec3>& updForces(){
 			return forces_;

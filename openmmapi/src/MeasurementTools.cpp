@@ -12,12 +12,14 @@
 
 using namespace OpenMM;
 
-MeasurementTools::MeasurementTools(std::vector<std::string> tools,double averagingTime)
+MeasurementTools::MeasurementTools(std::vector<std::string> tools,double averagingTime):tools(tools)
 {
 	this->averagingTime = averagingTime;
+	this->nBins_ = 1;
     //- set pointers to null
     mols_ = new int[1];
     binKE_ = new double[1];
+    totalMass_ = new double[1];
     binMom_ = NULL;
     virial_ = NULL;
 /*	totalMass = (double) -1.0;
@@ -94,6 +96,8 @@ MeasurementTools::~MeasurementTools()
     	delete virial_;
     if(extForces_!=NULL)
     	delete extForces_;
+    if(totalMass_!=NULL)
+	delete totalMass_;
 }
 std::vector<std::string> MeasurementTools::getKernelNames(){
 	return tools;

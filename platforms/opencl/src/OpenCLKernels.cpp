@@ -4478,7 +4478,13 @@ void OpenCLMeasureCombinedFieldsKernel::initialize(ContextImpl& impl){
 	kernel1.setArg<cl::Buffer>(1,cl.getVelm().getDeviceBuffer());
     kernel1.setArg<cl::Buffer>(2,totalKe->getDeviceBuffer());
 	kernel1.setArg(3,OpenCLContext::ThreadBlockSize*sizeof(mm_float4),NULL);
-    
+
+	int k =0;
+	while(k<numBlocks){
+		(*totalKe)[k] = mm_float4(0.0,0.0,0.0,0.0);
+		k++;
+	}
+   	totalKe->upload(); 
 }
 
 void OpenCLMeasureCombinedFieldsKernel::calculateAtBeginning(){
@@ -4489,26 +4495,25 @@ void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
     totalKe->download();
 
     float ke = 0.0;
-    float mols = 0.0;
+    int mols = 0.0;
+    float mass = 0.0;
     for(int i=0;i<numBlocks;i++){
 	mm_float4 t = totalKe->get(i);
         ke += t.x;
-        mols += t.y;
+        mols += (int) t.y;
+	mass += t.z;
+	(*totalKe)[i] = mm_float4(0.0,0.0f,0.0,0.0);
     }
 
     int nBins = impl.getMeasurements().getNBins();
     int* tempmols = impl.getMeasurements().getMols();
     double* tempbinke = impl.getMeasurements().getBinKe();
+    double* temptotalmass = impl.getMeasurements().getTotalMass();
     
-printf("NBins %d\n",nBins);
-    for(int j=0;j<nBins;j++){
-	printf("Mols %d KE %3.10\n",mols,ke);
-        //tempmols[j] =  mols;
-        //tempbinke[j] = (double) ke;
-    }
-    
-//	impl.getMeasurements().setNumberMolecules((double) mols);
-//	impl.getMeasurements().setKe((double) ke);
+        tempmols[0] =  mols;
+        tempbinke[0] = (double) ke;
+        temptotalmass[0] = (double) mass;
+	totalKe->upload();
 
 }
 

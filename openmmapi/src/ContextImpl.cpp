@@ -129,8 +129,8 @@ ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator,
                 it++;
             }
 		}
-		//else
-			//throw OpenMMException("No measurement tools mentioned");
+		else
+			throw OpenMMException("No measurement tools mentioned");
 	}	
     // Create and initialize kernels and other objects.
     

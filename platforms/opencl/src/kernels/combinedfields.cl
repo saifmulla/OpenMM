@@ -23,11 +23,14 @@ __kernel void measureCombinedFields(int numAtoms,
 	while(gid<numAtoms)
 	{
 		float4 velocity = velm[gid];
+		if(velocity.w!=0.0){
 		float sqr = ((velocity.x*velocity.x)+(velocity.y*velocity.y)+(velocity.z*velocity.z));
-		ke.x += 0.5 * sqr / velocity.w;
+		float mass = 1.0f/velocity.w;
+		ke.x += 0.5f * mass * sqr;
 		ke.y += 1.0;
-		ke.z = 0.0f;
-		ke.w = 0.0f;
+		ke.z += mass;
+		ke.w += 0.0;
+		}
 		gid += get_global_size(0);
 	}
 	
@@ -57,7 +60,7 @@ __kernel void measureCombinedFields(int numAtoms,
 	barrier(CLK_LOCAL_MEM_FENCE);
 
 	if(tid==0){
-		totalKe[get_group_id(0)] = localKe[tid] + localKe[tid+1];
+		totalKe[get_group_id(0)] += localKe[tid] + localKe[tid+1];
 	}
 }
 
