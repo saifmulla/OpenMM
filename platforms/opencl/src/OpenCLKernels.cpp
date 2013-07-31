@@ -3781,7 +3781,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
 
         cl::Program randomProgram = cl.createProgram(OpenCLKernelSources::customIntegrator, defines);
         //initialize external force
-        int nbins = context.getMeasurements().getNBins();
+        /*int nbins = context.getMeasurements().getNBins();
         Vec3* extforces = context.getMeasurements().getExtForces();
         extForce = new OpenCLArray<mm_float4>(cl,(int) nbins,"extForce",true);
         int b = 0;
@@ -3796,7 +3796,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
         extForceKernel.setArg<cl::Buffer>(1,extForce->getDeviceBuffer());
         extForceKernel.setArg<cl::Buffer>(2,cl.getForce().getDeviceBuffer());
         extForceKernel.setArg<cl_int>(3,nbins);
-        extForceKernel.setArg<cl_int>(4,cl.getNumAtoms());
+        extForceKernel.setArg<cl_int>(4,cl.getNumAtoms());*/
         //random kernel
         randomKernel = cl::Kernel(randomProgram, "generateRandomNumbers");
         randomKernel.setArg<cl::Buffer>(0, uniformRandoms->getDeviceBuffer());
@@ -4091,7 +4091,6 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             else if(i==2){
             	context.calcForcesAndEnergy(computeForce, computeEnergy, forceGroup[i]);
             }
-
             if (computeEnergy)
                 cl.executeKernel(sumEnergyKernel, OpenCLContext::ThreadBlockSize, OpenCLContext::ThreadBlockSize);
             forcesAreValid = true;
@@ -4100,9 +4099,9 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             kernels[i][0].setArg<cl_uint>(9, integration.prepareRandomNumbers(requiredGaussian[i]));
             if (requiredUniform[i] > 0)
                 cl.executeKernel(randomKernel, numAtoms);
-            if(i==2){
+          /*  if(i==2){
 				cl.executeKernel(extForceKernel,numAtoms);
-			}
+			}*/
             cl.executeKernel(kernels[i][0], numAtoms);
 
 
@@ -5076,23 +5075,23 @@ void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
 
 
 	int m = 0;
-	virialBuffers1_->download();
+	/*virialBuffers1_->download();
 	virialBuffers2_->download();
 	virialBuffers3_->download();
-	OpenCLArray<mm_float4>& force = cl_.getForce();
-	force.download();
+	//OpenCLArray<mm_float4>& force = cl_.getForce();
+	//force.download();
 	//get reference to forces in api
-	std::vector<OpenMM::Vec3>& forces = impl.getMeasurements().updForces();
+	//std::vector<OpenMM::Vec3>& forces = impl.getMeasurements().updForces();
 
 	OpenCLArray<mm_int4>& ma = cl_.getMoleculeAtoms();
 	OpenCLArray<cl_int>& order = cl_.getAtomIndex();
 	int numparticles = impl.getSystem().getNumParticles();
-	forces.clear();
-	forces.resize(numparticles);
+	//forces.clear();
+	//forces.resize(numparticles);
 	
 	while(m<numOfMolecules_){
 		mm_int4 ml = ma[m];
-		mm_float4 f = force[m];
+	//	mm_float4 f = force[m];
 		if(ml.x != -1){
 			mm_float4 v1 = virialBuffers1_->get(ml.x);
 			mm_float4 v2 = virialBuffers2_->get(ml.x);
@@ -5107,9 +5106,9 @@ void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
 			ptrvirial[order[m]][7] = v3.y;
 			ptrvirial[order[m]][8] = v3.z;
 		}
-		forces[order[m]] = OpenMM::Vec3(f.x,f.y,f.z);
+	//	forces[order[m]] = OpenMM::Vec3(f.x,f.y,f.z);
 		m++;
-	}
+	}*/
 }
 
 void OpenCLMeasureBinVirialKernel::findAtomMasses(System& system, OpenCLArray<mm_int4>& moleculeAtoms)
