@@ -223,9 +223,7 @@ public:
      * getImpl function
      * this acccessor function is used to get object of ContextImpl for context
      */
-    ContextImpl& getImpl(){
-	return *impl;
-    }
+    ContextImpl& getImpl();
 private:
     friend class Platform;
     ContextImpl* impl;

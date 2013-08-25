@@ -4960,6 +4960,8 @@ void OpenCLMeasureBinVirialKernel::initialize(ContextImpl& impl){
 	int pna = cl_.getPaddedNumAtoms();
 	int numatoms = cl_.getNumAtoms();
     int numForceBuffers = cl_.getNumForceBuffers();
+    //- get the number of bins
+    nBins_ = impl.getMeasurements().getNBins();
     
 	numOfMolecules_ = cl_.getNumOfMolecules();
     
@@ -4968,7 +4970,9 @@ void OpenCLMeasureBinVirialKernel::initialize(ContextImpl& impl){
     System& system = impl.getSystem();
     OpenCLArray<mm_int4>& ma = cl_.getMoleculeAtoms();
     findAtomMasses(system,ma);
-	moleculeCentresOfMass_ = new OpenCLArray<mm_float4>(cl_,numOfMolecules_,"moleculeCentresOfMass",true);//TODDO: later make true to false to remove CPU memory allocation for this array
+
+	moleculeCentresOfMass_ = new OpenCLArray<mm_float4>(cl_,numOfMolecules_,"moleculeCentresOfMass",true);
+	//TODDO: later make true to false to remove CPU memory allocation for this array
     virialBuffers1_ = new OpenCLArray<mm_float4>(cl_, pna*numForceBuffers, "virialBuffers1", true);
     virialBuffers2_ = new OpenCLArray<mm_float4>(cl_, pna*numForceBuffers, "virialBuffers2", true);
     virialBuffers3_ = new OpenCLArray<mm_float4>(cl_, pna*numForceBuffers, "virialBuffers3", true);
@@ -4979,9 +4983,10 @@ void OpenCLMeasureBinVirialKernel::initialize(ContextImpl& impl){
 
     if(cl_.getSupports64BitGlobalAtomics())
     {
-        longVirialBuffer1_ = new OpenCLArray<cl_long>(cl_, 3*pna, "longVirialBuffer1", false);
-        longVirialBuffer2_ = new OpenCLArray<cl_long>(cl_, 3*pna, "longVirialBuffer2", false);
-        longVirialBuffer3_ = new OpenCLArray<cl_long>(cl_, 3*pna, "longVirialBuffer3", false);
+    	int longbuffsize = 3*pna*nBins_;
+        longVirialBuffer1_ = new OpenCLArray<cl_long>(cl_, longbuffsize, "longVirialBuffer1", false);
+        longVirialBuffer2_ = new OpenCLArray<cl_long>(cl_, longbuffsize, "longVirialBuffer2", false);
+        longVirialBuffer3_ = new OpenCLArray<cl_long>(cl_, longbuffsize, "longVirialBuffer3", false);
         cl_.addAutoclearBuffer(longVirialBuffer1_->getDeviceBuffer(), longVirialBuffer1_->getSize()*2);
         cl_.addAutoclearBuffer(longVirialBuffer2_->getDeviceBuffer(), longVirialBuffer2_->getSize()*2);
         cl_.addAutoclearBuffer(longVirialBuffer3_->getDeviceBuffer(), longVirialBuffer3_->getSize()*2);
@@ -5003,8 +5008,9 @@ void OpenCLMeasureBinVirialKernel::initialize(ContextImpl& impl){
      * incremented inside nonbondedutilities create kernel function. Precisely the argument counter
      * is incremented by 5, starting from either 14 if using cuttoff or 9
      * TODO: to make provisions to get the cutoff values from nonbondedutilities class
-     * so that appropriate argument numbers are assigned.The functionality below is hard-
-     * coded argument numbers this will develop a bug if cutoffdistance is now used in simulation
+     * so that appropriate argument numbers are assigned.
+     * NOTE: The functionality below is hard-
+     * coded argument numbers this will produce a bug if cutoffdistance is not used in simulation
      */
 
     cl::Kernel& forcekernel = cl_.getNonbondedUtilities().getForceKernel();
@@ -5075,7 +5081,7 @@ void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
 
 
 	int m = 0;
-	/*virialBuffers1_->download();
+	virialBuffers1_->download();
 	virialBuffers2_->download();
 	virialBuffers3_->download();
 	//OpenCLArray<mm_float4>& force = cl_.getForce();
@@ -5108,7 +5114,7 @@ void OpenCLMeasureBinVirialKernel::calculate(ContextImpl& impl){
 		}
 	//	forces[order[m]] = OpenMM::Vec3(f.x,f.y,f.z);
 		m++;
-	}*/
+	}
 }
 
 void OpenCLMeasureBinVirialKernel::findAtomMasses(System& system, OpenCLArray<mm_int4>& moleculeAtoms)
