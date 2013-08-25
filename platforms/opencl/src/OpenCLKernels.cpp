@@ -4143,7 +4143,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
      */
     //context.getControls().controlAfterForces(context);
     //the next line invoked reduction of virial kernel and downloads forces
-    context.getMeasurements().measureAtEnd(context);
+//    context.getMeasurements().measureAtEnd(context);
 //    std::vector<OpenMM::Vec3>& forces = context.getMeasurements().updForces();
 //    forces.clear();
 //    context.getForces(forces);
