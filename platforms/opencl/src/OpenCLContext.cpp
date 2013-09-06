@@ -413,7 +413,8 @@ cl::Program OpenCLContext::createProgram(const string source, const char* optimi
 }
 
 cl::Program OpenCLContext::createProgram(const string source, const map<string, string>& defines, const char* optimizationFlags) {
-    string options = (optimizationFlags == NULL ? defaultOptimizationOptions : optimizationFlags);
+    //TODO:string options = (optimizationFlags == NULL ? defaultOptimizationOptions : optimizationFlags);
+    string options = "-Werror";
     stringstream src;
     if (!options.empty())
         src << "// Compilation Options: " << options << endl << endl;
@@ -441,6 +442,8 @@ cl::Program OpenCLContext::createProgram(const string source, const map<string, 
     cl::Program program(context, sources);
     try {
         program.build(vector<cl::Device>(1, device), options.c_str());
+	string logs = program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(device);
+	cout<<"Build log "<<logs<<endl;
     } catch (cl::Error err) {
         throw OpenMMException("Error compiling kernel: "+program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(device));
     }
@@ -451,6 +454,7 @@ void OpenCLContext::executeKernel(cl::Kernel& kernel, int workUnits, int blockSi
     if (blockSize == -1)
         blockSize = ThreadBlockSize;
     int size = std::min((workUnits+blockSize-1)/blockSize, numThreadBlocks)*blockSize;
+//TODO:	printf("DEBUG: Block size %d and size %d\n",(workUnits+blockSize-1)/blockSize,size);
     try {
         queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(size), cl::NDRange(blockSize));
     }

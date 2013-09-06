@@ -1210,7 +1210,7 @@ public:
 private:
     OpenCLContext& cl_;
     double tauT_,temperature_,deltaT_;
-    int nBins_,writeInterval_,numAtoms_;
+    int nBins_,writeInterval_,numAtoms_,numBlocks_;
     OpenCLArray<mm_float4>* unitVector_;
     OpenCLArray<mm_float4>* startPoint_;
     OpenCLArray<mm_float4>* glMomentum_;

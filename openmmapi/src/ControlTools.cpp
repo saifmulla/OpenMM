@@ -27,6 +27,7 @@ ControlTools::ControlTools(std::vector<std::string> toolnames, double temperatur
 startPoint_(startPoint),endPoint_(endPoint),
 deltaT(deltaT),tauT(tauT),nBins_(nBins),writeInterval_(writeInterval)
 {
+	std::cout<<"DEBUG:controltools constructor"<<std::endl;
     binTemperature_ = new double[nBins_];
     //initializing debug variable
     //TODO: delete alter in production
