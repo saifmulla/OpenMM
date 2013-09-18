@@ -4727,10 +4727,8 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
     numAtoms_ = cl_.getNumAtoms();
     numBlocks_ = cl_.getNumThreadBlocks(); 
 
-    printf("Debug: numthreadsblocksize %d and numthreadblocks %d\n",
-		OpenCLContext::ThreadBlockSize,numBlocks_);
-
-/*	std::cout<<"Debug:"<<std::endl;
+/*
+	std::cout<<"Debug:"<<std::endl;
 	printf("binWidth %3.10f\tNbins %d\tTemperature %f\ttauT %3.15f\tdeltaT %3.15f\n",
 		tempbinwidth,nBins_,temperature_,tauT_,deltaT_);
 	printf("start Point %3.8f\t%3.8f\t%3.8f\n",tempstartpoint[0],tempstartpoint[1],tempstartpoint[2]);
@@ -4740,19 +4738,19 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
     //initialize opencl arrays
     startPoint_ = new OpenCLArray<mm_float4>(cl_,1,"startPoint",true);
     unitVector_ = new OpenCLArray<mm_float4>(cl_,1,"unitVector",true);
-    glMomentum_ = new OpenCLArray<mm_float4>(cl_,numBlocks_*nBins_,"glMomentum",true);
+    glMomentum_ = new OpenCLArray<mm_float4>(cl_,numAtoms_*nBins_,"glMomentum",true);
 //    glSumMomentum_ = new OpenCLArray<mm_float4>(cl_,numAtoms_*nBins_,"glSumMomentum",true);
-    //glNewVelocity_ = new OpenCLArray<mm_float4>(cl_,nBins_,"glNewVelocity",true);
-    //glBinChi_ = new OpenCLArray<cl_float>(cl_,nBins_,"glBinChi",true);
+    glNewVelocity_ = new OpenCLArray<mm_float4>(cl_,nBins_,"glNewVelocity",true);
+    glBinChi_ = new OpenCLArray<cl_float>(cl_,nBins_,"glBinChi",true);
     
     map<string,string> defines;
     defines["NUM_ATOMS"] = intToString(numAtoms_);
     defines["NBINS"] = intToString(nBins_);
     cl::Program program = cl_.createProgram(OpenCLKernelSources::berendsen,defines);
     kernel1 = cl::Kernel(program,"binMomentum");
-    //kernel2 = cl::Kernel(program,"calculatebinke");
-    //kernel3 = cl::Kernel(program,"updateVelocitiesInBins");
-    
+    kernel4 = cl::Kernel(program,"makeZeros");
+    kernel2 = cl::Kernel(program,"calculatebinke");
+    //kernel3 = cl::Kernel(program,"updateVelocitiesInBins");    
     unsigned int shmemsize = OpenCLContext::ThreadBlockSize*nBins_;
     
     kernel1.setArg<cl::Buffer>(0,cl_.getVelm().getDeviceBuffer());
@@ -4760,17 +4758,18 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
     kernel1.setArg<cl::Buffer>(2,startPoint_->getDeviceBuffer());
     kernel1.setArg<cl::Buffer>(3,unitVector_->getDeviceBuffer());
     kernel1.setArg<cl::Buffer>(4,glMomentum_->getDeviceBuffer());
-    kernel1.setArg(5,shmemsize*sizeof(mm_float4),NULL);
     
+    kernel4.setArg<cl::Buffer>(0,glMomentum_->getDeviceBuffer());
+    kernel4.setArg<cl_int>(1,numAtoms_*nBins_);
     //second kernel calculatebinke
- /*   
+    
     kernel2.setArg<cl::Buffer>(0,cl_.getVelm().getDeviceBuffer());
     kernel2.setArg<cl::Buffer>(1,cl_.getPosq().getDeviceBuffer());
     kernel2.setArg<cl::Buffer>(2,startPoint_->getDeviceBuffer());
     kernel2.setArg<cl::Buffer>(3,unitVector_->getDeviceBuffer());
     kernel2.setArg<cl::Buffer>(4,glNewVelocity_->getDeviceBuffer());
     kernel2.setArg<cl::Buffer>(5,glMomentum_->getDeviceBuffer());
-    
+ /*   
     //third kernel updatevelocitiesinbins
     kernel3.setArg<cl::Buffer>(0,cl_.getPosq().getDeviceBuffer());
     kernel3.setArg<cl::Buffer>(1,startPoint_->getDeviceBuffer());
@@ -4791,14 +4790,8 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
 
     startPoint_->upload();
     unitVector_->upload();
+    cl_.executeKernel(kernel4,numAtoms_*nBins_);
 
-/*	for(int i=0;i<numAtoms_;i++){
-		for(int j=0;j<nBins_;j++){
-			(*glMomentum_)[i*nBins_+j] = mm_float4(0.0,0.0,0.0,0.0);;
-		}
-	}
-    glMomentum_->upload();
-*/
 }
 void OpenCLControlBerendsenInBinsKernel::controlBeforeForces(ContextImpl& impl)
 {
@@ -4806,176 +4799,62 @@ void OpenCLControlBerendsenInBinsKernel::controlBeforeForces(ContextImpl& impl)
 void OpenCLControlBerendsenInBinsKernel::controlAfterForces(ContextImpl& impl)
 {
 
-    	cl_.executeKernel(kernel1,numAtoms_,OpenCLContext::ThreadBlockSize);
+    	cl_.executeKernel(kernel1,numAtoms_);
 	glMomentum_->download();
 	std::vector<mm_float4> mom(nBins_);
-    for(int b=0;b<numBlocks_;b++)
-    {
-        for(int j=0;j<nBins_;j++){
-            mm_float4 t = glMomentum_->get(b*nBins_+j);
-		printf("%d:%d => %3.10f\t%3.10f\t%3.10f\t%3.10f\n",
-			b,j,t.x,t.y,t.z,t.w);
-            /*mom[j].x += t.x;
-            mom[j].y += t.y;
-            mom[j].z += t.z;
-            mom[j].w += t.w;
-		printf("%3.10f\t%3.10f\t%3.10f\t%3.10f\n",
-			mom[j].x,mom[j].y,mom[j].z,mom[j].w);*/
-	
-        }
-    }
-/*
-	int bn = 0;
-	while(bn<nBins_){
-		printf("Bin %d => %3.10f\t%3.10f\t%3.10f\t%3.10f\n",
-			bn,mom[bn].x,mom[bn].y,mom[bn].z,mom[bn].w);
-		bn++;
-	}
-*/	
-/*
-	OpenCLArray<mm_float4>& velm = cl_.getVelm();
-	OpenCLArray<mm_float4>& posq = cl_.getPosq();
-	velm.download();
-	posq.download();
-	
-	int kk=0;
-	mm_float4 sp = (*startPoint_)[0];
-	mm_float4 uv = (*unitVector_)[0];
-	std::vector<mm_float4> mom(nBins_);
-	std::vector<mm_float4> newVelocity(nBins_);
-	std::vector<cl_float> ke(nBins_);
-	std::vector<cl_float> dof(nBins_);
-	std::vector<cl_float> instTemperature(nBins_);
-	std::vector<cl_float> chi(nBins_);
+	std::vector<float> ke(nBins_);
+	std::vector<float> dof(nBins_);
 
-	for(int i = 0;i<nBins_;i++){
-		mom[i] = mm_float4(0.0,0.0,0.0,0.0);
-	}
-
-	while(kk<numAtoms_){
-		int bn = -1;
-		mm_float4 v = velm[kk];
-		if(v.w!=0.0){
-			float mass = (1.0f/v.w);
-			mm_float4 p = posq[kk];
-			mm_float4 rsi = mm_float4(p.x - sp.x,p.y - sp.y,p.z-sp.z,0.0f);
-			float rd = ((rsi.x*uv.x)+(rsi.y*uv.y)+(rsi.z*uv.z));
-			bn = (int) rd;
-			mom[bn].x += mass * v.x;
-			mom[bn].y += mass * v.y;
-			mom[bn].z += mass * v.z;
-			mom[bn].w += mass;
-		}
-		kk++;
-	}
-
-	kk = 0;
-	while(kk<nBins_){
-		printf("MOM %d => %3.12f\t%3.12f\t%3.12f\t%3.12f\n",
-						kk,mom[kk].x,mom[kk].y,mom[kk].z,mom[kk].w);
-		newVelocity[kk] = mm_float4(mom[kk].x/mom[kk].w,mom[kk].y/mom[kk].w,mom[kk].z/mom[kk].w,0.0f);
-		printf("Velocity %d => %3.12f\t%3.12f\t%3.12f\n",
-				kk,newVelocity[kk].x,newVelocity[kk].y,newVelocity[kk].z);
-		kk++;
-	}
-
-	kk=0;
-	while(kk<numAtoms_){
-		int bn = -1;
-		mm_float4 v = velm[kk];
-		if(v.w!=0.0){
-			mm_float4 p = posq[kk];
-			float mass = (1.0f/v.w);
-			mm_float4 rsi = mm_float4(p.x - sp.x,p.y - sp.y,p.z-sp.z,0.0f);
-			float rd = ((rsi.x*uv.x)+(rsi.y*uv.y)+(rsi.z*uv.z));
-			bn = (int) rd;
-			mm_float4 diff = mm_float4(v.x-newVelocity[bn].y,v.y-newVelocity[bn].y,v.z-newVelocity[bn].z,0.0f);
-			float magsqr = ((diff.x*diff.x)+(diff.y*diff.y)+(diff.z*diff.z));
-			ke[bn] += 0.5f*mass*magsqr;
-			dof[bn] += 3.0f;
-		}
-		kk++;
-	}
-
-	kk=0;
-	while(kk<nBins_){
-		if(dof[kk]>0.0){
-			instTemperature[kk] = (2.0f*ke[kk])/(BOLTZ*dof[kk]);
-		}
-		else{
-			instTemperature[kk] = temperature_;
-		}
-
-		(*glBinChi_)[kk] = sqrt(1.0f + (deltaT_/tauT_)*((temperature_/instTemperature[kk]) - 1.0f));
-		//printf("Bin %d => temp %3.15f and chi %3.15f\n",kk,instTemperature[kk],chi[kk]);
-
-		kk++;
-	}
-    	glBinChi_->upload();
-    	cl_.executeKernel(kernel3,numAtoms_);
-*/
-/*	kk=0;
-
-	while(kk<numAtoms_){
-		int bn = -1;
-		mm_float4 v = velm[kk];
-		if(v.w!=0.0){
-			mm_float4 p = posq[kk];
-			mm_float4 rsi = mm_float4(p.x - sp.x,p.y - sp.y,p.z-sp.z,0.0f);
-			float rd = ((rsi.x*uv.x)+(rsi.y*uv.y)+(rsi.z*uv.z));
-			bn = (int) rd;
-		}
-		kk++;
-	}
-
-	velm.upload();
-
-    cl_.executeKernel(kernel1,numAtoms_);
-    glMomentum_->download();
 
     for(int b=0;b<numAtoms_;b++)
     {
         for(int j=0;j<nBins_;j++){
             mm_float4 t = glMomentum_->get(b*nBins_+j);
+		//printf("%d:%d => %3.10f\t%3.10f\t%3.10f\t%3.10f\n",
+		//	b,j,t.x,t.y,t.z,t.w);
             mom[j].x += t.x;
             mom[j].y += t.y;
             mom[j].z += t.z;
             mom[j].w += t.w;
-            temp[b*nBins_+j] = mm_float4(0.0f,0.0f,0.0f,0.0f);
+	//	printf("%3.10f\t%3.10f\t%3.10f\t%3.10f\n",
+	//		mom[j].x,mom[j].y,mom[j].z,mom[j].w);
+	
         }
     }
 
-    int k=0;
-    while(k<nBins_)
-    {
-    	printf("Bin mom %d => %3.8f\t%3.8f\t%3.8f\t%3.8f\n",
-    			mom[k].x,mom[k].y,mom[k].z,mom[k].w);
-        (*glNewVelocity_)[k] = mm_float4(mom[k].x/mom[k].w,mom[k].y/mom[k].w,mom[k].z/mom[k].w,0.0f);
-        printf("Bin %d => %3.8f\t%3.8f\t%3.8f\t%3.8f\n",
-                 		k,mom[k].x/mom[k].w,mom[k].y/mom[k].w,mom[k].z/mom[k].w,mom[k].w);
-        k++;
-    }
-
-
-    glMomentum_->upload(temp);
+	int bn = 0;
+	while(bn<nBins_){
+		//printf("Bin %d => %3.10f\t%3.10f\t%3.10f\t%3.10f\n",
+		//	bn,mom[bn].x,mom[bn].y,mom[bn].z,mom[bn].w);
+        	(*glNewVelocity_)[bn] = mm_float4(mom[bn].x/mom[bn].w,mom[bn].y/mom[bn].w,mom[bn].z/mom[bn].w,0.0f);
+		//printf("New Velocity bin %d => %3.8f\t%3.8f\t%3.8f\n",
+		//		(*glNewVelocity_)[bn].x,(*glNewVelocity_)[bn].y,(*glNewVelocity_)[bn].z);
+		bn++;
+	}
+    	cl_.executeKernel(kernel4,numAtoms_*nBins_);
     glNewVelocity_->upload();
     
     //calculate ke and dof
     cl_.executeKernel(kernel2,numAtoms_);
     glMomentum_->download();
-   // velm.download();
     
-    k = 0;
+    int k = 0;
     while(k<numAtoms_)
     {
         for(int j=0;j<nBins_;j++){
             mm_float4 t = glMomentum_->get(k*nBins_+j);
             ke[j] += t.x;
             dof[j] += t.y;
-            temp[k*nBins_+j] = mm_float4(0.0f,0.0f,0.0f,0.0f);
         }
         k++;
     }
+/*
+    k = 0;
+    while(k<nBins_){
+	printf("KE bin %d => %3.10f, %f\n",k,ke[k],dof[k]);
+	k++;
+    }*/
+    	cl_.executeKernel(kernel4,numAtoms_*nBins_);
     
     int kk=0;
     float measuretemperature;
@@ -4989,7 +4868,7 @@ void OpenCLControlBerendsenInBinsKernel::controlAfterForces(ContextImpl& impl)
         printf("CHI %d => %3.8f\n",kk,(*glBinChi_)[kk]);
         kk++;
     }
-    
+/*    
     glMomentum_->upload(temp);
     glBinChi_->upload();
     cl_.executeKernel(kernel3,numAtoms_);*/

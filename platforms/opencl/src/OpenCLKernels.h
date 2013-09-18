@@ -1218,7 +1218,7 @@ private:
     OpenCLArray<cl_float>* testArray_; //for debugging delete later
     OpenCLArray<mm_float4>* glNewVelocity_;
     OpenCLArray<cl_float>* glBinChi_;
-    cl::Kernel kernel1,kernel2,kernel3;
+    cl::Kernel kernel1,kernel2,kernel3,kernel4;
 };
 
 /**

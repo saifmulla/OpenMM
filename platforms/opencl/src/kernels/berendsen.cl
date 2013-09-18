@@ -5,107 +5,46 @@
  */
 #pragma OPENCL EXTENSION cl_khr_fp64 : enable
 
-/*
-int getBinNumber(const float4* pos,
-		const float4* sp,
-		const float4* uv,
-		int nbins)
+
+__kernel void makeZeros(__global float4* restrict glMomentum,int N)
 {
-	float4 rsi = pos - sp;
-	float rd = 0.0;
-	rd = ((rsi.x*uv.x)+(rsi.y*uv.y)+(rsi.z*uv.z));	
-	int bn = (int) rd/uv.w;
-	unsigned int s = bn == nbins;
-	bn -= s;
-	return bn;
-}*/
+	int gid = get_global_id(0);
+	while(gid<N){
+		float4 temp = (float4) 0.0;
+		glMomentum[gid] = temp;
+		gid += get_global_size(0);
+	}
+}
 				
 __kernel void binMomentum(
                           __global const float4* restrict velm,
                           __global const float4* restrict posq,
                           __global const float4* restrict startPoint,
                           __global const float4* restrict unitVector,
-                          __global float4* restrict glMomentum,
-                          __local volatile float4* restrict localMomm
+                          __global float4* restrict glMomentum
                           )
 {
-	unsigned int gid = get_global_id(0);
-	unsigned int lid = get_local_id(0);
-	float4 sp = startPoint[0];
-	float4 uv = unitVector[0];
-	float rD = 0.0;
-	unsigned int nbins = (int) NBINS;
+	int gid = get_global_id(0);
+	int nbins = (int) NBINS;
 	
-	if(gid<NUM_ATOMS)
+	while(gid<NUM_ATOMS)
 	{
 		float4 velocity = velm[gid];
 		if(velocity.w!=0.0)
 		{
 			float mass = 1.0f/velocity.w;
-			float4 rSI = posq[gid] - sp;
-			rD = ((rSI.x*uv.x)
-				+(rSI.y*uv.y)
-				+(rSI.z*uv.z));
-			int bn = (int) rD/uv.w;//try will ceil if the  sums aren't appropriate
-		        unsigned int s = bn == nbins;
+			float4 rSI = posq[gid] - startPoint[0];
+			float rD = ((rSI.x*unitVector[0].x)
+				+(rSI.y*unitVector[0].y)
+				+(rSI.z*unitVector[0].z));
+			int bn = (int) rD/unitVector[0].w;//try will ceil if the  sums aren't appropriate
+		        int s = bn == nbins;
 		        bn -= s;
-		        localMomm[lid*nbins+bn] += (float4) (velocity.x*mass,
-								velocity.y*mass,
-								velocity.w*mass,
-								mass);
+		        glMomentum[gid*nbins+bn] += (float4) (velocity.x*mass,velocity.y*mass,
+					velocity.z*mass,mass);
 		}
-		barrier(CLK_LOCAL_MEM_FENCE);
-		
-		int lb = lid*nbins;
-		int lb32 = lb+32;
-		int lb16 = lb+16;
-		int lb8 = lb+8;
-		int lb4 = lb+4;
-		int lb2 = lb+2;
-		
-		if(lid<32)
-		{
-			for(int b=0;b<nbins;b++){
-				localMomm[lb+b] += localMomm[lb32+b];
-			}
-		}
-		barrier(CLK_LOCAL_MEM_FENCE);
-		if(lid<16)
-		{
-			for(int b=0;b<nbins;b++){
-				localMomm[lb+b] += localMomm[lb16+b];
-			}
-		}
-		barrier(CLK_LOCAL_MEM_FENCE);
-		if(lid<8)
-		{
-			for(int b=0;b<nbins;b++){
-				localMomm[lb+b] += localMomm[lb8+b];
-			}
-		}
-		barrier(CLK_LOCAL_MEM_FENCE);
-		if(lid<4)
-		{
-			for(int b=0;b<nbins;b++){
-				localMomm[lb+b] += localMomm[lb4+b];
-			}
-		}
-		barrier(CLK_LOCAL_MEM_FENCE);
-		if(lid<2)
-		{
-			for(int b=0;b<nbins;b++){
-				localMomm[lb+b] += localMomm[lb2+b];
-			}
-		}
-		barrier(CLK_LOCAL_MEM_FENCE);
-		
-		if(lid==0){
-			for(int g=0;g<nbins;g++){
-				int glid = (get_group_id(0)*nbins)+g;
-				glMomentum[glid] += localMomm[lb+g] + localMomm[lb+g+1];
-			} 
-		}
-	}
+		gid += get_global_size(0);
+	}			
 }
 
 __kernel void calculatebinke(__global const float4* restrict velm,
@@ -120,19 +59,21 @@ __kernel void calculatebinke(__global const float4* restrict velm,
     int nbins = (int) NBINS;
     if(idx < NUM_ATOMS)
     {
-        float4 pos = posq[idx];
         float4 velocity = velm[idx];
-	float4 rSI = pos - startPoint[0];
-        float rD =
+	if(velocity.w!=0.0){
+		float mass = 1.0f/velocity.w;
+		float4 pos = posq[idx];
+		float4 rSI = pos - startPoint[0];
+		float rD =
 ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
-        int bn = (int) rD/unitVector[0].w;
-        unsigned int s = bn == nbins;
-        bn -= s;
-        float4 diffvel = velocity - newVelocity[bn];
-        rD =
+		int bn = (int) rD/unitVector[0].w;
+		int s = bn == nbins;
+		bn -= s;
+		float4 diffvel = velocity - newVelocity[bn];
+		rD =
 ((diffvel.x*diffvel.x)+(diffvel.y*diffvel.y)+(diffvel.z*diffvel.z));
-        glKe[idx*nbins+bn] += (float4)
-(0.5*(1.0f/velocity.w)*rD,3.0f,1.0f,0.0f);
+		glKe[idx*nbins+bn] += (float4) (0.5*mass*rD,3.0f,1.0f,0.0f);
+	}
     }
 }
 

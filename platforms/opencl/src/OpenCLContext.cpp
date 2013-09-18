@@ -413,8 +413,7 @@ cl::Program OpenCLContext::createProgram(const string source, const char* optimi
 }
 
 cl::Program OpenCLContext::createProgram(const string source, const map<string, string>& defines, const char* optimizationFlags) {
-    //TODO:string options = (optimizationFlags == NULL ? defaultOptimizationOptions : optimizationFlags);
-    string options = "-Werror";
+    string options = (optimizationFlags == NULL ? defaultOptimizationOptions : optimizationFlags);
     stringstream src;
     if (!options.empty())
         src << "// Compilation Options: " << options << endl << endl;
@@ -442,8 +441,6 @@ cl::Program OpenCLContext::createProgram(const string source, const map<string, 
     cl::Program program(context, sources);
     try {
         program.build(vector<cl::Device>(1, device), options.c_str());
-	string logs = program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(device);
-	cout<<"Build log "<<logs<<endl;
     } catch (cl::Error err) {
         throw OpenMMException("Error compiling kernel: "+program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(device));
     }
