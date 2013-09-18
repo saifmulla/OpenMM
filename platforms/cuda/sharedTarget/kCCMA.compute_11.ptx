@@ -1,0 +1,473 @@
+	.version 1.4
+	.target sm_11, map_f64_to_f32
+	// compiled with /usr/local/cuda-5.0/open64/lib//be
+	// nvopencc 4.1 built on 2012-09-21
+
+	//-----------------------------------------------------------
+	// Compiling kCCMA.compute_11.cpp3.i (/tmp/ccBI#.ehZb9m)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_11, Endian:little, Pointer Size:64
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"<command-line>"
+	.file	2	"kCCMA.compute_11.cudafe2.gpu"
+	.file	3	"/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+	.file	4	"kCCMA.compute_11.cudafe1.gpu"
+	.file	5	"/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h"
+	.file	6	"/usr/local/cuda-5.0/include/crt/device_runtime.h"
+	.file	7	"/usr/local/cuda-5.0/include/host_defines.h"
+	.file	8	"/usr/local/cuda-5.0/include/builtin_types.h"
+	.file	9	"/usr/local/cuda-5.0/include/device_types.h"
+	.file	10	"/usr/local/cuda-5.0/include/driver_types.h"
+	.file	11	"/usr/local/cuda-5.0/include/surface_types.h"
+	.file	12	"/usr/local/cuda-5.0/include/texture_types.h"
+	.file	13	"/usr/local/cuda-5.0/include/vector_types.h"
+	.file	14	"/usr/local/cuda-5.0/include/device_launch_parameters.h"
+	.file	15	"/usr/local/cuda-5.0/include/crt/storage_class.h"
+	.file	16	"/usr/local/cuda-5.0/include/cuComplex.h"
+	.file	17	"/usr/local/cuda-5.0/include/cufft.h"
+	.file	18	"/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCCMA.cu"
+	.file	19	"/usr/local/cuda-5.0/include/common_functions.h"
+	.file	20	"/usr/local/cuda-5.0/include/math_functions.h"
+	.file	21	"/usr/local/cuda-5.0/include/math_constants.h"
+	.file	22	"/usr/local/cuda-5.0/include/device_functions.h"
+	.file	23	"/usr/local/cuda-5.0/include/sm_11_atomic_functions.h"
+	.file	24	"/usr/local/cuda-5.0/include/sm_12_atomic_functions.h"
+	.file	25	"/usr/local/cuda-5.0/include/sm_13_double_functions.h"
+	.file	26	"/usr/local/cuda-5.0/include/sm_20_atomic_functions.h"
+	.file	27	"/usr/local/cuda-5.0/include/sm_35_atomic_functions.h"
+	.file	28	"/usr/local/cuda-5.0/include/sm_20_intrinsics.h"
+	.file	29	"/usr/local/cuda-5.0/include/sm_30_intrinsics.h"
+	.file	30	"/usr/local/cuda-5.0/include/sm_35_intrinsics.h"
+	.file	31	"/usr/local/cuda-5.0/include/surface_functions.h"
+	.file	32	"/usr/local/cuda-5.0/include/texture_fetch_functions.h"
+	.file	33	"/usr/local/cuda-5.0/include/texture_indirect_functions.h"
+	.file	34	"/usr/local/cuda-5.0/include/surface_indirect_functions.h"
+	.file	35	"/usr/local/cuda-5.0/include/math_functions_dbl_ptx1.h"
+
+	.const .align 8 .b8 cSim[1224];
+
+	.entry _Z32kComputeCCMAConstraintDirectionsv
+	.maxntid 256,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<5>;
+	.reg .u32 %r<10>;
+	.reg .u64 %rd<19>;
+	.reg .f32 %f<12>;
+	.reg .pred %p<4>;
+	.loc	18	59	0
+$LDWbegin__Z32kComputeCCMAConstraintDirectionsv:
+	.loc	18	63	0
+	mov.u16 	%rh1, %ntid.x;
+	mov.u16 	%rh2, %ctaid.x;
+	mul.wide.u16 	%r1, %rh2, %rh1;
+	cvt.u32.u16 	%r2, %tid.x;
+	add.u32 	%r3, %r2, %r1;
+	mov.s32 	%r4, %r3;
+	ld.const.u32 	%r5, [cSim+868];
+	setp.ge.u32 	%p1, %r3, %r5;
+	@%p1 bra 	$Lt_0_1282;
+	cvt.u64.u32 	%rd1, %r3;
+	mov.u16 	%rh3, %nctaid.x;
+	mul.wide.u16 	%r6, %rh3, %rh1;
+	cvt.s64.u32 	%rd2, %r6;
+	ld.const.u64 	%rd3, [cSim+1008];
+	mul.wide.u32 	%rd4, %r3, 8;
+	add.u64 	%rd5, %rd3, %rd4;
+	mul.wide.u32 	%rd6, %r6, 8;
+	ld.const.u64 	%rd7, [cSim+1016];
+	mul.wide.u32 	%rd8, %r3, 16;
+	add.u64 	%rd9, %rd7, %rd8;
+	mul.wide.u32 	%rd10, %r6, 16;
+	ld.const.u64 	%rd11, [cSim+1104];
+$Lt_0_1794:
+ //<loop> Loop body line 63, nesting depth: 1, estimated iterations: unknown
+	ld.global.v2.s32 	{%r7,%r8}, [%rd5+0];
+	.loc	18	66	0
+	ld.global.f32 	%f1, [%rd9+12];
+	.loc	18	67	0
+	cvt.s64.s32 	%rd12, %r7;
+	mul.wide.s32 	%rd13, %r7, 16;
+	add.u64 	%rd14, %rd11, %rd13;
+	ld.global.v4.f32 	{%f2,%f3,%f4,_}, [%rd14+0];
+	.loc	18	68	0
+	cvt.s64.s32 	%rd15, %r8;
+	mul.wide.s32 	%rd16, %r8, 16;
+	add.u64 	%rd17, %rd11, %rd16;
+	ld.global.v4.f32 	{%f5,%f6,%f7,_}, [%rd17+0];
+	.loc	18	72	0
+	sub.f32 	%f8, %f2, %f5;
+	sub.f32 	%f9, %f3, %f6;
+	sub.f32 	%f10, %f4, %f7;
+	st.global.v4.f32 	[%rd9+0], {%f8,%f9,%f10,%f1};
+	add.u32 	%r4, %r6, %r4;
+	add.u64 	%rd9, %rd9, %rd10;
+	add.u64 	%rd5, %rd5, %rd6;
+	setp.lt.u32 	%p2, %r4, %r5;
+	@%p2 bra 	$Lt_0_1794;
+$Lt_0_1282:
+	.loc	18	74	0
+	exit;
+$LDWend__Z32kComputeCCMAConstraintDirectionsv:
+	} // _Z32kComputeCCMAConstraintDirectionsv
+
+	.entry _Z28kComputeCCMAConstraintForcesP6float4b (
+		.param .u64 __cudaparm__Z28kComputeCCMAConstraintForcesP6float4b_atomPositions,
+		.param .s8 __cudaparm__Z28kComputeCCMAConstraintForcesP6float4b_addOldPosition)
+	.maxntid 256,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<5>;
+	.reg .u32 %r<17>;
+	.reg .u64 %rd<26>;
+	.reg .f32 %f<45>;
+	.reg .pred %p<10>;
+	.shared .s32 __cuda_local_var_38867_33_non_const_converged;
+	.loc	18	84	0
+$LDWbegin__Z28kComputeCCMAConstraintForcesP6float4b:
+	cvt.u32.u16 	%r1, %tid.x;
+	mov.u32 	%r2, 0;
+	setp.ne.u32 	%p1, %r1, %r2;
+	@%p1 bra 	$Lt_1_5378;
+	.loc	18	90	0
+	mov.s32 	%r3, 1;
+	st.shared.s32 	[__cuda_local_var_38867_33_non_const_converged], %r3;
+$Lt_1_5378:
+	.loc	18	91	0
+	bar.sync 	0;
+	.loc	18	95	0
+	mov.u16 	%rh1, %ntid.x;
+	mov.u16 	%rh2, %ctaid.x;
+	mul.wide.u16 	%r4, %rh2, %rh1;
+	add.u32 	%r5, %r4, %r1;
+	mov.s32 	%r6, %r5;
+	ld.const.u32 	%r7, [cSim+868];
+	setp.ge.u32 	%p2, %r5, %r7;
+	@%p2 bra 	$Lt_1_5890;
+	ld.const.f32 	%f1, [cSim+892];
+	add.f32 	%f2, %f1, %f1;
+	mov.f32 	%f3, 0f3f800000;     	// 1
+	sub.f32 	%f4, %f3, %f2;
+	mad.f32 	%f5, %f1, %f1, %f4;
+	mov.f32 	%f6, 0f3f800000;     	// 1
+	add.f32 	%f7, %f2, %f6;
+	mad.f32 	%f8, %f1, %f1, %f7;
+	cvt.u64.u32 	%rd1, %r5;
+	ld.param.s8 	%r8, [__cudaparm__Z28kComputeCCMAConstraintForcesP6float4b_addOldPosition];
+	mov.s32 	%r9, 0;
+	setp.ne.s32 	%p3, %r8, %r9;
+	mov.u16 	%rh3, %nctaid.x;
+	mul.wide.u16 	%r10, %rh3, %rh1;
+	cvt.s64.u32 	%rd2, %r10;
+	mul.wide.u32 	%rd3, %r5, 4;
+	ld.const.u64 	%rd4, [cSim+1008];
+	mul.wide.u32 	%rd5, %r5, 8;
+	add.u64 	%rd6, %rd4, %rd5;
+	mul.wide.u32 	%rd7, %r10, 8;
+	ld.const.u64 	%rd8, [cSim+1016];
+	mul.wide.u32 	%rd9, %r5, 16;
+	add.u64 	%rd10, %rd8, %rd9;
+	mul.wide.u32 	%rd11, %r10, 16;
+	ld.const.u64 	%rd12, [cSim+1064];
+	add.u64 	%rd13, %rd3, %rd12;
+	mul.wide.u32 	%rd14, %r10, 4;
+	ld.const.u64 	%rd15, [cSim+1024];
+	add.u64 	%rd16, %rd3, %rd15;
+	ld.shared.s32 	%r11, [__cuda_local_var_38867_33_non_const_converged];
+	ld.param.u64 	%rd17, [__cudaparm__Z28kComputeCCMAConstraintForcesP6float4b_atomPositions];
+$Lt_1_6402:
+ //<loop> Loop body line 95, nesting depth: 1, estimated iterations: unknown
+	ld.global.v2.s32 	{%r12,%r13}, [%rd6+0];
+	ld.global.v4.f32 	{%f9,%f10,%f11,%f12}, [%rd10+0];
+	.loc	18	101	0
+	cvt.s64.s32 	%rd18, %r12;
+	mul.wide.s32 	%rd19, %r12, 16;
+	.loc	18	95	0
+	ld.param.u64 	%rd17, [__cudaparm__Z28kComputeCCMAConstraintForcesP6float4b_atomPositions];
+	.loc	18	101	0
+	add.u64 	%rd20, %rd17, %rd19;
+	cvt.s64.s32 	%rd21, %r13;
+	mul.wide.s32 	%rd22, %r13, 16;
+	add.u64 	%rd23, %rd17, %rd22;
+	ld.global.v4.f32 	{%f13,%f14,%f15,_}, [%rd20+0];
+	ld.global.v4.f32 	{%f16,%f17,%f18,_}, [%rd23+0];
+	sub.f32 	%f19, %f13, %f16;
+	sub.f32 	%f20, %f14, %f17;
+	sub.f32 	%f21, %f15, %f18;
+	@!%p3 bra 	$Lt_1_6658;
+	.loc	18	104	0
+	add.f32 	%f19, %f9, %f19;
+	.loc	18	105	0
+	add.f32 	%f20, %f10, %f20;
+	.loc	18	106	0
+	add.f32 	%f21, %f11, %f21;
+$Lt_1_6658:
+	.loc	18	113	0
+	ld.global.f32 	%f22, [%rd13+0];
+	mul.f32 	%f23, %f10, %f20;
+	mad.f32 	%f24, %f9, %f19, %f23;
+	mad.f32 	%f25, %f11, %f21, %f24;
+	mul.f32 	%f26, %f10, %f10;
+	mad.f32 	%f27, %f9, %f9, %f26;
+	mad.f32 	%f28, %f11, %f11, %f27;
+	mov.f32 	%f29, 0f358637bd;    	// 1e-06
+	mul.f32 	%f30, %f28, %f29;
+	setp.gt.f32 	%p4, %f25, %f30;
+	@!%p4 bra 	$Lt_1_7426;
+	.loc	18	114	0
+	mul.f32 	%f31, %f20, %f20;
+	mad.f32 	%f32, %f19, %f19, %f31;
+	mad.f32 	%f33, %f21, %f21, %f32;
+	mul.f32 	%f34, %f12, %f12;
+	sub.f32 	%f35, %f34, %f33;
+	mul.f32 	%f36, %f22, %f35;
+	div.approx.f32 	%f37, %f36, %f25;
+	bra.uni 	$Lt_1_7170;
+$Lt_1_7426:
+	mov.f32 	%f37, 0f00000000;    	// 0
+$Lt_1_7170:
+	st.global.f32 	[%rd16+0], %f37;
+	mov.u32 	%r14, 0;
+	setp.eq.s32 	%p5, %r11, %r14;
+	@%p5 bra 	$Lt_1_8194;
+	mul.f32 	%f38, %f20, %f20;
+	mul.f32 	%f39, %f12, %f12;
+	mad.f32 	%f40, %f19, %f19, %f38;
+	mad.f32 	%f41, %f21, %f21, %f40;
+	mul.f32 	%f42, %f5, %f39;
+	setp.lt.f32 	%p6, %f41, %f42;
+	@%p6 bra 	$L_1_5122;
+	mul.f32 	%f43, %f8, %f39;
+	setp.gt.f32 	%p7, %f41, %f43;
+	@!%p7 bra 	$Lt_1_8194;
+$L_1_5122:
+	.loc	18	120	0
+	mov.s32 	%r11, 0;
+	st.shared.s32 	[__cuda_local_var_38867_33_non_const_converged], %r11;
+	.loc	18	121	0
+	mov.s32 	%r15, 0;
+	ld.const.u64 	%rd24, [cSim+1056];
+	st.global.s32 	[%rd24+0], %r15;
+$Lt_1_8194:
+$L_1_4866:
+	add.u32 	%r6, %r10, %r6;
+	add.u64 	%rd16, %rd16, %rd14;
+	add.u64 	%rd13, %rd13, %rd14;
+	add.u64 	%rd10, %rd10, %rd11;
+	add.u64 	%rd6, %rd6, %rd7;
+	setp.lt.u32 	%p8, %r6, %r7;
+	@%p8 bra 	$Lt_1_6402;
+$Lt_1_5890:
+	.loc	18	124	0
+	exit;
+$LDWend__Z28kComputeCCMAConstraintForcesP6float4b:
+	} // _Z28kComputeCCMAConstraintForcesP6float4b
+
+	.entry _Z31kMultiplyByCCMAConstraintMatrixv
+	.maxntid 256,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<5>;
+	.reg .u32 %r<12>;
+	.reg .u64 %rd<19>;
+	.reg .f32 %f<5>;
+	.reg .pred %p<6>;
+	.loc	18	134	0
+$LDWbegin__Z31kMultiplyByCCMAConstraintMatrixv:
+	ld.const.u64 	%rd1, [cSim+1056];
+	ld.global.s32 	%r1, [%rd1+0];
+	mov.u32 	%r2, 0;
+	setp.eq.s32 	%p1, %r1, %r2;
+	@%p1 bra 	$Lt_2_4866;
+	bra.uni 	$LBB10__Z31kMultiplyByCCMAConstraintMatrixv;
+$Lt_2_4866:
+	.loc	18	141	0
+	mov.u16 	%rh1, %ntid.x;
+	mov.u16 	%rh2, %ctaid.x;
+	mul.wide.u16 	%r3, %rh2, %rh1;
+	cvt.u32.u16 	%r4, %tid.x;
+	add.u32 	%r5, %r4, %r3;
+	mov.s32 	%r6, %r5;
+	ld.const.u32 	%r7, [cSim+868];
+	setp.ge.u32 	%p2, %r5, %r7;
+	@%p2 bra 	$LBB10__Z31kMultiplyByCCMAConstraintMatrixv;
+	mov.u16 	%rh3, %nctaid.x;
+	mul.wide.u16 	%r8, %rh3, %rh1;
+	cvt.s64.u32 	%rd2, %r8;
+	ld.const.u64 	%rd3, [cSim+1032];
+	cvt.u64.u32 	%rd4, %r5;
+	mul.wide.u32 	%rd5, %r5, 4;
+	add.u64 	%rd6, %rd3, %rd5;
+	mul.wide.u32 	%rd7, %r8, 4;
+	ld.const.u64 	%rd8, [cSim+1072];
+$Lt_2_4354:
+ //<loop> Loop body line 141, nesting depth: 1, estimated iterations: unknown
+	.loc	18	144	0
+	mov.s32 	%r9, %r6;
+	mov.f32 	%f1, 0f00000000;     	// 0
+$Lt_2_3074:
+	.loc	18	147	0
+	cvt.u64.u32 	%rd9, %r9;
+	mul.wide.u32 	%rd10, %r9, 4;
+	add.u64 	%rd11, %rd10, %rd8;
+	ld.global.u32 	%r10, [%rd11+0];
+	.loc	18	149	0
+	setp.ge.u32 	%p3, %r10, %r7;
+	@%p3 bra 	$Lt_2_258;
+	.loc	18	150	0
+	ld.const.u64 	%rd12, [cSim+1024];
+	cvt.u64.u32 	%rd13, %r10;
+	mul.wide.u32 	%rd14, %r10, 4;
+	add.u64 	%rd15, %rd12, %rd14;
+	ld.global.f32 	%f2, [%rd15+0];
+	ld.const.u64 	%rd16, [cSim+1080];
+	add.u64 	%rd17, %rd10, %rd16;
+	ld.global.f32 	%f3, [%rd17+0];
+	mad.f32 	%f1, %f2, %f3, %f1;
+	.loc	18	144	0
+	add.u32 	%r9, %r9, %r7;
+	.loc	18	150	0
+	bra.uni 	$Lt_2_3074;
+$Lt_2_258:
+	.loc	18	152	0
+	st.global.f32 	[%rd6+0], %f1;
+	add.u32 	%r6, %r8, %r6;
+	add.u64 	%rd6, %rd6, %rd7;
+	setp.lt.u32 	%p4, %r6, %r7;
+	@%p4 bra 	$Lt_2_4354;
+$LBB10__Z31kMultiplyByCCMAConstraintMatrixv:
+	.loc	18	154	0
+	exit;
+$LDWend__Z31kMultiplyByCCMAConstraintMatrixv:
+	} // _Z31kMultiplyByCCMAConstraintMatrixv
+
+	.entry _Z24kUpdateCCMAAtomPositionsP6float4i (
+		.param .u64 __cudaparm__Z24kUpdateCCMAAtomPositionsP6float4i_atomPositions,
+		.param .s32 __cudaparm__Z24kUpdateCCMAAtomPositionsP6float4i_iteration)
+	.maxntid 256,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<5>;
+	.reg .u32 %r<24>;
+	.reg .u64 %rd<26>;
+	.reg .f32 %f<18>;
+	.reg .pred %p<10>;
+	.loc	18	164	0
+$LDWbegin__Z24kUpdateCCMAAtomPositionsP6float4i:
+	ld.const.u64 	%rd1, [cSim+1056];
+	ld.global.s32 	%r1, [%rd1+0];
+	mov.u32 	%r2, 0;
+	setp.eq.s32 	%p1, %r1, %r2;
+	@%p1 bra 	$Lt_3_7938;
+	bra.uni 	$LBB11__Z24kUpdateCCMAAtomPositionsP6float4i;
+$Lt_3_7938:
+	.loc	18	169	0
+	mov.u16 	%rh1, %ntid.x;
+	mov.u16 	%rh2, %ctaid.x;
+	mul.wide.u16 	%r3, %rh2, %rh1;
+	cvt.u32.u16 	%r4, %tid.x;
+	add.u32 	%r5, %r4, %r3;
+	mov.s32 	%r6, %r5;
+	ld.const.u32 	%r7, [cSim+0];
+	setp.ge.u32 	%p2, %r5, %r7;
+	@%p2 bra 	$LBB11__Z24kUpdateCCMAAtomPositionsP6float4i;
+	ld.param.s32 	%r8, [__cudaparm__Z24kUpdateCCMAAtomPositionsP6float4i_iteration];
+	mov.s32 	%r9, 1;
+	setp.le.s32 	%p3, %r8, %r9;
+	mov.f32 	%f1, 0f3f000000;     	// 0.5
+	mov.f32 	%f2, 0f3f800000;     	// 1
+	selp.f32 	%f3, %f1, %f2, %p3;
+	cvt.u64.u32 	%rd2, %r5;
+	mov.u16 	%rh3, %nctaid.x;
+	mul.wide.u16 	%r10, %rh3, %rh1;
+	mul.wide.u32 	%rd3, %r5, 16;
+	cvt.s64.u32 	%rd4, %r10;
+	ld.const.u64 	%rd5, [cSim+1048];
+	mul.wide.u32 	%rd6, %r5, 4;
+	add.u64 	%rd7, %rd5, %rd6;
+	mul.wide.u32 	%rd8, %r10, 4;
+	ld.param.u64 	%rd9, [__cudaparm__Z24kUpdateCCMAAtomPositionsP6float4i_atomPositions];
+$Lt_3_6402:
+ //<loop> Loop body line 169, nesting depth: 1, estimated iterations: unknown
+	ld.param.u64 	%rd9, [__cudaparm__Z24kUpdateCCMAAtomPositionsP6float4i_atomPositions];
+	.loc	18	171	0
+	add.u64 	%rd10, %rd3, %rd9;
+	ld.global.v4.f32 	{%f4,%f5,%f6,%f7}, [%rd10+0];
+	.loc	18	173	0
+	ld.global.s32 	%r11, [%rd7+0];
+	mov.u32 	%r12, 0;
+	setp.le.s32 	%p4, %r11, %r12;
+	@%p4 bra 	$Lt_3_6658;
+	mov.s32 	%r13, %r11;
+	mov.s32 	%r14, %r6;
+	ld.const.u64 	%rd11, [cSim+1112];
+	add.u64 	%rd12, %rd3, %rd11;
+	ld.global.f32 	%f8, [%rd12+12];
+	mul.f32 	%f9, %f3, %f8;
+	ld.const.u64 	%rd13, [cSim+1016];
+	ld.const.u64 	%rd14, [cSim+1032];
+	ld.const.u64 	%rd15, [cSim+1040];
+	mov.s32 	%r15, 0;
+	mov.s32 	%r16, %r13;
+$Lt_3_7170:
+ //<loop> Loop body line 173, nesting depth: 2, estimated iterations: unknown
+	.loc	18	176	0
+	cvt.u64.u32 	%rd16, %r14;
+	mul.wide.u32 	%rd17, %r14, 4;
+	add.u64 	%rd18, %rd15, %rd17;
+	ld.global.s32 	%r17, [%rd18+0];
+	.loc	18	179	0
+	mov.s32 	%r18, 0;
+	setp.gt.s32 	%p5, %r17, %r18;
+	sub.s32 	%r19, %r17, 1;
+	mov.s32 	%r20, -1;
+	sub.s32 	%r21, %r20, %r17;
+	selp.s32 	%r22, %r19, %r21, %p5;
+	cvt.s64.s32 	%rd19, %r22;
+	mul.wide.s32 	%rd20, %r22, 4;
+	add.u64 	%rd21, %rd14, %rd20;
+	ld.global.f32 	%f10, [%rd21+0];
+	mul.f32 	%f11, %f10, %f9;
+	.loc	18	182	0
+	neg.f32 	%f12, %f11;
+	not.pred 	%p6, %p5;
+	selp.f32 	%f13, %f12, %f11, %p6;
+	mul.wide.s32 	%rd22, %r22, 16;
+	add.u64 	%rd23, %rd13, %rd22;
+	ld.global.v4.f32 	{%f14,%f15,%f16,_}, [%rd23+0];
+	mad.f32 	%f4, %f14, %f13, %f4;
+	.loc	18	183	0
+	mad.f32 	%f5, %f15, %f13, %f5;
+	.loc	18	184	0
+	mad.f32 	%f6, %f16, %f13, %f6;
+	add.s32 	%r15, %r15, 1;
+	add.u32 	%r14, %r14, %r7;
+	setp.ne.s32 	%p7, %r11, %r15;
+	@%p7 bra 	$Lt_3_7170;
+$Lt_3_6658:
+	st.global.v4.f32 	[%rd10+0], {%f4,%f5,%f6,%f7};
+	.loc	18	186	0
+	add.u32 	%r6, %r10, %r6;
+	add.u64 	%rd7, %rd7, %rd8;
+	mul.lo.u64 	%rd24, %rd4, 16;
+	add.u64 	%rd3, %rd3, %rd24;
+	setp.lt.u32 	%p8, %r6, %r7;
+	@%p8 bra 	$Lt_3_6402;
+$LBB11__Z24kUpdateCCMAAtomPositionsP6float4i:
+	.loc	18	188	0
+	exit;
+$LDWend__Z24kUpdateCCMAAtomPositionsP6float4i:
+	} // _Z24kUpdateCCMAAtomPositionsP6float4i
+	.global .align 8 .b8 _ZTVN10__cxxabiv117__class_type_infoE[8];
+	.global .align 8 .b8 _ZTVN10__cxxabiv120__si_class_type_infoE[8];
+	.global .align 8 .b8 _ZTVSt9exception[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	.global .align 8 .b8 _ZTVN6OpenMM15OpenMMExceptionE[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+

@@ -1,0 +1,306 @@
+	.version 1.4
+	.target sm_11, map_f64_to_f32
+	// compiled with /usr/local/cuda-5.0/open64/lib//be
+	// nvopencc 4.1 built on 2012-09-21
+
+	//-----------------------------------------------------------
+	// Compiling kCalculateAndersenThermostat.compute_11.cpp3.i (/tmp/ccBI#.hLXvRT)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_11, Endian:little, Pointer Size:64
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"<command-line>"
+	.file	2	"kCalculateAndersenThermostat.compute_11.cudafe2.gpu"
+	.file	3	"/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+	.file	4	"/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h"
+	.file	5	"/usr/local/cuda-5.0/include/crt/device_runtime.h"
+	.file	6	"/usr/local/cuda-5.0/include/host_defines.h"
+	.file	7	"/usr/local/cuda-5.0/include/builtin_types.h"
+	.file	8	"/usr/local/cuda-5.0/include/device_types.h"
+	.file	9	"/usr/local/cuda-5.0/include/driver_types.h"
+	.file	10	"/usr/local/cuda-5.0/include/surface_types.h"
+	.file	11	"/usr/local/cuda-5.0/include/texture_types.h"
+	.file	12	"/usr/local/cuda-5.0/include/vector_types.h"
+	.file	13	"/usr/local/cuda-5.0/include/device_launch_parameters.h"
+	.file	14	"/usr/local/cuda-5.0/include/crt/storage_class.h"
+	.file	15	"/usr/local/cuda-5.0/include/cuComplex.h"
+	.file	16	"/usr/local/cuda-5.0/include/cufft.h"
+	.file	17	"/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateAndersenThermostat.cu"
+	.file	18	"/usr/local/cuda-5.0/include/common_functions.h"
+	.file	19	"/usr/local/cuda-5.0/include/math_functions.h"
+	.file	20	"/usr/local/cuda-5.0/include/math_constants.h"
+	.file	21	"/usr/local/cuda-5.0/include/device_functions.h"
+	.file	22	"/usr/local/cuda-5.0/include/sm_11_atomic_functions.h"
+	.file	23	"/usr/local/cuda-5.0/include/sm_12_atomic_functions.h"
+	.file	24	"/usr/local/cuda-5.0/include/sm_13_double_functions.h"
+	.file	25	"/usr/local/cuda-5.0/include/sm_20_atomic_functions.h"
+	.file	26	"/usr/local/cuda-5.0/include/sm_35_atomic_functions.h"
+	.file	27	"/usr/local/cuda-5.0/include/sm_20_intrinsics.h"
+	.file	28	"/usr/local/cuda-5.0/include/sm_30_intrinsics.h"
+	.file	29	"/usr/local/cuda-5.0/include/sm_35_intrinsics.h"
+	.file	30	"/usr/local/cuda-5.0/include/surface_functions.h"
+	.file	31	"/usr/local/cuda-5.0/include/texture_fetch_functions.h"
+	.file	32	"/usr/local/cuda-5.0/include/texture_indirect_functions.h"
+	.file	33	"/usr/local/cuda-5.0/include/surface_indirect_functions.h"
+	.file	34	"/usr/local/cuda-5.0/include/math_functions_dbl_ptx1.h"
+
+	.const .align 8 .b8 cSim[1224];
+
+	.entry _Z35kCalculateAndersenThermostat_kernelPi (
+		.param .u64 __cudaparm__Z35kCalculateAndersenThermostat_kernelPi_atomGroups)
+	{
+	.reg .u32 %r<24>;
+	.reg .u64 %rd<24>;
+	.reg .f32 %f<126>;
+	.reg .pred %p<10>;
+	.loc	17	54	0
+$LDWbegin__Z35kCalculateAndersenThermostat_kernelPi:
+	.loc	17	56	0
+	cvt.u32.u16 	%r1, %ntid.x;
+	cvt.u32.u16 	%r2, %ctaid.x;
+	mul.lo.u32 	%r3, %r1, %r2;
+	cvt.u32.u16 	%r4, %tid.x;
+	add.u32 	%r5, %r3, %r4;
+	mov.s32 	%r6, %r5;
+	.loc	17	57	0
+	ld.const.u64 	%rd1, [cSim+1200];
+	cvt.u64.u32 	%rd2, %r2;
+	mul.wide.u32 	%rd3, %r2, 4;
+	add.u64 	%rd4, %rd1, %rd3;
+	ld.global.s32 	%r7, [%rd4+0];
+	.loc	17	58	0
+	bar.sync 	0;
+	.loc	17	60	0
+	ld.const.u64 	%rd5, [cSim+128];
+	ld.global.f32 	%f1, [%rd5+4];
+	ld.const.f32 	%f2, [cSim+372];
+	mul.f32 	%f3, %f1, %f2;
+	neg.f32 	%f4, %f3;
+	.loc	17	61	0
+	mov.f32 	%f5, 0f3fb8aa3b;     	// 1.4427
+	mul.f32 	%f6, %f4, %f5;
+	ex2.approx.f32 	%f7, %f6;
+	mov.f32 	%f8, 0f3f800000;     	// 1
+	sub.f32 	%f9, %f8, %f7;
+	mov.f32 	%f10, 0f3fb504f3;    	// 1.41421
+	div.approx.f32 	%f11, %f9, %f10;
+	abs.f32 	%f12, %f11;
+	mul.f32 	%f13, %f11, %f11;
+	mov.f32 	%f14, 0f3f800000;    	// 1
+	setp.ge.f32 	%p1, %f12, %f14;
+	@!%p1 bra 	$Lt_0_6402;
+	.loc	19	8429	0
+	mov.f32 	%f15, %f12;
+	mov.f32 	%f16, 0f3ea7ba05;    	// 0.327591
+	mov.f32 	%f17, %f16;
+	mov.f32 	%f18, 0f3f800000;    	// 1
+	mov.f32 	%f19, %f18;
+	mad.f32 %f20, %f15, %f17, %f19;
+	mov.f32 	%f21, %f20;
+	.loc	19	9924	0
+	rcp.approx.f32 	%f22, %f21;
+	mov.f32 	%f23, %f22;
+	.loc	19	8429	0
+	mov.f32 	%f24, 0f3f87dc22;    	// 1.06141
+	mov.f32 	%f25, %f24;
+	mov.f32 	%f26, %f22;
+	mov.f32 	%f27, 0fbfba00e3;    	// -1.45315
+	mov.f32 	%f28, %f27;
+	mad.f32 %f29, %f25, %f26, %f28;
+	mov.f32 	%f21, %f29;
+	mov.f32 	%f30, %f21;
+	mov.f32 	%f31, %f23;
+	mov.f32 	%f32, 0f3fb5f0e3;    	// 1.42141
+	mov.f32 	%f33, %f32;
+	mad.f32 %f34, %f30, %f31, %f33;
+	mov.f32 	%f21, %f34;
+	mov.f32 	%f35, %f21;
+	mov.f32 	%f36, %f23;
+	mov.f32 	%f37, 0fbe91a98e;    	// -0.284497
+	mov.f32 	%f38, %f37;
+	mad.f32 %f39, %f35, %f36, %f38;
+	mov.f32 	%f21, %f39;
+	mov.f32 	%f40, %f21;
+	mov.f32 	%f41, %f23;
+	mov.f32 	%f42, 0f3e827906;    	// 0.25483
+	mov.f32 	%f43, %f42;
+	mad.f32 %f44, %f40, %f41, %f43;
+	mov.f32 	%f21, %f44;
+	neg.f32 	%f45, %f13;
+	mov.f32 	%f46, 0f3fb8aa3b;    	// 1.4427
+	mul.f32 	%f47, %f45, %f46;
+	cvt.rzi.f32.f32 	%f48, %f47;
+	mov.f32 	%f49, %f48;
+	mov.f32 	%f50, 0fbf317200;    	// -0.693146
+	mov.f32 	%f51, %f50;
+	mov.f32 	%f52, %f45;
+	mad.f32 %f53, %f49, %f51, %f52;
+	mov.f32 	%f54, %f53;
+	mov.f32 	%f55, %f48;
+	mov.f32 	%f56, 0fb5bfbe8e;    	// -1.42861e-06
+	mov.f32 	%f57, %f56;
+	mov.f32 	%f58, %f54;
+	mad.f32 %f59, %f55, %f57, %f58;
+	mov.f32 	%f60, %f59;
+	.loc	19	8762	0
+	ex2.approx.f32 	%f61, %f48;
+	mov.f32 	%f62, 0f3fb8aa3b;    	// 1.4427
+	mul.f32 	%f63, %f60, %f62;
+	ex2.approx.f32 	%f64, %f63;
+	mul.f32 	%f65, %f61, %f64;
+	.loc	19	8429	0
+	neg.f32 	%f66, %f65;
+	mov.f32 	%f67, %f66;
+	mul.f32 	%f68, %f22, %f21;
+	mov.f32 	%f69, %f68;
+	mov.f32 	%f70, 0f3f800000;    	// 1
+	mov.f32 	%f71, %f70;
+	mad.f32 %f72, %f67, %f69, %f71;
+	mov.f32 	%f21, %f72;
+	.loc	19	9936	0
+	mov.f32 	%f73, 0f3f800000;    	// 1
+	mov.f32 	%f74, 0f40b00000;    	// 5.5
+	setp.ge.f32 	%p2, %f12, %f74;
+	selp.f32 	%f75, %f73, %f21, %p2;
+	mov.b32 	%r8, %f75;
+	mov.b32 	%r9, %f11;
+	and.b32 	%r10, %r9, -2147483648;
+	or.b32 	%r11, %r8, %r10;
+	mov.b32 	%f76, %r11;
+	bra.uni 	$Lt_0_6146;
+$Lt_0_6402:
+	.loc	19	8429	0
+	mov.f32 	%f77, 0fba1268fb;    	// -0.00055851
+	mov.f32 	%f78, %f77;
+	mov.f32 	%f79, %f13;
+	mov.f32 	%f80, 0f3ba0c9f8;    	// 0.00490689
+	mov.f32 	%f81, %f80;
+	mad.f32 %f82, %f78, %f79, %f81;
+	mov.f32 	%f21, %f82;
+	mov.f32 	%f83, %f21;
+	mov.f32 	%f84, %f13;
+	mov.f32 	%f85, 0fbcdabfd4;    	// -0.0267028
+	mov.f32 	%f86, %f85;
+	mad.f32 %f87, %f83, %f84, %f86;
+	mov.f32 	%f21, %f87;
+	mov.f32 	%f88, %f21;
+	mov.f32 	%f89, %f13;
+	mov.f32 	%f90, 0f3de70331;    	// 0.112799
+	mov.f32 	%f91, %f90;
+	mad.f32 %f92, %f88, %f89, %f91;
+	mov.f32 	%f21, %f92;
+	mov.f32 	%f93, %f21;
+	mov.f32 	%f94, %f13;
+	mov.f32 	%f95, 0fbec09330;    	// -0.376123
+	mov.f32 	%f96, %f95;
+	mad.f32 %f97, %f93, %f94, %f96;
+	mov.f32 	%f21, %f97;
+	mov.f32 	%f98, %f21;
+	mov.f32 	%f99, %f13;
+	mov.f32 	%f100, 0f3f906eba;   	// 1.12838
+	mov.f32 	%f101, %f100;
+	mad.f32 %f102, %f98, %f99, %f101;
+	mov.f32 	%f21, %f102;
+	.loc	19	9945	0
+	mul.f32 	%f76, %f11, %f21;
+$Lt_0_6146:
+	.loc	17	61	0
+	ld.const.u32 	%r12, [cSim+0];
+	setp.ge.u32 	%p3, %r5, %r12;
+	@%p3 bra 	$Lt_0_6658;
+	cvt.u64.u32 	%rd6, %r5;
+	neg.f32 	%f103, %f76;
+	add.u32 	%r13, %r5, %r7;
+	cvt.u32.u16 	%r14, %nctaid.x;
+	mul.lo.u32 	%r15, %r14, %r1;
+	cvt.s64.u32 	%rd7, %r15;
+	ld.const.u64 	%rd8, [cSim+1112];
+	mul.wide.u32 	%rd9, %r5, 16;
+	add.u64 	%rd10, %rd8, %rd9;
+	mul.wide.u32 	%rd11, %r15, 16;
+	ld.param.u64 	%rd12, [__cudaparm__Z35kCalculateAndersenThermostat_kernelPi_atomGroups];
+	mul.wide.u32 	%rd13, %r5, 4;
+	add.u64 	%rd14, %rd12, %rd13;
+	mul.wide.u32 	%rd15, %r15, 4;
+	ld.const.f32 	%f104, [cSim+356];
+	ld.const.u64 	%rd16, [cSim+1176];
+$Lt_0_7170:
+ //<loop> Loop body line 61, nesting depth: 1, estimated iterations: unknown
+	.loc	17	64	0
+	ld.global.f32 	%f105, [%rd10+12];
+	.loc	17	65	0
+	ld.global.s32 	%r16, [%rd14+0];
+	add.u32 	%r17, %r16, %r7;
+	cvt.u64.u32 	%rd17, %r17;
+	mul.wide.u32 	%rd18, %r17, 16;
+	add.u64 	%rd19, %rd16, %rd18;
+	ld.global.f32 	%f106, [%rd19+12];
+	.loc	17	64	0
+	setp.lt.f32 	%p4, %f103, %f106;
+	@!%p4 bra 	$Lt_0_8450;
+	setp.gt.f32 	%p5, %f76, %f106;
+	@!%p5 bra 	$L_0_5634;
+	.loc	17	67	0
+	mov.f32 	%f107, 0f00000000;   	// 0
+	bra.uni 	$L_0_5378;
+$Lt_0_8450:
+$L_0_5634:
+	mov.f32 	%f107, 0f3f800000;   	// 1
+$L_0_5378:
+	.loc	17	70	0
+	mul.f32 	%f108, %f105, %f104;
+	mov.f32 	%f109, 0f3f800000;   	// 1
+	sub.f32 	%f110, %f109, %f107;
+	sqrt.approx.f32 	%f111, %f108;
+	mul.f32 	%f112, %f110, %f111;
+	cvt.u64.u32 	%rd20, %r13;
+	mul.wide.u32 	%rd21, %r13, 16;
+	add.u64 	%rd22, %rd16, %rd21;
+	ld.global.v4.f32 	{%f113,%f114,%f115,_}, [%rd10+0];
+	mul.f32 	%f116, %f114, %f107;
+	ld.global.v4.f32 	{%f117,%f118,%f119,_}, [%rd22+0];
+	mad.f32 	%f120, %f112, %f118, %f116;
+	.loc	17	71	0
+	mul.f32 	%f121, %f115, %f107;
+	mad.f32 	%f122, %f112, %f119, %f121;
+	.loc	17	72	0
+	mul.f32 	%f123, %f117, %f112;
+	mad.f32 	%f124, %f113, %f107, %f123;
+	st.global.v4.f32 	[%rd10+0], {%f124,%f120,%f122,%f105};
+	.loc	17	74	0
+	add.u32 	%r6, %r15, %r6;
+	add.u32 	%r13, %r13, %r15;
+	add.u64 	%rd14, %rd14, %rd15;
+	add.u64 	%rd10, %rd10, %rd11;
+	setp.lt.u32 	%p6, %r6, %r12;
+	@%p6 bra 	$Lt_0_7170;
+$Lt_0_6658:
+	mov.u32 	%r18, 0;
+	setp.ne.u32 	%p7, %r4, %r18;
+	@%p7 bra 	$Lt_0_7682;
+	.loc	17	80	0
+	ld.const.u32 	%r19, [cSim+4];
+	add.u32 	%r7, %r19, %r7;
+	ld.const.u32 	%r20, [cSim+1208];
+	.loc	17	83	0
+	sub.u32 	%r21, %r7, %r20;
+	setp.gt.u32 	%p8, %r7, %r20;
+	selp.u32 	%r22, %r21, %r7, %p8;
+	st.global.s32 	[%rd4+0], %r22;
+$Lt_0_7682:
+	.loc	17	85	0
+	exit;
+$LDWend__Z35kCalculateAndersenThermostat_kernelPi:
+	} // _Z35kCalculateAndersenThermostat_kernelPi
+	.global .align 8 .b8 _ZTVN10__cxxabiv117__class_type_infoE[8];
+	.global .align 8 .b8 _ZTVN10__cxxabiv120__si_class_type_infoE[8];
+	.global .align 8 .b8 _ZTVSt9exception[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	.global .align 8 .b8 _ZTVN6OpenMM15OpenMMExceptionE[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+

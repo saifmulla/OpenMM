@@ -1,0 +1,1796 @@
+# 272 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod {
+# 274 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+NO_CUTOFF,
+# 275 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+CUTOFF,
+# 276 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+PERIODIC,
+# 277 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+EWALD,
+# 278 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+PARTICLE_MESH_EWALD};
+# 294 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct cudaGmxSimulation;
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct cudaAmoebaGmxSimulation;
+# 1 "kCalculateAmoebaCudaUtilities.compute_20.cudafe1.gpu"
+typedef char __nv_bool;
+# 211 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 3
+typedef unsigned long size_t;
+#include "crt/device_runtime.h"
+# 60 "/usr/local/cuda-5.0/include/cuComplex.h"
+typedef struct float2 cuFloatComplex;
+# 282 "/usr/local/cuda-5.0/include/cuComplex.h"
+typedef cuFloatComplex cuComplex;
+# 100 "/usr/local/cuda-5.0/include/cufft.h"
+typedef cuComplex cufftComplex;
+# 294 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct cudaGmxSimulation {
+# 296 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned atoms;
+# 297 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned paddedNumberOfAtoms;
+# 298 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned blocks;
+# 299 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned blocksPerSM;
+# 300 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_blocks;
+# 301 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_blocks;
+# 302 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned interaction_blocks;
+# 303 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned threads_per_block;
+# 304 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_threads_per_block;
+# 305 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_threads_per_block;
+# 306 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_update_threads_per_block;
+# 307 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned update_threads_per_block;
+# 308 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf_reduce_threads_per_block;
+# 309 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bsf_reduce_threads_per_block;
+# 310 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_shake_threads_per_block;
+# 311 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned shake_threads_per_block;
+# 312 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned settle_threads_per_block;
+# 313 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ccma_threads_per_block;
+# 314 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_localForces_threads_per_block;
+# 315 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned localForces_threads_per_block;
+# 316 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned random_threads_per_block;
+# 317 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned interaction_threads_per_block;
+# 318 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned custom_exception_threads_per_block;
+# 319 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExpressionStackSize;
+# 320 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned workUnits;
+# 321 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pWorkUnit;
+# 322 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pInteractingWorkUnit;
+# 323 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pInteractionFlag;
+# 324 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pStepSize;
+# 325 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pLangevinParameters;
+# 326 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float errorTol;
+# 327 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+size_t *pInteractionCount;
+# 328 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_workBlock;
+# 329 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_workBlock;
+# 330 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned workUnitsPerSM;
+# 331 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nbWorkUnitsPerBlock;
+# 332 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nbWorkUnitsPerBlockRemainder;
+# 333 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf2WorkUnitsPerBlock;
+# 334 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf2WorkUnitsPerBlockRemainder;
+# 337 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride;
+# 338 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride2;
+# 339 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride3;
+# 340 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride4;
+# 341 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbondOutputBuffers;
+# 342 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned outputBuffers;
+# 343 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned energyOutputBuffers;
+# 344 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float bigFloat;
+# 345 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float epsfac;
+# 346 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod nonbondedMethod;
+# 347 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod customNonbondedMethod;
+# 348 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float nonbondedCutoff;
+# 349 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float nonbondedCutoffSqr;
+# 350 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeX;
+# 351 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeY;
+# 352 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeZ;
+# 353 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeX;
+# 354 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeY;
+# 355 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeZ;
+# 356 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeX;
+# 357 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeY;
+# 358 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeZ;
+# 359 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float cellVolume;
+# 360 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float alphaEwald;
+# 361 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float factorEwald;
+# 362 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxX;
+# 363 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxY;
+# 364 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxZ;
+# 365 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float reactionFieldK;
+# 366 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float reactionFieldC;
+# 367 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float probeRadius;
+# 368 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float surfaceAreaFactor;
+# 369 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float electricConstant;
+# 370 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float forceConversionFactor;
+# 371 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float preFactor;
+# 372 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float dielectricOffset;
+# 373 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float alphaOBC;
+# 374 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float betaOBC;
+# 375 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gammaOBC;
+# 376 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float deltaT;
+# 377 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float oneOverDeltaT;
+# 378 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float T;
+# 379 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float kT;
+# 380 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float noiseAmplitude;
+# 381 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tau;
+# 382 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tauDeltaT;
+# 383 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float collisionFrequency;
+# 384 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pObcData;
+# 385 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int gbviBornRadiusScalingMethod;
+# 386 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gbviQuinticLowerLimitFactor;
+# 387 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gbviQuinticUpperBornRadiusLimit;
+# 388 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGBVIData;
+# 389 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pGBVISwitchDerivative;
+# 390 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pAttr;
+# 391 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomParams;
+# 392 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExceptions;
+# 393 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customParameters;
+# 394 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomBondID;
+# 395 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomBondParams;
+# 396 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customBonds;
+# 397 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customBondParameters;
+# 398 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomAngleID1;
+# 399 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pCustomAngleID2;
+# 400 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomAngleParams;
+# 401 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customAngles;
+# 402 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customAngleParameters;
+# 403 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomTorsionID1;
+# 404 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomTorsionID2;
+# 405 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomTorsionParams;
+# 406 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customTorsions;
+# 407 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customTorsionParameters;
+# 408 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCustomExternalID;
+# 409 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomExternalParams;
+# 410 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExternals;
+# 411 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExternalParameters;
+# 412 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pTabulatedFunctionCoefficients[4];
+# 413 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pTabulatedFunctionParams;
+# 414 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pEwaldCosSinSum;
+# 415 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pTabulatedErfc;
+# 416 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int tabulatedErfcSize;
+# 417 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tabulatedErfcScale;
+# 418 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int3 pmeGridSize;
+# 419 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int3 pmeGroupSize;
+# 420 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+cufftComplex *pPmeGrid;
+# 421 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pPmeBsplineModuli[3];
+# 422 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPmeBsplineTheta;
+# 423 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPmeBsplineDtheta;
+# 424 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pPmeAtomRange;
+# 425 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pPmeAtomGridIndex;
+# 426 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bonds;
+# 427 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pBondID;
+# 428 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pBondParameter;
+# 429 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_angles;
+# 430 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pBondAngleID1;
+# 431 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pBondAngleID2;
+# 432 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pBondAngleParameter;
+# 433 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned dihedrals;
+# 434 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pDihedralID1;
+# 435 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pDihedralID2;
+# 436 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pDihedralParameter;
+# 437 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rb_dihedrals;
+# 438 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pRbDihedralID1;
+# 439 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pRbDihedralID2;
+# 440 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pRbDihedralParameter1;
+# 441 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pRbDihedralParameter2;
+# 442 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned LJ14s;
+# 443 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pLJ14ID;
+# 444 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pLJ14Parameter;
+# 445 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float inverseTotalMass;
+# 446 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ShakeConstraints;
+# 447 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned settleConstraints;
+# 448 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ccmaConstraints;
+# 449 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rigidClusters;
+# 450 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned maxRigidClusterSize;
+# 451 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned clusterShakeBlockSize;
+# 452 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned maxShakeIterations;
+# 453 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned degreesOfFreedom;
+# 454 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float shakeTolerance;
+# 455 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float InvMassJ;
+# 456 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pNonShakeID;
+# 457 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pShakeID;
+# 458 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pShakeParameter;
+# 459 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pSettleID;
+# 460 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pSettleParameter;
+# 461 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pExclusion;
+# 462 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pExclusionIndex;
+# 463 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_offset;
+# 464 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_angle_offset;
+# 465 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned dihedral_offset;
+# 466 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rb_dihedral_offset;
+# 467 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned LJ14_offset;
+# 468 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pAtomIndex;
+# 469 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGridBoundingBox;
+# 470 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGridCenter;
+# 471 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pCcmaAtoms;
+# 472 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCcmaDistance;
+# 473 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaDelta1;
+# 474 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaDelta2;
+# 475 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCcmaAtomConstraints;
+# 476 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCcmaNumAtomConstraints;
+# 477 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *ccmaConvergedDeviceMarker;
+# 478 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaReducedMass;
+# 479 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pConstraintMatrixColumn;
+# 480 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pConstraintMatrixValue;
+# 483 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPosq;
+# 484 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPosqP;
+# 485 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pOldPosq;
+# 486 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pVelm4;
+# 487 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pForce4;
+# 488 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pEnergy;
+# 489 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornForce;
+# 490 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornSum;
+# 491 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornRadii;
+# 492 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pObcChain;
+# 493 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pLinearMomentum;
+# 496 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pRandom4;
+# 497 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pRandom2;
+# 498 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct uint4 *pRandomSeed;
+# 499 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pRandomPosition;
+# 500 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randoms;
+# 501 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned totalRandoms;
+# 502 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randomIterations;
+# 503 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randomFrames;};
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct cudaAmoebaGmxSimulation {
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaBonds;
+# 58 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaBondID;
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaBondParameter;
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaBondCubicParameter;
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaBondQuarticicParameter;
+# 62 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaBond_offset;
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaAngles;
+# 66 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaAngleID1;
+# 67 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pAmoebaAngleID2;
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaAngleParameter;
+# 69 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaAngle_offset;
+# 71 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAngleCubicK;
+# 72 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAngleQuarticK;
+# 73 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAnglePenticK;
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAngleSexticK;
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaInPlaneAngles;
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaInPlaneAngleID1;
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaInPlaneAngleID2;
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaInPlaneAngleParameter;
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaInPlaneAngle_offset;
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAngleCubicK;
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAngleQuarticK;
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAnglePenticK;
+# 85 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAngleSexticK;
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsions;
+# 88 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionID1;
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionID2;
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pAmoebaTorsionParameter1;
+# 91 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaTorsionParameter2;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsion_offset;
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaPiTorsions;
+# 95 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaPiTorsionID1;
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaPiTorsionID2;
+# 97 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaPiTorsionID3;
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pAmoebaPiTorsionParameter;
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaPiTorsion_offset;
+# 101 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaStretchBends;
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaStretchBendID1;
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pAmoebaStretchBendID2;
+# 104 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pAmoebaStretchBendParameter;
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaStretchBend_offset;
+# 107 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaOutOfPlaneBends;
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaOutOfPlaneBendID1;
+# 109 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaOutOfPlaneBendID2;
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pAmoebaOutOfPlaneBendParameter;
+# 111 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaOutOfPlaneBend_offset;
+# 112 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendCubicK;
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendQuarticK;
+# 114 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendPenticK;
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendSexticK;
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsionTorsions;
+# 118 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionTorsionID1;
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionTorsionID2;
+# 120 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionTorsionID3;
+# 121 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsionTorsion_offset;
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int amoebaTorTorGridOffset[12];
+# 125 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int amoebaTorTorGridNy[12];
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaTorTorGridBegin[12];
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaTorTorGridDelta[12];
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pAmoebaTorsionTorsionGrids;
+# 130 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaUreyBradleys;
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaUreyBradleyID;
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaUreyBradleyParameter;
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaUreyBradleyCubicParameter;
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaUreyBradleyQuarticicParameter;
+# 135 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaUreyBradley_offset;
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float sqrtPi;
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float scalingDistanceCutoff;
+# 139 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pDampingFactorAndThole;
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int polarizationType;
+# 142 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pMultipoleParticlesIdsAndAxisType;
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pMultipoleParticlesTorqueBufferIndices;
+# 144 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int maxTorqueBufferIndex;
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pTorqueMapForce4;
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pMolecularDipole;
+# 148 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pMolecularQuadrupole;
+# 150 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pLabFrameDipole;
+# 151 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pLabFrameQuadrupole;
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipole;
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipolePolar;
+# 156 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipoleS;
+# 157 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipolePolarS;
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pTorque;
+# 161 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_3_1;
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_3_2;
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_1_1;
+# 164 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_1_2;
+# 166 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int vdwUsePBC;
+# 167 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwCutoff;
+# 168 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwCutoff2;
+# 169 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperCutoff;
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperCutoff2;
+# 171 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperDelta;
+# 174 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperTable[101];
+# 175 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdw_dTaperTable[101];
+# 177 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaVdwNonReductions;
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pAmoebaVdwNonReductionID;
+# 179 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned *pVdwWorkUnit;
+# 181 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaVdwReductions;
+# 182 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaVdwReductionID;
+# 183 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pAmoebaVdwReduction;
+# 184 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pVdwExclusionIndicesIndex;
+# 185 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pVdwExclusionIndices;
+# 189 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float epso;
+# 190 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float epsh;
+# 191 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float rmino;
+# 192 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float rminh;
+# 193 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float awater;
+# 194 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float shctd;
+# 195 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float dispoff;
+# 196 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float totalMaxWcaDispersionEnergy;
+# 197 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pWcaDispersionRadiusEpsilon;
+# 200 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pScaleIndicesIndex;
+# 201 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pD_ScaleIndices;
+# 202 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pP_ScaleIndices;
+# 203 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pM_ScaleIndices;
+# 205 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float electric;
+# 206 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float gkc;
+# 208 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float dielec;
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float dwater;
+# 210 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float fc;
+# 211 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float fd;
+# 212 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float fq;
+# 216 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pThetai1;
+# 217 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pThetai2;
+# 218 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pThetai3;
+# 219 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pIgrid;
+# 220 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhi;
+# 221 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhid;
+# 222 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhip;
+# 223 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhidp;};
+#if !defined(__CUDABE__)
+# 241 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float fminf(float, float);
+#endif
+#if !defined(__CUDABE__)
+# 277 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float fmaxf(float, float);
+#endif
+#if !defined(__CUDABE__)
+# 7489 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) __attribute__((__const__)) float floorf(float);
+#endif
+# 36 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__global__ __var_used__ extern void _Z31kFindBlockBoundsPeriodic_kernelv(void);
+# 79 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__global__ __var_used__ extern void _Z42kFindBlocksWithInteractionsPeriodic_kernelv(void);
+# 116 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__global__ __var_used__ extern void _Z44kFindInteractionsWithinBlocksPeriodic_kernelPj(unsigned *);
+# 31 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__global__ __var_used__ extern void _Z45kFindBlocksWithInteractionsVdwPeriodic_kernelv(void);
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__global__ __var_used__ extern void _Z47kFindInteractionsWithinBlocksVdwPeriodic_kernelPj(unsigned *);
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ extern void _Z19kClearFloat4_kerneljP6float4(unsigned, struct float4 *);
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(384,1) __global__ __var_used__ extern void _Z20kClearBornSum_kernelv(void);
+# 121 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ extern void _Z18kClearFloat_kerneljPf(unsigned, float *);
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ extern void _Z19kClearFields_kerneljPf(unsigned, float *);
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ extern void _Z20kReduceFields_kerneljjPfS_i(unsigned, unsigned, float *, float *, int);
+# 252 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ extern void _Z30kReduceAndCombineFields_kerneljjPfS_S_(unsigned, unsigned, float *, float *, float *);
+# 301 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ extern void _Z28kReduceFieldsToFloat4_kerneljjPfP6float4(unsigned, unsigned, float *, struct float4 *);
+# 29 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+static  __constant__  __var_used__ struct cudaGmxSimulation cSim;
+# 30 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+static  __constant__  __var_used__ struct cudaAmoebaGmxSimulation cAmoebaSim;
+# 118 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+extern  __shared__ volatile unsigned flags[];
+# 119 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv117__class_type_infoE[1];
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv120__si_class_type_infoE[1];
+#include "common_functions.h"
+# 122 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+static  __device__  __var_used__ const long _ZTVSt9exception[5] = {0L,0L,0L,0L,0L};
+# 123 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+static  __device__  __var_used__ const long _ZTVN6OpenMM15OpenMMExceptionE[5] = {0L,0L,0L,0L,0L};
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+# 36 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__global__ __var_used__ void _Z31kFindBlockBoundsPeriodic_kernelv(void){
+# 36 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 37 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59583_18_non_const_pos;
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59584_18_non_const_base;
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59583_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59584_18_non_const_base = (__cuda_local_var_59583_18_non_const_pos << 5U);
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+if (__cuda_local_var_59584_18_non_const_base < (cSim.atoms))
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2131;
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2132;
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2133;
+# 44 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ struct float4 __T2134;
+# 45 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2135;
+# 46 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2136;
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2137;
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ struct float4 __T2138;
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ struct float4 __cuda_local_var_59587_16_non_const_apos;
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ struct float4 __cuda_local_var_59592_16_non_const_firstPoint;
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59594_15_non_const_minx;
+# 50 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59595_15_non_const_maxx;
+# 51 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59596_15_non_const_miny;
+# 52 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59597_15_non_const_maxy;
+# 53 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59598_15_non_const_minz;
+# 54 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59599_15_non_const_maxz;
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59587_16_non_const_apos = ((cSim.pPosq)[__cuda_local_var_59584_18_non_const_base]);
+# 44 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+(__cuda_local_var_59587_16_non_const_apos.x) -= ((floorf(((__cuda_local_var_59587_16_non_const_apos.x) * (cSim.invPeriodicBoxSizeX)))) * (cSim.periodicBoxSizeX));
+# 45 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+(__cuda_local_var_59587_16_non_const_apos.y) -= ((floorf(((__cuda_local_var_59587_16_non_const_apos.y) * (cSim.invPeriodicBoxSizeY)))) * (cSim.periodicBoxSizeY));
+# 46 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+(__cuda_local_var_59587_16_non_const_apos.z) -= ((floorf(((__cuda_local_var_59587_16_non_const_apos.z) * (cSim.invPeriodicBoxSizeZ)))) * (cSim.periodicBoxSizeZ));
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59592_16_non_const_firstPoint = __cuda_local_var_59587_16_non_const_apos;
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59594_15_non_const_minx = (__cuda_local_var_59587_16_non_const_apos.x);
+# 50 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59595_15_non_const_maxx = (__cuda_local_var_59587_16_non_const_apos.x);
+# 51 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59596_15_non_const_miny = (__cuda_local_var_59587_16_non_const_apos.y);
+# 52 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59597_15_non_const_maxy = (__cuda_local_var_59587_16_non_const_apos.y);
+# 53 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59598_15_non_const_minz = (__cuda_local_var_59587_16_non_const_apos.z);
+# 54 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59599_15_non_const_maxz = (__cuda_local_var_59587_16_non_const_apos.z);
+# 54 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 55 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned i;
+# 55 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+i = 1U;
+# 55 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+for (; (i < 32U); i++)
+# 56 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 56 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2139;
+# 57 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2140;
+# 58 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2141;
+# 59 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2142;
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2143;
+# 61 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2144;
+# 57 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59587_16_non_const_apos = ((cSim.pPosq)[(__cuda_local_var_59584_18_non_const_base + i)]);
+# 59 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+(__cuda_local_var_59587_16_non_const_apos.x) -= ((floorf(((((__cuda_local_var_59587_16_non_const_apos.x) - (__cuda_local_var_59592_16_non_const_firstPoint.x)) * (cSim.invPeriodicBoxSizeX)) + (0.5F)))) * (cSim.periodicBoxSizeX));
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+(__cuda_local_var_59587_16_non_const_apos.y) -= ((floorf(((((__cuda_local_var_59587_16_non_const_apos.y) - (__cuda_local_var_59592_16_non_const_firstPoint.y)) * (cSim.invPeriodicBoxSizeY)) + (0.5F)))) * (cSim.periodicBoxSizeY));
+# 61 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+(__cuda_local_var_59587_16_non_const_apos.z) -= ((floorf(((((__cuda_local_var_59587_16_non_const_apos.z) - (__cuda_local_var_59592_16_non_const_firstPoint.z)) * (cSim.invPeriodicBoxSizeZ)) + (0.5F)))) * (cSim.periodicBoxSizeZ));
+# 63 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59594_15_non_const_minx = ((__T2139 = (__cuda_local_var_59587_16_non_const_apos.x)) , (fminf(__cuda_local_var_59594_15_non_const_minx, __T2139)));
+# 64 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59595_15_non_const_maxx = ((__T2140 = (__cuda_local_var_59587_16_non_const_apos.x)) , (fmaxf(__cuda_local_var_59595_15_non_const_maxx, __T2140)));
+# 65 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59596_15_non_const_miny = ((__T2141 = (__cuda_local_var_59587_16_non_const_apos.y)) , (fminf(__cuda_local_var_59596_15_non_const_miny, __T2141)));
+# 66 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59597_15_non_const_maxy = ((__T2142 = (__cuda_local_var_59587_16_non_const_apos.y)) , (fmaxf(__cuda_local_var_59597_15_non_const_maxy, __T2142)));
+# 67 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59598_15_non_const_minz = ((__T2143 = (__cuda_local_var_59587_16_non_const_apos.z)) , (fminf(__cuda_local_var_59598_15_non_const_minz, __T2143)));
+# 68 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59599_15_non_const_maxz = ((__T2144 = (__cuda_local_var_59587_16_non_const_apos.z)) , (fmaxf(__cuda_local_var_59599_15_non_const_maxz, __T2144)));
+# 69 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 69 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 70 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+((cSim.pGridBoundingBox)[__cuda_local_var_59583_18_non_const_pos]) = ((((__T2131 = ((0.5F) * (__cuda_local_var_59595_15_non_const_maxx - __cuda_local_var_59594_15_non_const_minx))) , ((void)(__T2132 = ((0.5F) * (__cuda_local_var_59597_15_non_const_maxy - __cuda_local_var_59596_15_non_const_miny))))) , ((void)(__T2133 = ((0.5F) * (__cuda_local_var_59599_15_non_const_maxz - __cuda_local_var_59598_15_non_const_minz))))) , ((((((__T2134.x) = __T2131) , ((void)((__T2134.y) = __T2132))) , ((void)((__T2134.z) = __T2133))) , ((void)((__T2134.w) = (0.0F)))) , __T2134));
+# 71 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+((cSim.pGridCenter)[__cuda_local_var_59583_18_non_const_pos]) = ((((__T2135 = ((0.5F) * (__cuda_local_var_59595_15_non_const_maxx + __cuda_local_var_59594_15_non_const_minx))) , ((void)(__T2136 = ((0.5F) * (__cuda_local_var_59597_15_non_const_maxy + __cuda_local_var_59596_15_non_const_miny))))) , ((void)(__T2137 = ((0.5F) * (__cuda_local_var_59599_15_non_const_maxz + __cuda_local_var_59598_15_non_const_minz))))) , ((((((__T2138.x) = __T2135) , ((void)((__T2138.y) = __T2136))) , ((void)((__T2138.z) = __T2137))) , ((void)((__T2138.w) = (0.0F)))) , __T2138));
+# 72 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+} 
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}}
+# 79 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__global__ __var_used__ void _Z42kFindBlocksWithInteractionsPeriodic_kernelv(void){
+# 79 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 80 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 81 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59626_18_non_const_pos;
+# 81 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59626_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 82 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+while (__cuda_local_var_59626_18_non_const_pos < (cSim.workUnits))
+# 83 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 83 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2145;
+# 84 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2146;
+# 85 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2147;
+# 86 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59631_22_non_const_x;
+# 87 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59632_22_non_const_y;
+# 92 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ struct float4 __cuda_local_var_59637_16_non_const_centera;
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ struct float4 __cuda_local_var_59638_16_non_const_centerb;
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59639_15_non_const_dx;
+# 95 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59640_15_non_const_dy;
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59641_15_non_const_dz;
+# 102 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ struct float4 __cuda_local_var_59647_16_non_const_boxSizea;
+# 103 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ struct float4 __cuda_local_var_59648_16_non_const_boxSizeb;
+# 86 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59631_22_non_const_x = ((cSim.pWorkUnit)[__cuda_local_var_59626_18_non_const_pos]);
+# 87 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59632_22_non_const_y = ((__cuda_local_var_59631_22_non_const_x >> 2) & 32767U);
+# 88 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59631_22_non_const_x = (__cuda_local_var_59631_22_non_const_x >> 17);
+# 92 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59637_16_non_const_centera = ((cSim.pGridCenter)[__cuda_local_var_59631_22_non_const_x]);
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59638_16_non_const_centerb = ((cSim.pGridCenter)[__cuda_local_var_59632_22_non_const_y]);
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59639_15_non_const_dx = ((__cuda_local_var_59637_16_non_const_centera.x) - (__cuda_local_var_59638_16_non_const_centerb.x));
+# 95 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59640_15_non_const_dy = ((__cuda_local_var_59637_16_non_const_centera.y) - (__cuda_local_var_59638_16_non_const_centerb.y));
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59641_15_non_const_dz = ((__cuda_local_var_59637_16_non_const_centera.z) - (__cuda_local_var_59638_16_non_const_centerb.z));
+# 98 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59639_15_non_const_dx -= ((floorf(((__cuda_local_var_59639_15_non_const_dx * (cSim.invPeriodicBoxSizeX)) + (0.5F)))) * (cSim.periodicBoxSizeX));
+# 99 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59640_15_non_const_dy -= ((floorf(((__cuda_local_var_59640_15_non_const_dy * (cSim.invPeriodicBoxSizeY)) + (0.5F)))) * (cSim.periodicBoxSizeY));
+# 100 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59641_15_non_const_dz -= ((floorf(((__cuda_local_var_59641_15_non_const_dz * (cSim.invPeriodicBoxSizeZ)) + (0.5F)))) * (cSim.periodicBoxSizeZ));
+# 102 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59647_16_non_const_boxSizea = ((cSim.pGridBoundingBox)[__cuda_local_var_59631_22_non_const_x]);
+# 103 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59648_16_non_const_boxSizeb = ((cSim.pGridBoundingBox)[__cuda_local_var_59632_22_non_const_y]);
+# 104 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59639_15_non_const_dx = ((__T2145 = ((((float)(fabsf(((double)__cuda_local_var_59639_15_non_const_dx)))) - (__cuda_local_var_59647_16_non_const_boxSizea.x)) - (__cuda_local_var_59648_16_non_const_boxSizeb.x))) , (fmaxf((0.0F), __T2145)));
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59640_15_non_const_dy = ((__T2146 = ((((float)(fabsf(((double)__cuda_local_var_59640_15_non_const_dy)))) - (__cuda_local_var_59647_16_non_const_boxSizea.y)) - (__cuda_local_var_59648_16_non_const_boxSizeb.y))) , (fmaxf((0.0F), __T2146)));
+# 106 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59641_15_non_const_dz = ((__T2147 = ((((float)(fabsf(((double)__cuda_local_var_59641_15_non_const_dz)))) - (__cuda_local_var_59647_16_non_const_boxSizea.z)) - (__cuda_local_var_59648_16_non_const_boxSizeb.z))) , (fmaxf((0.0F), __T2147)));
+# 107 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+((cSim.pInteractionFlag)[__cuda_local_var_59626_18_non_const_pos]) = ((unsigned)(((((__cuda_local_var_59639_15_non_const_dx * __cuda_local_var_59639_15_non_const_dx) + (__cuda_local_var_59640_15_non_const_dy * __cuda_local_var_59640_15_non_const_dy)) + (__cuda_local_var_59641_15_non_const_dz * __cuda_local_var_59641_15_non_const_dz)) > (cSim.nonbondedCutoffSqr)) ? 0 : 1));
+# 108 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59626_18_non_const_pos += ((gridDim.x) * (blockDim.x));
+# 109 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+} 
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}}
+# 116 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__global__ __var_used__ void _Z44kFindInteractionsWithinBlocksPeriodic_kernelPj(
+# 116 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+unsigned *workUnit){
+# 116 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 117 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 119 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59664_18_non_const_totalWarps;
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59665_18_non_const_warp;
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59666_18_non_const_numWorkUnits;
+# 122 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59667_18_non_const_pos;
+# 123 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59668_18_non_const_end;
+# 124 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59669_18_non_const_index;
+# 126 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59671_18_non_const_lasty;
+# 127 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ struct float4 __cuda_local_var_59672_12_non_const_apos;
+# 119 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59664_18_non_const_totalWarps = (((cSim.nonbond_blocks) * (cSim.nonbond_threads_per_block)) / 32U);
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59665_18_non_const_warp = ((((blockIdx.x) * (blockDim.x)) + (threadIdx.x)) / 32U);
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59666_18_non_const_numWorkUnits = ((unsigned)((cSim.pInteractionCount)[0]));
+# 122 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59667_18_non_const_pos = ((__cuda_local_var_59665_18_non_const_warp * __cuda_local_var_59666_18_non_const_numWorkUnits) / __cuda_local_var_59664_18_non_const_totalWarps);
+# 123 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59668_18_non_const_end = (((__cuda_local_var_59665_18_non_const_warp + 1U) * __cuda_local_var_59666_18_non_const_numWorkUnits) / __cuda_local_var_59664_18_non_const_totalWarps);
+# 124 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59669_18_non_const_index = ((threadIdx.x) & 31U);
+# 126 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59671_18_non_const_lasty = 4294967295U;
+# 128 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+while (__cuda_local_var_59667_18_non_const_pos < __cuda_local_var_59668_18_non_const_end)
+# 129 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 131 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59676_22_non_const_x;
+# 132 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59677_22_non_const_y;
+# 133 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ __nv_bool __cuda_local_var_59678_14_non_const_bExclusionFlag;
+# 131 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59676_22_non_const_x = (workUnit[__cuda_local_var_59667_18_non_const_pos]);
+# 132 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59677_22_non_const_y = ((__cuda_local_var_59676_22_non_const_x >> 2) & 32767U);
+# 133 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59678_14_non_const_bExclusionFlag = ((__nv_bool)((__cuda_local_var_59676_22_non_const_x & 1U) != 0U));
+# 134 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59676_22_non_const_x = (__cuda_local_var_59676_22_non_const_x >> 17);
+# 135 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+if ((__cuda_local_var_59676_22_non_const_x == __cuda_local_var_59677_22_non_const_y) || (__cuda_local_var_59678_14_non_const_bExclusionFlag))
+# 136 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 139 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+if (__cuda_local_var_59669_18_non_const_index == 0U)
+# 139 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 140 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+((cSim.pInteractionFlag)[__cuda_local_var_59667_18_non_const_pos]) = 4294967295U;
+# 140 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 141 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 143 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+else 
+# 143 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 143 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2148;
+# 144 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2149;
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __T2150;
+# 146 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ struct float4 __cuda_local_var_59691_20_non_const_center;
+# 147 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ struct float4 __cuda_local_var_59692_20_non_const_boxSize;
+# 155 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59700_19_non_const_dx;
+# 156 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59701_19_non_const_dy;
+# 157 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ float __cuda_local_var_59702_19_non_const_dz;
+# 146 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59691_20_non_const_center = ((cSim.pGridCenter)[__cuda_local_var_59676_22_non_const_x]);
+# 147 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59692_20_non_const_boxSize = ((cSim.pGridBoundingBox)[__cuda_local_var_59676_22_non_const_x]);
+# 148 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+if (__cuda_local_var_59677_22_non_const_y != __cuda_local_var_59671_18_non_const_lasty)
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 150 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59672_12_non_const_apos = ((cSim.pPosq)[((__cuda_local_var_59677_22_non_const_y << 5U) + __cuda_local_var_59669_18_non_const_index)]);
+# 151 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 155 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59700_19_non_const_dx = ((__cuda_local_var_59672_12_non_const_apos.x) - (__cuda_local_var_59691_20_non_const_center.x));
+# 156 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59701_19_non_const_dy = ((__cuda_local_var_59672_12_non_const_apos.y) - (__cuda_local_var_59691_20_non_const_center.y));
+# 157 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59702_19_non_const_dz = ((__cuda_local_var_59672_12_non_const_apos.z) - (__cuda_local_var_59691_20_non_const_center.z));
+# 159 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59700_19_non_const_dx -= ((floorf(((__cuda_local_var_59700_19_non_const_dx * (cSim.invPeriodicBoxSizeX)) + (0.5F)))) * (cSim.periodicBoxSizeX));
+# 160 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59701_19_non_const_dy -= ((floorf(((__cuda_local_var_59701_19_non_const_dy * (cSim.invPeriodicBoxSizeY)) + (0.5F)))) * (cSim.periodicBoxSizeY));
+# 161 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59702_19_non_const_dz -= ((floorf(((__cuda_local_var_59702_19_non_const_dz * (cSim.invPeriodicBoxSizeZ)) + (0.5F)))) * (cSim.periodicBoxSizeZ));
+# 163 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59700_19_non_const_dx = ((__T2148 = (((float)(fabsf(((double)__cuda_local_var_59700_19_non_const_dx)))) - (__cuda_local_var_59692_20_non_const_boxSize.x))) , (fmaxf((0.0F), __T2148)));
+# 164 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59701_19_non_const_dy = ((__T2149 = (((float)(fabsf(((double)__cuda_local_var_59701_19_non_const_dy)))) - (__cuda_local_var_59692_20_non_const_boxSize.y))) , (fmaxf((0.0F), __T2149)));
+# 165 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59702_19_non_const_dz = ((__T2150 = (((float)(fabsf(((double)__cuda_local_var_59702_19_non_const_dz)))) - (__cuda_local_var_59692_20_non_const_boxSize.z))) , (fmaxf((0.0F), __T2150)));
+# 166 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+((flags)[(threadIdx.x)]) = ((unsigned)(((((__cuda_local_var_59700_19_non_const_dx * __cuda_local_var_59700_19_non_const_dx) + (__cuda_local_var_59701_19_non_const_dy * __cuda_local_var_59701_19_non_const_dy)) + (__cuda_local_var_59702_19_non_const_dz * __cuda_local_var_59702_19_non_const_dz)) > (cSim.nonbondedCutoffSqr)) ? 0 : (1 << __cuda_local_var_59669_18_non_const_index)));
+# 170 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+if ((__cuda_local_var_59669_18_non_const_index % 2U) == 0U)
+# 170 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 171 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+((flags)[(threadIdx.x)]) += ((flags)[((threadIdx.x) + 1U)]);
+# 171 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 172 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+if ((__cuda_local_var_59669_18_non_const_index % 4U) == 0U)
+# 172 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 173 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+((flags)[(threadIdx.x)]) += ((flags)[((threadIdx.x) + 2U)]);
+# 173 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 174 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+if ((__cuda_local_var_59669_18_non_const_index % 8U) == 0U)
+# 174 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 175 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+((flags)[(threadIdx.x)]) += ((flags)[((threadIdx.x) + 4U)]);
+# 175 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 176 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+if ((__cuda_local_var_59669_18_non_const_index % 16U) == 0U)
+# 176 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 177 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+((flags)[(threadIdx.x)]) += ((flags)[((threadIdx.x) + 8U)]);
+# 177 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 178 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+if (__cuda_local_var_59669_18_non_const_index == 0U)
+# 179 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+{
+# 180 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59725_30_non_const_allFlags;
+# 185 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+ unsigned __cuda_local_var_59730_30_non_const_bits;
+# 180 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59725_30_non_const_allFlags = (((flags)[(threadIdx.x)]) + ((flags)[((threadIdx.x) + 16U)]));
+# 185 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59730_30_non_const_bits = ((__cuda_local_var_59725_30_non_const_allFlags & 1431655765U) + ((__cuda_local_var_59725_30_non_const_allFlags >> 1) & 1431655765U));
+# 186 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59730_30_non_const_bits = ((__cuda_local_var_59730_30_non_const_bits & 858993459U) + ((__cuda_local_var_59730_30_non_const_bits >> 2) & 858993459U));
+# 187 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59730_30_non_const_bits = ((__cuda_local_var_59730_30_non_const_bits & 252645135U) + ((__cuda_local_var_59730_30_non_const_bits >> 4) & 252645135U));
+# 188 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59730_30_non_const_bits = ((__cuda_local_var_59730_30_non_const_bits & 16711935U) + ((__cuda_local_var_59730_30_non_const_bits >> 8) & 16711935U));
+# 189 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59730_30_non_const_bits = ((__cuda_local_var_59730_30_non_const_bits & 65535U) + ((__cuda_local_var_59730_30_non_const_bits >> 16) & 65535U));
+# 190 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+((cSim.pInteractionFlag)[__cuda_local_var_59667_18_non_const_pos]) = ((__cuda_local_var_59730_30_non_const_bits > 12U) ? 4294967295U : __cuda_local_var_59725_30_non_const_allFlags);
+# 191 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 192 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59671_18_non_const_lasty = __cuda_local_var_59677_22_non_const_y;
+# 193 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 194 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+__cuda_local_var_59667_18_non_const_pos++;
+# 195 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}
+# 196 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+} 
+# 196 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/kFindInteractingBlocks.h"
+}}
+# 31 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__global__ __var_used__ void _Z45kFindBlocksWithInteractionsVdwPeriodic_kernelv(void){
+# 31 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 32 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 33 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59753_18_non_const_pos;
+# 33 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59753_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 34 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+while (__cuda_local_var_59753_18_non_const_pos < (cSim.workUnits))
+# 35 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 35 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __T2151;
+# 36 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __T2152;
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __T2153;
+# 38 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59758_22_non_const_x;
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59759_22_non_const_y;
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ struct float4 __cuda_local_var_59764_16_non_const_centera;
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ struct float4 __cuda_local_var_59765_16_non_const_centerb;
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __cuda_local_var_59766_15_non_const_dx;
+# 47 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __cuda_local_var_59767_15_non_const_dy;
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __cuda_local_var_59768_15_non_const_dz;
+# 54 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ struct float4 __cuda_local_var_59774_16_non_const_boxSizea;
+# 55 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ struct float4 __cuda_local_var_59775_16_non_const_boxSizeb;
+# 38 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59758_22_non_const_x = ((cSim.pWorkUnit)[__cuda_local_var_59753_18_non_const_pos]);
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59759_22_non_const_y = ((__cuda_local_var_59758_22_non_const_x >> 2) & 32767U);
+# 40 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59758_22_non_const_x = (__cuda_local_var_59758_22_non_const_x >> 17);
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59764_16_non_const_centera = ((cSim.pGridCenter)[__cuda_local_var_59758_22_non_const_x]);
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59765_16_non_const_centerb = ((cSim.pGridCenter)[__cuda_local_var_59759_22_non_const_y]);
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59766_15_non_const_dx = ((__cuda_local_var_59764_16_non_const_centera.x) - (__cuda_local_var_59765_16_non_const_centerb.x));
+# 47 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59767_15_non_const_dy = ((__cuda_local_var_59764_16_non_const_centera.y) - (__cuda_local_var_59765_16_non_const_centerb.y));
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59768_15_non_const_dz = ((__cuda_local_var_59764_16_non_const_centera.z) - (__cuda_local_var_59765_16_non_const_centerb.z));
+# 50 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59766_15_non_const_dx -= ((floorf(((__cuda_local_var_59766_15_non_const_dx * (cSim.invPeriodicBoxSizeX)) + (0.5F)))) * (cSim.periodicBoxSizeX));
+# 51 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59767_15_non_const_dy -= ((floorf(((__cuda_local_var_59767_15_non_const_dy * (cSim.invPeriodicBoxSizeY)) + (0.5F)))) * (cSim.periodicBoxSizeY));
+# 52 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59768_15_non_const_dz -= ((floorf(((__cuda_local_var_59768_15_non_const_dz * (cSim.invPeriodicBoxSizeZ)) + (0.5F)))) * (cSim.periodicBoxSizeZ));
+# 54 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59774_16_non_const_boxSizea = ((cSim.pGridBoundingBox)[__cuda_local_var_59758_22_non_const_x]);
+# 55 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59775_16_non_const_boxSizeb = ((cSim.pGridBoundingBox)[__cuda_local_var_59759_22_non_const_y]);
+# 56 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59766_15_non_const_dx = ((__T2151 = ((((float)(fabsf(((double)__cuda_local_var_59766_15_non_const_dx)))) - (__cuda_local_var_59774_16_non_const_boxSizea.x)) - (__cuda_local_var_59775_16_non_const_boxSizeb.x))) , (fmaxf((0.0F), __T2151)));
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59767_15_non_const_dy = ((__T2152 = ((((float)(fabsf(((double)__cuda_local_var_59767_15_non_const_dy)))) - (__cuda_local_var_59774_16_non_const_boxSizea.y)) - (__cuda_local_var_59775_16_non_const_boxSizeb.y))) , (fmaxf((0.0F), __T2152)));
+# 58 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59768_15_non_const_dz = ((__T2153 = ((((float)(fabsf(((double)__cuda_local_var_59768_15_non_const_dz)))) - (__cuda_local_var_59774_16_non_const_boxSizea.z)) - (__cuda_local_var_59775_16_non_const_boxSizeb.z))) , (fmaxf((0.0F), __T2153)));
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+((cSim.pInteractionFlag)[__cuda_local_var_59753_18_non_const_pos]) = ((unsigned)(((((__cuda_local_var_59766_15_non_const_dx * __cuda_local_var_59766_15_non_const_dx) + (__cuda_local_var_59767_15_non_const_dy * __cuda_local_var_59767_15_non_const_dy)) + (__cuda_local_var_59768_15_non_const_dz * __cuda_local_var_59768_15_non_const_dz)) > (cAmoebaSim.vdwCutoff2)) ? 0 : 1));
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59753_18_non_const_pos += ((gridDim.x) * (blockDim.x));
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}
+# 62 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+} 
+# 62 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}}
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__global__ __var_used__ void _Z47kFindInteractionsWithinBlocksVdwPeriodic_kernelPj(
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+unsigned *workUnit){
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 69 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 71 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59791_18_non_const_totalWarps;
+# 72 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59792_18_non_const_warp;
+# 73 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59793_18_non_const_numWorkUnits;
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59794_18_non_const_pos;
+# 75 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59795_18_non_const_end;
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59796_18_non_const_index;
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59798_18_non_const_lasty;
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ struct float4 __cuda_local_var_59799_12_non_const_apos;
+# 71 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59791_18_non_const_totalWarps = (((cSim.nonbond_blocks) * (cSim.nonbond_threads_per_block)) / 32U);
+# 72 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59792_18_non_const_warp = ((((blockIdx.x) * (blockDim.x)) + (threadIdx.x)) / 32U);
+# 73 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59793_18_non_const_numWorkUnits = ((unsigned)((cSim.pInteractionCount)[0]));
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59794_18_non_const_pos = ((__cuda_local_var_59792_18_non_const_warp * __cuda_local_var_59793_18_non_const_numWorkUnits) / __cuda_local_var_59791_18_non_const_totalWarps);
+# 75 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59795_18_non_const_end = (((__cuda_local_var_59792_18_non_const_warp + 1U) * __cuda_local_var_59793_18_non_const_numWorkUnits) / __cuda_local_var_59791_18_non_const_totalWarps);
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59796_18_non_const_index = ((threadIdx.x) & 31U);
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59798_18_non_const_lasty = 4294967295U;
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+while (__cuda_local_var_59794_18_non_const_pos < __cuda_local_var_59795_18_non_const_end)
+# 81 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59803_22_non_const_x;
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59804_22_non_const_y;
+# 85 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ __nv_bool __cuda_local_var_59805_14_non_const_bExclusionFlag;
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59803_22_non_const_x = (workUnit[__cuda_local_var_59794_18_non_const_pos]);
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59804_22_non_const_y = ((__cuda_local_var_59803_22_non_const_x >> 2) & 32767U);
+# 85 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59805_14_non_const_bExclusionFlag = ((__nv_bool)((__cuda_local_var_59803_22_non_const_x & 1U) != 0U));
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59803_22_non_const_x = (__cuda_local_var_59803_22_non_const_x >> 17);
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+if ((__cuda_local_var_59803_22_non_const_x == __cuda_local_var_59804_22_non_const_y) || (__cuda_local_var_59805_14_non_const_bExclusionFlag))
+# 88 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 91 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+if (__cuda_local_var_59796_18_non_const_index == 0U)
+# 91 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+((cSim.pInteractionFlag)[__cuda_local_var_59794_18_non_const_pos]) = 4294967295U;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}
+# 95 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+else 
+# 95 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 95 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __T2154;
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __T2155;
+# 97 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __T2156;
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ struct float4 __cuda_local_var_59818_20_non_const_center;
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ struct float4 __cuda_local_var_59819_20_non_const_boxSize;
+# 107 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __cuda_local_var_59827_19_non_const_dx;
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __cuda_local_var_59828_19_non_const_dy;
+# 109 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ float __cuda_local_var_59829_19_non_const_dz;
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59818_20_non_const_center = ((cSim.pGridCenter)[__cuda_local_var_59803_22_non_const_x]);
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59819_20_non_const_boxSize = ((cSim.pGridBoundingBox)[__cuda_local_var_59803_22_non_const_x]);
+# 100 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+if (__cuda_local_var_59804_22_non_const_y != __cuda_local_var_59798_18_non_const_lasty)
+# 101 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59799_12_non_const_apos = ((cSim.pPosq)[((__cuda_local_var_59804_22_non_const_y << 5U) + __cuda_local_var_59796_18_non_const_index)]);
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}
+# 107 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59827_19_non_const_dx = ((__cuda_local_var_59799_12_non_const_apos.x) - (__cuda_local_var_59818_20_non_const_center.x));
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59828_19_non_const_dy = ((__cuda_local_var_59799_12_non_const_apos.y) - (__cuda_local_var_59818_20_non_const_center.y));
+# 109 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59829_19_non_const_dz = ((__cuda_local_var_59799_12_non_const_apos.z) - (__cuda_local_var_59818_20_non_const_center.z));
+# 111 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59827_19_non_const_dx -= ((floorf(((__cuda_local_var_59827_19_non_const_dx * (cSim.invPeriodicBoxSizeX)) + (0.5F)))) * (cSim.periodicBoxSizeX));
+# 112 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59828_19_non_const_dy -= ((floorf(((__cuda_local_var_59828_19_non_const_dy * (cSim.invPeriodicBoxSizeY)) + (0.5F)))) * (cSim.periodicBoxSizeY));
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59829_19_non_const_dz -= ((floorf(((__cuda_local_var_59829_19_non_const_dz * (cSim.invPeriodicBoxSizeZ)) + (0.5F)))) * (cSim.periodicBoxSizeZ));
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59827_19_non_const_dx = ((__T2154 = (((float)(fabsf(((double)__cuda_local_var_59827_19_non_const_dx)))) - (__cuda_local_var_59819_20_non_const_boxSize.x))) , (fmaxf((0.0F), __T2154)));
+# 116 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59828_19_non_const_dy = ((__T2155 = (((float)(fabsf(((double)__cuda_local_var_59828_19_non_const_dy)))) - (__cuda_local_var_59819_20_non_const_boxSize.y))) , (fmaxf((0.0F), __T2155)));
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59829_19_non_const_dz = ((__T2156 = (((float)(fabsf(((double)__cuda_local_var_59829_19_non_const_dz)))) - (__cuda_local_var_59819_20_non_const_boxSize.z))) , (fmaxf((0.0F), __T2156)));
+# 118 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+((flags)[(threadIdx.x)]) = ((unsigned)(((((__cuda_local_var_59827_19_non_const_dx * __cuda_local_var_59827_19_non_const_dx) + (__cuda_local_var_59828_19_non_const_dy * __cuda_local_var_59828_19_non_const_dy)) + (__cuda_local_var_59829_19_non_const_dz * __cuda_local_var_59829_19_non_const_dz)) > (cAmoebaSim.vdwCutoff2)) ? 0 : (1 << __cuda_local_var_59796_18_non_const_index)));
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+if ((__cuda_local_var_59796_18_non_const_index % 2U) == 0U)
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+((flags)[(threadIdx.x)]) += ((flags)[((threadIdx.x) + 1U)]);
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+if ((__cuda_local_var_59796_18_non_const_index % 4U) == 0U)
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 125 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+((flags)[(threadIdx.x)]) += ((flags)[((threadIdx.x) + 2U)]);
+# 125 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+if ((__cuda_local_var_59796_18_non_const_index % 8U) == 0U)
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+((flags)[(threadIdx.x)]) += ((flags)[((threadIdx.x) + 4U)]);
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+if ((__cuda_local_var_59796_18_non_const_index % 16U) == 0U)
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 129 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+((flags)[(threadIdx.x)]) += ((flags)[((threadIdx.x) + 8U)]);
+# 129 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}
+# 130 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+if (__cuda_local_var_59796_18_non_const_index == 0U)
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+{
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59852_30_non_const_allFlags;
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+ unsigned __cuda_local_var_59857_30_non_const_bits;
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59852_30_non_const_allFlags = (((flags)[(threadIdx.x)]) + ((flags)[((threadIdx.x) + 16U)]));
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59857_30_non_const_bits = ((__cuda_local_var_59852_30_non_const_allFlags & 1431655765U) + ((__cuda_local_var_59852_30_non_const_allFlags >> 1) & 1431655765U));
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59857_30_non_const_bits = ((__cuda_local_var_59857_30_non_const_bits & 858993459U) + ((__cuda_local_var_59857_30_non_const_bits >> 2) & 858993459U));
+# 139 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59857_30_non_const_bits = ((__cuda_local_var_59857_30_non_const_bits & 252645135U) + ((__cuda_local_var_59857_30_non_const_bits >> 4) & 252645135U));
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59857_30_non_const_bits = ((__cuda_local_var_59857_30_non_const_bits & 16711935U) + ((__cuda_local_var_59857_30_non_const_bits >> 8) & 16711935U));
+# 141 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59857_30_non_const_bits = ((__cuda_local_var_59857_30_non_const_bits & 65535U) + ((__cuda_local_var_59857_30_non_const_bits >> 16) & 65535U));
+# 142 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+((cSim.pInteractionFlag)[__cuda_local_var_59794_18_non_const_pos]) = ((__cuda_local_var_59857_30_non_const_bits > 12U) ? 4294967295U : __cuda_local_var_59852_30_non_const_allFlags);
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}
+# 144 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59798_18_non_const_lasty = __cuda_local_var_59804_22_non_const_y;
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}
+# 146 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+__cuda_local_var_59794_18_non_const_pos++;
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}
+# 148 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+} 
+# 148 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kFindInteractingBlocksVdw.h"
+}}
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ void _Z19kClearFloat4_kerneljP6float4(
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+unsigned bufferLength, 
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+struct float4 *fieldToClear){
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 75 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_59883_18_non_const_pos;
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_59883_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+while (__cuda_local_var_59883_18_non_const_pos < bufferLength)
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+((fieldToClear[__cuda_local_var_59883_18_non_const_pos]).x) = (0.0F);
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+((fieldToClear[__cuda_local_var_59883_18_non_const_pos]).y) = (0.0F);
+# 81 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+((fieldToClear[__cuda_local_var_59883_18_non_const_pos]).z) = (0.0F);
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+((fieldToClear[__cuda_local_var_59883_18_non_const_pos]).w) = (0.0F);
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_59883_18_non_const_pos += ((gridDim.x) * (blockDim.x));
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 85 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+} 
+# 85 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}}
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(384,1) __global__ __var_used__ void _Z20kClearBornSum_kernelv(void){
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 91 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_59898_18_non_const_pos;
+# 91 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_59898_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+while (__cuda_local_var_59898_18_non_const_pos < ((cSim.stride) * (cSim.nonbondOutputBuffers)))
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+((cSim.pBornSum)[__cuda_local_var_59898_18_non_const_pos]) = (0.0F);
+# 95 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+((cSim.pBornForce)[__cuda_local_var_59898_18_non_const_pos]) = (0.0F);
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_59898_18_non_const_pos += ((gridDim.x) * (blockDim.x));
+# 97 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+} 
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}}
+# 121 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ void _Z18kClearFloat_kerneljPf(
+# 121 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+unsigned bufferLength, 
+# 121 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+float *fieldToClear){
+# 121 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_59930_18_non_const_pos;
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_59930_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+while (__cuda_local_var_59930_18_non_const_pos < bufferLength)
+# 125 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+(fieldToClear[__cuda_local_var_59930_18_non_const_pos]) = (0.0F);
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_59930_18_non_const_pos += ((gridDim.x) * (blockDim.x));
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 129 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+} 
+# 129 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}}
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ void _Z19kClearFields_kerneljPf(
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+unsigned bufferLength, 
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+float *EField){
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 146 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_59954_18_non_const_pos;
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_59954_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 148 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+while (__cuda_local_var_59954_18_non_const_pos < bufferLength)
+# 149 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 150 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+(EField[__cuda_local_var_59954_18_non_const_pos]) = (0.0F);
+# 151 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_59954_18_non_const_pos += ((gridDim.x) * (blockDim.x));
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+} 
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}}
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ void _Z20kReduceFields_kerneljjPfS_i(
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+unsigned fieldComponents, 
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+unsigned outputBuffers, 
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+float *fieldIn, 
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+float *fieldOut, 
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+int addTo){
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 210 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 211 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_60018_18_non_const_pos;
+# 211 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60018_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 215 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+while (__cuda_local_var_60018_18_non_const_pos < fieldComponents)
+# 216 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 217 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ float __cuda_local_var_60024_15_non_const_totalField;
+# 218 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ float *__cuda_local_var_60025_16_non_const_pFt;
+# 219 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_60026_22_non_const_i;
+# 217 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60024_15_non_const_totalField = ((addTo) ? (fieldOut[__cuda_local_var_60018_18_non_const_pos]) : (0.0F));
+# 218 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60025_16_non_const_pFt = (fieldIn + __cuda_local_var_60018_18_non_const_pos);
+# 219 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60026_22_non_const_i = outputBuffers;
+# 220 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+while (__cuda_local_var_60026_22_non_const_i >= 4U)
+# 221 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 222 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60024_15_non_const_totalField += ((((__cuda_local_var_60025_16_non_const_pFt[0]) + (__cuda_local_var_60025_16_non_const_pFt[fieldComponents])) + (__cuda_local_var_60025_16_non_const_pFt[(2U * fieldComponents)])) + (__cuda_local_var_60025_16_non_const_pFt[(3U * fieldComponents)]));
+# 223 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60025_16_non_const_pFt += (fieldComponents * 4U);
+# 224 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60026_22_non_const_i -= 4U;
+# 225 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 227 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+if (__cuda_local_var_60026_22_non_const_i >= 2U)
+# 228 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 229 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60024_15_non_const_totalField += ((__cuda_local_var_60025_16_non_const_pFt[0]) + (__cuda_local_var_60025_16_non_const_pFt[fieldComponents]));
+# 230 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60025_16_non_const_pFt += (fieldComponents * 2U);
+# 231 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60026_22_non_const_i -= 2U;
+# 232 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 234 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+if (__cuda_local_var_60026_22_non_const_i > 0U)
+# 235 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 236 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60024_15_non_const_totalField += (__cuda_local_var_60025_16_non_const_pFt[0]);
+# 237 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 239 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+(fieldOut[__cuda_local_var_60018_18_non_const_pos]) = __cuda_local_var_60024_15_non_const_totalField;
+# 240 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60018_18_non_const_pos += ((gridDim.x) * (blockDim.x));
+# 241 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 242 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+} 
+# 242 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}}
+# 252 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ void _Z30kReduceAndCombineFields_kerneljjPfS_S_(
+# 252 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+unsigned fieldComponents, 
+# 252 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+unsigned outputBuffers, 
+# 252 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+float *fieldIn1, 
+# 252 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+float *fieldIn2, 
+# 252 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+float *fieldOut){
+# 252 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 253 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 254 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_60061_18_non_const_pos;
+# 254 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60061_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 258 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+while (__cuda_local_var_60061_18_non_const_pos < fieldComponents)
+# 259 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 260 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ float __cuda_local_var_60067_15_non_const_totalField;
+# 261 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ float *__cuda_local_var_60068_16_non_const_pFt1;
+# 262 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ float *__cuda_local_var_60069_16_non_const_pFt2;
+# 263 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_60070_22_non_const_i;
+# 260 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60067_15_non_const_totalField = (0.0F);
+# 261 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60068_16_non_const_pFt1 = (fieldIn1 + __cuda_local_var_60061_18_non_const_pos);
+# 262 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60069_16_non_const_pFt2 = (fieldIn2 + __cuda_local_var_60061_18_non_const_pos);
+# 263 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60070_22_non_const_i = outputBuffers;
+# 264 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+while (__cuda_local_var_60070_22_non_const_i >= 4U)
+# 265 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 266 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60067_15_non_const_totalField += ((((__cuda_local_var_60068_16_non_const_pFt1[0]) + (__cuda_local_var_60068_16_non_const_pFt1[fieldComponents])) + (__cuda_local_var_60068_16_non_const_pFt1[(2U * fieldComponents)])) + (__cuda_local_var_60068_16_non_const_pFt1[(3U * fieldComponents)]));
+# 267 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60067_15_non_const_totalField += ((((__cuda_local_var_60069_16_non_const_pFt2[0]) + (__cuda_local_var_60069_16_non_const_pFt2[fieldComponents])) + (__cuda_local_var_60069_16_non_const_pFt2[(2U * fieldComponents)])) + (__cuda_local_var_60069_16_non_const_pFt2[(3U * fieldComponents)]));
+# 268 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60068_16_non_const_pFt1 += (fieldComponents * 4U);
+# 269 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60069_16_non_const_pFt2 += (fieldComponents * 4U);
+# 270 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60070_22_non_const_i -= 4U;
+# 271 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 273 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+if (__cuda_local_var_60070_22_non_const_i >= 2U)
+# 274 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 275 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60067_15_non_const_totalField += ((__cuda_local_var_60068_16_non_const_pFt1[0]) + (__cuda_local_var_60068_16_non_const_pFt1[fieldComponents]));
+# 276 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60067_15_non_const_totalField += ((__cuda_local_var_60069_16_non_const_pFt2[0]) + (__cuda_local_var_60069_16_non_const_pFt2[fieldComponents]));
+# 277 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60068_16_non_const_pFt1 += (fieldComponents * 2U);
+# 278 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60069_16_non_const_pFt2 += (fieldComponents * 2U);
+# 279 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60070_22_non_const_i -= 2U;
+# 280 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 282 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+if (__cuda_local_var_60070_22_non_const_i > 0U)
+# 283 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 284 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60067_15_non_const_totalField += (__cuda_local_var_60068_16_non_const_pFt1[0]);
+# 285 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60067_15_non_const_totalField += (__cuda_local_var_60069_16_non_const_pFt2[0]);
+# 286 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 288 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+(fieldOut[__cuda_local_var_60061_18_non_const_pos]) = __cuda_local_var_60067_15_non_const_totalField;
+# 289 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60061_18_non_const_pos += ((gridDim.x) * (blockDim.x));
+# 290 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 291 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+} 
+# 291 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}}
+# 301 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__launch_bounds__(512,1) __global__ __var_used__ void _Z28kReduceFieldsToFloat4_kerneljjPfP6float4(
+# 301 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+unsigned fieldComponents, 
+# 301 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+unsigned outputBuffers, 
+# 301 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+float *fieldIn, 
+# 301 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+struct float4 *field4Out){
+# 301 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 302 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 303 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_60110_18_non_const_pos;
+# 307 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ float *__cuda_local_var_60114_12_non_const_fieldOut;
+# 303 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60110_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 307 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60114_12_non_const_fieldOut = ((float *)field4Out);
+# 308 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+while (__cuda_local_var_60110_18_non_const_pos < fieldComponents)
+# 309 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 310 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ float __cuda_local_var_60117_15_non_const_totalField;
+# 311 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ float *__cuda_local_var_60118_16_non_const_pFt;
+# 312 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_60119_22_non_const_i;
+# 332 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_60139_22_non_const_j;
+# 333 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+ unsigned __cuda_local_var_60140_22_non_const_k;
+# 310 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60117_15_non_const_totalField = (0.0F);
+# 311 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60118_16_non_const_pFt = (fieldIn + __cuda_local_var_60110_18_non_const_pos);
+# 312 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60119_22_non_const_i = outputBuffers;
+# 313 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+while (__cuda_local_var_60119_22_non_const_i >= 4U)
+# 314 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 315 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60117_15_non_const_totalField += ((((__cuda_local_var_60118_16_non_const_pFt[0]) + (__cuda_local_var_60118_16_non_const_pFt[fieldComponents])) + (__cuda_local_var_60118_16_non_const_pFt[(2U * fieldComponents)])) + (__cuda_local_var_60118_16_non_const_pFt[(3U * fieldComponents)]));
+# 316 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60118_16_non_const_pFt += (fieldComponents * 4U);
+# 317 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60119_22_non_const_i -= 4U;
+# 318 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 320 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+if (__cuda_local_var_60119_22_non_const_i >= 2U)
+# 321 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 322 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60117_15_non_const_totalField += ((__cuda_local_var_60118_16_non_const_pFt[0]) + (__cuda_local_var_60118_16_non_const_pFt[fieldComponents]));
+# 323 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60118_16_non_const_pFt += (fieldComponents * 2U);
+# 324 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60119_22_non_const_i -= 2U;
+# 325 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 327 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+if (__cuda_local_var_60119_22_non_const_i > 0U)
+# 328 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+{
+# 329 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60117_15_non_const_totalField += (__cuda_local_var_60118_16_non_const_pFt[0]);
+# 330 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 332 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60139_22_non_const_j = (__cuda_local_var_60110_18_non_const_pos / 3U);
+# 333 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60140_22_non_const_k = (__cuda_local_var_60110_18_non_const_pos - (3U * __cuda_local_var_60139_22_non_const_j));
+# 334 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+(__cuda_local_var_60114_12_non_const_fieldOut[((4U * __cuda_local_var_60139_22_non_const_j) + __cuda_local_var_60140_22_non_const_k)]) += __cuda_local_var_60117_15_non_const_totalField;
+# 335 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+__cuda_local_var_60110_18_non_const_pos += ((gridDim.x) * (blockDim.x));
+# 336 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}
+# 337 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+} 
+# 337 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaUtilities.cu"
+}}

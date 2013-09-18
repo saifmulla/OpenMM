@@ -1,0 +1,518 @@
+# 211 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 3
+typedef unsigned long size_t;
+#include "crt/device_runtime.h"
+# 28 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+typedef unsigned T;
+#if !defined(__CUDABE__)
+# 131 "/usr/local/cuda-5.0/include/device_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) void __syncthreads(void);
+#endif
+# 32 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+___device__(extern  __no_sc__) unsigned _Z12sumReduce128PVj(volatile unsigned *);
+# 68 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+___device__(extern  __no_sc__) int _Z19exclusivePrescan128PKjPj(const unsigned *, unsigned *);
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+___device__(extern  __no_sc__) int _Z20compactSIMDPrefixSumPKjS0_Pj(const T *, const unsigned *, T *);
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__global__ __var_used__ extern void _Z9countEltsPjPKjmm(unsigned *, const unsigned *, const size_t, const size_t);
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__global__ __var_used__ extern void _Z23moveValidElementsStagedPKjPjS0_S0_mmPm(const T *, T *, const unsigned *, const unsigned *, size_t, size_t, size_t *);
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__global__ __var_used__ extern void _Z26moveValidElementsScatteredPKjPjS0_S0_mmPm(const T *, T *, const unsigned *, const unsigned *, size_t, size_t, size_t *);
+#include "common_functions.h"
+#if !defined(__CUDABE__)
+#endif
+# 32 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+___device__( __no_sc__) unsigned _Z12sumReduce128PVj(
+# 32 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+volatile unsigned *arr){
+# 32 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 32 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 35 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((threadIdx.x) < 64U)
+# 35 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 35 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(arr[(threadIdx.x)]) += (arr[((threadIdx.x) + 64U)]);
+# 35 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 36 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__syncthreads();
+# 37 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((threadIdx.x) < 32U)
+# 37 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(arr[(threadIdx.x)]) += (arr[((threadIdx.x) + 32U)]);
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((threadIdx.x) < 16U)
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(arr[(threadIdx.x)]) += (arr[((threadIdx.x) + 16U)]);
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((threadIdx.x) < 8U)
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(arr[(threadIdx.x)]) += (arr[((threadIdx.x) + 8U)]);
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((threadIdx.x) < 4U)
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(arr[(threadIdx.x)]) += (arr[((threadIdx.x) + 4U)]);
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((threadIdx.x) < 2U)
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(arr[(threadIdx.x)]) += (arr[((threadIdx.x) + 2U)]);
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((threadIdx.x) < 1U)
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(arr[(threadIdx.x)]) += (arr[((threadIdx.x) + 1U)]);
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 44 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 45 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__syncthreads();
+# 46 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+return arr[0];
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}}
+# 68 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+___device__( __no_sc__) int _Z19exclusivePrescan128PKjPj(
+# 68 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const unsigned *in, 
+# 68 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+unsigned *outAndTemp){
+# 68 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 68 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 69 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int __cuda_local_var_14932_15_const_n;
+# 72 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ unsigned *__cuda_local_var_14935_19_non_const_temp;
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int __cuda_local_var_14936_9_non_const_pout;
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int __cuda_local_var_14936_19_non_const_pin;
+# 69 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14932_15_const_n = 128;
+# 72 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14935_19_non_const_temp = outAndTemp;
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14936_9_non_const_pout = 1;
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14936_19_non_const_pin = 0;
+# 77 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(__cuda_local_var_14935_19_non_const_temp[(((unsigned)(__cuda_local_var_14936_9_non_const_pout * 128)) + (threadIdx.x))]) = (((threadIdx.x) > 0U) ? (in[((threadIdx.x) - 1U)]) : 0U);
+# 78 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__syncthreads();
+# 78 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 80 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int offset;
+# 80 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+offset = 1;
+# 80 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+for (; (offset < 128); offset *= 2)
+# 81 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 82 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14936_9_non_const_pout = (1 - __cuda_local_var_14936_9_non_const_pout);
+# 83 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14936_19_non_const_pin = (1 - __cuda_local_var_14936_9_non_const_pout);
+# 84 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__syncthreads();
+# 85 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(__cuda_local_var_14935_19_non_const_temp[(((unsigned)(__cuda_local_var_14936_9_non_const_pout * 128)) + (threadIdx.x))]) = (__cuda_local_var_14935_19_non_const_temp[(((unsigned)(__cuda_local_var_14936_19_non_const_pin * 128)) + (threadIdx.x))]);
+# 86 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((threadIdx.x) >= ((unsigned)offset))
+# 86 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 87 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(__cuda_local_var_14935_19_non_const_temp[(((unsigned)(__cuda_local_var_14936_9_non_const_pout * 128)) + (threadIdx.x))]) += (__cuda_local_var_14935_19_non_const_temp[((((unsigned)(__cuda_local_var_14936_19_non_const_pin * 128)) + (threadIdx.x)) - ((unsigned)offset))]);
+# 87 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 88 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 88 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 91 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__syncthreads();
+# 92 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+return (int)((outAndTemp[127]) + (in[127]));
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}}
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+___device__( __no_sc__) int _Z20compactSIMDPrefixSumPKjS0_Pj(
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const T *dsData, 
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const unsigned *dsValid, 
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+T *dsCompact){
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 95 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+static  __shared__  __var_used__ unsigned __cuda_local_var_14958_42_non_const_dsLocalIndex[256];
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int __cuda_local_var_14959_9_non_const_numValid;
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14959_9_non_const_numValid = (_Z19exclusivePrescan128PKjPj(dsValid, (__cuda_local_var_14958_42_non_const_dsLocalIndex)));
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if (dsValid[(threadIdx.x)])
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(dsCompact[((__cuda_local_var_14958_42_non_const_dsLocalIndex)[(threadIdx.x)])]) = (dsData[(threadIdx.x)]);
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 98 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+return __cuda_local_var_14959_9_non_const_numValid;
+# 99 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 99 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}}
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__global__ __var_used__ void _Z9countEltsPjPKjmm(
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+unsigned *dgBlockCounts, 
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const unsigned *dgValid, 
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const size_t eltsPerBlock, 
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const size_t len){
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 50 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+static  __shared__  __var_used__ volatile unsigned __cuda_local_var_14913_51_non_const_dsCount[128];
+# 52 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ size_t __cuda_local_var_14915_12_non_const_ub;
+# 59 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ unsigned __cuda_local_var_14922_18_non_const_blockCount;
+# 51 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_14913_51_non_const_dsCount)[(threadIdx.x)]) = 0U;
+# 53 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14915_12_non_const_ub = ((len < (((unsigned long)((blockIdx.x) + 1U)) * eltsPerBlock)) ? len : (((unsigned long)((blockIdx.x) + 1U)) * eltsPerBlock));
+# 53 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 54 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int base;
+# 54 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+base = ((int)(((unsigned long)(blockIdx.x)) * eltsPerBlock));
+# 54 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+for (; (((unsigned long)base) < (((unsigned long)((blockIdx.x) + 1U)) * eltsPerBlock)); base += (blockDim.x))
+# 54 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 55 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((((unsigned long)(((unsigned)base) + (threadIdx.x))) < __cuda_local_var_14915_12_non_const_ub) && (dgValid[(((unsigned)base) + (threadIdx.x))]))
+# 55 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 56 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_14913_51_non_const_dsCount)[(threadIdx.x)])++;
+# 56 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 57 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 57 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 58 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__syncthreads();
+# 59 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14922_18_non_const_blockCount = (_Z12sumReduce128PVj((__cuda_local_var_14913_51_non_const_dsCount)));
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((threadIdx.x) == 0U)
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(dgBlockCounts[(blockIdx.x)]) = __cuda_local_var_14922_18_non_const_blockCount;
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 61 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+return;
+# 62 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 62 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}}
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__global__ __var_used__ void _Z23moveValidElementsStagedPKjPjS0_S0_mmPm(
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const T *dgData, 
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+T *dgCompact, 
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const unsigned *dgValid, 
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const unsigned *dgBlockCounts, 
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+size_t eltsPerBlock, 
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+size_t len, 
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+size_t *dNumValidElements){
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 102 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+static  __shared__  __var_used__ T __cuda_local_var_14965_31_non_const_inBlock[128];
+# 103 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+static  __shared__  __var_used__ unsigned __cuda_local_var_14966_42_non_const_validBlock[128];
+# 104 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+static  __shared__  __var_used__ T __cuda_local_var_14967_31_non_const_compactBlock[128];
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int __cuda_local_var_14968_9_non_const_blockOutOffset;
+# 123 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ size_t __cuda_local_var_14986_12_non_const_ub;
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14968_9_non_const_blockOutOffset = 0;
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int base;
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+base = 0;
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+for (; (((unsigned)base) < (blockIdx.x)); base += (blockDim.x))
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 112 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((((unsigned)base) + (threadIdx.x)) < (blockIdx.x))
+# 112 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 113 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_14966_42_non_const_validBlock)[(threadIdx.x)]) = (dgBlockCounts[(((unsigned)base) + (threadIdx.x))]);
+# 114 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 114 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+else 
+# 114 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_14966_42_non_const_validBlock)[(threadIdx.x)]) = 0U;
+# 116 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 117 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__syncthreads();
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14968_9_non_const_blockOutOffset += (_Z12sumReduce128PVj(((volatile unsigned *)(__cuda_local_var_14966_42_non_const_validBlock))));
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 124 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14986_12_non_const_ub = ((len < (((unsigned long)((blockIdx.x) + 1U)) * eltsPerBlock)) ? len : (((unsigned long)((blockIdx.x) + 1U)) * eltsPerBlock));
+# 124 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int base;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+base = ((int)(((unsigned long)(blockIdx.x)) * eltsPerBlock));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+for (; (((unsigned long)base) < (((unsigned long)((blockIdx.x) + 1U)) * eltsPerBlock)); base += (blockDim.x))
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 133 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int __cuda_local_var_14996_13_non_const_numValidBlock;
+# 126 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if (((unsigned long)(((unsigned)base) + (threadIdx.x))) < __cuda_local_var_14986_12_non_const_ub)
+# 126 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 127 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_14966_42_non_const_validBlock)[(threadIdx.x)]) = (dgValid[(((unsigned)base) + (threadIdx.x))]);
+# 128 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_14965_31_non_const_inBlock)[(threadIdx.x)]) = (dgData[(((unsigned)base) + (threadIdx.x))]);
+# 129 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 129 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+else 
+# 129 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 130 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_14966_42_non_const_validBlock)[(threadIdx.x)]) = 0U;
+# 131 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 132 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__syncthreads();
+# 133 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14996_13_non_const_numValidBlock = (_Z20compactSIMDPrefixSumPKjS0_Pj(((const T *)(__cuda_local_var_14965_31_non_const_inBlock)), ((const unsigned *)(__cuda_local_var_14966_42_non_const_validBlock)), (__cuda_local_var_14967_31_non_const_compactBlock)));
+# 134 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__syncthreads();
+# 135 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((threadIdx.x) < ((unsigned)__cuda_local_var_14996_13_non_const_numValidBlock))
+# 135 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 136 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(dgCompact[(((unsigned)__cuda_local_var_14968_9_non_const_blockOutOffset) + (threadIdx.x))]) = ((__cuda_local_var_14967_31_non_const_compactBlock)[(threadIdx.x)]);
+# 137 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 138 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_14968_9_non_const_blockOutOffset += __cuda_local_var_14996_13_non_const_numValidBlock;
+# 139 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 139 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 140 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if (((blockIdx.x) == ((gridDim.x) - 1U)) && ((threadIdx.x) == 0U))
+# 140 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 141 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(*dNumValidElements) = ((size_t)__cuda_local_var_14968_9_non_const_blockOutOffset);
+# 142 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 143 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+} 
+# 143 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}}
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__global__ __var_used__ void _Z26moveValidElementsScatteredPKjPjS0_S0_mmPm(
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const T *dgData, 
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+T *dgCompact, 
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const unsigned *dgValid, 
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+const unsigned *dgBlockCounts, 
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+size_t eltsPerBlock, 
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+size_t len, 
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+size_t *dNumValidElements){
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 146 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+static  __shared__  __var_used__ T __cuda_local_var_15009_31_non_const_inBlock[128];
+# 147 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+static  __shared__  __var_used__ unsigned __cuda_local_var_15010_42_non_const_validBlock[128];
+# 148 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ T *__cuda_local_var_15011_8_non_const_compactBlock;
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ size_t __cuda_local_var_15012_12_non_const_blockOutOffset;
+# 167 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ size_t __cuda_local_var_15030_12_non_const_ub;
+# 148 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_15011_8_non_const_compactBlock = dgCompact;
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_15012_12_non_const_blockOutOffset = 0UL;
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 154 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int base;
+# 154 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+base = 0;
+# 154 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+for (; (((unsigned)base) < (blockIdx.x)); base += (blockDim.x))
+# 154 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 156 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if ((((unsigned)base) + (threadIdx.x)) < (blockIdx.x))
+# 156 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 157 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_15010_42_non_const_validBlock)[(threadIdx.x)]) = (dgBlockCounts[(((unsigned)base) + (threadIdx.x))]);
+# 158 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 158 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+else 
+# 158 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 159 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_15010_42_non_const_validBlock)[(threadIdx.x)]) = 0U;
+# 160 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 161 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__syncthreads();
+# 164 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_15012_12_non_const_blockOutOffset += ((unsigned long)(_Z12sumReduce128PVj(((volatile unsigned *)(__cuda_local_var_15010_42_non_const_validBlock)))));
+# 165 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 165 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 166 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_15011_8_non_const_compactBlock += __cuda_local_var_15012_12_non_const_blockOutOffset;
+# 168 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_15030_12_non_const_ub = ((len < (((unsigned long)((blockIdx.x) + 1U)) * eltsPerBlock)) ? len : (((unsigned long)((blockIdx.x) + 1U)) * eltsPerBlock));
+# 168 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 169 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int base;
+# 169 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+base = ((int)(((unsigned long)(blockIdx.x)) * eltsPerBlock));
+# 169 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+for (; (((unsigned long)base) < (((unsigned long)((blockIdx.x) + 1U)) * eltsPerBlock)); base += (blockDim.x))
+# 169 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 177 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+ int __cuda_local_var_15040_13_non_const_numValidBlock;
+# 170 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if (((unsigned long)(((unsigned)base) + (threadIdx.x))) < __cuda_local_var_15030_12_non_const_ub)
+# 170 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 171 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_15010_42_non_const_validBlock)[(threadIdx.x)]) = (dgValid[(((unsigned)base) + (threadIdx.x))]);
+# 172 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_15009_31_non_const_inBlock)[(threadIdx.x)]) = (dgData[(((unsigned)base) + (threadIdx.x))]);
+# 173 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 173 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+else 
+# 173 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 174 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+((__cuda_local_var_15010_42_non_const_validBlock)[(threadIdx.x)]) = 0U;
+# 175 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 176 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__syncthreads();
+# 177 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_15040_13_non_const_numValidBlock = (_Z20compactSIMDPrefixSumPKjS0_Pj(((const T *)(__cuda_local_var_15009_31_non_const_inBlock)), ((const unsigned *)(__cuda_local_var_15010_42_non_const_validBlock)), __cuda_local_var_15011_8_non_const_compactBlock));
+# 178 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_15012_12_non_const_blockOutOffset += ((unsigned long)__cuda_local_var_15040_13_non_const_numValidBlock);
+# 179 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+__cuda_local_var_15011_8_non_const_compactBlock += __cuda_local_var_15040_13_non_const_numValidBlock;
+# 180 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 180 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 181 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+if (((blockIdx.x) == ((gridDim.x) - 1U)) && ((threadIdx.x) == 0U))
+# 181 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+{
+# 182 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+(*dNumValidElements) = __cuda_local_var_15012_12_non_const_blockOutOffset;
+# 183 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}
+# 184 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+} 
+# 184 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudaCompact.cu"
+}}

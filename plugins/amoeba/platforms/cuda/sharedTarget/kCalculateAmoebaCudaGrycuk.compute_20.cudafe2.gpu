@@ -1,0 +1,2104 @@
+# 272 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod {
+# 274 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+NO_CUTOFF,
+# 275 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+CUTOFF,
+# 276 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+PERIODIC,
+# 277 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+EWALD,
+# 278 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+PARTICLE_MESH_EWALD};
+# 294 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct cudaGmxSimulation;
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct cudaAmoebaGmxSimulation;
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukParticle;
+# 260 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukChainRuleParticle;
+# 1 "kCalculateAmoebaCudaGrycuk.compute_20.cudafe1.gpu"
+typedef char __nv_bool;
+# 211 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 3
+typedef unsigned long size_t;
+#include "crt/device_runtime.h"
+# 60 "/usr/local/cuda-5.0/include/cuComplex.h"
+typedef struct float2 cuFloatComplex;
+# 282 "/usr/local/cuda-5.0/include/cuComplex.h"
+typedef cuFloatComplex cuComplex;
+# 100 "/usr/local/cuda-5.0/include/cufft.h"
+typedef cuComplex cufftComplex;
+# 294 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct cudaGmxSimulation {
+# 296 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned atoms;
+# 297 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned paddedNumberOfAtoms;
+# 298 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned blocks;
+# 299 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned blocksPerSM;
+# 300 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_blocks;
+# 301 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_blocks;
+# 302 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned interaction_blocks;
+# 303 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned threads_per_block;
+# 304 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_threads_per_block;
+# 305 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_threads_per_block;
+# 306 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_update_threads_per_block;
+# 307 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned update_threads_per_block;
+# 308 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf_reduce_threads_per_block;
+# 309 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bsf_reduce_threads_per_block;
+# 310 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_shake_threads_per_block;
+# 311 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned shake_threads_per_block;
+# 312 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned settle_threads_per_block;
+# 313 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ccma_threads_per_block;
+# 314 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_localForces_threads_per_block;
+# 315 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned localForces_threads_per_block;
+# 316 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned random_threads_per_block;
+# 317 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned interaction_threads_per_block;
+# 318 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned custom_exception_threads_per_block;
+# 319 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExpressionStackSize;
+# 320 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned workUnits;
+# 321 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pWorkUnit;
+# 322 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pInteractingWorkUnit;
+# 323 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pInteractionFlag;
+# 324 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pStepSize;
+# 325 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pLangevinParameters;
+# 326 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float errorTol;
+# 327 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+size_t *pInteractionCount;
+# 328 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_workBlock;
+# 329 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_workBlock;
+# 330 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned workUnitsPerSM;
+# 331 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nbWorkUnitsPerBlock;
+# 332 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nbWorkUnitsPerBlockRemainder;
+# 333 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf2WorkUnitsPerBlock;
+# 334 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf2WorkUnitsPerBlockRemainder;
+# 337 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride;
+# 338 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride2;
+# 339 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride3;
+# 340 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride4;
+# 341 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbondOutputBuffers;
+# 342 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned outputBuffers;
+# 343 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned energyOutputBuffers;
+# 344 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float bigFloat;
+# 345 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float epsfac;
+# 346 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod nonbondedMethod;
+# 347 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod customNonbondedMethod;
+# 348 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float nonbondedCutoff;
+# 349 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float nonbondedCutoffSqr;
+# 350 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeX;
+# 351 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeY;
+# 352 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeZ;
+# 353 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeX;
+# 354 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeY;
+# 355 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeZ;
+# 356 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeX;
+# 357 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeY;
+# 358 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeZ;
+# 359 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float cellVolume;
+# 360 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float alphaEwald;
+# 361 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float factorEwald;
+# 362 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxX;
+# 363 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxY;
+# 364 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxZ;
+# 365 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float reactionFieldK;
+# 366 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float reactionFieldC;
+# 367 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float probeRadius;
+# 368 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float surfaceAreaFactor;
+# 369 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float electricConstant;
+# 370 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float forceConversionFactor;
+# 371 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float preFactor;
+# 372 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float dielectricOffset;
+# 373 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float alphaOBC;
+# 374 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float betaOBC;
+# 375 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gammaOBC;
+# 376 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float deltaT;
+# 377 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float oneOverDeltaT;
+# 378 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float T;
+# 379 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float kT;
+# 380 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float noiseAmplitude;
+# 381 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tau;
+# 382 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tauDeltaT;
+# 383 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float collisionFrequency;
+# 384 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pObcData;
+# 385 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int gbviBornRadiusScalingMethod;
+# 386 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gbviQuinticLowerLimitFactor;
+# 387 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gbviQuinticUpperBornRadiusLimit;
+# 388 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGBVIData;
+# 389 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pGBVISwitchDerivative;
+# 390 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pAttr;
+# 391 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomParams;
+# 392 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExceptions;
+# 393 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customParameters;
+# 394 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomBondID;
+# 395 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomBondParams;
+# 396 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customBonds;
+# 397 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customBondParameters;
+# 398 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomAngleID1;
+# 399 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pCustomAngleID2;
+# 400 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomAngleParams;
+# 401 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customAngles;
+# 402 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customAngleParameters;
+# 403 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomTorsionID1;
+# 404 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomTorsionID2;
+# 405 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomTorsionParams;
+# 406 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customTorsions;
+# 407 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customTorsionParameters;
+# 408 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCustomExternalID;
+# 409 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomExternalParams;
+# 410 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExternals;
+# 411 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExternalParameters;
+# 412 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pTabulatedFunctionCoefficients[4];
+# 413 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pTabulatedFunctionParams;
+# 414 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pEwaldCosSinSum;
+# 415 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pTabulatedErfc;
+# 416 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int tabulatedErfcSize;
+# 417 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tabulatedErfcScale;
+# 418 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int3 pmeGridSize;
+# 419 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int3 pmeGroupSize;
+# 420 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+cufftComplex *pPmeGrid;
+# 421 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pPmeBsplineModuli[3];
+# 422 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPmeBsplineTheta;
+# 423 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPmeBsplineDtheta;
+# 424 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pPmeAtomRange;
+# 425 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pPmeAtomGridIndex;
+# 426 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bonds;
+# 427 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pBondID;
+# 428 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pBondParameter;
+# 429 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_angles;
+# 430 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pBondAngleID1;
+# 431 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pBondAngleID2;
+# 432 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pBondAngleParameter;
+# 433 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned dihedrals;
+# 434 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pDihedralID1;
+# 435 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pDihedralID2;
+# 436 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pDihedralParameter;
+# 437 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rb_dihedrals;
+# 438 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pRbDihedralID1;
+# 439 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pRbDihedralID2;
+# 440 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pRbDihedralParameter1;
+# 441 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pRbDihedralParameter2;
+# 442 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned LJ14s;
+# 443 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pLJ14ID;
+# 444 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pLJ14Parameter;
+# 445 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float inverseTotalMass;
+# 446 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ShakeConstraints;
+# 447 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned settleConstraints;
+# 448 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ccmaConstraints;
+# 449 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rigidClusters;
+# 450 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned maxRigidClusterSize;
+# 451 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned clusterShakeBlockSize;
+# 452 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned maxShakeIterations;
+# 453 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned degreesOfFreedom;
+# 454 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float shakeTolerance;
+# 455 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float InvMassJ;
+# 456 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pNonShakeID;
+# 457 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pShakeID;
+# 458 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pShakeParameter;
+# 459 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pSettleID;
+# 460 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pSettleParameter;
+# 461 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pExclusion;
+# 462 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pExclusionIndex;
+# 463 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_offset;
+# 464 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_angle_offset;
+# 465 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned dihedral_offset;
+# 466 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rb_dihedral_offset;
+# 467 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned LJ14_offset;
+# 468 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pAtomIndex;
+# 469 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGridBoundingBox;
+# 470 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGridCenter;
+# 471 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pCcmaAtoms;
+# 472 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCcmaDistance;
+# 473 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaDelta1;
+# 474 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaDelta2;
+# 475 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCcmaAtomConstraints;
+# 476 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCcmaNumAtomConstraints;
+# 477 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *ccmaConvergedDeviceMarker;
+# 478 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaReducedMass;
+# 479 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pConstraintMatrixColumn;
+# 480 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pConstraintMatrixValue;
+# 483 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPosq;
+# 484 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPosqP;
+# 485 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pOldPosq;
+# 486 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pVelm4;
+# 487 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pForce4;
+# 488 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pEnergy;
+# 489 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornForce;
+# 490 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornSum;
+# 491 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornRadii;
+# 492 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pObcChain;
+# 493 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pLinearMomentum;
+# 496 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pRandom4;
+# 497 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pRandom2;
+# 498 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct uint4 *pRandomSeed;
+# 499 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pRandomPosition;
+# 500 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randoms;
+# 501 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned totalRandoms;
+# 502 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randomIterations;
+# 503 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randomFrames;};
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct cudaAmoebaGmxSimulation {
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaBonds;
+# 58 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaBondID;
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaBondParameter;
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaBondCubicParameter;
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaBondQuarticicParameter;
+# 62 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaBond_offset;
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaAngles;
+# 66 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaAngleID1;
+# 67 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pAmoebaAngleID2;
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaAngleParameter;
+# 69 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaAngle_offset;
+# 71 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAngleCubicK;
+# 72 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAngleQuarticK;
+# 73 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAnglePenticK;
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAngleSexticK;
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaInPlaneAngles;
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaInPlaneAngleID1;
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaInPlaneAngleID2;
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaInPlaneAngleParameter;
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaInPlaneAngle_offset;
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAngleCubicK;
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAngleQuarticK;
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAnglePenticK;
+# 85 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAngleSexticK;
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsions;
+# 88 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionID1;
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionID2;
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pAmoebaTorsionParameter1;
+# 91 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaTorsionParameter2;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsion_offset;
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaPiTorsions;
+# 95 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaPiTorsionID1;
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaPiTorsionID2;
+# 97 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaPiTorsionID3;
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pAmoebaPiTorsionParameter;
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaPiTorsion_offset;
+# 101 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaStretchBends;
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaStretchBendID1;
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pAmoebaStretchBendID2;
+# 104 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pAmoebaStretchBendParameter;
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaStretchBend_offset;
+# 107 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaOutOfPlaneBends;
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaOutOfPlaneBendID1;
+# 109 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaOutOfPlaneBendID2;
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pAmoebaOutOfPlaneBendParameter;
+# 111 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaOutOfPlaneBend_offset;
+# 112 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendCubicK;
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendQuarticK;
+# 114 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendPenticK;
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendSexticK;
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsionTorsions;
+# 118 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionTorsionID1;
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionTorsionID2;
+# 120 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionTorsionID3;
+# 121 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsionTorsion_offset;
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int amoebaTorTorGridOffset[12];
+# 125 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int amoebaTorTorGridNy[12];
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaTorTorGridBegin[12];
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaTorTorGridDelta[12];
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pAmoebaTorsionTorsionGrids;
+# 130 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaUreyBradleys;
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaUreyBradleyID;
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaUreyBradleyParameter;
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaUreyBradleyCubicParameter;
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaUreyBradleyQuarticicParameter;
+# 135 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaUreyBradley_offset;
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float sqrtPi;
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float scalingDistanceCutoff;
+# 139 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pDampingFactorAndThole;
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int polarizationType;
+# 142 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pMultipoleParticlesIdsAndAxisType;
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pMultipoleParticlesTorqueBufferIndices;
+# 144 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int maxTorqueBufferIndex;
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pTorqueMapForce4;
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pMolecularDipole;
+# 148 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pMolecularQuadrupole;
+# 150 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pLabFrameDipole;
+# 151 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pLabFrameQuadrupole;
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipole;
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipolePolar;
+# 156 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipoleS;
+# 157 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipolePolarS;
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pTorque;
+# 161 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_3_1;
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_3_2;
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_1_1;
+# 164 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_1_2;
+# 166 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int vdwUsePBC;
+# 167 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwCutoff;
+# 168 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwCutoff2;
+# 169 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperCutoff;
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperCutoff2;
+# 171 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperDelta;
+# 174 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperTable[101];
+# 175 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdw_dTaperTable[101];
+# 177 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaVdwNonReductions;
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pAmoebaVdwNonReductionID;
+# 179 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned *pVdwWorkUnit;
+# 181 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaVdwReductions;
+# 182 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaVdwReductionID;
+# 183 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pAmoebaVdwReduction;
+# 184 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pVdwExclusionIndicesIndex;
+# 185 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pVdwExclusionIndices;
+# 189 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float epso;
+# 190 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float epsh;
+# 191 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float rmino;
+# 192 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float rminh;
+# 193 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float awater;
+# 194 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float shctd;
+# 195 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float dispoff;
+# 196 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float totalMaxWcaDispersionEnergy;
+# 197 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pWcaDispersionRadiusEpsilon;
+# 200 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pScaleIndicesIndex;
+# 201 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pD_ScaleIndices;
+# 202 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pP_ScaleIndices;
+# 203 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pM_ScaleIndices;
+# 205 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float electric;
+# 206 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float gkc;
+# 208 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float dielec;
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float dwater;
+# 210 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float fc;
+# 211 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float fd;
+# 212 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float fq;
+# 216 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pThetai1;
+# 217 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pThetai2;
+# 218 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pThetai3;
+# 219 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pIgrid;
+# 220 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhi;
+# 221 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhid;
+# 222 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhip;
+# 223 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhidp;};
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukParticle {
+# 55 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float x;
+# 56 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float y;
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float z;
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float radius;
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float scaledRadius;
+# 62 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float bornSum;};
+# 260 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukChainRuleParticle {
+# 262 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float x;
+# 263 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float y;
+# 264 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float z;
+# 266 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float radius;
+# 267 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float scaledRadius;
+# 269 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float bornRadius;
+# 270 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float bornForce;
+# 272 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float force[3];};
+#if !defined(__CUDABE__)
+# 7289 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float powf(float, float);
+#endif
+#if !defined(__CUDABE__)
+# 7358 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float sqrtf(float);
+#endif
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__(extern  __no_sc__) void _Z16loadGrycukSharedP14GrycukParticlej(struct GrycukParticle *, unsigned);
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__(extern  __no_sc__) void _Z38calculateGrycukBornRadiiPairIxn_kernelR14GrycukParticleS0_Pf(struct GrycukParticle *, struct GrycukParticle *, float *);
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__(extern  __no_sc__) void _Z29zeroGrycukParticleSharedFieldP14GrycukParticle(struct GrycukParticle *);
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+___device__(static  __no_sc__) void _Z10decodeCelljPjS_Pb(unsigned, unsigned *, unsigned *, __nv_bool *);
+# 275 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__(extern  __no_sc__) void _Z33loadGrycukChainRuleParticleSharedP23GrycukChainRuleParticlej(struct GrycukChainRuleParticle *, unsigned);
+# 290 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__(extern  __no_sc__) void _Z38zeroGrycukChainRuleParticleSharedFieldP23GrycukChainRuleParticle(struct GrycukChainRuleParticle *);
+# 300 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__(extern  __no_sc__) void _Z38calculateGrycukChainRulePairIxn_kernelR23GrycukChainRuleParticleS0_Pf(struct GrycukChainRuleParticle *, struct GrycukChainRuleParticle *, float *);
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__launch_bounds__(384,1) __global__ __var_used__ extern void _Z31kReduceGrycukGbsaBornSum_kernelv(void);
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__launch_bounds__(768,1) __global__ __var_used__ extern void _Z40kCalculateAmoebaGrycukBornRadiiN2_kernelPj(unsigned *);
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__launch_bounds__(768,1) __global__ __var_used__ extern void _Z46kCalculateAmoebaGrycukBornRadiiN2ByWarp_kernelPj(unsigned *);
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__launch_bounds__(768,1) __global__ __var_used__ extern void _Z40kCalculateAmoebaGrycukChainRuleN2_kernelPj(unsigned *);
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__launch_bounds__(768,1) __global__ __var_used__ extern void _Z46kCalculateAmoebaGrycukChainRuleN2ByWarp_kernelPj(unsigned *);
+# 30 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+static  __constant__  __var_used__ struct cudaGmxSimulation cSim;
+# 31 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+static  __constant__  __var_used__ struct cudaAmoebaGmxSimulation cAmoebaSim;
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+extern  __shared__ struct GrycukParticle sA[];
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+extern  __shared__ struct GrycukChainRuleParticle sAChainRule[];
+# 40 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv117__class_type_infoE[1];
+# 41 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv120__si_class_type_infoE[1];
+#include "common_functions.h"
+# 43 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+static  __device__  __var_used__ const long _ZTVSt9exception[5] = {0L,0L,0L,0L,0L};
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+static  __device__  __var_used__ const long _ZTVN6OpenMM15OpenMMExceptionE[5] = {0L,0L,0L,0L,0L};
+# 30 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+static  __constant__  __var_used__ float mpoleScale[5] = {(0.0F),(0.0F),(0.0F),(0.400000006F),(0.8000000119F)};
+# 31 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+static  __constant__  __var_used__ float polarScale[5] = {(0.0F),(0.0F),(0.0F),(1.0F),(1.0F)};
+# 32 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+static  __constant__  __var_used__ float directScale[5] = {(0.0F),(1.0F),(1.0F),(1.0F),(1.0F)};
+# 33 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+static  __device__  __var_used__ const long _ZTV15SoADeviceObject[6] = {0L,0L,0L,0L,0L,0L};
+# 34 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+static  __device__  __var_used__ const long _ZTV10CUDAStreamIfE[8] = {0L,0L,0L,0L,0L,0L,0L,0L};
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__( __no_sc__) void _Z16loadGrycukSharedP14GrycukParticlej(
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukParticle *sA, 
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+unsigned atomI){
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 66 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 69 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->x) = (((cSim.pPosq)[atomI]).x);
+# 70 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->y) = (((cSim.pPosq)[atomI]).y);
+# 71 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->z) = (((cSim.pPosq)[atomI]).z);
+# 73 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->radius) = (((cSim.pObcData)[atomI]).x);
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->scaledRadius) = (((cSim.pObcData)[atomI]).y);
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+} 
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}}
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__( __no_sc__) void _Z38calculateGrycukBornRadiiPairIxn_kernelR14GrycukParticleS0_Pf(
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukParticle *atomI, 
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukParticle *atomJ, 
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float *bornSum){
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59725_11_non_const_xr;
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59725_14_non_const_yr;
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59725_17_non_const_zr;
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59726_11_non_const_r;
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59726_13_non_const_r2;
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59728_11_non_const_sk;
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59728_15_non_const_sk2;
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59729_11_non_const_lik;
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59729_16_non_const_uik;
+# 91 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59730_11_non_const_lik3;
+# 91 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59730_17_non_const_uik3;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59731_11_non_const_l2;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59731_15_non_const_l4;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59731_19_non_const_lr;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59731_23_non_const_l4r;
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59732_11_non_const_u2;
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59732_15_non_const_u4;
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59732_19_non_const_ur;
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59732_23_non_const_u4r;
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59733_11_non_const_term;
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(*bornSum) = (0.0F);
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+if ((atomI->radius) <= (0.0F))
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 100 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+return;
+# 101 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59725_11_non_const_xr = ((atomJ->x) - (atomI->x));
+# 104 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59725_14_non_const_yr = ((atomJ->y) - (atomI->y));
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59725_17_non_const_zr = ((atomJ->z) - (atomI->z));
+# 107 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59726_13_non_const_r2 = (((__cuda_local_var_59725_11_non_const_xr * __cuda_local_var_59725_11_non_const_xr) + (__cuda_local_var_59725_14_non_const_yr * __cuda_local_var_59725_14_non_const_yr)) + (__cuda_local_var_59725_17_non_const_zr * __cuda_local_var_59725_17_non_const_zr));
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59726_11_non_const_r = (sqrtf(__cuda_local_var_59726_13_non_const_r2));
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59728_11_non_const_sk = (atomJ->scaledRadius);
+# 111 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59728_15_non_const_sk2 = (__cuda_local_var_59728_11_non_const_sk * __cuda_local_var_59728_11_non_const_sk);
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+if (((atomI->radius) + __cuda_local_var_59726_11_non_const_r) < __cuda_local_var_59728_11_non_const_sk)
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 114 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59729_11_non_const_lik = (atomI->radius);
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59729_16_non_const_uik = (__cuda_local_var_59728_11_non_const_sk - __cuda_local_var_59726_11_non_const_r);
+# 116 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59730_11_non_const_lik3 = ((__cuda_local_var_59729_11_non_const_lik * __cuda_local_var_59729_11_non_const_lik) * __cuda_local_var_59729_11_non_const_lik);
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59730_17_non_const_uik3 = ((__cuda_local_var_59729_16_non_const_uik * __cuda_local_var_59729_16_non_const_uik) * __cuda_local_var_59729_16_non_const_uik);
+# 118 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(*bornSum) -= (((1.0F) / __cuda_local_var_59730_17_non_const_uik3) - ((1.0F) / __cuda_local_var_59730_11_non_const_lik3));
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 121 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59729_16_non_const_uik = (__cuda_local_var_59726_11_non_const_r + __cuda_local_var_59728_11_non_const_sk);
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+if (((atomI->radius) + __cuda_local_var_59726_11_non_const_r) < __cuda_local_var_59728_11_non_const_sk)
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59729_11_non_const_lik = (__cuda_local_var_59728_11_non_const_sk - __cuda_local_var_59726_11_non_const_r);
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+else 
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+if (__cuda_local_var_59726_11_non_const_r < ((atomI->radius) + __cuda_local_var_59728_11_non_const_sk))
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 125 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59729_11_non_const_lik = (atomI->radius);
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+else 
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59729_11_non_const_lik = (__cuda_local_var_59726_11_non_const_r - __cuda_local_var_59728_11_non_const_sk);
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 130 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59731_11_non_const_l2 = (__cuda_local_var_59729_11_non_const_lik * __cuda_local_var_59729_11_non_const_lik);
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59731_15_non_const_l4 = (__cuda_local_var_59731_11_non_const_l2 * __cuda_local_var_59731_11_non_const_l2);
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59731_19_non_const_lr = (__cuda_local_var_59729_11_non_const_lik * __cuda_local_var_59726_11_non_const_r);
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59731_23_non_const_l4r = (__cuda_local_var_59731_15_non_const_l4 * __cuda_local_var_59726_11_non_const_r);
+# 135 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59732_11_non_const_u2 = (__cuda_local_var_59729_16_non_const_uik * __cuda_local_var_59729_16_non_const_uik);
+# 136 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59732_15_non_const_u4 = (__cuda_local_var_59732_11_non_const_u2 * __cuda_local_var_59732_11_non_const_u2);
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59732_19_non_const_ur = (__cuda_local_var_59729_16_non_const_uik * __cuda_local_var_59726_11_non_const_r);
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59732_23_non_const_u4r = (__cuda_local_var_59732_15_non_const_u4 * __cuda_local_var_59726_11_non_const_r);
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59733_11_non_const_term = ((float)((fdividef(((double)((((3.0F) * (__cuda_local_var_59726_13_non_const_r2 - __cuda_local_var_59728_15_non_const_sk2)) + ((6.0F) * __cuda_local_var_59732_11_non_const_u2)) - ((8.0F) * __cuda_local_var_59732_19_non_const_ur))), ((double)__cuda_local_var_59732_23_non_const_u4r))) - (fdividef(((double)((((3.0F) * (__cuda_local_var_59726_13_non_const_r2 - __cuda_local_var_59728_15_non_const_sk2)) + ((6.0F) * __cuda_local_var_59731_11_non_const_l2)) - ((8.0F) * __cuda_local_var_59731_19_non_const_lr))), ((double)__cuda_local_var_59731_23_non_const_l4r)))));
+# 141 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(*bornSum) += ((float)(fdividef(((double)__cuda_local_var_59733_11_non_const_term), (16.0))));
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+} 
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}}
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__( __no_sc__) void _Z29zeroGrycukParticleSharedFieldP14GrycukParticle(
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukParticle *sA){
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 146 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->bornSum) = (0.0F);
+# 148 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+} 
+# 148 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}}
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+___device__(static  __no_sc__) void _Z10decodeCelljPjS_Pb(
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+unsigned cellId, 
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+unsigned *x, 
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+unsigned *y, 
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+__nv_bool *exclusions){
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+{
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+{
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(*x) = cellId;
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(*y) = ((((*x) >> 2) & 32767U) << 5U);
+# 81 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(*exclusions) = ((__nv_bool)(((*x) & 1U) != 0U));
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(*x) = (((*x) >> 17) << 5U);
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+} 
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+}}
+# 275 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__( __no_sc__) void _Z33loadGrycukChainRuleParticleSharedP23GrycukChainRuleParticlej(
+# 275 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukChainRuleParticle *sA, 
+# 275 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+unsigned atomI){
+# 275 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 276 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 279 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->x) = (((cSim.pPosq)[atomI]).x);
+# 280 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->y) = (((cSim.pPosq)[atomI]).y);
+# 281 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->z) = (((cSim.pPosq)[atomI]).z);
+# 283 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->radius) = (((cSim.pObcData)[atomI]).x);
+# 284 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->scaledRadius) = (((cSim.pObcData)[atomI]).y);
+# 285 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->bornRadius) = ((cSim.pBornRadii)[atomI]);
+# 286 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(sA->bornForce) = ((cSim.pBornForce)[atomI]);
+# 288 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+} 
+# 288 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}}
+# 290 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__( __no_sc__) void _Z38zeroGrycukChainRuleParticleSharedFieldP23GrycukChainRuleParticle(
+# 290 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukChainRuleParticle *sA){
+# 290 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 291 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 294 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(((sA->force))[0]) = (0.0F);
+# 295 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(((sA->force))[1]) = (0.0F);
+# 296 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(((sA->force))[2]) = (0.0F);
+# 298 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+} 
+# 298 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}}
+# 300 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+___device__( __no_sc__) void _Z38calculateGrycukChainRulePairIxn_kernelR23GrycukChainRuleParticleS0_Pf(
+# 300 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukChainRuleParticle *atomI, 
+# 300 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+struct GrycukChainRuleParticle *atomJ, 
+# 300 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+float *force){
+# 300 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 300 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 302 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60255_17_const_pi;
+# 303 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60256_11_non_const_third;
+# 304 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60257_11_non_const_pi43;
+# 306 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60259_11_non_const_lik;
+# 306 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60259_16_non_const_uik;
+# 307 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60260_11_non_const_lik4;
+# 307 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60260_17_non_const_uik4;
+# 308 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60261_11_non_const_factor;
+# 309 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60262_11_non_const_term;
+# 312 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60265_11_non_const_xr;
+# 313 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60266_11_non_const_yr;
+# 314 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60267_11_non_const_zr;
+# 316 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60269_11_non_const_sk;
+# 317 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60270_11_non_const_sk2;
+# 318 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60271_11_non_const_r2;
+# 319 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60272_11_non_const_r;
+# 320 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60273_11_non_const_de;
+# 351 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60304_11_non_const_dbr;
+# 302 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60255_17_const_pi = (3.141592741F);
+# 303 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60256_11_non_const_third = (0.3333333433F);
+# 304 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60257_11_non_const_pi43 = (((4.0F) * __cuda_local_var_60256_11_non_const_third) * (3.141592741F));
+# 308 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60261_11_non_const_factor = ((float)(fdividef(((double)((-(powf((3.141592741F), __cuda_local_var_60256_11_non_const_third))) * (powf((6.0F), ((2.0F) * __cuda_local_var_60256_11_non_const_third))))), (9.0))));
+# 309 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60262_11_non_const_term = ((float)(fdividef(((double)__cuda_local_var_60257_11_non_const_pi43), ((double)(((atomI->bornRadius) * (atomI->bornRadius)) * (atomI->bornRadius))))));
+# 310 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60262_11_non_const_term = ((float)(fdividef(((double)__cuda_local_var_60261_11_non_const_factor), ((double)(powf(__cuda_local_var_60262_11_non_const_term, ((4.0F) * __cuda_local_var_60256_11_non_const_third)))))));
+# 312 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60265_11_non_const_xr = ((atomJ->x) - (atomI->x));
+# 313 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60266_11_non_const_yr = ((atomJ->y) - (atomI->y));
+# 314 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60267_11_non_const_zr = ((atomJ->z) - (atomI->z));
+# 316 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60269_11_non_const_sk = (atomJ->scaledRadius);
+# 317 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60270_11_non_const_sk2 = (__cuda_local_var_60269_11_non_const_sk * __cuda_local_var_60269_11_non_const_sk);
+# 318 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60271_11_non_const_r2 = (((__cuda_local_var_60265_11_non_const_xr * __cuda_local_var_60265_11_non_const_xr) + (__cuda_local_var_60266_11_non_const_yr * __cuda_local_var_60266_11_non_const_yr)) + (__cuda_local_var_60267_11_non_const_zr * __cuda_local_var_60267_11_non_const_zr));
+# 319 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60272_11_non_const_r = (sqrtf(__cuda_local_var_60271_11_non_const_r2));
+# 320 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60273_11_non_const_de = (0.0F);
+# 322 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+if (((atomI->radius) + __cuda_local_var_60272_11_non_const_r) < __cuda_local_var_60269_11_non_const_sk)
+# 322 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 323 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_60276_15_non_const_uik4;
+# 324 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60259_16_non_const_uik = (__cuda_local_var_60269_11_non_const_sk - __cuda_local_var_60272_11_non_const_r);
+# 325 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60276_15_non_const_uik4 = (__cuda_local_var_60259_16_non_const_uik * __cuda_local_var_60259_16_non_const_uik);
+# 326 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60276_15_non_const_uik4 = (__cuda_local_var_60276_15_non_const_uik4 * __cuda_local_var_60276_15_non_const_uik4);
+# 327 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60273_11_non_const_de = ((float)(fdividef((-12.56637096405029297), ((double)__cuda_local_var_60276_15_non_const_uik4))));
+# 328 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 330 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+if (((atomI->radius) + __cuda_local_var_60272_11_non_const_r) < __cuda_local_var_60269_11_non_const_sk)
+# 330 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 331 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60259_11_non_const_lik = (__cuda_local_var_60269_11_non_const_sk - __cuda_local_var_60272_11_non_const_r);
+# 332 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60260_11_non_const_lik4 = (__cuda_local_var_60259_11_non_const_lik * __cuda_local_var_60259_11_non_const_lik);
+# 333 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60260_11_non_const_lik4 = (__cuda_local_var_60260_11_non_const_lik4 * __cuda_local_var_60260_11_non_const_lik4);
+# 334 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60273_11_non_const_de += ((float)(fdividef(((double)((0.7853981853F) * ((__cuda_local_var_60270_11_non_const_sk2 - (((4.0F) * __cuda_local_var_60269_11_non_const_sk) * __cuda_local_var_60272_11_non_const_r)) + ((17.0F) * __cuda_local_var_60271_11_non_const_r2)))), ((double)(__cuda_local_var_60271_11_non_const_r2 * __cuda_local_var_60260_11_non_const_lik4)))));
+# 335 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 335 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+else 
+# 335 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 335 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+if (__cuda_local_var_60272_11_non_const_r < ((atomI->radius) + __cuda_local_var_60269_11_non_const_sk))
+# 335 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 336 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60259_11_non_const_lik = (atomI->radius);
+# 337 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60260_11_non_const_lik4 = (__cuda_local_var_60259_11_non_const_lik * __cuda_local_var_60259_11_non_const_lik);
+# 338 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60260_11_non_const_lik4 = (__cuda_local_var_60260_11_non_const_lik4 * __cuda_local_var_60260_11_non_const_lik4);
+# 339 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60273_11_non_const_de += ((float)(fdividef(((double)((0.7853981853F) * (((((2.0F) * (atomI->radius)) * (atomI->radius)) - __cuda_local_var_60270_11_non_const_sk2) - __cuda_local_var_60271_11_non_const_r2))), ((double)(__cuda_local_var_60271_11_non_const_r2 * __cuda_local_var_60260_11_non_const_lik4)))));
+# 340 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 340 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+else 
+# 340 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 341 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60259_11_non_const_lik = (__cuda_local_var_60272_11_non_const_r - __cuda_local_var_60269_11_non_const_sk);
+# 342 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60260_11_non_const_lik4 = (__cuda_local_var_60259_11_non_const_lik * __cuda_local_var_60259_11_non_const_lik);
+# 343 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60260_11_non_const_lik4 = (__cuda_local_var_60260_11_non_const_lik4 * __cuda_local_var_60260_11_non_const_lik4);
+# 344 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60273_11_non_const_de += ((float)(fdividef(((double)((0.7853981853F) * ((__cuda_local_var_60270_11_non_const_sk2 - (((4.0F) * __cuda_local_var_60269_11_non_const_sk) * __cuda_local_var_60272_11_non_const_r)) + __cuda_local_var_60271_11_non_const_r2))), ((double)(__cuda_local_var_60271_11_non_const_r2 * __cuda_local_var_60260_11_non_const_lik4)))));
+# 345 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 345 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 346 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60259_16_non_const_uik = (__cuda_local_var_60272_11_non_const_r + __cuda_local_var_60269_11_non_const_sk);
+# 347 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60260_17_non_const_uik4 = (__cuda_local_var_60259_16_non_const_uik * __cuda_local_var_60259_16_non_const_uik);
+# 348 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60260_17_non_const_uik4 = (__cuda_local_var_60260_17_non_const_uik4 * __cuda_local_var_60260_17_non_const_uik4);
+# 350 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60273_11_non_const_de -= ((float)(fdividef(((double)((0.7853981853F) * ((__cuda_local_var_60270_11_non_const_sk2 + (((4.0F) * __cuda_local_var_60269_11_non_const_sk) * __cuda_local_var_60272_11_non_const_r)) + __cuda_local_var_60271_11_non_const_r2))), ((double)(__cuda_local_var_60271_11_non_const_r2 * __cuda_local_var_60260_17_non_const_uik4)))));
+# 351 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60304_11_non_const_dbr = ((float)(fdividef(((double)(__cuda_local_var_60262_11_non_const_term * __cuda_local_var_60273_11_non_const_de)), ((double)__cuda_local_var_60272_11_non_const_r))));
+# 352 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_60273_11_non_const_de = (__cuda_local_var_60304_11_non_const_dbr * (atomI->bornForce));
+# 354 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(force[0]) = (__cuda_local_var_60265_11_non_const_xr * __cuda_local_var_60273_11_non_const_de);
+# 355 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(force[1]) = (__cuda_local_var_60266_11_non_const_yr * __cuda_local_var_60273_11_non_const_de);
+# 356 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+(force[2]) = (__cuda_local_var_60267_11_non_const_zr * __cuda_local_var_60273_11_non_const_de);
+# 357 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+} 
+# 357 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}}
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__launch_bounds__(384,1) __global__ __var_used__ void _Z31kReduceGrycukGbsaBornSum_kernelv(void){
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ unsigned __cuda_local_var_59793_18_non_const_pos;
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59793_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 156 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+while (__cuda_local_var_59793_18_non_const_pos < (cSim.atoms))
+# 157 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 158 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59797_15_non_const_sum;
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float *__cuda_local_var_59798_16_non_const_pSt;
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ float __cuda_local_var_59809_15_non_const_radius;
+# 158 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59797_15_non_const_sum = (0.0F);
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59798_16_non_const_pSt = ((cSim.pBornSum) + __cuda_local_var_59793_18_non_const_pos);
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+ int i;
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+i = 0;
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+for (; (((unsigned)i) < (cSim.nonbondOutputBuffers)); i++)
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+{
+# 164 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59797_15_non_const_sum += (*__cuda_local_var_59798_16_non_const_pSt);
+# 165 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59798_16_non_const_pSt += (cSim.stride);
+# 166 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 166 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59809_15_non_const_radius = (((cSim.pObcData)[__cuda_local_var_59793_18_non_const_pos]).x);
+# 171 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59809_15_non_const_radius = ((1.0F) / ((__cuda_local_var_59809_15_non_const_radius * __cuda_local_var_59809_15_non_const_radius) * __cuda_local_var_59809_15_non_const_radius));
+# 172 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59797_15_non_const_sum = (__cuda_local_var_59809_15_non_const_radius - __cuda_local_var_59797_15_non_const_sum);
+# 173 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59797_15_non_const_sum = ((__cuda_local_var_59797_15_non_const_sum <= (0.0F)) ? (1000.0F) : (powf(__cuda_local_var_59797_15_non_const_sum, (-0.3333333433F))));
+# 174 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+((cSim.pBornRadii)[__cuda_local_var_59793_18_non_const_pos]) = __cuda_local_var_59797_15_non_const_sum;
+# 176 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+__cuda_local_var_59793_18_non_const_pos += ((gridDim.x) * (blockDim.x));
+# 177 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+} 
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycuk.cu"
+}}
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__launch_bounds__(768,1) __global__ __var_used__ void _Z40kCalculateAmoebaGrycukBornRadiiN2_kernelPj(
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+unsigned *workUnit){
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 41 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59972_18_non_const_totalWarps;
+# 42 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59973_18_non_const_warp;
+# 43 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59974_18_non_const_numWorkUnits;
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59975_18_non_const_pos;
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59976_18_non_const_end;
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59977_18_non_const_lasty;
+# 41 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59972_18_non_const_totalWarps = (((gridDim.x) * (blockDim.x)) / 32U);
+# 42 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59973_18_non_const_warp = ((((blockIdx.x) * (blockDim.x)) + (threadIdx.x)) / 32U);
+# 43 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59974_18_non_const_numWorkUnits = ((unsigned)((cSim.pInteractionCount)[0]));
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59975_18_non_const_pos = ((__cuda_local_var_59973_18_non_const_warp * __cuda_local_var_59974_18_non_const_numWorkUnits) / __cuda_local_var_59972_18_non_const_totalWarps);
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59976_18_non_const_end = (((__cuda_local_var_59973_18_non_const_warp + 1U) * __cuda_local_var_59974_18_non_const_numWorkUnits) / __cuda_local_var_59972_18_non_const_totalWarps);
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59977_18_non_const_lasty = 4294967295U;
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+while (__cuda_local_var_59975_18_non_const_pos < __cuda_local_var_59976_18_non_const_end)
+# 49 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 51 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59982_22_non_const_x;
+# 52 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59983_22_non_const_y;
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ __nv_bool __cuda_local_var_59984_14_non_const_bExclusionFlag;
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59990_22_non_const_tgx;
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59991_22_non_const_tbx;
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59992_22_non_const_tj;
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ struct GrycukParticle *__cuda_local_var_59994_25_non_const_psA;
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_59995_22_non_const_atomI;
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ struct GrycukParticle __cuda_local_var_59996_24_non_const_localParticle;
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ float __cuda_local_var_59999_15_non_const_bornSum;
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z10decodeCelljPjS_Pb((workUnit[__cuda_local_var_59975_18_non_const_pos]), (&__cuda_local_var_59982_22_non_const_x), (&__cuda_local_var_59983_22_non_const_y), (&__cuda_local_var_59984_14_non_const_bExclusionFlag));
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59990_22_non_const_tgx = ((threadIdx.x) & 31U);
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59991_22_non_const_tbx = ((threadIdx.x) - __cuda_local_var_59990_22_non_const_tgx);
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59992_22_non_const_tj = __cuda_local_var_59990_22_non_const_tgx;
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59994_25_non_const_psA = ((sA) + __cuda_local_var_59991_22_non_const_tbx);
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59995_22_non_const_atomI = (__cuda_local_var_59982_22_non_const_x + __cuda_local_var_59990_22_non_const_tgx);
+# 66 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z16loadGrycukSharedP14GrycukParticlej((&__cuda_local_var_59996_24_non_const_localParticle), __cuda_local_var_59995_22_non_const_atomI);
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59999_15_non_const_bornSum = (0.0F);
+# 70 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+if (__cuda_local_var_59982_22_non_const_x == __cuda_local_var_59983_22_non_const_y)
+# 71 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60021_26_non_const_offset;
+# 75 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z16loadGrycukSharedP14GrycukParticlej(((sA) + (threadIdx.x)), __cuda_local_var_59995_22_non_const_atomI);
+# 75 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned j;
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+j = 0U;
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+for (; (j < 32U); j++)
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ float __cuda_local_var_60010_23_non_const_localBornSum;
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z38calculateGrycukBornRadiiPairIxn_kernelR14GrycukParticleS0_Pf((&__cuda_local_var_59996_24_non_const_localParticle), (__cuda_local_var_59994_25_non_const_psA + j), (&__cuda_local_var_60010_23_non_const_localBornSum));
+# 81 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59999_15_non_const_bornSum += ((((__cuda_local_var_59995_22_non_const_atomI == (__cuda_local_var_59983_22_non_const_y + j)) || (__cuda_local_var_59995_22_non_const_atomI >= (cSim.atoms))) || ((__cuda_local_var_59983_22_non_const_y + j) >= (cSim.atoms))) ? (0.0) : ((double)__cuda_local_var_60010_23_non_const_localBornSum));
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60021_26_non_const_offset = ((__cuda_local_var_59982_22_non_const_x + __cuda_local_var_59990_22_non_const_tgx) + ((__cuda_local_var_59983_22_non_const_y >> 5U) * (cSim.stride)));
+# 91 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+((cSim.pBornSum)[__cuda_local_var_60021_26_non_const_offset]) = __cuda_local_var_59999_15_non_const_bornSum;
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+else 
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 130 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60050_26_non_const_offset;
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+if (__cuda_local_var_59977_18_non_const_lasty != __cuda_local_var_59983_22_non_const_y)
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 97 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60028_30_non_const_atomJ;
+# 97 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60028_30_non_const_atomJ = (__cuda_local_var_59983_22_non_const_y + __cuda_local_var_59990_22_non_const_tgx);
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z16loadGrycukSharedP14GrycukParticlej(((sA) + (threadIdx.x)), __cuda_local_var_60028_30_non_const_atomJ);
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z29zeroGrycukParticleSharedFieldP14GrycukParticle(((sA) + (threadIdx.x)));
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned j;
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+j = 0U;
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+for (; (j < 32U); j++)
+# 106 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ float __cuda_local_var_60039_23_non_const_localBornSum;
+# 109 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z38calculateGrycukBornRadiiPairIxn_kernelR14GrycukParticleS0_Pf((&__cuda_local_var_59996_24_non_const_localParticle), (__cuda_local_var_59994_25_non_const_psA + __cuda_local_var_59992_22_non_const_tj), (&__cuda_local_var_60039_23_non_const_localBornSum));
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59999_15_non_const_bornSum += (((__cuda_local_var_59995_22_non_const_atomI >= (cSim.atoms)) || ((__cuda_local_var_59983_22_non_const_y + __cuda_local_var_59992_22_non_const_tj) >= (cSim.atoms))) ? (0.0) : ((double)__cuda_local_var_60039_23_non_const_localBornSum));
+# 112 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z38calculateGrycukBornRadiiPairIxn_kernelR14GrycukParticleS0_Pf((__cuda_local_var_59994_25_non_const_psA + __cuda_local_var_59992_22_non_const_tj), (&__cuda_local_var_59996_24_non_const_localParticle), (&__cuda_local_var_60039_23_non_const_localBornSum));
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+((__cuda_local_var_59994_25_non_const_psA[__cuda_local_var_59992_22_non_const_tj]).bornSum) += (((__cuda_local_var_59995_22_non_const_atomI >= (cSim.atoms)) || ((__cuda_local_var_59983_22_non_const_y + __cuda_local_var_59992_22_non_const_tj) >= (cSim.atoms))) ? (0.0) : ((double)__cuda_local_var_60039_23_non_const_localBornSum));
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59992_22_non_const_tj = ((__cuda_local_var_59992_22_non_const_tj + 1U) & 31U);
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 130 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60050_26_non_const_offset = ((__cuda_local_var_59982_22_non_const_x + __cuda_local_var_59990_22_non_const_tgx) + ((__cuda_local_var_59983_22_non_const_y >> 5U) * (cSim.stride)));
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+((cSim.pBornSum)[__cuda_local_var_60050_26_non_const_offset]) = __cuda_local_var_59999_15_non_const_bornSum;
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60050_26_non_const_offset = ((__cuda_local_var_59983_22_non_const_y + __cuda_local_var_59990_22_non_const_tgx) + ((__cuda_local_var_59982_22_non_const_x >> 5U) * (cSim.stride)));
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+((cSim.pBornSum)[__cuda_local_var_60050_26_non_const_offset]) = (((sA)[(threadIdx.x)]).bornSum);
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59977_18_non_const_lasty = __cuda_local_var_59983_22_non_const_y;
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_59975_18_non_const_pos++;
+# 141 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 142 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+} 
+# 142 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}}
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__launch_bounds__(768,1) __global__ __var_used__ void _Z46kCalculateAmoebaGrycukBornRadiiN2ByWarp_kernelPj(
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+unsigned *workUnit){
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 41 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60081_18_non_const_totalWarps;
+# 42 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60082_18_non_const_warp;
+# 43 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60083_18_non_const_numWorkUnits;
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60084_18_non_const_pos;
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60085_18_non_const_end;
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60086_18_non_const_lasty;
+# 41 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60081_18_non_const_totalWarps = (((gridDim.x) * (blockDim.x)) / 32U);
+# 42 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60082_18_non_const_warp = ((((blockIdx.x) * (blockDim.x)) + (threadIdx.x)) / 32U);
+# 43 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60083_18_non_const_numWorkUnits = ((unsigned)((cSim.pInteractionCount)[0]));
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60084_18_non_const_pos = ((__cuda_local_var_60082_18_non_const_warp * __cuda_local_var_60083_18_non_const_numWorkUnits) / __cuda_local_var_60081_18_non_const_totalWarps);
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60085_18_non_const_end = (((__cuda_local_var_60082_18_non_const_warp + 1U) * __cuda_local_var_60083_18_non_const_numWorkUnits) / __cuda_local_var_60081_18_non_const_totalWarps);
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60086_18_non_const_lasty = 4294967295U;
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+while (__cuda_local_var_60084_18_non_const_pos < __cuda_local_var_60085_18_non_const_end)
+# 49 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 51 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60091_22_non_const_x;
+# 52 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60092_22_non_const_y;
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ __nv_bool __cuda_local_var_60093_14_non_const_bExclusionFlag;
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60099_22_non_const_tgx;
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60100_22_non_const_tbx;
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60101_22_non_const_tj;
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ struct GrycukParticle *__cuda_local_var_60103_25_non_const_psA;
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60104_22_non_const_atomI;
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ struct GrycukParticle __cuda_local_var_60105_24_non_const_localParticle;
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ float __cuda_local_var_60108_15_non_const_bornSum;
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z10decodeCelljPjS_Pb((workUnit[__cuda_local_var_60084_18_non_const_pos]), (&__cuda_local_var_60091_22_non_const_x), (&__cuda_local_var_60092_22_non_const_y), (&__cuda_local_var_60093_14_non_const_bExclusionFlag));
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60099_22_non_const_tgx = ((threadIdx.x) & 31U);
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60100_22_non_const_tbx = ((threadIdx.x) - __cuda_local_var_60099_22_non_const_tgx);
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60101_22_non_const_tj = __cuda_local_var_60099_22_non_const_tgx;
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60103_25_non_const_psA = ((sA) + __cuda_local_var_60100_22_non_const_tbx);
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60104_22_non_const_atomI = (__cuda_local_var_60091_22_non_const_x + __cuda_local_var_60099_22_non_const_tgx);
+# 66 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z16loadGrycukSharedP14GrycukParticlej((&__cuda_local_var_60105_24_non_const_localParticle), __cuda_local_var_60104_22_non_const_atomI);
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60108_15_non_const_bornSum = (0.0F);
+# 70 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+if (__cuda_local_var_60091_22_non_const_x == __cuda_local_var_60092_22_non_const_y)
+# 71 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60127_26_non_const_offset;
+# 75 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z16loadGrycukSharedP14GrycukParticlej(((sA) + (threadIdx.x)), __cuda_local_var_60104_22_non_const_atomI);
+# 75 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned j;
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+j = 0U;
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+for (; (j < 32U); j++)
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ float __cuda_local_var_60119_23_non_const_localBornSum;
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z38calculateGrycukBornRadiiPairIxn_kernelR14GrycukParticleS0_Pf((&__cuda_local_var_60105_24_non_const_localParticle), (__cuda_local_var_60103_25_non_const_psA + j), (&__cuda_local_var_60119_23_non_const_localBornSum));
+# 81 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60108_15_non_const_bornSum += ((((__cuda_local_var_60104_22_non_const_atomI == (__cuda_local_var_60092_22_non_const_y + j)) || (__cuda_local_var_60104_22_non_const_atomI >= (cSim.atoms))) || ((__cuda_local_var_60092_22_non_const_y + j) >= (cSim.atoms))) ? (0.0) : ((double)__cuda_local_var_60119_23_non_const_localBornSum));
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60127_26_non_const_offset = ((__cuda_local_var_60091_22_non_const_x + __cuda_local_var_60099_22_non_const_tgx) + (__cuda_local_var_60082_18_non_const_warp * (cSim.stride)));
+# 88 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+((cSim.pBornSum)[__cuda_local_var_60127_26_non_const_offset]) += __cuda_local_var_60108_15_non_const_bornSum;
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+else 
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60163_26_non_const_offset;
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+if (__cuda_local_var_60086_18_non_const_lasty != __cuda_local_var_60092_22_non_const_y)
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 97 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned __cuda_local_var_60137_30_non_const_atomJ;
+# 97 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60137_30_non_const_atomJ = (__cuda_local_var_60092_22_non_const_y + __cuda_local_var_60099_22_non_const_tgx);
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z16loadGrycukSharedP14GrycukParticlej(((sA) + (threadIdx.x)), __cuda_local_var_60137_30_non_const_atomJ);
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z29zeroGrycukParticleSharedFieldP14GrycukParticle(((sA) + (threadIdx.x)));
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ unsigned j;
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+j = 0U;
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+for (; (j < 32U); j++)
+# 106 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+{
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+ float __cuda_local_var_60148_23_non_const_localBornSum;
+# 109 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z38calculateGrycukBornRadiiPairIxn_kernelR14GrycukParticleS0_Pf((&__cuda_local_var_60105_24_non_const_localParticle), (__cuda_local_var_60103_25_non_const_psA + __cuda_local_var_60101_22_non_const_tj), (&__cuda_local_var_60148_23_non_const_localBornSum));
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60108_15_non_const_bornSum += (((__cuda_local_var_60104_22_non_const_atomI >= (cSim.atoms)) || ((__cuda_local_var_60092_22_non_const_y + __cuda_local_var_60101_22_non_const_tj) >= (cSim.atoms))) ? (0.0) : ((double)__cuda_local_var_60148_23_non_const_localBornSum));
+# 112 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+_Z38calculateGrycukBornRadiiPairIxn_kernelR14GrycukParticleS0_Pf((__cuda_local_var_60103_25_non_const_psA + __cuda_local_var_60101_22_non_const_tj), (&__cuda_local_var_60105_24_non_const_localParticle), (&__cuda_local_var_60148_23_non_const_localBornSum));
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+((__cuda_local_var_60103_25_non_const_psA[__cuda_local_var_60101_22_non_const_tj]).bornSum) += (((__cuda_local_var_60104_22_non_const_atomI >= (cSim.atoms)) || ((__cuda_local_var_60092_22_non_const_y + __cuda_local_var_60101_22_non_const_tj) >= (cSim.atoms))) ? (0.0) : ((double)__cuda_local_var_60148_23_non_const_localBornSum));
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60101_22_non_const_tj = ((__cuda_local_var_60101_22_non_const_tj + 1U) & 31U);
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60163_26_non_const_offset = ((__cuda_local_var_60091_22_non_const_x + __cuda_local_var_60099_22_non_const_tgx) + (__cuda_local_var_60082_18_non_const_warp * (cSim.stride)));
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+((cSim.pBornSum)[__cuda_local_var_60163_26_non_const_offset]) += __cuda_local_var_60108_15_non_const_bornSum;
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60163_26_non_const_offset = ((__cuda_local_var_60092_22_non_const_y + __cuda_local_var_60099_22_non_const_tgx) + (__cuda_local_var_60082_18_non_const_warp * (cSim.stride)));
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+((cSim.pBornSum)[__cuda_local_var_60163_26_non_const_offset]) += (((sA)[(threadIdx.x)]).bornSum);
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60086_18_non_const_lasty = __cuda_local_var_60092_22_non_const_y;
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+__cuda_local_var_60084_18_non_const_pos++;
+# 141 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}
+# 142 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+} 
+# 142 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukBornRadii.h"
+}}
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__launch_bounds__(768,1) __global__ __var_used__ void _Z40kCalculateAmoebaGrycukChainRuleN2_kernelPj(
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+unsigned *workUnit){
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 41 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60331_18_non_const_totalWarps;
+# 42 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60332_18_non_const_warp;
+# 43 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60333_18_non_const_numWorkUnits;
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60334_18_non_const_pos;
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60335_18_non_const_end;
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60336_18_non_const_lasty;
+# 41 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60331_18_non_const_totalWarps = (((gridDim.x) * (blockDim.x)) / 32U);
+# 42 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60332_18_non_const_warp = ((((blockIdx.x) * (blockDim.x)) + (threadIdx.x)) / 32U);
+# 43 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60333_18_non_const_numWorkUnits = ((unsigned)((cSim.pInteractionCount)[0]));
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60334_18_non_const_pos = ((__cuda_local_var_60332_18_non_const_warp * __cuda_local_var_60333_18_non_const_numWorkUnits) / __cuda_local_var_60331_18_non_const_totalWarps);
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60335_18_non_const_end = (((__cuda_local_var_60332_18_non_const_warp + 1U) * __cuda_local_var_60333_18_non_const_numWorkUnits) / __cuda_local_var_60331_18_non_const_totalWarps);
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60336_18_non_const_lasty = 4294967295U;
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+while (__cuda_local_var_60334_18_non_const_pos < __cuda_local_var_60335_18_non_const_end)
+# 49 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 51 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60341_22_non_const_x;
+# 52 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60342_22_non_const_y;
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ __nv_bool __cuda_local_var_60343_14_non_const_bExclusionFlag;
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60349_22_non_const_tgx;
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60350_22_non_const_tbx;
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60351_22_non_const_tj;
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ struct GrycukChainRuleParticle *__cuda_local_var_60353_34_non_const_psAChainRule;
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60354_22_non_const_atomI;
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ struct GrycukChainRuleParticle __cuda_local_var_60355_33_non_const_localParticle;
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z10decodeCelljPjS_Pb((workUnit[__cuda_local_var_60334_18_non_const_pos]), (&__cuda_local_var_60341_22_non_const_x), (&__cuda_local_var_60342_22_non_const_y), (&__cuda_local_var_60343_14_non_const_bExclusionFlag));
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60349_22_non_const_tgx = ((threadIdx.x) & 31U);
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60350_22_non_const_tbx = ((threadIdx.x) - __cuda_local_var_60349_22_non_const_tgx);
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60351_22_non_const_tj = __cuda_local_var_60349_22_non_const_tgx;
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60353_34_non_const_psAChainRule = ((sAChainRule) + __cuda_local_var_60350_22_non_const_tbx);
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60354_22_non_const_atomI = (__cuda_local_var_60341_22_non_const_x + __cuda_local_var_60349_22_non_const_tgx);
+# 66 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z33loadGrycukChainRuleParticleSharedP23GrycukChainRuleParticlej((&__cuda_local_var_60355_33_non_const_localParticle), __cuda_local_var_60354_22_non_const_atomI);
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38zeroGrycukChainRuleParticleSharedFieldP23GrycukChainRuleParticle((&__cuda_local_var_60355_33_non_const_localParticle));
+# 70 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+if (__cuda_local_var_60341_22_non_const_x == __cuda_local_var_60342_22_non_const_y)
+# 70 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ struct float4 __cuda_local_var_60386_20_non_const_of;
+# 100 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60390_26_non_const_offset;
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z33loadGrycukChainRuleParticleSharedP23GrycukChainRuleParticlej(((sAChainRule) + (threadIdx.x)), __cuda_local_var_60354_22_non_const_atomI);
+# 75 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38zeroGrycukChainRuleParticleSharedFieldP23GrycukChainRuleParticle(((sAChainRule) + (threadIdx.x)));
+# 75 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned j;
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+j = ((__cuda_local_var_60349_22_non_const_tgx + 1U) & 31U);
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+for (; (j != __cuda_local_var_60349_22_non_const_tgx); j = ((j + 1U) & 31U))
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ float __cuda_local_var_60369_23_non_const_localForce[3];
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38calculateGrycukChainRulePairIxn_kernelR23GrycukChainRuleParticleS0_Pf((&__cuda_local_var_60355_33_non_const_localParticle), (__cuda_local_var_60353_34_non_const_psAChainRule + j), (__cuda_local_var_60369_23_non_const_localForce));
+# 81 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+if (((__cuda_local_var_60354_22_non_const_atomI != (__cuda_local_var_60342_22_non_const_y + j)) && (__cuda_local_var_60354_22_non_const_atomI < (cSim.atoms))) && ((__cuda_local_var_60342_22_non_const_y + j) < (cSim.atoms)))
+# 81 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60355_33_non_const_localParticle.force))[0]) -= ((__cuda_local_var_60369_23_non_const_localForce)[0]);
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60355_33_non_const_localParticle.force))[1]) -= ((__cuda_local_var_60369_23_non_const_localForce)[1]);
+# 85 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60355_33_non_const_localParticle.force))[2]) -= ((__cuda_local_var_60369_23_non_const_localForce)[2]);
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60353_34_non_const_psAChainRule[j]).force))[0]) += ((__cuda_local_var_60369_23_non_const_localForce)[0]);
+# 88 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60353_34_non_const_psAChainRule[j]).force))[1]) += ((__cuda_local_var_60369_23_non_const_localForce)[1]);
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60353_34_non_const_psAChainRule[j]).force))[2]) += ((__cuda_local_var_60369_23_non_const_localForce)[2]);
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 100 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60390_26_non_const_offset = ((__cuda_local_var_60341_22_non_const_x + __cuda_local_var_60349_22_non_const_tgx) + ((__cuda_local_var_60341_22_non_const_x >> 5U) * (cSim.stride)));
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60386_20_non_const_of = ((cSim.pForce4)[__cuda_local_var_60390_26_non_const_offset]);
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60386_20_non_const_of.x) += ((((__cuda_local_var_60355_33_non_const_localParticle.force))[0]) + (((((sAChainRule)[(threadIdx.x)]).force))[0]));
+# 104 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60386_20_non_const_of.y) += ((((__cuda_local_var_60355_33_non_const_localParticle.force))[1]) + (((((sAChainRule)[(threadIdx.x)]).force))[1]));
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60386_20_non_const_of.z) += ((((__cuda_local_var_60355_33_non_const_localParticle.force))[2]) + (((((sAChainRule)[(threadIdx.x)]).force))[2]));
+# 106 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((cSim.pForce4)[__cuda_local_var_60390_26_non_const_offset]) = __cuda_local_var_60386_20_non_const_of;
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+else 
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 151 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ struct float4 __cuda_local_var_60441_20_non_const_of;
+# 156 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60446_26_non_const_offset;
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+if (__cuda_local_var_60336_18_non_const_lasty != __cuda_local_var_60342_22_non_const_y)
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 111 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60401_30_non_const_atomJ;
+# 111 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60401_30_non_const_atomJ = (__cuda_local_var_60342_22_non_const_y + __cuda_local_var_60349_22_non_const_tgx);
+# 112 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z33loadGrycukChainRuleParticleSharedP23GrycukChainRuleParticlej(((sAChainRule) + (threadIdx.x)), __cuda_local_var_60401_30_non_const_atomJ);
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38zeroGrycukChainRuleParticleSharedFieldP23GrycukChainRuleParticle(((sAChainRule) + (threadIdx.x)));
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned j;
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+j = 0U;
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+for (; (j < 32U); j++)
+# 120 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+if ((__cuda_local_var_60354_22_non_const_atomI < (cSim.atoms)) && ((__cuda_local_var_60342_22_non_const_y + __cuda_local_var_60351_22_non_const_tj) < (cSim.atoms)))
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ float __cuda_local_var_60413_27_non_const_localForce[3];
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38calculateGrycukChainRulePairIxn_kernelR23GrycukChainRuleParticleS0_Pf((&__cuda_local_var_60355_33_non_const_localParticle), (__cuda_local_var_60353_34_non_const_psAChainRule + __cuda_local_var_60351_22_non_const_tj), (__cuda_local_var_60413_27_non_const_localForce));
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60355_33_non_const_localParticle.force))[0]) -= ((__cuda_local_var_60413_27_non_const_localForce)[0]);
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60355_33_non_const_localParticle.force))[1]) -= ((__cuda_local_var_60413_27_non_const_localForce)[1]);
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60355_33_non_const_localParticle.force))[2]) -= ((__cuda_local_var_60413_27_non_const_localForce)[2]);
+# 130 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60353_34_non_const_psAChainRule[__cuda_local_var_60351_22_non_const_tj]).force))[0]) += ((__cuda_local_var_60413_27_non_const_localForce)[0]);
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60353_34_non_const_psAChainRule[__cuda_local_var_60351_22_non_const_tj]).force))[1]) += ((__cuda_local_var_60413_27_non_const_localForce)[1]);
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60353_34_non_const_psAChainRule[__cuda_local_var_60351_22_non_const_tj]).force))[2]) += ((__cuda_local_var_60413_27_non_const_localForce)[2]);
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38calculateGrycukChainRulePairIxn_kernelR23GrycukChainRuleParticleS0_Pf((__cuda_local_var_60353_34_non_const_psAChainRule + __cuda_local_var_60351_22_non_const_tj), (&__cuda_local_var_60355_33_non_const_localParticle), (__cuda_local_var_60413_27_non_const_localForce));
+# 136 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60355_33_non_const_localParticle.force))[0]) += ((__cuda_local_var_60413_27_non_const_localForce)[0]);
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60355_33_non_const_localParticle.force))[1]) += ((__cuda_local_var_60413_27_non_const_localForce)[1]);
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60355_33_non_const_localParticle.force))[2]) += ((__cuda_local_var_60413_27_non_const_localForce)[2]);
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60353_34_non_const_psAChainRule[__cuda_local_var_60351_22_non_const_tj]).force))[0]) -= ((__cuda_local_var_60413_27_non_const_localForce)[0]);
+# 141 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60353_34_non_const_psAChainRule[__cuda_local_var_60351_22_non_const_tj]).force))[1]) -= ((__cuda_local_var_60413_27_non_const_localForce)[1]);
+# 142 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60353_34_non_const_psAChainRule[__cuda_local_var_60351_22_non_const_tj]).force))[2]) -= ((__cuda_local_var_60413_27_non_const_localForce)[2]);
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60351_22_non_const_tj = ((__cuda_local_var_60351_22_non_const_tj + 1U) & 31U);
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 156 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60446_26_non_const_offset = ((__cuda_local_var_60341_22_non_const_x + __cuda_local_var_60349_22_non_const_tgx) + ((__cuda_local_var_60342_22_non_const_y >> 5U) * (cSim.stride)));
+# 158 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60441_20_non_const_of = ((cSim.pForce4)[__cuda_local_var_60446_26_non_const_offset]);
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60441_20_non_const_of.x) += (((__cuda_local_var_60355_33_non_const_localParticle.force))[0]);
+# 160 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60441_20_non_const_of.y) += (((__cuda_local_var_60355_33_non_const_localParticle.force))[1]);
+# 161 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60441_20_non_const_of.z) += (((__cuda_local_var_60355_33_non_const_localParticle.force))[2]);
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((cSim.pForce4)[__cuda_local_var_60446_26_non_const_offset]) = __cuda_local_var_60441_20_non_const_of;
+# 167 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60446_26_non_const_offset = ((__cuda_local_var_60342_22_non_const_y + __cuda_local_var_60349_22_non_const_tgx) + ((__cuda_local_var_60341_22_non_const_x >> 5U) * (cSim.stride)));
+# 169 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60441_20_non_const_of = ((cSim.pForce4)[__cuda_local_var_60446_26_non_const_offset]);
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60441_20_non_const_of.x) += (((((sAChainRule)[(threadIdx.x)]).force))[0]);
+# 171 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60441_20_non_const_of.y) += (((((sAChainRule)[(threadIdx.x)]).force))[1]);
+# 172 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60441_20_non_const_of.z) += (((((sAChainRule)[(threadIdx.x)]).force))[2]);
+# 173 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((cSim.pForce4)[__cuda_local_var_60446_26_non_const_offset]) = __cuda_local_var_60441_20_non_const_of;
+# 175 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60336_18_non_const_lasty = __cuda_local_var_60342_22_non_const_y;
+# 176 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60334_18_non_const_pos++;
+# 179 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 180 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+} 
+# 180 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}}
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__launch_bounds__(768,1) __global__ __var_used__ void _Z46kCalculateAmoebaGrycukChainRuleN2ByWarp_kernelPj(
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+unsigned *workUnit){
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 41 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60489_18_non_const_totalWarps;
+# 42 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60490_18_non_const_warp;
+# 43 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60491_18_non_const_numWorkUnits;
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60492_18_non_const_pos;
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60493_18_non_const_end;
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60494_18_non_const_lasty;
+# 41 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60489_18_non_const_totalWarps = (((gridDim.x) * (blockDim.x)) / 32U);
+# 42 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60490_18_non_const_warp = ((((blockIdx.x) * (blockDim.x)) + (threadIdx.x)) / 32U);
+# 43 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60491_18_non_const_numWorkUnits = ((unsigned)((cSim.pInteractionCount)[0]));
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60492_18_non_const_pos = ((__cuda_local_var_60490_18_non_const_warp * __cuda_local_var_60491_18_non_const_numWorkUnits) / __cuda_local_var_60489_18_non_const_totalWarps);
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60493_18_non_const_end = (((__cuda_local_var_60490_18_non_const_warp + 1U) * __cuda_local_var_60491_18_non_const_numWorkUnits) / __cuda_local_var_60489_18_non_const_totalWarps);
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60494_18_non_const_lasty = 4294967295U;
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+while (__cuda_local_var_60492_18_non_const_pos < __cuda_local_var_60493_18_non_const_end)
+# 49 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 51 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60499_22_non_const_x;
+# 52 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60500_22_non_const_y;
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ __nv_bool __cuda_local_var_60501_14_non_const_bExclusionFlag;
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60507_22_non_const_tgx;
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60508_22_non_const_tbx;
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60509_22_non_const_tj;
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ struct GrycukChainRuleParticle *__cuda_local_var_60511_34_non_const_psAChainRule;
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60512_22_non_const_atomI;
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ struct GrycukChainRuleParticle __cuda_local_var_60513_33_non_const_localParticle;
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z10decodeCelljPjS_Pb((workUnit[__cuda_local_var_60492_18_non_const_pos]), (&__cuda_local_var_60499_22_non_const_x), (&__cuda_local_var_60500_22_non_const_y), (&__cuda_local_var_60501_14_non_const_bExclusionFlag));
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60507_22_non_const_tgx = ((threadIdx.x) & 31U);
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60508_22_non_const_tbx = ((threadIdx.x) - __cuda_local_var_60507_22_non_const_tgx);
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60509_22_non_const_tj = __cuda_local_var_60507_22_non_const_tgx;
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60511_34_non_const_psAChainRule = ((sAChainRule) + __cuda_local_var_60508_22_non_const_tbx);
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60512_22_non_const_atomI = (__cuda_local_var_60499_22_non_const_x + __cuda_local_var_60507_22_non_const_tgx);
+# 66 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z33loadGrycukChainRuleParticleSharedP23GrycukChainRuleParticlej((&__cuda_local_var_60513_33_non_const_localParticle), __cuda_local_var_60512_22_non_const_atomI);
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38zeroGrycukChainRuleParticleSharedFieldP23GrycukChainRuleParticle((&__cuda_local_var_60513_33_non_const_localParticle));
+# 70 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+if (__cuda_local_var_60499_22_non_const_x == __cuda_local_var_60500_22_non_const_y)
+# 70 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ struct float4 __cuda_local_var_60544_20_non_const_of;
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60546_26_non_const_offset;
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z33loadGrycukChainRuleParticleSharedP23GrycukChainRuleParticlej(((sAChainRule) + (threadIdx.x)), __cuda_local_var_60512_22_non_const_atomI);
+# 75 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38zeroGrycukChainRuleParticleSharedFieldP23GrycukChainRuleParticle(((sAChainRule) + (threadIdx.x)));
+# 75 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned j;
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+j = ((__cuda_local_var_60507_22_non_const_tgx + 1U) & 31U);
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+for (; (j != __cuda_local_var_60507_22_non_const_tgx); j = ((j + 1U) & 31U))
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ float __cuda_local_var_60527_23_non_const_localForce[3];
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38calculateGrycukChainRulePairIxn_kernelR23GrycukChainRuleParticleS0_Pf((&__cuda_local_var_60513_33_non_const_localParticle), (__cuda_local_var_60511_34_non_const_psAChainRule + j), (__cuda_local_var_60527_23_non_const_localForce));
+# 81 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+if (((__cuda_local_var_60512_22_non_const_atomI != (__cuda_local_var_60500_22_non_const_y + j)) && (__cuda_local_var_60512_22_non_const_atomI < (cSim.atoms))) && ((__cuda_local_var_60500_22_non_const_y + j) < (cSim.atoms)))
+# 81 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60513_33_non_const_localParticle.force))[0]) -= ((__cuda_local_var_60527_23_non_const_localForce)[0]);
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60513_33_non_const_localParticle.force))[1]) -= ((__cuda_local_var_60527_23_non_const_localForce)[1]);
+# 85 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60513_33_non_const_localParticle.force))[2]) -= ((__cuda_local_var_60527_23_non_const_localForce)[2]);
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60511_34_non_const_psAChainRule[j]).force))[0]) += ((__cuda_local_var_60527_23_non_const_localForce)[0]);
+# 88 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60511_34_non_const_psAChainRule[j]).force))[1]) += ((__cuda_local_var_60527_23_non_const_localForce)[1]);
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60511_34_non_const_psAChainRule[j]).force))[2]) += ((__cuda_local_var_60527_23_non_const_localForce)[2]);
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60546_26_non_const_offset = ((__cuda_local_var_60499_22_non_const_x + __cuda_local_var_60507_22_non_const_tgx) + (__cuda_local_var_60490_18_non_const_warp * (cSim.stride)));
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60544_20_non_const_of = ((cSim.pForce4)[__cuda_local_var_60546_26_non_const_offset]);
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60544_20_non_const_of.x) += ((((__cuda_local_var_60513_33_non_const_localParticle.force))[0]) + (((((sAChainRule)[(threadIdx.x)]).force))[0]));
+# 104 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60544_20_non_const_of.y) += ((((__cuda_local_var_60513_33_non_const_localParticle.force))[1]) + (((((sAChainRule)[(threadIdx.x)]).force))[1]));
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60544_20_non_const_of.z) += ((((__cuda_local_var_60513_33_non_const_localParticle.force))[2]) + (((((sAChainRule)[(threadIdx.x)]).force))[2]));
+# 106 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((cSim.pForce4)[__cuda_local_var_60546_26_non_const_offset]) = __cuda_local_var_60544_20_non_const_of;
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+else 
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 151 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ struct float4 __cuda_local_var_60599_20_non_const_of;
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60602_26_non_const_offset;
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+if (__cuda_local_var_60494_18_non_const_lasty != __cuda_local_var_60500_22_non_const_y)
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 111 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned __cuda_local_var_60559_30_non_const_atomJ;
+# 111 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60559_30_non_const_atomJ = (__cuda_local_var_60500_22_non_const_y + __cuda_local_var_60507_22_non_const_tgx);
+# 112 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z33loadGrycukChainRuleParticleSharedP23GrycukChainRuleParticlej(((sAChainRule) + (threadIdx.x)), __cuda_local_var_60559_30_non_const_atomJ);
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38zeroGrycukChainRuleParticleSharedFieldP23GrycukChainRuleParticle(((sAChainRule) + (threadIdx.x)));
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ unsigned j;
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+j = 0U;
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+for (; (j < 32U); j++)
+# 120 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+if ((__cuda_local_var_60512_22_non_const_atomI < (cSim.atoms)) && ((__cuda_local_var_60500_22_non_const_y + __cuda_local_var_60509_22_non_const_tj) < (cSim.atoms)))
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+{
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+ float __cuda_local_var_60571_27_non_const_localForce[3];
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38calculateGrycukChainRulePairIxn_kernelR23GrycukChainRuleParticleS0_Pf((&__cuda_local_var_60513_33_non_const_localParticle), (__cuda_local_var_60511_34_non_const_psAChainRule + __cuda_local_var_60509_22_non_const_tj), (__cuda_local_var_60571_27_non_const_localForce));
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60513_33_non_const_localParticle.force))[0]) -= ((__cuda_local_var_60571_27_non_const_localForce)[0]);
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60513_33_non_const_localParticle.force))[1]) -= ((__cuda_local_var_60571_27_non_const_localForce)[1]);
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60513_33_non_const_localParticle.force))[2]) -= ((__cuda_local_var_60571_27_non_const_localForce)[2]);
+# 130 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60511_34_non_const_psAChainRule[__cuda_local_var_60509_22_non_const_tj]).force))[0]) += ((__cuda_local_var_60571_27_non_const_localForce)[0]);
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60511_34_non_const_psAChainRule[__cuda_local_var_60509_22_non_const_tj]).force))[1]) += ((__cuda_local_var_60571_27_non_const_localForce)[1]);
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60511_34_non_const_psAChainRule[__cuda_local_var_60509_22_non_const_tj]).force))[2]) += ((__cuda_local_var_60571_27_non_const_localForce)[2]);
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+_Z38calculateGrycukChainRulePairIxn_kernelR23GrycukChainRuleParticleS0_Pf((__cuda_local_var_60511_34_non_const_psAChainRule + __cuda_local_var_60509_22_non_const_tj), (&__cuda_local_var_60513_33_non_const_localParticle), (__cuda_local_var_60571_27_non_const_localForce));
+# 136 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60513_33_non_const_localParticle.force))[0]) += ((__cuda_local_var_60571_27_non_const_localForce)[0]);
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60513_33_non_const_localParticle.force))[1]) += ((__cuda_local_var_60571_27_non_const_localForce)[1]);
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(((__cuda_local_var_60513_33_non_const_localParticle.force))[2]) += ((__cuda_local_var_60571_27_non_const_localForce)[2]);
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60511_34_non_const_psAChainRule[__cuda_local_var_60509_22_non_const_tj]).force))[0]) -= ((__cuda_local_var_60571_27_non_const_localForce)[0]);
+# 141 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60511_34_non_const_psAChainRule[__cuda_local_var_60509_22_non_const_tj]).force))[1]) -= ((__cuda_local_var_60571_27_non_const_localForce)[1]);
+# 142 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((((__cuda_local_var_60511_34_non_const_psAChainRule[__cuda_local_var_60509_22_non_const_tj]).force))[2]) -= ((__cuda_local_var_60571_27_non_const_localForce)[2]);
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60509_22_non_const_tj = ((__cuda_local_var_60509_22_non_const_tj + 1U) & 31U);
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60602_26_non_const_offset = ((__cuda_local_var_60499_22_non_const_x + __cuda_local_var_60507_22_non_const_tgx) + (__cuda_local_var_60490_18_non_const_warp * (cSim.stride)));
+# 158 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60599_20_non_const_of = ((cSim.pForce4)[__cuda_local_var_60602_26_non_const_offset]);
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60599_20_non_const_of.x) += (((__cuda_local_var_60513_33_non_const_localParticle.force))[0]);
+# 160 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60599_20_non_const_of.y) += (((__cuda_local_var_60513_33_non_const_localParticle.force))[1]);
+# 161 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60599_20_non_const_of.z) += (((__cuda_local_var_60513_33_non_const_localParticle.force))[2]);
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((cSim.pForce4)[__cuda_local_var_60602_26_non_const_offset]) = __cuda_local_var_60599_20_non_const_of;
+# 165 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60602_26_non_const_offset = ((__cuda_local_var_60500_22_non_const_y + __cuda_local_var_60507_22_non_const_tgx) + (__cuda_local_var_60490_18_non_const_warp * (cSim.stride)));
+# 169 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60599_20_non_const_of = ((cSim.pForce4)[__cuda_local_var_60602_26_non_const_offset]);
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60599_20_non_const_of.x) += (((((sAChainRule)[(threadIdx.x)]).force))[0]);
+# 171 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60599_20_non_const_of.y) += (((((sAChainRule)[(threadIdx.x)]).force))[1]);
+# 172 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+(__cuda_local_var_60599_20_non_const_of.z) += (((((sAChainRule)[(threadIdx.x)]).force))[2]);
+# 173 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+((cSim.pForce4)[__cuda_local_var_60602_26_non_const_offset]) = __cuda_local_var_60599_20_non_const_of;
+# 175 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60494_18_non_const_lasty = __cuda_local_var_60500_22_non_const_y;
+# 176 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+__cuda_local_var_60492_18_non_const_pos++;
+# 179 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}
+# 180 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+} 
+# 180 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaGrycukChainRule.h"
+}}

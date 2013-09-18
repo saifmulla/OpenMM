@@ -1,0 +1,2234 @@
+# 272 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod {
+# 274 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+NO_CUTOFF,
+# 275 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+CUTOFF,
+# 276 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+PERIODIC,
+# 277 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+EWALD,
+# 278 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+PARTICLE_MESH_EWALD};
+# 294 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct cudaGmxSimulation;
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct cudaAmoebaGmxSimulation;
+# 2 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+struct MutualInducedParticle;
+# 1 "kCalculateAmoebaCudaPmeMutualInducedField.compute_20.cudafe1.gpu"
+typedef char __nv_bool;
+# 211 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 3
+typedef unsigned long size_t;
+#include "crt/device_runtime.h"
+# 60 "/usr/local/cuda-5.0/include/cuComplex.h"
+typedef struct float2 cuFloatComplex;
+# 282 "/usr/local/cuda-5.0/include/cuComplex.h"
+typedef cuFloatComplex cuComplex;
+# 100 "/usr/local/cuda-5.0/include/cufft.h"
+typedef cuComplex cufftComplex;
+# 294 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct cudaGmxSimulation {
+# 296 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned atoms;
+# 297 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned paddedNumberOfAtoms;
+# 298 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned blocks;
+# 299 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned blocksPerSM;
+# 300 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_blocks;
+# 301 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_blocks;
+# 302 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned interaction_blocks;
+# 303 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned threads_per_block;
+# 304 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_threads_per_block;
+# 305 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_threads_per_block;
+# 306 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_update_threads_per_block;
+# 307 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned update_threads_per_block;
+# 308 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf_reduce_threads_per_block;
+# 309 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bsf_reduce_threads_per_block;
+# 310 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_shake_threads_per_block;
+# 311 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned shake_threads_per_block;
+# 312 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned settle_threads_per_block;
+# 313 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ccma_threads_per_block;
+# 314 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_localForces_threads_per_block;
+# 315 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned localForces_threads_per_block;
+# 316 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned random_threads_per_block;
+# 317 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned interaction_threads_per_block;
+# 318 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned custom_exception_threads_per_block;
+# 319 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExpressionStackSize;
+# 320 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned workUnits;
+# 321 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pWorkUnit;
+# 322 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pInteractingWorkUnit;
+# 323 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pInteractionFlag;
+# 324 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pStepSize;
+# 325 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pLangevinParameters;
+# 326 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float errorTol;
+# 327 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+size_t *pInteractionCount;
+# 328 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_workBlock;
+# 329 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_workBlock;
+# 330 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned workUnitsPerSM;
+# 331 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nbWorkUnitsPerBlock;
+# 332 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nbWorkUnitsPerBlockRemainder;
+# 333 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf2WorkUnitsPerBlock;
+# 334 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf2WorkUnitsPerBlockRemainder;
+# 337 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride;
+# 338 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride2;
+# 339 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride3;
+# 340 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride4;
+# 341 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbondOutputBuffers;
+# 342 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned outputBuffers;
+# 343 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned energyOutputBuffers;
+# 344 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float bigFloat;
+# 345 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float epsfac;
+# 346 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod nonbondedMethod;
+# 347 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod customNonbondedMethod;
+# 348 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float nonbondedCutoff;
+# 349 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float nonbondedCutoffSqr;
+# 350 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeX;
+# 351 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeY;
+# 352 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeZ;
+# 353 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeX;
+# 354 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeY;
+# 355 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeZ;
+# 356 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeX;
+# 357 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeY;
+# 358 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeZ;
+# 359 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float cellVolume;
+# 360 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float alphaEwald;
+# 361 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float factorEwald;
+# 362 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxX;
+# 363 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxY;
+# 364 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxZ;
+# 365 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float reactionFieldK;
+# 366 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float reactionFieldC;
+# 367 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float probeRadius;
+# 368 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float surfaceAreaFactor;
+# 369 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float electricConstant;
+# 370 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float forceConversionFactor;
+# 371 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float preFactor;
+# 372 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float dielectricOffset;
+# 373 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float alphaOBC;
+# 374 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float betaOBC;
+# 375 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gammaOBC;
+# 376 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float deltaT;
+# 377 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float oneOverDeltaT;
+# 378 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float T;
+# 379 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float kT;
+# 380 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float noiseAmplitude;
+# 381 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tau;
+# 382 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tauDeltaT;
+# 383 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float collisionFrequency;
+# 384 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pObcData;
+# 385 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int gbviBornRadiusScalingMethod;
+# 386 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gbviQuinticLowerLimitFactor;
+# 387 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gbviQuinticUpperBornRadiusLimit;
+# 388 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGBVIData;
+# 389 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pGBVISwitchDerivative;
+# 390 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pAttr;
+# 391 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomParams;
+# 392 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExceptions;
+# 393 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customParameters;
+# 394 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomBondID;
+# 395 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomBondParams;
+# 396 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customBonds;
+# 397 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customBondParameters;
+# 398 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomAngleID1;
+# 399 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pCustomAngleID2;
+# 400 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomAngleParams;
+# 401 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customAngles;
+# 402 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customAngleParameters;
+# 403 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomTorsionID1;
+# 404 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomTorsionID2;
+# 405 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomTorsionParams;
+# 406 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customTorsions;
+# 407 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customTorsionParameters;
+# 408 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCustomExternalID;
+# 409 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomExternalParams;
+# 410 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExternals;
+# 411 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExternalParameters;
+# 412 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pTabulatedFunctionCoefficients[4];
+# 413 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pTabulatedFunctionParams;
+# 414 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pEwaldCosSinSum;
+# 415 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pTabulatedErfc;
+# 416 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int tabulatedErfcSize;
+# 417 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tabulatedErfcScale;
+# 418 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int3 pmeGridSize;
+# 419 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int3 pmeGroupSize;
+# 420 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+cufftComplex *pPmeGrid;
+# 421 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pPmeBsplineModuli[3];
+# 422 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPmeBsplineTheta;
+# 423 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPmeBsplineDtheta;
+# 424 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pPmeAtomRange;
+# 425 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pPmeAtomGridIndex;
+# 426 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bonds;
+# 427 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pBondID;
+# 428 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pBondParameter;
+# 429 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_angles;
+# 430 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pBondAngleID1;
+# 431 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pBondAngleID2;
+# 432 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pBondAngleParameter;
+# 433 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned dihedrals;
+# 434 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pDihedralID1;
+# 435 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pDihedralID2;
+# 436 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pDihedralParameter;
+# 437 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rb_dihedrals;
+# 438 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pRbDihedralID1;
+# 439 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pRbDihedralID2;
+# 440 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pRbDihedralParameter1;
+# 441 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pRbDihedralParameter2;
+# 442 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned LJ14s;
+# 443 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pLJ14ID;
+# 444 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pLJ14Parameter;
+# 445 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float inverseTotalMass;
+# 446 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ShakeConstraints;
+# 447 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned settleConstraints;
+# 448 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ccmaConstraints;
+# 449 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rigidClusters;
+# 450 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned maxRigidClusterSize;
+# 451 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned clusterShakeBlockSize;
+# 452 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned maxShakeIterations;
+# 453 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned degreesOfFreedom;
+# 454 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float shakeTolerance;
+# 455 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float InvMassJ;
+# 456 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pNonShakeID;
+# 457 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pShakeID;
+# 458 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pShakeParameter;
+# 459 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pSettleID;
+# 460 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pSettleParameter;
+# 461 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pExclusion;
+# 462 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pExclusionIndex;
+# 463 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_offset;
+# 464 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_angle_offset;
+# 465 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned dihedral_offset;
+# 466 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rb_dihedral_offset;
+# 467 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned LJ14_offset;
+# 468 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pAtomIndex;
+# 469 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGridBoundingBox;
+# 470 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGridCenter;
+# 471 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pCcmaAtoms;
+# 472 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCcmaDistance;
+# 473 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaDelta1;
+# 474 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaDelta2;
+# 475 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCcmaAtomConstraints;
+# 476 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCcmaNumAtomConstraints;
+# 477 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *ccmaConvergedDeviceMarker;
+# 478 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaReducedMass;
+# 479 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pConstraintMatrixColumn;
+# 480 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pConstraintMatrixValue;
+# 483 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPosq;
+# 484 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPosqP;
+# 485 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pOldPosq;
+# 486 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pVelm4;
+# 487 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pForce4;
+# 488 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pEnergy;
+# 489 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornForce;
+# 490 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornSum;
+# 491 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornRadii;
+# 492 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pObcChain;
+# 493 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pLinearMomentum;
+# 496 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pRandom4;
+# 497 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pRandom2;
+# 498 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct uint4 *pRandomSeed;
+# 499 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pRandomPosition;
+# 500 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randoms;
+# 501 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned totalRandoms;
+# 502 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randomIterations;
+# 503 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randomFrames;};
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct cudaAmoebaGmxSimulation {
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaBonds;
+# 58 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaBondID;
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaBondParameter;
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaBondCubicParameter;
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaBondQuarticicParameter;
+# 62 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaBond_offset;
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaAngles;
+# 66 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaAngleID1;
+# 67 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pAmoebaAngleID2;
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaAngleParameter;
+# 69 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaAngle_offset;
+# 71 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAngleCubicK;
+# 72 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAngleQuarticK;
+# 73 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAnglePenticK;
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaAngleSexticK;
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaInPlaneAngles;
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaInPlaneAngleID1;
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaInPlaneAngleID2;
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaInPlaneAngleParameter;
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaInPlaneAngle_offset;
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAngleCubicK;
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAngleQuarticK;
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAnglePenticK;
+# 85 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaInPlaneAngleSexticK;
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsions;
+# 88 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionID1;
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionID2;
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pAmoebaTorsionParameter1;
+# 91 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaTorsionParameter2;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsion_offset;
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaPiTorsions;
+# 95 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaPiTorsionID1;
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaPiTorsionID2;
+# 97 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaPiTorsionID3;
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pAmoebaPiTorsionParameter;
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaPiTorsion_offset;
+# 101 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaStretchBends;
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaStretchBendID1;
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pAmoebaStretchBendID2;
+# 104 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pAmoebaStretchBendParameter;
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaStretchBend_offset;
+# 107 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaOutOfPlaneBends;
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaOutOfPlaneBendID1;
+# 109 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaOutOfPlaneBendID2;
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pAmoebaOutOfPlaneBendParameter;
+# 111 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaOutOfPlaneBend_offset;
+# 112 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendCubicK;
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendQuarticK;
+# 114 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendPenticK;
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaOutOfPlaneBendSexticK;
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsionTorsions;
+# 118 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionTorsionID1;
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionTorsionID2;
+# 120 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaTorsionTorsionID3;
+# 121 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaTorsionTorsion_offset;
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int amoebaTorTorGridOffset[12];
+# 125 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int amoebaTorTorGridNy[12];
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaTorTorGridBegin[12];
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaTorTorGridDelta[12];
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pAmoebaTorsionTorsionGrids;
+# 130 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaUreyBradleys;
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaUreyBradleyID;
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pAmoebaUreyBradleyParameter;
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaUreyBradleyCubicParameter;
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float amoebaUreyBradleyQuarticicParameter;
+# 135 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaUreyBradley_offset;
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float sqrtPi;
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float scalingDistanceCutoff;
+# 139 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pDampingFactorAndThole;
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int polarizationType;
+# 142 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pMultipoleParticlesIdsAndAxisType;
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pMultipoleParticlesTorqueBufferIndices;
+# 144 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int maxTorqueBufferIndex;
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pTorqueMapForce4;
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pMolecularDipole;
+# 148 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pMolecularQuadrupole;
+# 150 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pLabFrameDipole;
+# 151 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pLabFrameQuadrupole;
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipole;
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipolePolar;
+# 156 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipoleS;
+# 157 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pInducedDipolePolarS;
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pTorque;
+# 161 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_3_1;
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_3_2;
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_1_1;
+# 164 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pWorkArray_1_2;
+# 166 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int vdwUsePBC;
+# 167 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwCutoff;
+# 168 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwCutoff2;
+# 169 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperCutoff;
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperCutoff2;
+# 171 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperDelta;
+# 174 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdwTaperTable[101];
+# 175 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float vdw_dTaperTable[101];
+# 177 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaVdwNonReductions;
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pAmoebaVdwNonReductionID;
+# 179 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned *pVdwWorkUnit;
+# 181 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+unsigned amoebaVdwReductions;
+# 182 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pAmoebaVdwReductionID;
+# 183 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pAmoebaVdwReduction;
+# 184 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pVdwExclusionIndicesIndex;
+# 185 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pVdwExclusionIndices;
+# 189 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float epso;
+# 190 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float epsh;
+# 191 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float rmino;
+# 192 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float rminh;
+# 193 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float awater;
+# 194 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float shctd;
+# 195 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float dispoff;
+# 196 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float totalMaxWcaDispersionEnergy;
+# 197 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float2 *pWcaDispersionRadiusEpsilon;
+# 200 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pScaleIndicesIndex;
+# 201 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+int *pD_ScaleIndices;
+# 202 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pP_ScaleIndices;
+# 203 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int2 *pM_ScaleIndices;
+# 205 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float electric;
+# 206 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float gkc;
+# 208 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float dielec;
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float dwater;
+# 210 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float fc;
+# 211 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float fd;
+# 212 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float fq;
+# 216 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pThetai1;
+# 217 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pThetai2;
+# 218 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct float4 *pThetai3;
+# 219 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+struct int4 *pIgrid;
+# 220 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhi;
+# 221 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhid;
+# 222 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhip;
+# 223 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+float *pPhidp;};
+# 2 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+struct MutualInducedParticle {
+# 4 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+float x;
+# 5 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+float y;
+# 6 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+float z;
+# 8 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+float inducedDipole[3];
+# 9 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+float inducedDipolePolar[3];
+# 11 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+float thole;
+# 12 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+float damp;
+# 14 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+float field[3];
+# 15 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+float fieldPolar[3];
+# 30 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+float tempBuffer[3];
+# 31 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+float tempBufferP[3];};
+#if !defined(__CUDABE__)
+# 5037 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float erfcf(float);
+#endif
+#if !defined(__CUDABE__)
+# 6875 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float expf(float);
+#endif
+#if !defined(__CUDABE__)
+# 7358 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float sqrtf(float);
+#endif
+#if !defined(__CUDABE__)
+# 7489 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) __attribute__((__const__)) float floorf(float);
+#endif
+#if !defined(__CUDABE__)
+# 131 "/usr/local/cuda-5.0/include/device_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) void __syncthreads(void);
+#endif
+# 35 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+___device__(static  __no_sc__) void _Z23loadMutualInducedSharedP21MutualInducedParticlej(struct MutualInducedParticle *, unsigned);
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+___device__(static  __no_sc__) void _Z36zeroMutualInducedParticleSharedFieldP21MutualInducedParticle(struct MutualInducedParticle *);
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+___device__(extern  __no_sc__) void _Z13sumTempBufferR21MutualInducedParticleS0_(struct MutualInducedParticle *, struct MutualInducedParticle *);
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+___device__(extern  __no_sc__) void _Z37setupMutualInducedFieldPairIxn_kernelRK21MutualInducedParticleS1_fP6float4Pf(const struct MutualInducedParticle *, const struct MutualInducedParticle *, const float, struct float4 *, float *);
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+___device__(extern  __no_sc__) void _Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(const float *, const struct float4, const float, float *);
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+___device__(extern  __no_sc__) void _Z46calculateMutualInducedFieldPairIxnNoAdd_kernelPKf6float4fPf(const float *, const struct float4, const float, float *);
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+___device__(extern  __no_sc__) void _Z50calculatePmeDirectMutualInducedFieldPairIxn_kernelR21MutualInducedParticleS0_fP6float4(struct MutualInducedParticle *, struct MutualInducedParticle *, float, struct float4 *);
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+___device__(static  __no_sc__) void _Z10decodeCelljPjS_Pb(unsigned, unsigned *, unsigned *, __nv_bool *);
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+___device__(static  __no_sc__) void _Z24load3dArrayBufferPerWarpjPfS_(unsigned, float *, float *);
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+___device__(static  __no_sc__) void _Z11load3dArrayjPVfPf(unsigned, volatile float *, float *);
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__launch_bounds__(768,1) __global__ __var_used__ extern void _Z50kCalculateAmoebaPmeMutualInducedFieldCutoff_kernelPjPfS0_(unsigned *, float *, float *);
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__launch_bounds__(768,1) __global__ __var_used__ extern void _Z56kCalculateAmoebaPmeMutualInducedFieldCutoffByWarp_kernelPjPfS0_(unsigned *, float *, float *);
+# 291 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__launch_bounds__(512,1) __global__ __var_used__ static void _Z36kInitializeMutualInducedField_kerneliPfS_S_(int, float *, float *, float *);
+# 317 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__launch_bounds__(512,1) __global__ __var_used__ static void _Z37kReduceMutualInducedFieldDelta_kerneliPfS_S_(int, float *, float *, float *);
+# 370 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__launch_bounds__(512,1) __global__ __var_used__ static void _Z35kSorUpdateMutualInducedField_kernelPfS_S_S_S_S_S_(float *, float *, float *, float *, float *, float *, float *);
+# 36 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+static  __constant__  __var_used__ struct cudaGmxSimulation cSim;
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+static  __constant__  __var_used__ struct cudaAmoebaGmxSimulation cAmoebaSim;
+# 42 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+extern  __shared__ struct MutualInducedParticle sA[];
+# 319 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+extern  __shared__ struct float2 delta[];
+# 320 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv117__class_type_infoE[1];
+# 321 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv120__si_class_type_infoE[1];
+#include "common_functions.h"
+# 323 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+static  __device__  __var_used__ const long _ZTVSt9exception[5] = {0L,0L,0L,0L,0L};
+# 324 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+static  __device__  __var_used__ const long _ZTVN6OpenMM15OpenMMExceptionE[5] = {0L,0L,0L,0L,0L};
+# 30 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+static  __constant__  __var_used__ float mpoleScale[5] = {(0.0F),(0.0F),(0.0F),(0.400000006F),(0.8000000119F)};
+# 31 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+static  __constant__  __var_used__ float polarScale[5] = {(0.0F),(0.0F),(0.0F),(1.0F),(1.0F)};
+# 32 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+static  __constant__  __var_used__ float directScale[5] = {(0.0F),(1.0F),(1.0F),(1.0F),(1.0F)};
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+# 35 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+___device__(static  __no_sc__) void _Z23loadMutualInducedSharedP21MutualInducedParticlej(
+# 35 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+struct MutualInducedParticle *sA, 
+# 35 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+unsigned atomI){
+# 35 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+{
+# 36 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+{
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+ struct float4 __cuda_local_var_59623_12_non_const_posq;
+# 56 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+ struct float2 __cuda_local_var_59640_12_non_const_dampingFactorAndThole;
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+__cuda_local_var_59623_12_non_const_posq = ((cSim.pPosq)[atomI]);
+# 40 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(sA->x) = (__cuda_local_var_59623_12_non_const_posq.x);
+# 41 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(sA->y) = (__cuda_local_var_59623_12_non_const_posq.y);
+# 42 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(sA->z) = (__cuda_local_var_59623_12_non_const_posq.z);
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->inducedDipole))[0]) = ((cAmoebaSim.pInducedDipole)[(atomI * 3U)]);
+# 47 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->inducedDipole))[1]) = ((cAmoebaSim.pInducedDipole)[((atomI * 3U) + 1U)]);
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->inducedDipole))[2]) = ((cAmoebaSim.pInducedDipole)[((atomI * 3U) + 2U)]);
+# 52 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->inducedDipolePolar))[0]) = ((cAmoebaSim.pInducedDipolePolar)[(atomI * 3U)]);
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->inducedDipolePolar))[1]) = ((cAmoebaSim.pInducedDipolePolar)[((atomI * 3U) + 1U)]);
+# 54 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->inducedDipolePolar))[2]) = ((cAmoebaSim.pInducedDipolePolar)[((atomI * 3U) + 2U)]);
+# 56 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+__cuda_local_var_59640_12_non_const_dampingFactorAndThole = ((cAmoebaSim.pDampingFactorAndThole)[atomI]);
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(sA->damp) = (__cuda_local_var_59640_12_non_const_dampingFactorAndThole.x);
+# 58 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(sA->thole) = (__cuda_local_var_59640_12_non_const_dampingFactorAndThole.y);
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+} 
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+}}
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+___device__(static  __no_sc__) void _Z36zeroMutualInducedParticleSharedFieldP21MutualInducedParticle(
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+struct MutualInducedParticle *sA){
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+{
+# 81 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+{
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->field))[0]) = (0.0F);
+# 85 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->field))[1]) = (0.0F);
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->field))[2]) = (0.0F);
+# 88 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->fieldPolar))[0]) = (0.0F);
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->fieldPolar))[1]) = (0.0F);
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+(((sA->fieldPolar))[2]) = (0.0F);
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+} 
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMutualInducedParticle.h"
+}}
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+___device__( __no_sc__) void _Z13sumTempBufferR21MutualInducedParticleS0_(
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+struct MutualInducedParticle *atomI, 
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+struct MutualInducedParticle *atomJ){
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((atomI->tempBuffer))[0]) += (((atomJ->tempBuffer))[0]);
+# 66 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((atomI->tempBuffer))[1]) += (((atomJ->tempBuffer))[1]);
+# 67 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((atomI->tempBuffer))[2]) += (((atomJ->tempBuffer))[2]);
+# 69 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((atomI->tempBufferP))[0]) += (((atomJ->tempBufferP))[0]);
+# 70 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((atomI->tempBufferP))[1]) += (((atomJ->tempBufferP))[1]);
+# 71 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((atomI->tempBufferP))[2]) += (((atomJ->tempBufferP))[2]);
+# 72 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+} 
+# 72 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}}
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+___device__( __no_sc__) void _Z37setupMutualInducedFieldPairIxn_kernelRK21MutualInducedParticleS1_fP6float4Pf(
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+const struct MutualInducedParticle *atomI, 
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+const struct MutualInducedParticle *atomJ, 
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+const float uscale, 
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+struct float4 *delta, 
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *preFactor2){
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59691_11_non_const_r2;
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(delta->x) = ((atomJ->x) - (atomI->x));
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(delta->y) = ((atomJ->y) - (atomI->y));
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(delta->z) = ((atomJ->z) - (atomI->z));
+# 88 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(delta->x) -= ((floorf((((delta->x) * (cSim.invPeriodicBoxSizeX)) + (0.5F)))) * (cSim.periodicBoxSizeX));
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(delta->y) -= ((floorf((((delta->y) * (cSim.invPeriodicBoxSizeY)) + (0.5F)))) * (cSim.periodicBoxSizeY));
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(delta->z) -= ((floorf((((delta->z) * (cSim.invPeriodicBoxSizeZ)) + (0.5F)))) * (cSim.periodicBoxSizeZ));
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59691_11_non_const_r2 = ((((delta->x) * (delta->x)) + ((delta->y) * (delta->y))) + ((delta->z) * (delta->z)));
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+if (__cuda_local_var_59691_11_non_const_r2 <= (cSim.nonbondedCutoffSqr))
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59693_15_non_const_r;
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59697_15_non_const_ralpha;
+# 100 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59699_15_non_const_bn0;
+# 101 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59700_15_non_const_alsq2;
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59701_15_non_const_alsq2n;
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59702_15_non_const_exp2a;
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59704_15_non_const_bn1;
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59707_15_non_const_bn2;
+# 112 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59711_15_non_const_scale3;
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59712_15_non_const_scale5;
+# 114 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59713_15_non_const_damp;
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59727_15_non_const_dsc3;
+# 129 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59728_15_non_const_dsc5;
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59730_15_non_const_r3;
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59731_15_non_const_r5;
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59732_15_non_const_rr3;
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59733_15_non_const_rr5;
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59693_15_non_const_r = (sqrtf(__cuda_local_var_59691_11_non_const_r2));
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59697_15_non_const_ralpha = ((cSim.alphaEwald) * __cuda_local_var_59693_15_non_const_r);
+# 100 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59699_15_non_const_bn0 = ((float)(fdividef(((double)(erfcf(__cuda_local_var_59697_15_non_const_ralpha))), ((double)__cuda_local_var_59693_15_non_const_r))));
+# 101 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59700_15_non_const_alsq2 = (((2.0F) * (cSim.alphaEwald)) * (cSim.alphaEwald));
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59701_15_non_const_alsq2n = ((1.0F) / ((cAmoebaSim.sqrtPi) * (cSim.alphaEwald)));
+# 103 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59702_15_non_const_exp2a = (expf((-(__cuda_local_var_59697_15_non_const_ralpha * __cuda_local_var_59697_15_non_const_ralpha))));
+# 104 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59701_15_non_const_alsq2n *= __cuda_local_var_59700_15_non_const_alsq2;
+# 105 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59704_15_non_const_bn1 = ((float)(fdividef(((double)(__cuda_local_var_59699_15_non_const_bn0 + (__cuda_local_var_59701_15_non_const_alsq2n * __cuda_local_var_59702_15_non_const_exp2a))), ((double)__cuda_local_var_59691_11_non_const_r2))));
+# 107 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59701_15_non_const_alsq2n *= __cuda_local_var_59700_15_non_const_alsq2;
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59707_15_non_const_bn2 = ((float)(fdividef(((double)(((3.0F) * __cuda_local_var_59704_15_non_const_bn1) + (__cuda_local_var_59701_15_non_const_alsq2n * __cuda_local_var_59702_15_non_const_exp2a))), ((double)__cuda_local_var_59691_11_non_const_r2))));
+# 112 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59711_15_non_const_scale3 = (1.0F);
+# 113 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59712_15_non_const_scale5 = (1.0F);
+# 114 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59713_15_non_const_damp = ((atomI->damp) * (atomJ->damp));
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+if (__cuda_local_var_59713_15_non_const_damp != (0.0F))
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59716_19_non_const_ratio;
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59718_19_non_const_pgamma;
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59716_19_non_const_ratio = ((float)(fdividef(((double)__cuda_local_var_59693_15_non_const_r), ((double)__cuda_local_var_59713_15_non_const_damp))));
+# 118 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59716_19_non_const_ratio = ((__cuda_local_var_59716_19_non_const_ratio * __cuda_local_var_59716_19_non_const_ratio) * __cuda_local_var_59716_19_non_const_ratio);
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59718_19_non_const_pgamma = (((atomI->thole) < (atomJ->thole)) ? (atomI->thole) : (atomJ->thole));
+# 120 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59713_15_non_const_damp = ((-__cuda_local_var_59718_19_non_const_pgamma) * __cuda_local_var_59716_19_non_const_ratio);
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+if (__cuda_local_var_59713_15_non_const_damp > (-50.0F))
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59722_23_non_const_expdamp;
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59722_23_non_const_expdamp = (expf(__cuda_local_var_59713_15_non_const_damp));
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59711_15_non_const_scale3 = ((1.0F) - __cuda_local_var_59722_23_non_const_expdamp);
+# 125 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59712_15_non_const_scale5 = ((1.0F) - (__cuda_local_var_59722_23_non_const_expdamp * ((1.0F) - __cuda_local_var_59713_15_non_const_damp)));
+# 126 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59727_15_non_const_dsc3 = (uscale * __cuda_local_var_59711_15_non_const_scale3);
+# 129 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59728_15_non_const_dsc5 = (uscale * __cuda_local_var_59712_15_non_const_scale5);
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59730_15_non_const_r3 = (__cuda_local_var_59693_15_non_const_r * __cuda_local_var_59691_11_non_const_r2);
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59731_15_non_const_r5 = (__cuda_local_var_59730_15_non_const_r3 * __cuda_local_var_59691_11_non_const_r2);
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59732_15_non_const_rr3 = ((float)(fdividef(((double)((1.0F) - __cuda_local_var_59727_15_non_const_dsc3)), ((double)__cuda_local_var_59730_15_non_const_r3))));
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59733_15_non_const_rr5 = ((float)(fdividef(((double)((3.0F) * ((1.0F) - __cuda_local_var_59728_15_non_const_dsc5))), ((double)__cuda_local_var_59731_15_non_const_r5))));
+# 136 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(delta->w) = (__cuda_local_var_59732_15_non_const_rr3 - __cuda_local_var_59704_15_non_const_bn1);
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(*preFactor2) = (__cuda_local_var_59707_15_non_const_bn2 - __cuda_local_var_59733_15_non_const_rr5);
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+else 
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 139 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(delta->w) = ((*preFactor2) = (0.0F));
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 141 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+} 
+# 141 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}}
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+___device__( __no_sc__) void _Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+const float *inducedDipole, 
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+const struct float4 delta, 
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+const float preFactor2, 
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *fieldSum){
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 143 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59744_11_non_const_preFactor3;
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59744_11_non_const_preFactor3 = (preFactor2 * ((((inducedDipole[0]) * (delta.x)) + ((inducedDipole[1]) * (delta.y))) + ((inducedDipole[2]) * (delta.z))));
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(fieldSum[0]) += ((__cuda_local_var_59744_11_non_const_preFactor3 * (delta.x)) + ((delta.w) * (inducedDipole[0])));
+# 148 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(fieldSum[1]) += ((__cuda_local_var_59744_11_non_const_preFactor3 * (delta.y)) + ((delta.w) * (inducedDipole[1])));
+# 149 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(fieldSum[2]) += ((__cuda_local_var_59744_11_non_const_preFactor3 * (delta.z)) + ((delta.w) * (inducedDipole[2])));
+# 150 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+} 
+# 150 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}}
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+___device__( __no_sc__) void _Z46calculateMutualInducedFieldPairIxnNoAdd_kernelPKf6float4fPf(
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+const float *inducedDipole, 
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+const struct float4 delta, 
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+const float preFactor2, 
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *fieldSum){
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59753_11_non_const_preFactor3;
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59753_11_non_const_preFactor3 = (preFactor2 * ((((inducedDipole[0]) * (delta.x)) + ((inducedDipole[1]) * (delta.y))) + ((inducedDipole[2]) * (delta.z))));
+# 156 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(fieldSum[0]) = ((__cuda_local_var_59753_11_non_const_preFactor3 * (delta.x)) + ((delta.w) * (inducedDipole[0])));
+# 157 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(fieldSum[1]) = ((__cuda_local_var_59753_11_non_const_preFactor3 * (delta.y)) + ((delta.w) * (inducedDipole[1])));
+# 158 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(fieldSum[2]) = ((__cuda_local_var_59753_11_non_const_preFactor3 * (delta.z)) + ((delta.w) * (inducedDipole[2])));
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+} 
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}}
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+___device__( __no_sc__) void _Z50calculatePmeDirectMutualInducedFieldPairIxn_kernelR21MutualInducedParticleS0_fP6float4(
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+struct MutualInducedParticle *atomI, 
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+struct MutualInducedParticle *atomJ, 
+# 164 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float uscale, 
+# 164 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+struct float4 *fields){
+# 164 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 164 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 168 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59767_11_non_const_xr;
+# 169 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59768_11_non_const_yr;
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59769_11_non_const_zr;
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59777_11_non_const_r2;
+# 168 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59767_11_non_const_xr = ((atomJ->x) - (atomI->x));
+# 169 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59768_11_non_const_yr = ((atomJ->y) - (atomI->y));
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59769_11_non_const_zr = ((atomJ->z) - (atomI->z));
+# 174 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59767_11_non_const_xr -= ((floorf(((__cuda_local_var_59767_11_non_const_xr * (cSim.invPeriodicBoxSizeX)) + (0.5F)))) * (cSim.periodicBoxSizeX));
+# 175 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59768_11_non_const_yr -= ((floorf(((__cuda_local_var_59768_11_non_const_yr * (cSim.invPeriodicBoxSizeY)) + (0.5F)))) * (cSim.periodicBoxSizeY));
+# 176 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59769_11_non_const_zr -= ((floorf(((__cuda_local_var_59769_11_non_const_zr * (cSim.invPeriodicBoxSizeZ)) + (0.5F)))) * (cSim.periodicBoxSizeZ));
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59777_11_non_const_r2 = (((__cuda_local_var_59767_11_non_const_xr * __cuda_local_var_59767_11_non_const_xr) + (__cuda_local_var_59768_11_non_const_yr * __cuda_local_var_59768_11_non_const_yr)) + (__cuda_local_var_59769_11_non_const_zr * __cuda_local_var_59769_11_non_const_zr));
+# 179 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+if (__cuda_local_var_59777_11_non_const_r2 <= (cSim.nonbondedCutoffSqr))
+# 179 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 180 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59779_15_non_const_r;
+# 184 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59783_15_non_const_ralpha;
+# 186 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59785_15_non_const_bn0;
+# 187 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59786_15_non_const_alsq2;
+# 188 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59787_15_non_const_alsq2n;
+# 189 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59788_15_non_const_exp2a;
+# 191 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59790_15_non_const_bn1;
+# 194 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59793_15_non_const_bn2;
+# 198 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59797_15_non_const_scale3;
+# 199 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59798_15_non_const_scale5;
+# 200 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59799_15_non_const_damp;
+# 214 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59813_15_non_const_dsc3;
+# 215 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59814_15_non_const_dsc5;
+# 217 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59816_15_non_const_r3;
+# 218 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59817_15_non_const_r5;
+# 219 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59818_15_non_const_rr3;
+# 220 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59819_15_non_const_rr5;
+# 222 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59821_15_non_const_preFactor1;
+# 223 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59822_15_non_const_preFactor2;
+# 225 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59824_15_non_const_dukr;
+# 226 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59825_15_non_const_preFactor3;
+# 233 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59832_15_non_const_duir;
+# 241 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59840_15_non_const_pukr;
+# 249 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59848_15_non_const_puir;
+# 180 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59779_15_non_const_r = (sqrtf(__cuda_local_var_59777_11_non_const_r2));
+# 184 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59783_15_non_const_ralpha = ((cSim.alphaEwald) * __cuda_local_var_59779_15_non_const_r);
+# 186 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59785_15_non_const_bn0 = ((float)(fdividef(((double)(erfcf(__cuda_local_var_59783_15_non_const_ralpha))), ((double)__cuda_local_var_59779_15_non_const_r))));
+# 187 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59786_15_non_const_alsq2 = (((2.0F) * (cSim.alphaEwald)) * (cSim.alphaEwald));
+# 188 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59787_15_non_const_alsq2n = ((1.0F) / ((cAmoebaSim.sqrtPi) * (cSim.alphaEwald)));
+# 189 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59788_15_non_const_exp2a = (expf((-(__cuda_local_var_59783_15_non_const_ralpha * __cuda_local_var_59783_15_non_const_ralpha))));
+# 190 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59787_15_non_const_alsq2n *= __cuda_local_var_59786_15_non_const_alsq2;
+# 191 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59790_15_non_const_bn1 = ((float)(fdividef(((double)(__cuda_local_var_59785_15_non_const_bn0 + (__cuda_local_var_59787_15_non_const_alsq2n * __cuda_local_var_59788_15_non_const_exp2a))), ((double)__cuda_local_var_59777_11_non_const_r2))));
+# 193 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59787_15_non_const_alsq2n *= __cuda_local_var_59786_15_non_const_alsq2;
+# 194 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59793_15_non_const_bn2 = ((float)(fdividef(((double)(((3.0F) * __cuda_local_var_59790_15_non_const_bn1) + (__cuda_local_var_59787_15_non_const_alsq2n * __cuda_local_var_59788_15_non_const_exp2a))), ((double)__cuda_local_var_59777_11_non_const_r2))));
+# 198 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59797_15_non_const_scale3 = (1.0F);
+# 199 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59798_15_non_const_scale5 = (1.0F);
+# 200 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59799_15_non_const_damp = ((atomI->damp) * (atomJ->damp));
+# 201 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+if (__cuda_local_var_59799_15_non_const_damp != (0.0F))
+# 201 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 203 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59802_19_non_const_ratio;
+# 205 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59804_19_non_const_pgamma;
+# 203 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59802_19_non_const_ratio = ((float)(fdividef(((double)__cuda_local_var_59779_15_non_const_r), ((double)__cuda_local_var_59799_15_non_const_damp))));
+# 204 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59802_19_non_const_ratio = ((__cuda_local_var_59802_19_non_const_ratio * __cuda_local_var_59802_19_non_const_ratio) * __cuda_local_var_59802_19_non_const_ratio);
+# 205 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59804_19_non_const_pgamma = (((atomI->thole) < (atomJ->thole)) ? (atomI->thole) : (atomJ->thole));
+# 206 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59799_15_non_const_damp = ((-__cuda_local_var_59804_19_non_const_pgamma) * __cuda_local_var_59802_19_non_const_ratio);
+# 208 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+if (__cuda_local_var_59799_15_non_const_damp > (-50.0F))
+# 208 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_59808_23_non_const_expdamp;
+# 209 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59808_23_non_const_expdamp = (expf(__cuda_local_var_59799_15_non_const_damp));
+# 210 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59797_15_non_const_scale3 = ((1.0F) - __cuda_local_var_59808_23_non_const_expdamp);
+# 211 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59798_15_non_const_scale5 = ((1.0F) - (__cuda_local_var_59808_23_non_const_expdamp * ((1.0F) - __cuda_local_var_59799_15_non_const_damp)));
+# 212 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 213 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 214 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59813_15_non_const_dsc3 = (uscale * __cuda_local_var_59797_15_non_const_scale3);
+# 215 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59814_15_non_const_dsc5 = (uscale * __cuda_local_var_59798_15_non_const_scale5);
+# 217 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59816_15_non_const_r3 = (__cuda_local_var_59779_15_non_const_r * __cuda_local_var_59777_11_non_const_r2);
+# 218 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59817_15_non_const_r5 = (__cuda_local_var_59816_15_non_const_r3 * __cuda_local_var_59777_11_non_const_r2);
+# 219 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59818_15_non_const_rr3 = ((float)(fdividef(((double)((1.0F) - __cuda_local_var_59813_15_non_const_dsc3)), ((double)__cuda_local_var_59816_15_non_const_r3))));
+# 220 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59819_15_non_const_rr5 = ((float)(fdividef(((double)((3.0F) * ((1.0F) - __cuda_local_var_59814_15_non_const_dsc5))), ((double)__cuda_local_var_59817_15_non_const_r5))));
+# 222 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59821_15_non_const_preFactor1 = (__cuda_local_var_59818_15_non_const_rr3 - __cuda_local_var_59790_15_non_const_bn1);
+# 223 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59822_15_non_const_preFactor2 = (__cuda_local_var_59793_15_non_const_bn2 - __cuda_local_var_59819_15_non_const_rr5);
+# 225 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59824_15_non_const_dukr = ((((((atomJ->inducedDipole))[0]) * __cuda_local_var_59767_11_non_const_xr) + ((((atomJ->inducedDipole))[1]) * __cuda_local_var_59768_11_non_const_yr)) + ((((atomJ->inducedDipole))[2]) * __cuda_local_var_59769_11_non_const_zr));
+# 226 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59825_15_non_const_preFactor3 = (__cuda_local_var_59822_15_non_const_preFactor2 * __cuda_local_var_59824_15_non_const_dukr);
+# 228 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[0]).x) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59767_11_non_const_xr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomJ->inducedDipole))[0])));
+# 229 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[1]).x) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59768_11_non_const_yr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomJ->inducedDipole))[1])));
+# 230 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[2]).x) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59769_11_non_const_zr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomJ->inducedDipole))[2])));
+# 233 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59832_15_non_const_duir = ((((((atomI->inducedDipole))[0]) * __cuda_local_var_59767_11_non_const_xr) + ((((atomI->inducedDipole))[1]) * __cuda_local_var_59768_11_non_const_yr)) + ((((atomI->inducedDipole))[2]) * __cuda_local_var_59769_11_non_const_zr));
+# 234 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59825_15_non_const_preFactor3 = (__cuda_local_var_59822_15_non_const_preFactor2 * __cuda_local_var_59832_15_non_const_duir);
+# 236 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[0]).y) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59767_11_non_const_xr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomI->inducedDipole))[0])));
+# 237 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[1]).y) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59768_11_non_const_yr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomI->inducedDipole))[1])));
+# 238 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[2]).y) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59769_11_non_const_zr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomI->inducedDipole))[2])));
+# 241 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59840_15_non_const_pukr = ((((((atomJ->inducedDipolePolar))[0]) * __cuda_local_var_59767_11_non_const_xr) + ((((atomJ->inducedDipolePolar))[1]) * __cuda_local_var_59768_11_non_const_yr)) + ((((atomJ->inducedDipolePolar))[2]) * __cuda_local_var_59769_11_non_const_zr));
+# 242 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59825_15_non_const_preFactor3 = (__cuda_local_var_59822_15_non_const_preFactor2 * __cuda_local_var_59840_15_non_const_pukr);
+# 244 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[0]).z) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59767_11_non_const_xr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomJ->inducedDipolePolar))[0])));
+# 245 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[1]).z) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59768_11_non_const_yr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomJ->inducedDipolePolar))[1])));
+# 246 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[2]).z) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59769_11_non_const_zr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomJ->inducedDipolePolar))[2])));
+# 249 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59848_15_non_const_puir = ((((((atomI->inducedDipolePolar))[0]) * __cuda_local_var_59767_11_non_const_xr) + ((((atomI->inducedDipolePolar))[1]) * __cuda_local_var_59768_11_non_const_yr)) + ((((atomI->inducedDipolePolar))[2]) * __cuda_local_var_59769_11_non_const_zr));
+# 250 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_59825_15_non_const_preFactor3 = (__cuda_local_var_59822_15_non_const_preFactor2 * __cuda_local_var_59848_15_non_const_puir);
+# 251 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[0]).w) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59767_11_non_const_xr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomI->inducedDipolePolar))[0])));
+# 252 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[1]).w) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59768_11_non_const_yr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomI->inducedDipolePolar))[1])));
+# 253 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[2]).w) = ((__cuda_local_var_59825_15_non_const_preFactor3 * __cuda_local_var_59769_11_non_const_zr) + (__cuda_local_var_59821_15_non_const_preFactor1 * (((atomI->inducedDipolePolar))[2])));
+# 255 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 255 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+else 
+# 255 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 257 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[0]).x) = (0.0F);
+# 258 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[0]).y) = (0.0F);
+# 259 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[0]).z) = (0.0F);
+# 260 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[0]).w) = (0.0F);
+# 262 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[1]).x) = (0.0F);
+# 263 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[1]).y) = (0.0F);
+# 264 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[1]).z) = (0.0F);
+# 265 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[1]).w) = (0.0F);
+# 267 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[2]).x) = (0.0F);
+# 268 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[2]).y) = (0.0F);
+# 269 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[2]).z) = (0.0F);
+# 270 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+((fields[2]).w) = (0.0F);
+# 271 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 272 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+} 
+# 272 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}}
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+___device__(static  __no_sc__) void _Z10decodeCelljPjS_Pb(
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+unsigned cellId, 
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+unsigned *x, 
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+unsigned *y, 
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+__nv_bool *exclusions){
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+{
+# 77 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+{
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(*x) = cellId;
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(*y) = ((((*x) >> 2) & 32767U) << 5U);
+# 81 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(*exclusions) = ((__nv_bool)(((*x) & 1U) != 0U));
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(*x) = (((*x) >> 17) << 5U);
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+} 
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+}}
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+___device__(static  __no_sc__) void _Z24load3dArrayBufferPerWarpjPfS_(
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+unsigned offset, 
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+float *forceSum, 
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+float *outputForce){
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+{
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+{
+# 89 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+ float __cuda_local_var_59929_11_non_const_of;
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+__cuda_local_var_59929_11_non_const_of = (outputForce[offset]);
+# 91 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+__cuda_local_var_59929_11_non_const_of += (forceSum[0]);
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(outputForce[offset]) = __cuda_local_var_59929_11_non_const_of;
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+__cuda_local_var_59929_11_non_const_of = (outputForce[(offset + 1U)]);
+# 95 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+__cuda_local_var_59929_11_non_const_of += (forceSum[1]);
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(outputForce[(offset + 1U)]) = __cuda_local_var_59929_11_non_const_of;
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+__cuda_local_var_59929_11_non_const_of = (outputForce[(offset + 2U)]);
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+__cuda_local_var_59929_11_non_const_of += (forceSum[2]);
+# 100 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(outputForce[(offset + 2U)]) = __cuda_local_var_59929_11_non_const_of;
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+} 
+# 102 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+}}
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+___device__(static  __no_sc__) void _Z11load3dArrayjPVfPf(
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+unsigned offset, 
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+volatile float *forceSum, 
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+float *outputForce){
+# 128 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+{
+# 129 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+{
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(outputForce[offset]) = (forceSum[0]);
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(outputForce[(offset + 1U)]) = (forceSum[1]);
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+(outputForce[(offset + 2U)]) = (forceSum[2]);
+# 135 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+} 
+# 135 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaScaleFactors.h"
+}}
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__launch_bounds__(768,1) __global__ __var_used__ void _Z50kCalculateAmoebaPmeMutualInducedFieldCutoff_kernelPjPfS0_(
+# 38 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+unsigned *workUnit, 
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+float *outputField, 
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+float *outputFieldPolar){
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 40 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60011_18_non_const_totalWarps;
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60012_18_non_const_warp;
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60013_18_non_const_numWorkUnits;
+# 47 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60014_18_non_const_pos;
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60015_18_non_const_end;
+# 49 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60016_18_non_const_lasty;
+# 50 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ float __cuda_local_var_60017_17_const_uscale;
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60011_18_non_const_totalWarps = (((gridDim.x) * (blockDim.x)) / 32U);
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60012_18_non_const_warp = ((((blockIdx.x) * (blockDim.x)) + (threadIdx.x)) / 32U);
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60013_18_non_const_numWorkUnits = ((unsigned)((cSim.pInteractionCount)[0]));
+# 47 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60014_18_non_const_pos = ((__cuda_local_var_60012_18_non_const_warp * __cuda_local_var_60013_18_non_const_numWorkUnits) / __cuda_local_var_60011_18_non_const_totalWarps);
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60015_18_non_const_end = (((__cuda_local_var_60012_18_non_const_warp + 1U) * __cuda_local_var_60013_18_non_const_numWorkUnits) / __cuda_local_var_60011_18_non_const_totalWarps);
+# 49 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60016_18_non_const_lasty = 4294967295U;
+# 50 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60017_17_const_uscale = (1.0F);
+# 52 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+while (__cuda_local_var_60014_18_non_const_pos < __cuda_local_var_60015_18_non_const_end)
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 55 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60022_22_non_const_x;
+# 56 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60023_22_non_const_y;
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ __nv_bool __cuda_local_var_60024_14_non_const_bExclusionFlag;
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60030_22_non_const_tgx;
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60031_22_non_const_tbx;
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60032_22_non_const_tj;
+# 67 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ struct MutualInducedParticle *__cuda_local_var_60034_32_non_const_psA;
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60035_22_non_const_atomI;
+# 69 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ struct MutualInducedParticle __cuda_local_var_60036_31_non_const_localParticle;
+# 72 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ float __cuda_local_var_60039_15_non_const_fieldSum[3];
+# 73 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ float __cuda_local_var_60040_15_non_const_fieldPolarSum[3];
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z10decodeCelljPjS_Pb((workUnit[__cuda_local_var_60014_18_non_const_pos]), (&__cuda_local_var_60022_22_non_const_x), (&__cuda_local_var_60023_22_non_const_y), (&__cuda_local_var_60024_14_non_const_bExclusionFlag));
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60030_22_non_const_tgx = ((threadIdx.x) & 31U);
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60031_22_non_const_tbx = ((threadIdx.x) - __cuda_local_var_60030_22_non_const_tgx);
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60032_22_non_const_tj = __cuda_local_var_60030_22_non_const_tgx;
+# 67 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60034_32_non_const_psA = ((sA) + __cuda_local_var_60031_22_non_const_tbx);
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60035_22_non_const_atomI = (__cuda_local_var_60022_22_non_const_x + __cuda_local_var_60030_22_non_const_tgx);
+# 70 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z23loadMutualInducedSharedP21MutualInducedParticlej((&__cuda_local_var_60036_31_non_const_localParticle), __cuda_local_var_60035_22_non_const_atomI);
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60039_15_non_const_fieldSum)[0]) = (0.0F);
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60039_15_non_const_fieldSum)[1]) = (0.0F);
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60039_15_non_const_fieldSum)[2]) = (0.0F);
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60040_15_non_const_fieldPolarSum)[0]) = (0.0F);
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60040_15_non_const_fieldPolarSum)[1]) = (0.0F);
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60040_15_non_const_fieldPolarSum)[2]) = (0.0F);
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (__cuda_local_var_60022_22_non_const_x == __cuda_local_var_60023_22_non_const_y)
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60070_26_non_const_offset;
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z23loadMutualInducedSharedP21MutualInducedParticlej(((sA) + (threadIdx.x)), __cuda_local_var_60035_22_non_const_atomI);
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned j;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+j = 0U;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+for (; (j < 32U); j++)
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (((__cuda_local_var_60035_22_non_const_atomI != (__cuda_local_var_60023_22_non_const_y + j)) && (__cuda_local_var_60035_22_non_const_atomI < (cSim.atoms))) && ((__cuda_local_var_60023_22_non_const_y + j) < (cSim.atoms)))
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ struct float4 __cuda_local_var_60061_28_non_const_delta;
+# 95 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ float __cuda_local_var_60062_27_non_const_prefactor2;
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z37setupMutualInducedFieldPairIxn_kernelRK21MutualInducedParticleS1_fP6float4Pf(((const struct MutualInducedParticle *)(&__cuda_local_var_60036_31_non_const_localParticle)), ((const struct MutualInducedParticle *)(__cuda_local_var_60034_32_non_const_psA + j)), (1.0F), (&__cuda_local_var_60061_28_non_const_delta), (&__cuda_local_var_60062_27_non_const_prefactor2));
+# 97 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)(((__cuda_local_var_60034_32_non_const_psA[j]).inducedDipole))), __cuda_local_var_60061_28_non_const_delta, __cuda_local_var_60062_27_non_const_prefactor2, (__cuda_local_var_60039_15_non_const_fieldSum));
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)(((__cuda_local_var_60034_32_non_const_psA[j]).inducedDipolePolar))), __cuda_local_var_60061_28_non_const_delta, __cuda_local_var_60062_27_non_const_prefactor2, (__cuda_local_var_60040_15_non_const_fieldPolarSum));
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 101 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 101 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 110 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60070_26_non_const_offset = (3U * ((__cuda_local_var_60022_22_non_const_x + __cuda_local_var_60030_22_non_const_tgx) + ((__cuda_local_var_60022_22_non_const_x >> 5U) * (cSim.paddedNumberOfAtoms))));
+# 111 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z11load3dArrayjPVfPf(__cuda_local_var_60070_26_non_const_offset, ((volatile float *)(__cuda_local_var_60039_15_non_const_fieldSum)), outputField);
+# 112 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z11load3dArrayjPVfPf(__cuda_local_var_60070_26_non_const_offset, ((volatile float *)(__cuda_local_var_60040_15_non_const_fieldPolarSum)), outputFieldPolar);
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+else 
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60082_26_non_const_flags;
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (__cuda_local_var_60016_18_non_const_lasty != __cuda_local_var_60023_22_non_const_y)
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 118 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60078_30_non_const_atomJ;
+# 118 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60078_30_non_const_atomJ = (__cuda_local_var_60023_22_non_const_y + __cuda_local_var_60030_22_non_const_tgx);
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z23loadMutualInducedSharedP21MutualInducedParticlej(((sA) + (threadIdx.x)), __cuda_local_var_60078_30_non_const_atomJ);
+# 120 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60082_26_non_const_flags = ((cSim.pInteractionFlag)[__cuda_local_var_60014_18_non_const_pos]);
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (__cuda_local_var_60082_26_non_const_flags != 0U)
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 199 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60146_30_non_const_offset;
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z36zeroMutualInducedParticleSharedFieldP21MutualInducedParticle(((sA) + (threadIdx.x)));
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned j;
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+j = 0U;
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+for (; (j < 32U); j++)
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60082_26_non_const_flags & ((unsigned)(1 << j))) != 0U)
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 135 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60095_38_non_const_jIdx;
+# 136 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ struct float4 __cuda_local_var_60096_32_non_const_delta;
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ float __cuda_local_var_60097_31_non_const_prefactor2;
+# 135 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60095_38_non_const_jIdx = ((__cuda_local_var_60082_26_non_const_flags == 4294967295U) ? __cuda_local_var_60032_22_non_const_tj : j);
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60035_22_non_const_atomI < (cSim.atoms)) && ((__cuda_local_var_60023_22_non_const_y + __cuda_local_var_60095_38_non_const_jIdx) < (cSim.atoms)))
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 139 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z37setupMutualInducedFieldPairIxn_kernelRK21MutualInducedParticleS1_fP6float4Pf(((const struct MutualInducedParticle *)(&__cuda_local_var_60036_31_non_const_localParticle)), ((const struct MutualInducedParticle *)(__cuda_local_var_60034_32_non_const_psA + __cuda_local_var_60095_38_non_const_jIdx)), (1.0F), (&__cuda_local_var_60096_32_non_const_delta), (&__cuda_local_var_60097_31_non_const_prefactor2));
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)(((__cuda_local_var_60034_32_non_const_psA[__cuda_local_var_60095_38_non_const_jIdx]).inducedDipole))), __cuda_local_var_60096_32_non_const_delta, __cuda_local_var_60097_31_non_const_prefactor2, (__cuda_local_var_60039_15_non_const_fieldSum));
+# 141 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)(((__cuda_local_var_60034_32_non_const_psA[__cuda_local_var_60095_38_non_const_jIdx]).inducedDipolePolar))), __cuda_local_var_60096_32_non_const_delta, __cuda_local_var_60097_31_non_const_prefactor2, (__cuda_local_var_60040_15_non_const_fieldPolarSum));
+# 146 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (__cuda_local_var_60082_26_non_const_flags == 4294967295U)
+# 146 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)((__cuda_local_var_60036_31_non_const_localParticle.inducedDipole))), __cuda_local_var_60096_32_non_const_delta, __cuda_local_var_60097_31_non_const_prefactor2, (((__cuda_local_var_60034_32_non_const_psA[__cuda_local_var_60095_38_non_const_jIdx]).field)));
+# 148 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)((__cuda_local_var_60036_31_non_const_localParticle.inducedDipolePolar))), __cuda_local_var_60096_32_non_const_delta, __cuda_local_var_60097_31_non_const_prefactor2, (((__cuda_local_var_60034_32_non_const_psA[__cuda_local_var_60095_38_non_const_jIdx]).fieldPolar)));
+# 149 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 149 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+else 
+# 149 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 150 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z46calculateMutualInducedFieldPairIxnNoAdd_kernelPKf6float4fPf(((const float *)((__cuda_local_var_60036_31_non_const_localParticle.inducedDipole))), __cuda_local_var_60096_32_non_const_delta, __cuda_local_var_60097_31_non_const_prefactor2, ((((sA)[(threadIdx.x)]).tempBuffer)));
+# 151 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z46calculateMutualInducedFieldPairIxnNoAdd_kernelPKf6float4fPf(((const float *)((__cuda_local_var_60036_31_non_const_localParticle.inducedDipolePolar))), __cuda_local_var_60096_32_non_const_delta, __cuda_local_var_60097_31_non_const_prefactor2, ((((sA)[(threadIdx.x)]).tempBufferP)));
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60030_22_non_const_tgx % 2U) == 0U)
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z13sumTempBufferR21MutualInducedParticleS0_(((sA) + (threadIdx.x)), ((sA) + ((threadIdx.x) + 1U)));
+# 155 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 156 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60030_22_non_const_tgx % 4U) == 0U)
+# 156 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 157 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z13sumTempBufferR21MutualInducedParticleS0_(((sA) + (threadIdx.x)), ((sA) + ((threadIdx.x) + 2U)));
+# 158 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60030_22_non_const_tgx % 8U) == 0U)
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 160 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z13sumTempBufferR21MutualInducedParticleS0_(((sA) + (threadIdx.x)), ((sA) + ((threadIdx.x) + 4U)));
+# 161 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60030_22_non_const_tgx % 16U) == 0U)
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z13sumTempBufferR21MutualInducedParticleS0_(((sA) + (threadIdx.x)), ((sA) + ((threadIdx.x) + 8U)));
+# 164 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 166 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (__cuda_local_var_60030_22_non_const_tgx == 0U)
+# 167 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 168 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60034_32_non_const_psA[__cuda_local_var_60095_38_non_const_jIdx]).field))[0]) += ((((((sA)[(threadIdx.x)]).tempBuffer))[0]) + (((((sA)[((threadIdx.x) + 16U)]).tempBuffer))[0]));
+# 169 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60034_32_non_const_psA[__cuda_local_var_60095_38_non_const_jIdx]).field))[1]) += ((((((sA)[(threadIdx.x)]).tempBuffer))[1]) + (((((sA)[((threadIdx.x) + 16U)]).tempBuffer))[1]));
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60034_32_non_const_psA[__cuda_local_var_60095_38_non_const_jIdx]).field))[2]) += ((((((sA)[(threadIdx.x)]).tempBuffer))[2]) + (((((sA)[((threadIdx.x) + 16U)]).tempBuffer))[2]));
+# 172 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60034_32_non_const_psA[__cuda_local_var_60095_38_non_const_jIdx]).fieldPolar))[0]) += ((((((sA)[(threadIdx.x)]).tempBufferP))[0]) + (((((sA)[((threadIdx.x) + 16U)]).tempBufferP))[0]));
+# 173 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60034_32_non_const_psA[__cuda_local_var_60095_38_non_const_jIdx]).fieldPolar))[1]) += ((((((sA)[(threadIdx.x)]).tempBufferP))[1]) + (((((sA)[((threadIdx.x) + 16U)]).tempBufferP))[1]));
+# 174 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60034_32_non_const_psA[__cuda_local_var_60095_38_non_const_jIdx]).fieldPolar))[2]) += ((((((sA)[(threadIdx.x)]).tempBufferP))[2]) + (((((sA)[((threadIdx.x) + 16U)]).tempBufferP))[2]));
+# 175 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 177 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 179 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 180 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 182 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60032_22_non_const_tj = ((__cuda_local_var_60032_22_non_const_tj + 1U) & 31U);
+# 184 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 184 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 199 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60146_30_non_const_offset = (3U * ((__cuda_local_var_60022_22_non_const_x + __cuda_local_var_60030_22_non_const_tgx) + ((__cuda_local_var_60023_22_non_const_y >> 5U) * (cSim.paddedNumberOfAtoms))));
+# 200 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z11load3dArrayjPVfPf(__cuda_local_var_60146_30_non_const_offset, ((volatile float *)(__cuda_local_var_60039_15_non_const_fieldSum)), outputField);
+# 201 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z11load3dArrayjPVfPf(__cuda_local_var_60146_30_non_const_offset, ((volatile float *)(__cuda_local_var_60040_15_non_const_fieldPolarSum)), outputFieldPolar);
+# 203 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60146_30_non_const_offset = (3U * ((__cuda_local_var_60023_22_non_const_y + __cuda_local_var_60030_22_non_const_tgx) + ((__cuda_local_var_60022_22_non_const_x >> 5U) * (cSim.paddedNumberOfAtoms))));
+# 204 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z11load3dArrayjPVfPf(__cuda_local_var_60146_30_non_const_offset, ((volatile float *)((((sA)[(threadIdx.x)]).field))), outputField);
+# 205 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z11load3dArrayjPVfPf(__cuda_local_var_60146_30_non_const_offset, ((volatile float *)((((sA)[(threadIdx.x)]).fieldPolar))), outputFieldPolar);
+# 208 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60016_18_non_const_lasty = __cuda_local_var_60023_22_non_const_y;
+# 210 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 212 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 213 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60014_18_non_const_pos++;
+# 214 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 215 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+} 
+# 215 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}}
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__launch_bounds__(768,1) __global__ __var_used__ void _Z56kCalculateAmoebaPmeMutualInducedFieldCutoffByWarp_kernelPjPfS0_(
+# 38 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+unsigned *workUnit, 
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+float *outputField, 
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+float *outputFieldPolar){
+# 39 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 40 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60184_18_non_const_totalWarps;
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60185_18_non_const_warp;
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60186_18_non_const_numWorkUnits;
+# 47 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60187_18_non_const_pos;
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60188_18_non_const_end;
+# 49 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60189_18_non_const_lasty;
+# 50 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ float __cuda_local_var_60190_17_const_uscale;
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60184_18_non_const_totalWarps = (((gridDim.x) * (blockDim.x)) / 32U);
+# 45 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60185_18_non_const_warp = ((((blockIdx.x) * (blockDim.x)) + (threadIdx.x)) / 32U);
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60186_18_non_const_numWorkUnits = ((unsigned)((cSim.pInteractionCount)[0]));
+# 47 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60187_18_non_const_pos = ((__cuda_local_var_60185_18_non_const_warp * __cuda_local_var_60186_18_non_const_numWorkUnits) / __cuda_local_var_60184_18_non_const_totalWarps);
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60188_18_non_const_end = (((__cuda_local_var_60185_18_non_const_warp + 1U) * __cuda_local_var_60186_18_non_const_numWorkUnits) / __cuda_local_var_60184_18_non_const_totalWarps);
+# 49 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60189_18_non_const_lasty = 4294967295U;
+# 50 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60190_17_const_uscale = (1.0F);
+# 52 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+while (__cuda_local_var_60187_18_non_const_pos < __cuda_local_var_60188_18_non_const_end)
+# 53 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 55 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60195_22_non_const_x;
+# 56 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60196_22_non_const_y;
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ __nv_bool __cuda_local_var_60197_14_non_const_bExclusionFlag;
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60203_22_non_const_tgx;
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60204_22_non_const_tbx;
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60205_22_non_const_tj;
+# 67 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ struct MutualInducedParticle *__cuda_local_var_60207_32_non_const_psA;
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60208_22_non_const_atomI;
+# 69 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ struct MutualInducedParticle __cuda_local_var_60209_31_non_const_localParticle;
+# 72 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ float __cuda_local_var_60212_15_non_const_fieldSum[3];
+# 73 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ float __cuda_local_var_60213_15_non_const_fieldPolarSum[3];
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z10decodeCelljPjS_Pb((workUnit[__cuda_local_var_60187_18_non_const_pos]), (&__cuda_local_var_60195_22_non_const_x), (&__cuda_local_var_60196_22_non_const_y), (&__cuda_local_var_60197_14_non_const_bExclusionFlag));
+# 63 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60203_22_non_const_tgx = ((threadIdx.x) & 31U);
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60204_22_non_const_tbx = ((threadIdx.x) - __cuda_local_var_60203_22_non_const_tgx);
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60205_22_non_const_tj = __cuda_local_var_60203_22_non_const_tgx;
+# 67 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60207_32_non_const_psA = ((sA) + __cuda_local_var_60204_22_non_const_tbx);
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60208_22_non_const_atomI = (__cuda_local_var_60195_22_non_const_x + __cuda_local_var_60203_22_non_const_tgx);
+# 70 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z23loadMutualInducedSharedP21MutualInducedParticlej((&__cuda_local_var_60209_31_non_const_localParticle), __cuda_local_var_60208_22_non_const_atomI);
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60212_15_non_const_fieldSum)[0]) = (0.0F);
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60212_15_non_const_fieldSum)[1]) = (0.0F);
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60212_15_non_const_fieldSum)[2]) = (0.0F);
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60213_15_non_const_fieldPolarSum)[0]) = (0.0F);
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60213_15_non_const_fieldPolarSum)[1]) = (0.0F);
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((__cuda_local_var_60213_15_non_const_fieldPolarSum)[2]) = (0.0F);
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (__cuda_local_var_60195_22_non_const_x == __cuda_local_var_60196_22_non_const_y)
+# 86 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 106 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60246_26_non_const_offset;
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z23loadMutualInducedSharedP21MutualInducedParticlej(((sA) + (threadIdx.x)), __cuda_local_var_60208_22_non_const_atomI);
+# 90 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned j;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+j = 0U;
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+for (; (j < 32U); j++)
+# 92 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (((__cuda_local_var_60208_22_non_const_atomI != (__cuda_local_var_60196_22_non_const_y + j)) && (__cuda_local_var_60208_22_non_const_atomI < (cSim.atoms))) && ((__cuda_local_var_60196_22_non_const_y + j) < (cSim.atoms)))
+# 93 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 94 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ struct float4 __cuda_local_var_60234_28_non_const_delta;
+# 95 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ float __cuda_local_var_60235_27_non_const_prefactor2;
+# 96 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z37setupMutualInducedFieldPairIxn_kernelRK21MutualInducedParticleS1_fP6float4Pf(((const struct MutualInducedParticle *)(&__cuda_local_var_60209_31_non_const_localParticle)), ((const struct MutualInducedParticle *)(__cuda_local_var_60207_32_non_const_psA + j)), (1.0F), (&__cuda_local_var_60234_28_non_const_delta), (&__cuda_local_var_60235_27_non_const_prefactor2));
+# 97 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)(((__cuda_local_var_60207_32_non_const_psA[j]).inducedDipole))), __cuda_local_var_60234_28_non_const_delta, __cuda_local_var_60235_27_non_const_prefactor2, (__cuda_local_var_60212_15_non_const_fieldSum));
+# 98 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)(((__cuda_local_var_60207_32_non_const_psA[j]).inducedDipolePolar))), __cuda_local_var_60234_28_non_const_delta, __cuda_local_var_60235_27_non_const_prefactor2, (__cuda_local_var_60213_15_non_const_fieldPolarSum));
+# 99 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 101 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 101 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 106 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60246_26_non_const_offset = (3U * ((__cuda_local_var_60195_22_non_const_x + __cuda_local_var_60203_22_non_const_tgx) + (__cuda_local_var_60185_18_non_const_warp * (cSim.paddedNumberOfAtoms))));
+# 107 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z24load3dArrayBufferPerWarpjPfS_(__cuda_local_var_60246_26_non_const_offset, (__cuda_local_var_60212_15_non_const_fieldSum), outputField);
+# 108 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z24load3dArrayBufferPerWarpjPfS_(__cuda_local_var_60246_26_non_const_offset, (__cuda_local_var_60213_15_non_const_fieldPolarSum), outputFieldPolar);
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+else 
+# 115 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60262_26_non_const_flags;
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (__cuda_local_var_60189_18_non_const_lasty != __cuda_local_var_60196_22_non_const_y)
+# 117 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 118 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60258_30_non_const_atomJ;
+# 118 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60258_30_non_const_atomJ = (__cuda_local_var_60196_22_non_const_y + __cuda_local_var_60203_22_non_const_tgx);
+# 119 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z23loadMutualInducedSharedP21MutualInducedParticlej(((sA) + (threadIdx.x)), __cuda_local_var_60258_30_non_const_atomJ);
+# 120 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 122 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60262_26_non_const_flags = ((cSim.pInteractionFlag)[__cuda_local_var_60187_18_non_const_pos]);
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (__cuda_local_var_60262_26_non_const_flags != 0U)
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 189 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60329_30_non_const_offset;
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z36zeroMutualInducedParticleSharedFieldP21MutualInducedParticle(((sA) + (threadIdx.x)));
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned j;
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+j = 0U;
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+for (; (j < 32U); j++)
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60262_26_non_const_flags & ((unsigned)(1 << j))) != 0U)
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 135 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ unsigned __cuda_local_var_60275_38_non_const_jIdx;
+# 136 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ struct float4 __cuda_local_var_60276_32_non_const_delta;
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+ float __cuda_local_var_60277_31_non_const_prefactor2;
+# 135 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60275_38_non_const_jIdx = ((__cuda_local_var_60262_26_non_const_flags == 4294967295U) ? __cuda_local_var_60205_22_non_const_tj : j);
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60208_22_non_const_atomI < (cSim.atoms)) && ((__cuda_local_var_60196_22_non_const_y + __cuda_local_var_60275_38_non_const_jIdx) < (cSim.atoms)))
+# 138 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 139 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z37setupMutualInducedFieldPairIxn_kernelRK21MutualInducedParticleS1_fP6float4Pf(((const struct MutualInducedParticle *)(&__cuda_local_var_60209_31_non_const_localParticle)), ((const struct MutualInducedParticle *)(__cuda_local_var_60207_32_non_const_psA + __cuda_local_var_60275_38_non_const_jIdx)), (1.0F), (&__cuda_local_var_60276_32_non_const_delta), (&__cuda_local_var_60277_31_non_const_prefactor2));
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)(((__cuda_local_var_60207_32_non_const_psA[__cuda_local_var_60275_38_non_const_jIdx]).inducedDipole))), __cuda_local_var_60276_32_non_const_delta, __cuda_local_var_60277_31_non_const_prefactor2, (__cuda_local_var_60212_15_non_const_fieldSum));
+# 141 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)(((__cuda_local_var_60207_32_non_const_psA[__cuda_local_var_60275_38_non_const_jIdx]).inducedDipolePolar))), __cuda_local_var_60276_32_non_const_delta, __cuda_local_var_60277_31_non_const_prefactor2, (__cuda_local_var_60213_15_non_const_fieldPolarSum));
+# 146 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (__cuda_local_var_60262_26_non_const_flags == 4294967295U)
+# 146 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 147 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)((__cuda_local_var_60209_31_non_const_localParticle.inducedDipole))), __cuda_local_var_60276_32_non_const_delta, __cuda_local_var_60277_31_non_const_prefactor2, (((__cuda_local_var_60207_32_non_const_psA[__cuda_local_var_60275_38_non_const_jIdx]).field)));
+# 148 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z41calculateMutualInducedFieldPairIxn_kernelPKf6float4fPf(((const float *)((__cuda_local_var_60209_31_non_const_localParticle.inducedDipolePolar))), __cuda_local_var_60276_32_non_const_delta, __cuda_local_var_60277_31_non_const_prefactor2, (((__cuda_local_var_60207_32_non_const_psA[__cuda_local_var_60275_38_non_const_jIdx]).fieldPolar)));
+# 149 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 149 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+else 
+# 149 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 150 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z46calculateMutualInducedFieldPairIxnNoAdd_kernelPKf6float4fPf(((const float *)((__cuda_local_var_60209_31_non_const_localParticle.inducedDipole))), __cuda_local_var_60276_32_non_const_delta, __cuda_local_var_60277_31_non_const_prefactor2, ((((sA)[(threadIdx.x)]).tempBuffer)));
+# 151 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z46calculateMutualInducedFieldPairIxnNoAdd_kernelPKf6float4fPf(((const float *)((__cuda_local_var_60209_31_non_const_localParticle.inducedDipolePolar))), __cuda_local_var_60276_32_non_const_delta, __cuda_local_var_60277_31_non_const_prefactor2, ((((sA)[(threadIdx.x)]).tempBufferP)));
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60203_22_non_const_tgx % 2U) == 0U)
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z13sumTempBufferR21MutualInducedParticleS0_(((sA) + (threadIdx.x)), ((sA) + ((threadIdx.x) + 1U)));
+# 155 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 156 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60203_22_non_const_tgx % 4U) == 0U)
+# 156 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 157 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z13sumTempBufferR21MutualInducedParticleS0_(((sA) + (threadIdx.x)), ((sA) + ((threadIdx.x) + 2U)));
+# 158 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60203_22_non_const_tgx % 8U) == 0U)
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 160 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z13sumTempBufferR21MutualInducedParticleS0_(((sA) + (threadIdx.x)), ((sA) + ((threadIdx.x) + 4U)));
+# 161 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if ((__cuda_local_var_60203_22_non_const_tgx % 16U) == 0U)
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z13sumTempBufferR21MutualInducedParticleS0_(((sA) + (threadIdx.x)), ((sA) + ((threadIdx.x) + 8U)));
+# 164 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 166 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+if (__cuda_local_var_60203_22_non_const_tgx == 0U)
+# 167 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+{
+# 168 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60207_32_non_const_psA[__cuda_local_var_60275_38_non_const_jIdx]).field))[0]) += ((((((sA)[(threadIdx.x)]).tempBuffer))[0]) + (((((sA)[((threadIdx.x) + 16U)]).tempBuffer))[0]));
+# 169 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60207_32_non_const_psA[__cuda_local_var_60275_38_non_const_jIdx]).field))[1]) += ((((((sA)[(threadIdx.x)]).tempBuffer))[1]) + (((((sA)[((threadIdx.x) + 16U)]).tempBuffer))[1]));
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60207_32_non_const_psA[__cuda_local_var_60275_38_non_const_jIdx]).field))[2]) += ((((((sA)[(threadIdx.x)]).tempBuffer))[2]) + (((((sA)[((threadIdx.x) + 16U)]).tempBuffer))[2]));
+# 172 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60207_32_non_const_psA[__cuda_local_var_60275_38_non_const_jIdx]).fieldPolar))[0]) += ((((((sA)[(threadIdx.x)]).tempBufferP))[0]) + (((((sA)[((threadIdx.x) + 16U)]).tempBufferP))[0]));
+# 173 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60207_32_non_const_psA[__cuda_local_var_60275_38_non_const_jIdx]).fieldPolar))[1]) += ((((((sA)[(threadIdx.x)]).tempBufferP))[1]) + (((((sA)[((threadIdx.x) + 16U)]).tempBufferP))[1]));
+# 174 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+((((__cuda_local_var_60207_32_non_const_psA[__cuda_local_var_60275_38_non_const_jIdx]).fieldPolar))[2]) += ((((((sA)[(threadIdx.x)]).tempBufferP))[2]) + (((((sA)[((threadIdx.x) + 16U)]).tempBufferP))[2]));
+# 175 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 177 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 179 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 180 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 182 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60205_22_non_const_tj = ((__cuda_local_var_60205_22_non_const_tj + 1U) & 31U);
+# 184 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 184 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 189 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60329_30_non_const_offset = (3U * ((__cuda_local_var_60195_22_non_const_x + __cuda_local_var_60203_22_non_const_tgx) + (__cuda_local_var_60185_18_non_const_warp * (cSim.paddedNumberOfAtoms))));
+# 190 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z24load3dArrayBufferPerWarpjPfS_(__cuda_local_var_60329_30_non_const_offset, (__cuda_local_var_60212_15_non_const_fieldSum), outputField);
+# 191 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z24load3dArrayBufferPerWarpjPfS_(__cuda_local_var_60329_30_non_const_offset, (__cuda_local_var_60213_15_non_const_fieldPolarSum), outputFieldPolar);
+# 193 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60329_30_non_const_offset = (3U * ((__cuda_local_var_60196_22_non_const_y + __cuda_local_var_60203_22_non_const_tgx) + (__cuda_local_var_60185_18_non_const_warp * (cSim.paddedNumberOfAtoms))));
+# 195 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z24load3dArrayBufferPerWarpjPfS_(__cuda_local_var_60329_30_non_const_offset, ((((sA)[(threadIdx.x)]).field)), outputField);
+# 196 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+_Z24load3dArrayBufferPerWarpjPfS_(__cuda_local_var_60329_30_non_const_offset, ((((sA)[(threadIdx.x)]).fieldPolar)), outputFieldPolar);
+# 208 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60189_18_non_const_lasty = __cuda_local_var_60196_22_non_const_y;
+# 210 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 212 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 213 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+__cuda_local_var_60187_18_non_const_pos++;
+# 214 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}
+# 215 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+} 
+# 215 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.h"
+}}
+# 291 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__launch_bounds__(512,1) __global__ __var_used__ static void _Z36kInitializeMutualInducedField_kerneliPfS_S_(
+# 292 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+int numberOfAtoms, 
+# 293 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *fixedEField, 
+# 294 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *fixedEFieldPolar, 
+# 295 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *polarizability){
+# 295 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 296 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 298 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ int __cuda_local_var_60363_9_non_const_pos;
+# 298 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60363_9_non_const_pos = ((int)(((blockIdx.x) * (blockDim.x)) + (threadIdx.x)));
+# 299 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+while (((unsigned)__cuda_local_var_60363_9_non_const_pos) < (3U * (cSim.atoms)))
+# 300 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 301 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(fixedEField[__cuda_local_var_60363_9_non_const_pos]) *= (polarizability[__cuda_local_var_60363_9_non_const_pos]);
+# 302 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(fixedEFieldPolar[__cuda_local_var_60363_9_non_const_pos]) *= (polarizability[__cuda_local_var_60363_9_non_const_pos]);
+# 304 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60363_9_non_const_pos += ((blockDim.x) * (gridDim.x));
+# 305 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 307 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+} 
+# 307 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}}
+# 317 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__launch_bounds__(512,1) __global__ __var_used__ static void _Z37kReduceMutualInducedFieldDelta_kerneliPfS_S_(
+# 317 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+int numberOfEntries, 
+# 317 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *arrayOfDeltas1, 
+# 317 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *arrayOfDeltas2, 
+# 317 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *epsilon){
+# 317 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 318 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 324 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ unsigned __cuda_local_var_60389_18_non_const_pos;
+# 321 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((delta)[(threadIdx.x)]).x) = (0.0F);
+# 322 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((delta)[(threadIdx.x)]).y) = (0.0F);
+# 324 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60389_18_non_const_pos = (threadIdx.x);
+# 328 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+while (__cuda_local_var_60389_18_non_const_pos < ((unsigned)numberOfEntries))
+# 329 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 330 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((delta)[(threadIdx.x)]).x) += (arrayOfDeltas1[__cuda_local_var_60389_18_non_const_pos]);
+# 331 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((delta)[(threadIdx.x)]).y) += (arrayOfDeltas2[__cuda_local_var_60389_18_non_const_pos]);
+# 332 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60389_18_non_const_pos += ((blockDim.x) * (gridDim.x));
+# 333 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 334 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__syncthreads();
+# 334 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 338 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ int offset;
+# 338 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+offset = 1;
+# 338 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+for (; (((unsigned)offset) < (blockDim.x)); offset *= 2)
+# 339 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 340 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+if ((((threadIdx.x) + ((unsigned)offset)) < (blockDim.x)) && (((threadIdx.x) & ((unsigned)((2 * offset) - 1))) == 0U))
+# 341 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 342 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((delta)[(threadIdx.x)]).x) += (((delta)[((threadIdx.x) + ((unsigned)offset))]).x);
+# 343 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(((delta)[(threadIdx.x)]).y) += (((delta)[((threadIdx.x) + ((unsigned)offset))]).y);
+# 344 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 345 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__syncthreads();
+# 346 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 346 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 350 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+if ((threadIdx.x) == 0U)
+# 351 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 352 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(epsilon[0]) = (((((delta)[0]).x) > (((delta)[0]).y)) ? (((delta)[0]).x) : (((delta)[0]).y));
+# 353 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(epsilon[0]) = ((48.0333252F) * (sqrtf(((float)(fdividef(((double)(epsilon[0])), ((double)((float)(numberOfEntries / 3)))))))));
+# 354 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 355 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+} 
+# 355 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}}
+# 370 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__launch_bounds__(512,1) __global__ __var_used__ static void _Z35kSorUpdateMutualInducedField_kernelPfS_S_S_S_S_S_(
+# 371 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *polarizability, 
+# 372 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *inducedDipole, 
+# 372 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *inducedDipoleP, 
+# 373 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *fixedEField, 
+# 373 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *fixedEFieldP, 
+# 374 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *matrixProduct, 
+# 374 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+float *matrixProductP){
+# 374 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 375 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 377 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ int __cuda_local_var_60442_9_non_const_pos;
+# 378 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_60443_17_non_const_term;
+# 379 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_60444_17_const_polarSOR;
+# 377 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60442_9_non_const_pos = ((int)(((blockIdx.x) * (blockDim.x)) + (threadIdx.x)));
+# 378 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60443_17_non_const_term = ((float)(fdividef(((double)((1.333333373F) * (((cSim.alphaEwald) * (cSim.alphaEwald)) * (cSim.alphaEwald)))), ((double)(cAmoebaSim.sqrtPi)))));
+# 379 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60444_17_const_polarSOR = (0.5500000119F);
+# 381 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+while (((unsigned)__cuda_local_var_60442_9_non_const_pos) < (3U * (cSim.atoms)))
+# 382 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+{
+# 384 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_60449_15_non_const_previousDipole;
+# 385 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_60450_15_non_const_previousDipoleP;
+# 389 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_60454_15_non_const_mProd;
+# 390 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_60455_15_non_const_mProdP;
+# 395 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_60460_15_non_const_inducedDipoleI;
+# 396 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+ float __cuda_local_var_60461_15_non_const_inducedDipoleIP;
+# 384 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60449_15_non_const_previousDipole = (inducedDipole[__cuda_local_var_60442_9_non_const_pos]);
+# 385 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60450_15_non_const_previousDipoleP = (inducedDipoleP[__cuda_local_var_60442_9_non_const_pos]);
+# 389 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60454_15_non_const_mProd = (matrixProduct[__cuda_local_var_60442_9_non_const_pos]);
+# 390 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60455_15_non_const_mProdP = (matrixProductP[__cuda_local_var_60442_9_non_const_pos]);
+# 392 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60454_15_non_const_mProd += (__cuda_local_var_60443_17_non_const_term * __cuda_local_var_60449_15_non_const_previousDipole);
+# 393 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60455_15_non_const_mProdP += (__cuda_local_var_60443_17_non_const_term * __cuda_local_var_60450_15_non_const_previousDipoleP);
+# 395 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60460_15_non_const_inducedDipoleI = ((fixedEField[__cuda_local_var_60442_9_non_const_pos]) + ((polarizability[__cuda_local_var_60442_9_non_const_pos]) * __cuda_local_var_60454_15_non_const_mProd));
+# 396 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60461_15_non_const_inducedDipoleIP = ((fixedEFieldP[__cuda_local_var_60442_9_non_const_pos]) + ((polarizability[__cuda_local_var_60442_9_non_const_pos]) * __cuda_local_var_60455_15_non_const_mProdP));
+# 398 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(inducedDipole[__cuda_local_var_60442_9_non_const_pos]) = (__cuda_local_var_60449_15_non_const_previousDipole + ((0.5500000119F) * (__cuda_local_var_60460_15_non_const_inducedDipoleI - __cuda_local_var_60449_15_non_const_previousDipole)));
+# 399 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(inducedDipoleP[__cuda_local_var_60442_9_non_const_pos]) = (__cuda_local_var_60450_15_non_const_previousDipoleP + ((0.5500000119F) * (__cuda_local_var_60461_15_non_const_inducedDipoleIP - __cuda_local_var_60450_15_non_const_previousDipoleP)));
+# 401 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(matrixProduct[__cuda_local_var_60442_9_non_const_pos]) = (((inducedDipole[__cuda_local_var_60442_9_non_const_pos]) - __cuda_local_var_60449_15_non_const_previousDipole) * ((inducedDipole[__cuda_local_var_60442_9_non_const_pos]) - __cuda_local_var_60449_15_non_const_previousDipole));
+# 402 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+(matrixProductP[__cuda_local_var_60442_9_non_const_pos]) = (((inducedDipoleP[__cuda_local_var_60442_9_non_const_pos]) - __cuda_local_var_60450_15_non_const_previousDipoleP) * ((inducedDipoleP[__cuda_local_var_60442_9_non_const_pos]) - __cuda_local_var_60450_15_non_const_previousDipoleP));
+# 404 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+__cuda_local_var_60442_9_non_const_pos += ((blockDim.x) * (gridDim.x));
+# 405 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}
+# 407 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+} 
+# 407 "/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaPmeMutualInducedField.cu"
+}}

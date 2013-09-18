@@ -1,0 +1,758 @@
+# 211 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 3
+typedef unsigned long size_t;
+#include "crt/device_runtime.h"
+#if !defined(__CUDABE__)
+# 241 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float fminf(float, float);
+#endif
+#if !defined(__CUDABE__)
+# 277 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float fmaxf(float, float);
+#endif
+#if !defined(__CUDABE__)
+# 6458 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float acosf(float);
+#endif
+#if !defined(__CUDABE__)
+# 6498 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float asinf(float);
+#endif
+#if !defined(__CUDABE__)
+# 7358 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float sqrtf(float);
+#endif
+# 89 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__launch_bounds__(384,1) __global__ __var_used__ extern void _Z34kCalculateCMAPTorsionForces_kerneliiP6float4PfS0_S0_P4int2P4int4Pi(int, int, struct float4 *, float *, struct float4 *, struct float4 *, struct int2 *, struct int4 *, int *);
+# 90 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv117__class_type_infoE[1];
+# 91 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv120__si_class_type_infoE[1];
+#include "common_functions.h"
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+static  __device__  __var_used__ const long _ZTVSt9exception[5] = {0L,0L,0L,0L,0L};
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+static  __device__  __var_used__ const long _ZTVN6OpenMM15OpenMMExceptionE[5] = {0L,0L,0L,0L,0L};
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+# 89 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__launch_bounds__(384,1) __global__ __var_used__ void _Z34kCalculateCMAPTorsionForces_kerneliiP6float4PfS0_S0_P4int2P4int4Pi(
+# 89 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+int numAtoms, 
+# 89 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+int numTorsions, 
+# 89 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+struct float4 *forceBuffers, 
+# 89 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+float *energyBuffer, 
+# 90 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+struct float4 *posq, 
+# 90 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+struct float4 *coeff, 
+# 90 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+struct int2 *mapPositions, 
+# 90 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+struct int4 *indices, 
+# 90 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+int *maps){
+# 90 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 91 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 92 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_40996_17_const_PI;
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_40997_11_non_const_energy;
+# 92 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_40996_17_const_PI = (3.141592741F);
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_40997_11_non_const_energy = (0.0F);
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ int index;
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+index = ((int)(((blockIdx.x) * (blockDim.x)) + (threadIdx.x)));
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+for (; (index < numTorsions); index += ((blockDim.x) * (gridDim.x)))
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T212;
+# 95 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T213;
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T214;
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T215;
+# 98 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T216;
+# 99 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T217;
+# 100 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T218;
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T219;
+# 102 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T220;
+# 103 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T221;
+# 104 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T222;
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T223;
+# 106 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T224;
+# 107 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T225;
+# 108 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T226;
+# 109 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T227;
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T228;
+# 111 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T229;
+# 112 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T230;
+# 113 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T231;
+# 114 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T232;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T233;
+# 116 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T234;
+# 117 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T235;
+# 118 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T236;
+# 119 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T237;
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T238;
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T239;
+# 122 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T240;
+# 123 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T241;
+# 124 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __T242;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T243;
+# 126 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T244;
+# 127 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T245;
+# 128 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T246;
+# 129 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T247;
+# 130 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T248;
+# 131 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T249;
+# 132 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T250;
+# 133 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T251;
+# 134 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T252;
+# 135 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T253;
+# 136 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T254;
+# 137 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T255;
+# 138 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T256;
+# 139 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T257;
+# 140 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T258;
+# 141 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __T259;
+# 142 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T260;
+# 143 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T261;
+# 144 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T262;
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T263;
+# 146 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T264;
+# 147 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T265;
+# 148 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T266;
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T267;
+# 150 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T268;
+# 151 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T269;
+# 152 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T270;
+# 153 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T271;
+# 95 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct int4 __cuda_local_var_40999_14_non_const_atoms1;
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct int4 __cuda_local_var_41000_14_non_const_atoms2;
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct int4 __cuda_local_var_41001_14_non_const_atoms3;
+# 98 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct int4 __cuda_local_var_41002_14_non_const_atoms4;
+# 99 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41003_16_non_const_a1;
+# 100 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41004_16_non_const_a2;
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41005_16_non_const_a3;
+# 102 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41006_16_non_const_a4;
+# 103 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41007_16_non_const_b1;
+# 104 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41008_16_non_const_b2;
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41009_16_non_const_b3;
+# 106 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41010_16_non_const_b4;
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41014_16_non_const_v0a;
+# 111 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41015_16_non_const_v1a;
+# 112 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41016_16_non_const_v2a;
+# 113 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41017_16_non_const_cp0a;
+# 113 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41017_22_non_const_cp1a;
+# 114 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41018_15_non_const_angleA;
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41024_16_non_const_v0b;
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41025_16_non_const_v1b;
+# 122 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41026_16_non_const_v2b;
+# 123 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41027_16_non_const_cp0b;
+# 123 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41027_22_non_const_cp1b;
+# 124 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41028_15_non_const_angleB;
+# 130 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct int2 __cuda_local_var_41034_14_non_const_pos;
+# 131 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ int __cuda_local_var_41035_13_non_const_size;
+# 132 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41036_15_non_const_delta;
+# 133 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ int __cuda_local_var_41037_13_non_const_s;
+# 134 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ int __cuda_local_var_41038_13_non_const_t;
+# 135 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41039_16_non_const_c[4];
+# 136 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ int __cuda_local_var_41040_13_non_const_coeffIndex;
+# 141 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41045_15_non_const_da;
+# 142 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41046_15_non_const_db;
+# 146 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41050_15_non_const_torsionEnergy;
+# 147 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41051_15_non_const_dEdA;
+# 148 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41052_15_non_const_dEdB;
+# 167 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41071_15_non_const_normCross1;
+# 168 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41072_15_non_const_normSqrBC;
+# 169 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41073_15_non_const_normBC;
+# 170 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41074_15_non_const_normCross2;
+# 171 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41075_15_non_const_dp;
+# 172 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41076_16_non_const_ff;
+# 173 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41077_16_non_const_internalF0;
+# 174 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41078_16_non_const_internalF3;
+# 175 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41079_16_non_const_d;
+# 178 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ unsigned __cuda_local_var_41082_22_non_const_offsetA;
+# 179 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ unsigned __cuda_local_var_41083_22_non_const_offsetB;
+# 180 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ unsigned __cuda_local_var_41084_22_non_const_offsetC;
+# 181 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ unsigned __cuda_local_var_41085_22_non_const_offsetD;
+# 182 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41086_16_non_const_forceA;
+# 183 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41087_16_non_const_forceB;
+# 184 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41088_16_non_const_forceC;
+# 185 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float4 __cuda_local_var_41089_16_non_const_forceD;
+# 95 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_40999_14_non_const_atoms1 = (indices[(4 * index)]);
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41000_14_non_const_atoms2 = (indices[((4 * index) + 1)]);
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41001_14_non_const_atoms3 = (indices[((4 * index) + 2)]);
+# 98 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41002_14_non_const_atoms4 = (indices[((4 * index) + 3)]);
+# 99 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41003_16_non_const_a1 = (posq[(__cuda_local_var_40999_14_non_const_atoms1.x)]);
+# 100 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41004_16_non_const_a2 = (posq[(__cuda_local_var_40999_14_non_const_atoms1.y)]);
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41005_16_non_const_a3 = (posq[(__cuda_local_var_40999_14_non_const_atoms1.z)]);
+# 102 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41006_16_non_const_a4 = (posq[(__cuda_local_var_40999_14_non_const_atoms1.w)]);
+# 103 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41007_16_non_const_b1 = (posq[(__cuda_local_var_41000_14_non_const_atoms2.x)]);
+# 104 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41008_16_non_const_b2 = (posq[(__cuda_local_var_41000_14_non_const_atoms2.y)]);
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41009_16_non_const_b3 = (posq[(__cuda_local_var_41000_14_non_const_atoms2.z)]);
+# 106 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41010_16_non_const_b4 = (posq[(__cuda_local_var_41000_14_non_const_atoms2.w)]);
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41014_16_non_const_v0a = ((((__T212 = ((__cuda_local_var_41003_16_non_const_a1.x) - (__cuda_local_var_41004_16_non_const_a2.x))) , ((void)(__T213 = ((__cuda_local_var_41003_16_non_const_a1.y) - (__cuda_local_var_41004_16_non_const_a2.y))))) , ((void)(__T214 = ((__cuda_local_var_41003_16_non_const_a1.z) - (__cuda_local_var_41004_16_non_const_a2.z))))) , (((((__T215.x) = __T212) , ((void)((__T215.y) = __T213))) , ((void)((__T215.z) = __T214))) , __T215));
+# 111 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41015_16_non_const_v1a = ((((__T216 = ((__cuda_local_var_41005_16_non_const_a3.x) - (__cuda_local_var_41004_16_non_const_a2.x))) , ((void)(__T217 = ((__cuda_local_var_41005_16_non_const_a3.y) - (__cuda_local_var_41004_16_non_const_a2.y))))) , ((void)(__T218 = ((__cuda_local_var_41005_16_non_const_a3.z) - (__cuda_local_var_41004_16_non_const_a2.z))))) , (((((__T219.x) = __T216) , ((void)((__T219.y) = __T217))) , ((void)((__T219.z) = __T218))) , __T219));
+# 112 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41016_16_non_const_v2a = ((((__T220 = ((__cuda_local_var_41005_16_non_const_a3.x) - (__cuda_local_var_41006_16_non_const_a4.x))) , ((void)(__T221 = ((__cuda_local_var_41005_16_non_const_a3.y) - (__cuda_local_var_41006_16_non_const_a4.y))))) , ((void)(__T222 = ((__cuda_local_var_41005_16_non_const_a3.z) - (__cuda_local_var_41006_16_non_const_a4.z))))) , (((((__T223.x) = __T220) , ((void)((__T223.y) = __T221))) , ((void)((__T223.z) = __T222))) , __T223));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T272;
+# 116 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T273;
+# 117 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T274;
+# 118 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T275;
+# 119 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T276;
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T277;
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T278;
+# 122 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T279;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41019_935_non_const_dp;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41017_16_non_const_cp0a = ((((__T272 = (((__cuda_local_var_41014_16_non_const_v0a.y) * (__cuda_local_var_41015_16_non_const_v1a.z)) - ((__cuda_local_var_41014_16_non_const_v0a.z) * (__cuda_local_var_41015_16_non_const_v1a.y)))) , ((void)(__T273 = (((__cuda_local_var_41014_16_non_const_v0a.z) * (__cuda_local_var_41015_16_non_const_v1a.x)) - ((__cuda_local_var_41014_16_non_const_v0a.x) * (__cuda_local_var_41015_16_non_const_v1a.z)))))) , ((void)(__T274 = (((__cuda_local_var_41014_16_non_const_v0a.x) * (__cuda_local_var_41015_16_non_const_v1a.y)) - ((__cuda_local_var_41014_16_non_const_v0a.y) * (__cuda_local_var_41015_16_non_const_v1a.x)))))) , (((((__T275.x) = __T272) , ((void)((__T275.y) = __T273))) , ((void)((__T275.z) = __T274))) , __T275));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41017_22_non_const_cp1a = ((((__T276 = (((__cuda_local_var_41015_16_non_const_v1a.y) * (__cuda_local_var_41016_16_non_const_v2a.z)) - ((__cuda_local_var_41015_16_non_const_v1a.z) * (__cuda_local_var_41016_16_non_const_v2a.y)))) , ((void)(__T277 = (((__cuda_local_var_41015_16_non_const_v1a.z) * (__cuda_local_var_41016_16_non_const_v2a.x)) - ((__cuda_local_var_41015_16_non_const_v1a.x) * (__cuda_local_var_41016_16_non_const_v2a.z)))))) , ((void)(__T278 = (((__cuda_local_var_41015_16_non_const_v1a.x) * (__cuda_local_var_41016_16_non_const_v2a.y)) - ((__cuda_local_var_41015_16_non_const_v1a.y) * (__cuda_local_var_41016_16_non_const_v2a.x)))))) , (((((__T279.x) = __T276) , ((void)((__T279.y) = __T277))) , ((void)((__T279.z) = __T278))) , __T279));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41019_221_non_const_dp;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41019_287_non_const_norm1;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41019_350_non_const_norm2;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41019_221_non_const_dp = ((((__cuda_local_var_41017_16_non_const_cp0a.x) * (__cuda_local_var_41017_22_non_const_cp1a.x)) + ((__cuda_local_var_41017_16_non_const_cp0a.y) * (__cuda_local_var_41017_22_non_const_cp1a.y))) + ((__cuda_local_var_41017_16_non_const_cp0a.z) * (__cuda_local_var_41017_22_non_const_cp1a.z)));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41019_287_non_const_norm1 = ((((__cuda_local_var_41017_16_non_const_cp0a.x) * (__cuda_local_var_41017_16_non_const_cp0a.x)) + ((__cuda_local_var_41017_16_non_const_cp0a.y) * (__cuda_local_var_41017_16_non_const_cp0a.y))) + ((__cuda_local_var_41017_16_non_const_cp0a.z) * (__cuda_local_var_41017_16_non_const_cp0a.z)));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41019_350_non_const_norm2 = ((((__cuda_local_var_41017_22_non_const_cp1a.x) * (__cuda_local_var_41017_22_non_const_cp1a.x)) + ((__cuda_local_var_41017_22_non_const_cp1a.y) * (__cuda_local_var_41017_22_non_const_cp1a.y))) + ((__cuda_local_var_41017_22_non_const_cp1a.z) * (__cuda_local_var_41017_22_non_const_cp1a.z)));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41019_221_non_const_dp = ((float)(fdividef(((double)__cuda_local_var_41019_221_non_const_dp), ((double)(sqrtf((__cuda_local_var_41019_287_non_const_norm1 * __cuda_local_var_41019_350_non_const_norm2)))))));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41019_221_non_const_dp = (fminf(__cuda_local_var_41019_221_non_const_dp, (1.0F)));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41019_221_non_const_dp = (fmaxf(__cuda_local_var_41019_221_non_const_dp, (-1.0F)));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+if ((__cuda_local_var_41019_221_non_const_dp > (0.9900000095F)) || (__cuda_local_var_41019_221_non_const_dp < (-0.9900000095F)))
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T280;
+# 116 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T281;
+# 117 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T282;
+# 118 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T283;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41019_519_non_const_cross;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41019_639_non_const_scale;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41019_519_non_const_cross = ((((__T280 = (((__cuda_local_var_41017_16_non_const_cp0a.y) * (__cuda_local_var_41017_22_non_const_cp1a.z)) - ((__cuda_local_var_41017_16_non_const_cp0a.z) * (__cuda_local_var_41017_22_non_const_cp1a.y)))) , ((void)(__T281 = (((__cuda_local_var_41017_16_non_const_cp0a.z) * (__cuda_local_var_41017_22_non_const_cp1a.x)) - ((__cuda_local_var_41017_16_non_const_cp0a.x) * (__cuda_local_var_41017_22_non_const_cp1a.z)))))) , ((void)(__T282 = (((__cuda_local_var_41017_16_non_const_cp0a.x) * (__cuda_local_var_41017_22_non_const_cp1a.y)) - ((__cuda_local_var_41017_16_non_const_cp0a.y) * (__cuda_local_var_41017_22_non_const_cp1a.x)))))) , (((((__T283.x) = __T280) , ((void)((__T283.y) = __T281))) , ((void)((__T283.z) = __T282))) , __T283));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41019_639_non_const_scale = (((((__cuda_local_var_41017_16_non_const_cp0a.x) * (__cuda_local_var_41017_16_non_const_cp0a.x)) + ((__cuda_local_var_41017_16_non_const_cp0a.y) * (__cuda_local_var_41017_16_non_const_cp0a.y))) + ((__cuda_local_var_41017_16_non_const_cp0a.z) * (__cuda_local_var_41017_16_non_const_cp0a.z))) * ((((__cuda_local_var_41017_22_non_const_cp1a.x) * (__cuda_local_var_41017_22_non_const_cp1a.x)) + ((__cuda_local_var_41017_22_non_const_cp1a.y) * (__cuda_local_var_41017_22_non_const_cp1a.y))) + ((__cuda_local_var_41017_22_non_const_cp1a.z) * (__cuda_local_var_41017_22_non_const_cp1a.z))));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41018_15_non_const_angleA = (asinf((sqrtf(((float)(fdividef(((double)((((__cuda_local_var_41019_519_non_const_cross.x) * (__cuda_local_var_41019_519_non_const_cross.x)) + ((__cuda_local_var_41019_519_non_const_cross.y) * (__cuda_local_var_41019_519_non_const_cross.y))) + ((__cuda_local_var_41019_519_non_const_cross.z) * (__cuda_local_var_41019_519_non_const_cross.z)))), ((double)__cuda_local_var_41019_639_non_const_scale))))))));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+if (__cuda_local_var_41019_221_non_const_dp < (0.0F))
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41018_15_non_const_angleA = ((float)((3.141592653589793116) - ((double)__cuda_local_var_41018_15_non_const_angleA)));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+else 
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41018_15_non_const_angleA = (acosf(__cuda_local_var_41019_221_non_const_dp));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41019_935_non_const_dp = ((((__cuda_local_var_41014_16_non_const_v0a.x) * (__cuda_local_var_41017_22_non_const_cp1a.x)) + ((__cuda_local_var_41014_16_non_const_v0a.y) * (__cuda_local_var_41017_22_non_const_cp1a.y))) + ((__cuda_local_var_41014_16_non_const_v0a.z) * (__cuda_local_var_41017_22_non_const_cp1a.z)));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41018_15_non_const_angleA = ((__cuda_local_var_41019_935_non_const_dp >= (0.0F)) ? __cuda_local_var_41018_15_non_const_angleA : (-__cuda_local_var_41018_15_non_const_angleA));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+;
+# 116 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41018_15_non_const_angleA = ((float)((__T224 = (__cuda_local_var_41018_15_non_const_angleA + (6.283185482F))) , (fmodf(((double)__T224), (6.283185482025146484)))));
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41024_16_non_const_v0b = ((((__T225 = ((__cuda_local_var_41007_16_non_const_b1.x) - (__cuda_local_var_41008_16_non_const_b2.x))) , ((void)(__T226 = ((__cuda_local_var_41007_16_non_const_b1.y) - (__cuda_local_var_41008_16_non_const_b2.y))))) , ((void)(__T227 = ((__cuda_local_var_41007_16_non_const_b1.z) - (__cuda_local_var_41008_16_non_const_b2.z))))) , (((((__T228.x) = __T225) , ((void)((__T228.y) = __T226))) , ((void)((__T228.z) = __T227))) , __T228));
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41025_16_non_const_v1b = ((((__T229 = ((__cuda_local_var_41009_16_non_const_b3.x) - (__cuda_local_var_41008_16_non_const_b2.x))) , ((void)(__T230 = ((__cuda_local_var_41009_16_non_const_b3.y) - (__cuda_local_var_41008_16_non_const_b2.y))))) , ((void)(__T231 = ((__cuda_local_var_41009_16_non_const_b3.z) - (__cuda_local_var_41008_16_non_const_b2.z))))) , (((((__T232.x) = __T229) , ((void)((__T232.y) = __T230))) , ((void)((__T232.z) = __T231))) , __T232));
+# 122 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41026_16_non_const_v2b = ((((__T233 = ((__cuda_local_var_41009_16_non_const_b3.x) - (__cuda_local_var_41010_16_non_const_b4.x))) , ((void)(__T234 = ((__cuda_local_var_41009_16_non_const_b3.y) - (__cuda_local_var_41010_16_non_const_b4.y))))) , ((void)(__T235 = ((__cuda_local_var_41009_16_non_const_b3.z) - (__cuda_local_var_41010_16_non_const_b4.z))))) , (((((__T236.x) = __T233) , ((void)((__T236.y) = __T234))) , ((void)((__T236.z) = __T235))) , __T236));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T284;
+# 126 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T285;
+# 127 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T286;
+# 128 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T287;
+# 129 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T288;
+# 130 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T289;
+# 131 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T290;
+# 132 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T291;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41029_935_non_const_dp;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41027_16_non_const_cp0b = ((((__T284 = (((__cuda_local_var_41024_16_non_const_v0b.y) * (__cuda_local_var_41025_16_non_const_v1b.z)) - ((__cuda_local_var_41024_16_non_const_v0b.z) * (__cuda_local_var_41025_16_non_const_v1b.y)))) , ((void)(__T285 = (((__cuda_local_var_41024_16_non_const_v0b.z) * (__cuda_local_var_41025_16_non_const_v1b.x)) - ((__cuda_local_var_41024_16_non_const_v0b.x) * (__cuda_local_var_41025_16_non_const_v1b.z)))))) , ((void)(__T286 = (((__cuda_local_var_41024_16_non_const_v0b.x) * (__cuda_local_var_41025_16_non_const_v1b.y)) - ((__cuda_local_var_41024_16_non_const_v0b.y) * (__cuda_local_var_41025_16_non_const_v1b.x)))))) , (((((__T287.x) = __T284) , ((void)((__T287.y) = __T285))) , ((void)((__T287.z) = __T286))) , __T287));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41027_22_non_const_cp1b = ((((__T288 = (((__cuda_local_var_41025_16_non_const_v1b.y) * (__cuda_local_var_41026_16_non_const_v2b.z)) - ((__cuda_local_var_41025_16_non_const_v1b.z) * (__cuda_local_var_41026_16_non_const_v2b.y)))) , ((void)(__T289 = (((__cuda_local_var_41025_16_non_const_v1b.z) * (__cuda_local_var_41026_16_non_const_v2b.x)) - ((__cuda_local_var_41025_16_non_const_v1b.x) * (__cuda_local_var_41026_16_non_const_v2b.z)))))) , ((void)(__T290 = (((__cuda_local_var_41025_16_non_const_v1b.x) * (__cuda_local_var_41026_16_non_const_v2b.y)) - ((__cuda_local_var_41025_16_non_const_v1b.y) * (__cuda_local_var_41026_16_non_const_v2b.x)))))) , (((((__T291.x) = __T288) , ((void)((__T291.y) = __T289))) , ((void)((__T291.z) = __T290))) , __T291));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41029_221_non_const_dp;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41029_287_non_const_norm1;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41029_350_non_const_norm2;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41029_221_non_const_dp = ((((__cuda_local_var_41027_16_non_const_cp0b.x) * (__cuda_local_var_41027_22_non_const_cp1b.x)) + ((__cuda_local_var_41027_16_non_const_cp0b.y) * (__cuda_local_var_41027_22_non_const_cp1b.y))) + ((__cuda_local_var_41027_16_non_const_cp0b.z) * (__cuda_local_var_41027_22_non_const_cp1b.z)));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41029_287_non_const_norm1 = ((((__cuda_local_var_41027_16_non_const_cp0b.x) * (__cuda_local_var_41027_16_non_const_cp0b.x)) + ((__cuda_local_var_41027_16_non_const_cp0b.y) * (__cuda_local_var_41027_16_non_const_cp0b.y))) + ((__cuda_local_var_41027_16_non_const_cp0b.z) * (__cuda_local_var_41027_16_non_const_cp0b.z)));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41029_350_non_const_norm2 = ((((__cuda_local_var_41027_22_non_const_cp1b.x) * (__cuda_local_var_41027_22_non_const_cp1b.x)) + ((__cuda_local_var_41027_22_non_const_cp1b.y) * (__cuda_local_var_41027_22_non_const_cp1b.y))) + ((__cuda_local_var_41027_22_non_const_cp1b.z) * (__cuda_local_var_41027_22_non_const_cp1b.z)));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41029_221_non_const_dp = ((float)(fdividef(((double)__cuda_local_var_41029_221_non_const_dp), ((double)(sqrtf((__cuda_local_var_41029_287_non_const_norm1 * __cuda_local_var_41029_350_non_const_norm2)))))));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41029_221_non_const_dp = (fminf(__cuda_local_var_41029_221_non_const_dp, (1.0F)));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41029_221_non_const_dp = (fmaxf(__cuda_local_var_41029_221_non_const_dp, (-1.0F)));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+if ((__cuda_local_var_41029_221_non_const_dp > (0.9900000095F)) || (__cuda_local_var_41029_221_non_const_dp < (-0.9900000095F)))
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T292;
+# 126 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T293;
+# 127 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __T294;
+# 128 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __T295;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ struct float3 __cuda_local_var_41029_519_non_const_cross;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+ float __cuda_local_var_41029_639_non_const_scale;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41029_519_non_const_cross = ((((__T292 = (((__cuda_local_var_41027_16_non_const_cp0b.y) * (__cuda_local_var_41027_22_non_const_cp1b.z)) - ((__cuda_local_var_41027_16_non_const_cp0b.z) * (__cuda_local_var_41027_22_non_const_cp1b.y)))) , ((void)(__T293 = (((__cuda_local_var_41027_16_non_const_cp0b.z) * (__cuda_local_var_41027_22_non_const_cp1b.x)) - ((__cuda_local_var_41027_16_non_const_cp0b.x) * (__cuda_local_var_41027_22_non_const_cp1b.z)))))) , ((void)(__T294 = (((__cuda_local_var_41027_16_non_const_cp0b.x) * (__cuda_local_var_41027_22_non_const_cp1b.y)) - ((__cuda_local_var_41027_16_non_const_cp0b.y) * (__cuda_local_var_41027_22_non_const_cp1b.x)))))) , (((((__T295.x) = __T292) , ((void)((__T295.y) = __T293))) , ((void)((__T295.z) = __T294))) , __T295));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41029_639_non_const_scale = (((((__cuda_local_var_41027_16_non_const_cp0b.x) * (__cuda_local_var_41027_16_non_const_cp0b.x)) + ((__cuda_local_var_41027_16_non_const_cp0b.y) * (__cuda_local_var_41027_16_non_const_cp0b.y))) + ((__cuda_local_var_41027_16_non_const_cp0b.z) * (__cuda_local_var_41027_16_non_const_cp0b.z))) * ((((__cuda_local_var_41027_22_non_const_cp1b.x) * (__cuda_local_var_41027_22_non_const_cp1b.x)) + ((__cuda_local_var_41027_22_non_const_cp1b.y) * (__cuda_local_var_41027_22_non_const_cp1b.y))) + ((__cuda_local_var_41027_22_non_const_cp1b.z) * (__cuda_local_var_41027_22_non_const_cp1b.z))));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41028_15_non_const_angleB = (asinf((sqrtf(((float)(fdividef(((double)((((__cuda_local_var_41029_519_non_const_cross.x) * (__cuda_local_var_41029_519_non_const_cross.x)) + ((__cuda_local_var_41029_519_non_const_cross.y) * (__cuda_local_var_41029_519_non_const_cross.y))) + ((__cuda_local_var_41029_519_non_const_cross.z) * (__cuda_local_var_41029_519_non_const_cross.z)))), ((double)__cuda_local_var_41029_639_non_const_scale))))))));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+if (__cuda_local_var_41029_221_non_const_dp < (0.0F))
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41028_15_non_const_angleB = ((float)((3.141592653589793116) - ((double)__cuda_local_var_41028_15_non_const_angleB)));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+else 
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+{
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41028_15_non_const_angleB = (acosf(__cuda_local_var_41029_221_non_const_dp));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+;
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41029_935_non_const_dp = ((((__cuda_local_var_41024_16_non_const_v0b.x) * (__cuda_local_var_41027_22_non_const_cp1b.x)) + ((__cuda_local_var_41024_16_non_const_v0b.y) * (__cuda_local_var_41027_22_non_const_cp1b.y))) + ((__cuda_local_var_41024_16_non_const_v0b.z) * (__cuda_local_var_41027_22_non_const_cp1b.z)));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41028_15_non_const_angleB = ((__cuda_local_var_41029_935_non_const_dp >= (0.0F)) ? __cuda_local_var_41028_15_non_const_angleB : (-__cuda_local_var_41028_15_non_const_angleB));
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+;
+# 126 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41028_15_non_const_angleB = ((float)((__T237 = (__cuda_local_var_41028_15_non_const_angleB + (6.283185482F))) , (fmodf(((double)__T237), (6.283185482025146484)))));
+# 130 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41034_14_non_const_pos = (mapPositions[(maps[index])]);
+# 131 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41035_13_non_const_size = (__cuda_local_var_41034_14_non_const_pos.y);
+# 132 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41036_15_non_const_delta = ((float)(fdividef((6.283185482025146484), ((double)((float)__cuda_local_var_41035_13_non_const_size)))));
+# 133 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41037_13_non_const_s = ((int)(__float2int_rz(((double)((float)(fdividef(((double)__cuda_local_var_41018_15_non_const_angleA), ((double)__cuda_local_var_41036_15_non_const_delta))))))));
+# 134 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41038_13_non_const_t = ((int)(__float2int_rz(((double)((float)(fdividef(((double)__cuda_local_var_41028_15_non_const_angleB), ((double)__cuda_local_var_41036_15_non_const_delta))))))));
+# 136 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41040_13_non_const_coeffIndex = ((__cuda_local_var_41034_14_non_const_pos.x) + (4 * (__cuda_local_var_41037_13_non_const_s + (__cuda_local_var_41035_13_non_const_size * __cuda_local_var_41038_13_non_const_t))));
+# 137 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+((__cuda_local_var_41039_16_non_const_c)[0]) = (coeff[__cuda_local_var_41040_13_non_const_coeffIndex]);
+# 138 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+((__cuda_local_var_41039_16_non_const_c)[1]) = (coeff[(__cuda_local_var_41040_13_non_const_coeffIndex + 1)]);
+# 139 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+((__cuda_local_var_41039_16_non_const_c)[2]) = (coeff[(__cuda_local_var_41040_13_non_const_coeffIndex + 2)]);
+# 140 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+((__cuda_local_var_41039_16_non_const_c)[3]) = (coeff[(__cuda_local_var_41040_13_non_const_coeffIndex + 3)]);
+# 141 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41045_15_non_const_da = (((float)(fdividef(((double)__cuda_local_var_41018_15_non_const_angleA), ((double)__cuda_local_var_41036_15_non_const_delta)))) - ((float)__cuda_local_var_41037_13_non_const_s));
+# 142 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41046_15_non_const_db = (((float)(fdividef(((double)__cuda_local_var_41028_15_non_const_angleB), ((double)__cuda_local_var_41036_15_non_const_delta)))) - ((float)__cuda_local_var_41038_13_non_const_t));
+# 146 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41050_15_non_const_torsionEnergy = (0.0F);
+# 147 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41051_15_non_const_dEdA = (0.0F);
+# 148 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41052_15_non_const_dEdB = (0.0F);
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41050_15_non_const_torsionEnergy = (((__cuda_local_var_41045_15_non_const_da * __cuda_local_var_41050_15_non_const_torsionEnergy) + ((((((((__cuda_local_var_41039_16_non_const_c)[3]).w) * __cuda_local_var_41046_15_non_const_db) + (((__cuda_local_var_41039_16_non_const_c)[3]).z)) * __cuda_local_var_41046_15_non_const_db) + (((__cuda_local_var_41039_16_non_const_c)[3]).y)) * __cuda_local_var_41046_15_non_const_db)) + (((__cuda_local_var_41039_16_non_const_c)[3]).x));
+# 150 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41051_15_non_const_dEdA = (((__cuda_local_var_41046_15_non_const_db * __cuda_local_var_41051_15_non_const_dEdA) + (((((3.0F) * (((__cuda_local_var_41039_16_non_const_c)[3]).w)) * __cuda_local_var_41045_15_non_const_da) + ((2.0F) * (((__cuda_local_var_41039_16_non_const_c)[2]).w))) * __cuda_local_var_41045_15_non_const_da)) + (((__cuda_local_var_41039_16_non_const_c)[1]).w));
+# 151 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41052_15_non_const_dEdB = (((__cuda_local_var_41045_15_non_const_da * __cuda_local_var_41052_15_non_const_dEdB) + (((((3.0F) * (((__cuda_local_var_41039_16_non_const_c)[3]).w)) * __cuda_local_var_41046_15_non_const_db) + ((2.0F) * (((__cuda_local_var_41039_16_non_const_c)[3]).z))) * __cuda_local_var_41046_15_non_const_db)) + (((__cuda_local_var_41039_16_non_const_c)[3]).y));
+# 152 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41050_15_non_const_torsionEnergy = (((__cuda_local_var_41045_15_non_const_da * __cuda_local_var_41050_15_non_const_torsionEnergy) + ((((((((__cuda_local_var_41039_16_non_const_c)[2]).w) * __cuda_local_var_41046_15_non_const_db) + (((__cuda_local_var_41039_16_non_const_c)[2]).z)) * __cuda_local_var_41046_15_non_const_db) + (((__cuda_local_var_41039_16_non_const_c)[2]).y)) * __cuda_local_var_41046_15_non_const_db)) + (((__cuda_local_var_41039_16_non_const_c)[2]).x));
+# 153 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41051_15_non_const_dEdA = (((__cuda_local_var_41046_15_non_const_db * __cuda_local_var_41051_15_non_const_dEdA) + (((((3.0F) * (((__cuda_local_var_41039_16_non_const_c)[3]).z)) * __cuda_local_var_41045_15_non_const_da) + ((2.0F) * (((__cuda_local_var_41039_16_non_const_c)[2]).z))) * __cuda_local_var_41045_15_non_const_da)) + (((__cuda_local_var_41039_16_non_const_c)[1]).z));
+# 154 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41052_15_non_const_dEdB = (((__cuda_local_var_41045_15_non_const_da * __cuda_local_var_41052_15_non_const_dEdB) + (((((3.0F) * (((__cuda_local_var_41039_16_non_const_c)[2]).w)) * __cuda_local_var_41046_15_non_const_db) + ((2.0F) * (((__cuda_local_var_41039_16_non_const_c)[2]).z))) * __cuda_local_var_41046_15_non_const_db)) + (((__cuda_local_var_41039_16_non_const_c)[2]).y));
+# 155 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41050_15_non_const_torsionEnergy = (((__cuda_local_var_41045_15_non_const_da * __cuda_local_var_41050_15_non_const_torsionEnergy) + ((((((((__cuda_local_var_41039_16_non_const_c)[1]).w) * __cuda_local_var_41046_15_non_const_db) + (((__cuda_local_var_41039_16_non_const_c)[1]).z)) * __cuda_local_var_41046_15_non_const_db) + (((__cuda_local_var_41039_16_non_const_c)[1]).y)) * __cuda_local_var_41046_15_non_const_db)) + (((__cuda_local_var_41039_16_non_const_c)[1]).x));
+# 156 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41051_15_non_const_dEdA = (((__cuda_local_var_41046_15_non_const_db * __cuda_local_var_41051_15_non_const_dEdA) + (((((3.0F) * (((__cuda_local_var_41039_16_non_const_c)[3]).y)) * __cuda_local_var_41045_15_non_const_da) + ((2.0F) * (((__cuda_local_var_41039_16_non_const_c)[2]).y))) * __cuda_local_var_41045_15_non_const_da)) + (((__cuda_local_var_41039_16_non_const_c)[1]).y));
+# 157 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41052_15_non_const_dEdB = (((__cuda_local_var_41045_15_non_const_da * __cuda_local_var_41052_15_non_const_dEdB) + (((((3.0F) * (((__cuda_local_var_41039_16_non_const_c)[1]).w)) * __cuda_local_var_41046_15_non_const_db) + ((2.0F) * (((__cuda_local_var_41039_16_non_const_c)[1]).z))) * __cuda_local_var_41046_15_non_const_db)) + (((__cuda_local_var_41039_16_non_const_c)[1]).y));
+# 158 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41050_15_non_const_torsionEnergy = (((__cuda_local_var_41045_15_non_const_da * __cuda_local_var_41050_15_non_const_torsionEnergy) + ((((((((__cuda_local_var_41039_16_non_const_c)[0]).w) * __cuda_local_var_41046_15_non_const_db) + (((__cuda_local_var_41039_16_non_const_c)[0]).z)) * __cuda_local_var_41046_15_non_const_db) + (((__cuda_local_var_41039_16_non_const_c)[0]).y)) * __cuda_local_var_41046_15_non_const_db)) + (((__cuda_local_var_41039_16_non_const_c)[0]).x));
+# 159 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41051_15_non_const_dEdA = (((__cuda_local_var_41046_15_non_const_db * __cuda_local_var_41051_15_non_const_dEdA) + (((((3.0F) * (((__cuda_local_var_41039_16_non_const_c)[3]).x)) * __cuda_local_var_41045_15_non_const_da) + ((2.0F) * (((__cuda_local_var_41039_16_non_const_c)[2]).x))) * __cuda_local_var_41045_15_non_const_da)) + (((__cuda_local_var_41039_16_non_const_c)[1]).x));
+# 160 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41052_15_non_const_dEdB = (((__cuda_local_var_41045_15_non_const_da * __cuda_local_var_41052_15_non_const_dEdB) + (((((3.0F) * (((__cuda_local_var_41039_16_non_const_c)[0]).w)) * __cuda_local_var_41046_15_non_const_db) + ((2.0F) * (((__cuda_local_var_41039_16_non_const_c)[0]).z))) * __cuda_local_var_41046_15_non_const_db)) + (((__cuda_local_var_41039_16_non_const_c)[0]).y));
+# 161 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41051_15_non_const_dEdA = ((float)(fdividef(((double)__cuda_local_var_41051_15_non_const_dEdA), ((double)__cuda_local_var_41036_15_non_const_delta))));
+# 162 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41052_15_non_const_dEdB = ((float)(fdividef(((double)__cuda_local_var_41052_15_non_const_dEdB), ((double)__cuda_local_var_41036_15_non_const_delta))));
+# 163 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_40997_11_non_const_energy += __cuda_local_var_41050_15_non_const_torsionEnergy;
+# 167 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41071_15_non_const_normCross1 = ((((__cuda_local_var_41017_16_non_const_cp0a.x) * (__cuda_local_var_41017_16_non_const_cp0a.x)) + ((__cuda_local_var_41017_16_non_const_cp0a.y) * (__cuda_local_var_41017_16_non_const_cp0a.y))) + ((__cuda_local_var_41017_16_non_const_cp0a.z) * (__cuda_local_var_41017_16_non_const_cp0a.z)));
+# 168 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41072_15_non_const_normSqrBC = ((((__cuda_local_var_41015_16_non_const_v1a.x) * (__cuda_local_var_41015_16_non_const_v1a.x)) + ((__cuda_local_var_41015_16_non_const_v1a.y) * (__cuda_local_var_41015_16_non_const_v1a.y))) + ((__cuda_local_var_41015_16_non_const_v1a.z) * (__cuda_local_var_41015_16_non_const_v1a.z)));
+# 169 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41073_15_non_const_normBC = (sqrtf(__cuda_local_var_41072_15_non_const_normSqrBC));
+# 170 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41074_15_non_const_normCross2 = ((((__cuda_local_var_41017_22_non_const_cp1a.x) * (__cuda_local_var_41017_22_non_const_cp1a.x)) + ((__cuda_local_var_41017_22_non_const_cp1a.y) * (__cuda_local_var_41017_22_non_const_cp1a.y))) + ((__cuda_local_var_41017_22_non_const_cp1a.z) * (__cuda_local_var_41017_22_non_const_cp1a.z)));
+# 171 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41075_15_non_const_dp = ((1.0F) / __cuda_local_var_41072_15_non_const_normSqrBC);
+# 172 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41076_16_non_const_ff = (((((__T238 = ((float)(fdividef(((double)((-__cuda_local_var_41051_15_non_const_dEdA) * __cuda_local_var_41073_15_non_const_normBC)), ((double)__cuda_local_var_41071_15_non_const_normCross1))))) , ((void)(__T239 = (((((__cuda_local_var_41014_16_non_const_v0a.x) * (__cuda_local_var_41015_16_non_const_v1a.x)) + ((__cuda_local_var_41014_16_non_const_v0a.y) * (__cuda_local_var_41015_16_non_const_v1a.y))) + ((__cuda_local_var_41014_16_non_const_v0a.z) * (__cuda_local_var_41015_16_non_const_v1a.z))) * __cuda_local_var_41075_15_non_const_dp)))) , ((void)(__T240 = (((((__cuda_local_var_41016_16_non_const_v2a.x) * (__cuda_local_var_41015_16_non_const_v1a.x)) + ((__cuda_local_var_41016_16_non_const_v2a.y) * (__cuda_local_var_41015_16_non_const_v1a.y))) + ((__cuda_local_var_41016_16_non_const_v2a.z) * (__cuda_local_var_41015_16_non_const_v1a.z))) * __cuda_local_var_41075_15_non_const_dp)))) , ((void)(__T241 = ((float)(fdividef(((double)(__cuda_local_var_41051_15_non_const_dEdA * __cuda_local_var_41073_15_non_const_normBC)), ((double)__cuda_local_var_41074_15_non_const_normCross2))))))) , ((((((__T242.x) = __T238) , ((void)((__T242.y) = __T239))) , ((void)((__T242.z) = __T240))) , ((void)((__T242.w) = __T241))) , __T242));
+# 173 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41077_16_non_const_internalF0 = ((((__T243 = ((__cuda_local_var_41076_16_non_const_ff.x) * (__cuda_local_var_41017_16_non_const_cp0a.x))) , ((void)(__T244 = ((__cuda_local_var_41076_16_non_const_ff.x) * (__cuda_local_var_41017_16_non_const_cp0a.y))))) , ((void)(__T245 = ((__cuda_local_var_41076_16_non_const_ff.x) * (__cuda_local_var_41017_16_non_const_cp0a.z))))) , (((((__T246.x) = __T243) , ((void)((__T246.y) = __T244))) , ((void)((__T246.z) = __T245))) , __T246));
+# 174 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41078_16_non_const_internalF3 = ((((__T247 = ((__cuda_local_var_41076_16_non_const_ff.w) * (__cuda_local_var_41017_22_non_const_cp1a.x))) , ((void)(__T248 = ((__cuda_local_var_41076_16_non_const_ff.w) * (__cuda_local_var_41017_22_non_const_cp1a.y))))) , ((void)(__T249 = ((__cuda_local_var_41076_16_non_const_ff.w) * (__cuda_local_var_41017_22_non_const_cp1a.z))))) , (((((__T250.x) = __T247) , ((void)((__T250.y) = __T248))) , ((void)((__T250.z) = __T249))) , __T250));
+# 175 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41079_16_non_const_d = ((((__T251 = (((__cuda_local_var_41076_16_non_const_ff.y) * (__cuda_local_var_41077_16_non_const_internalF0.x)) - ((__cuda_local_var_41076_16_non_const_ff.z) * (__cuda_local_var_41078_16_non_const_internalF3.x)))) , ((void)(__T252 = (((__cuda_local_var_41076_16_non_const_ff.y) * (__cuda_local_var_41077_16_non_const_internalF0.y)) - ((__cuda_local_var_41076_16_non_const_ff.z) * (__cuda_local_var_41078_16_non_const_internalF3.y)))))) , ((void)(__T253 = (((__cuda_local_var_41076_16_non_const_ff.y) * (__cuda_local_var_41077_16_non_const_internalF0.z)) - ((__cuda_local_var_41076_16_non_const_ff.z) * (__cuda_local_var_41078_16_non_const_internalF3.z)))))) , (((((__T254.x) = __T251) , ((void)((__T254.y) = __T252))) , ((void)((__T254.z) = __T253))) , __T254));
+# 178 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41082_22_non_const_offsetA = ((unsigned)((__cuda_local_var_40999_14_non_const_atoms1.x) + ((__cuda_local_var_41001_14_non_const_atoms3.x) * numAtoms)));
+# 179 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41083_22_non_const_offsetB = ((unsigned)((__cuda_local_var_40999_14_non_const_atoms1.y) + ((__cuda_local_var_41001_14_non_const_atoms3.y) * numAtoms)));
+# 180 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41084_22_non_const_offsetC = ((unsigned)((__cuda_local_var_40999_14_non_const_atoms1.z) + ((__cuda_local_var_41001_14_non_const_atoms3.z) * numAtoms)));
+# 181 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41085_22_non_const_offsetD = ((unsigned)((__cuda_local_var_40999_14_non_const_atoms1.w) + ((__cuda_local_var_41001_14_non_const_atoms3.w) * numAtoms)));
+# 182 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41086_16_non_const_forceA = (forceBuffers[__cuda_local_var_41082_22_non_const_offsetA]);
+# 183 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41087_16_non_const_forceB = (forceBuffers[__cuda_local_var_41083_22_non_const_offsetB]);
+# 184 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41088_16_non_const_forceC = (forceBuffers[__cuda_local_var_41084_22_non_const_offsetC]);
+# 185 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41089_16_non_const_forceD = (forceBuffers[__cuda_local_var_41085_22_non_const_offsetD]);
+# 186 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41086_16_non_const_forceA.x) += (__cuda_local_var_41077_16_non_const_internalF0.x);
+# 187 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41086_16_non_const_forceA.y) += (__cuda_local_var_41077_16_non_const_internalF0.y);
+# 188 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41086_16_non_const_forceA.z) += (__cuda_local_var_41077_16_non_const_internalF0.z);
+# 189 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41087_16_non_const_forceB.x) += ((__cuda_local_var_41079_16_non_const_d.x) - (__cuda_local_var_41077_16_non_const_internalF0.x));
+# 190 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41087_16_non_const_forceB.y) += ((__cuda_local_var_41079_16_non_const_d.y) - (__cuda_local_var_41077_16_non_const_internalF0.y));
+# 191 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41087_16_non_const_forceB.z) += ((__cuda_local_var_41079_16_non_const_d.z) - (__cuda_local_var_41077_16_non_const_internalF0.z));
+# 192 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41088_16_non_const_forceC.x) += ((-(__cuda_local_var_41079_16_non_const_d.x)) - (__cuda_local_var_41078_16_non_const_internalF3.x));
+# 193 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41088_16_non_const_forceC.y) += ((-(__cuda_local_var_41079_16_non_const_d.y)) - (__cuda_local_var_41078_16_non_const_internalF3.y));
+# 194 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41088_16_non_const_forceC.z) += ((-(__cuda_local_var_41079_16_non_const_d.z)) - (__cuda_local_var_41078_16_non_const_internalF3.z));
+# 195 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41089_16_non_const_forceD.x) += (__cuda_local_var_41078_16_non_const_internalF3.x);
+# 196 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41089_16_non_const_forceD.y) += (__cuda_local_var_41078_16_non_const_internalF3.y);
+# 197 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41089_16_non_const_forceD.z) += (__cuda_local_var_41078_16_non_const_internalF3.z);
+# 198 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(forceBuffers[__cuda_local_var_41082_22_non_const_offsetA]) = __cuda_local_var_41086_16_non_const_forceA;
+# 199 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(forceBuffers[__cuda_local_var_41083_22_non_const_offsetB]) = __cuda_local_var_41087_16_non_const_forceB;
+# 200 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(forceBuffers[__cuda_local_var_41084_22_non_const_offsetC]) = __cuda_local_var_41088_16_non_const_forceC;
+# 201 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(forceBuffers[__cuda_local_var_41085_22_non_const_offsetD]) = __cuda_local_var_41089_16_non_const_forceD;
+# 205 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41071_15_non_const_normCross1 = ((((__cuda_local_var_41027_16_non_const_cp0b.x) * (__cuda_local_var_41027_16_non_const_cp0b.x)) + ((__cuda_local_var_41027_16_non_const_cp0b.y) * (__cuda_local_var_41027_16_non_const_cp0b.y))) + ((__cuda_local_var_41027_16_non_const_cp0b.z) * (__cuda_local_var_41027_16_non_const_cp0b.z)));
+# 206 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41072_15_non_const_normSqrBC = ((((__cuda_local_var_41025_16_non_const_v1b.x) * (__cuda_local_var_41025_16_non_const_v1b.x)) + ((__cuda_local_var_41025_16_non_const_v1b.y) * (__cuda_local_var_41025_16_non_const_v1b.y))) + ((__cuda_local_var_41025_16_non_const_v1b.z) * (__cuda_local_var_41025_16_non_const_v1b.z)));
+# 207 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41073_15_non_const_normBC = (sqrtf(__cuda_local_var_41072_15_non_const_normSqrBC));
+# 208 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41074_15_non_const_normCross2 = ((((__cuda_local_var_41027_22_non_const_cp1b.x) * (__cuda_local_var_41027_22_non_const_cp1b.x)) + ((__cuda_local_var_41027_22_non_const_cp1b.y) * (__cuda_local_var_41027_22_non_const_cp1b.y))) + ((__cuda_local_var_41027_22_non_const_cp1b.z) * (__cuda_local_var_41027_22_non_const_cp1b.z)));
+# 209 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41075_15_non_const_dp = ((1.0F) / __cuda_local_var_41072_15_non_const_normSqrBC);
+# 210 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41076_16_non_const_ff = (((((__T255 = ((float)(fdividef(((double)((-__cuda_local_var_41052_15_non_const_dEdB) * __cuda_local_var_41073_15_non_const_normBC)), ((double)__cuda_local_var_41071_15_non_const_normCross1))))) , ((void)(__T256 = (((((__cuda_local_var_41024_16_non_const_v0b.x) * (__cuda_local_var_41025_16_non_const_v1b.x)) + ((__cuda_local_var_41024_16_non_const_v0b.y) * (__cuda_local_var_41025_16_non_const_v1b.y))) + ((__cuda_local_var_41024_16_non_const_v0b.z) * (__cuda_local_var_41025_16_non_const_v1b.z))) * __cuda_local_var_41075_15_non_const_dp)))) , ((void)(__T257 = (((((__cuda_local_var_41026_16_non_const_v2b.x) * (__cuda_local_var_41025_16_non_const_v1b.x)) + ((__cuda_local_var_41026_16_non_const_v2b.y) * (__cuda_local_var_41025_16_non_const_v1b.y))) + ((__cuda_local_var_41026_16_non_const_v2b.z) * (__cuda_local_var_41025_16_non_const_v1b.z))) * __cuda_local_var_41075_15_non_const_dp)))) , ((void)(__T258 = ((float)(fdividef(((double)(__cuda_local_var_41052_15_non_const_dEdB * __cuda_local_var_41073_15_non_const_normBC)), ((double)__cuda_local_var_41074_15_non_const_normCross2))))))) , ((((((__T259.x) = __T255) , ((void)((__T259.y) = __T256))) , ((void)((__T259.z) = __T257))) , ((void)((__T259.w) = __T258))) , __T259));
+# 211 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41077_16_non_const_internalF0 = ((((__T260 = ((__cuda_local_var_41076_16_non_const_ff.x) * (__cuda_local_var_41027_16_non_const_cp0b.x))) , ((void)(__T261 = ((__cuda_local_var_41076_16_non_const_ff.x) * (__cuda_local_var_41027_16_non_const_cp0b.y))))) , ((void)(__T262 = ((__cuda_local_var_41076_16_non_const_ff.x) * (__cuda_local_var_41027_16_non_const_cp0b.z))))) , (((((__T263.x) = __T260) , ((void)((__T263.y) = __T261))) , ((void)((__T263.z) = __T262))) , __T263));
+# 212 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41078_16_non_const_internalF3 = ((((__T264 = ((__cuda_local_var_41076_16_non_const_ff.w) * (__cuda_local_var_41027_22_non_const_cp1b.x))) , ((void)(__T265 = ((__cuda_local_var_41076_16_non_const_ff.w) * (__cuda_local_var_41027_22_non_const_cp1b.y))))) , ((void)(__T266 = ((__cuda_local_var_41076_16_non_const_ff.w) * (__cuda_local_var_41027_22_non_const_cp1b.z))))) , (((((__T267.x) = __T264) , ((void)((__T267.y) = __T265))) , ((void)((__T267.z) = __T266))) , __T267));
+# 213 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41079_16_non_const_d = ((((__T268 = (((__cuda_local_var_41076_16_non_const_ff.y) * (__cuda_local_var_41077_16_non_const_internalF0.x)) - ((__cuda_local_var_41076_16_non_const_ff.z) * (__cuda_local_var_41078_16_non_const_internalF3.x)))) , ((void)(__T269 = (((__cuda_local_var_41076_16_non_const_ff.y) * (__cuda_local_var_41077_16_non_const_internalF0.y)) - ((__cuda_local_var_41076_16_non_const_ff.z) * (__cuda_local_var_41078_16_non_const_internalF3.y)))))) , ((void)(__T270 = (((__cuda_local_var_41076_16_non_const_ff.y) * (__cuda_local_var_41077_16_non_const_internalF0.z)) - ((__cuda_local_var_41076_16_non_const_ff.z) * (__cuda_local_var_41078_16_non_const_internalF3.z)))))) , (((((__T271.x) = __T268) , ((void)((__T271.y) = __T269))) , ((void)((__T271.z) = __T270))) , __T271));
+# 216 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41082_22_non_const_offsetA = ((unsigned)((__cuda_local_var_41000_14_non_const_atoms2.x) + ((__cuda_local_var_41002_14_non_const_atoms4.x) * numAtoms)));
+# 217 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41083_22_non_const_offsetB = ((unsigned)((__cuda_local_var_41000_14_non_const_atoms2.y) + ((__cuda_local_var_41002_14_non_const_atoms4.y) * numAtoms)));
+# 218 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41084_22_non_const_offsetC = ((unsigned)((__cuda_local_var_41000_14_non_const_atoms2.z) + ((__cuda_local_var_41002_14_non_const_atoms4.z) * numAtoms)));
+# 219 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41085_22_non_const_offsetD = ((unsigned)((__cuda_local_var_41000_14_non_const_atoms2.w) + ((__cuda_local_var_41002_14_non_const_atoms4.w) * numAtoms)));
+# 220 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41086_16_non_const_forceA = (forceBuffers[__cuda_local_var_41082_22_non_const_offsetA]);
+# 221 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41087_16_non_const_forceB = (forceBuffers[__cuda_local_var_41083_22_non_const_offsetB]);
+# 222 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41088_16_non_const_forceC = (forceBuffers[__cuda_local_var_41084_22_non_const_offsetC]);
+# 223 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+__cuda_local_var_41089_16_non_const_forceD = (forceBuffers[__cuda_local_var_41085_22_non_const_offsetD]);
+# 224 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41086_16_non_const_forceA.x) += (__cuda_local_var_41077_16_non_const_internalF0.x);
+# 225 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41086_16_non_const_forceA.y) += (__cuda_local_var_41077_16_non_const_internalF0.y);
+# 226 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41086_16_non_const_forceA.z) += (__cuda_local_var_41077_16_non_const_internalF0.z);
+# 227 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41087_16_non_const_forceB.x) += ((__cuda_local_var_41079_16_non_const_d.x) - (__cuda_local_var_41077_16_non_const_internalF0.x));
+# 228 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41087_16_non_const_forceB.y) += ((__cuda_local_var_41079_16_non_const_d.y) - (__cuda_local_var_41077_16_non_const_internalF0.y));
+# 229 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41087_16_non_const_forceB.z) += ((__cuda_local_var_41079_16_non_const_d.z) - (__cuda_local_var_41077_16_non_const_internalF0.z));
+# 230 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41088_16_non_const_forceC.x) += ((-(__cuda_local_var_41079_16_non_const_d.x)) - (__cuda_local_var_41078_16_non_const_internalF3.x));
+# 231 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41088_16_non_const_forceC.y) += ((-(__cuda_local_var_41079_16_non_const_d.y)) - (__cuda_local_var_41078_16_non_const_internalF3.y));
+# 232 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41088_16_non_const_forceC.z) += ((-(__cuda_local_var_41079_16_non_const_d.z)) - (__cuda_local_var_41078_16_non_const_internalF3.z));
+# 233 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41089_16_non_const_forceD.x) += (__cuda_local_var_41078_16_non_const_internalF3.x);
+# 234 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41089_16_non_const_forceD.y) += (__cuda_local_var_41078_16_non_const_internalF3.y);
+# 235 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(__cuda_local_var_41089_16_non_const_forceD.z) += (__cuda_local_var_41078_16_non_const_internalF3.z);
+# 236 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(forceBuffers[__cuda_local_var_41082_22_non_const_offsetA]) = __cuda_local_var_41086_16_non_const_forceA;
+# 237 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(forceBuffers[__cuda_local_var_41083_22_non_const_offsetB]) = __cuda_local_var_41087_16_non_const_forceB;
+# 238 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(forceBuffers[__cuda_local_var_41084_22_non_const_offsetC]) = __cuda_local_var_41088_16_non_const_forceC;
+# 239 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(forceBuffers[__cuda_local_var_41085_22_non_const_offsetD]) = __cuda_local_var_41089_16_non_const_forceD;
+# 240 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 240 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}
+# 241 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+(energyBuffer[(((blockIdx.x) * (blockDim.x)) + (threadIdx.x))]) += __cuda_local_var_40997_11_non_const_energy;
+# 242 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+} 
+# 242 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCMAPTorsionForces.cu"
+}}

@@ -1,0 +1,1386 @@
+# 272 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+enum CudaNonbondedMethod {
+# 274 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+NO_CUTOFF,
+# 275 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+CUTOFF,
+# 276 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+PERIODIC,
+# 277 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+EWALD,
+# 278 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+PARTICLE_MESH_EWALD};
+# 294 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct cudaGmxSimulation;
+# 288 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct _Z10ExpressionILi256EE;
+# 211 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 3
+typedef unsigned long size_t;
+#include "crt/device_runtime.h"
+# 60 "/usr/local/cuda-5.0/include/cuComplex.h"
+typedef struct float2 cuFloatComplex;
+# 282 "/usr/local/cuda-5.0/include/cuComplex.h"
+typedef cuFloatComplex cuComplex;
+# 100 "/usr/local/cuda-5.0/include/cufft.h"
+typedef cuComplex cufftComplex;
+# 294 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct cudaGmxSimulation {
+# 296 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned atoms;
+# 297 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned paddedNumberOfAtoms;
+# 298 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned blocks;
+# 299 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned blocksPerSM;
+# 300 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned nonbond_blocks;
+# 301 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned bornForce2_blocks;
+# 302 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned interaction_blocks;
+# 303 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned threads_per_block;
+# 304 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned nonbond_threads_per_block;
+# 305 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned bornForce2_threads_per_block;
+# 306 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned max_update_threads_per_block;
+# 307 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned update_threads_per_block;
+# 308 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned bf_reduce_threads_per_block;
+# 309 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned bsf_reduce_threads_per_block;
+# 310 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned max_shake_threads_per_block;
+# 311 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned shake_threads_per_block;
+# 312 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned settle_threads_per_block;
+# 313 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned ccma_threads_per_block;
+# 314 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned max_localForces_threads_per_block;
+# 315 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned localForces_threads_per_block;
+# 316 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned random_threads_per_block;
+# 317 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned interaction_threads_per_block;
+# 318 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned custom_exception_threads_per_block;
+# 319 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned customExpressionStackSize;
+# 320 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned workUnits;
+# 321 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned *pWorkUnit;
+# 322 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned *pInteractingWorkUnit;
+# 323 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned *pInteractionFlag;
+# 324 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float2 *pStepSize;
+# 325 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pLangevinParameters;
+# 326 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float errorTol;
+# 327 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+size_t *pInteractionCount;
+# 328 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned nonbond_workBlock;
+# 329 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned bornForce2_workBlock;
+# 330 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned workUnitsPerSM;
+# 331 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned nbWorkUnitsPerBlock;
+# 332 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned nbWorkUnitsPerBlockRemainder;
+# 333 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned bf2WorkUnitsPerBlock;
+# 334 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned bf2WorkUnitsPerBlockRemainder;
+# 337 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned stride;
+# 338 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned stride2;
+# 339 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned stride3;
+# 340 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned stride4;
+# 341 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned nonbondOutputBuffers;
+# 342 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned outputBuffers;
+# 343 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned energyOutputBuffers;
+# 344 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float bigFloat;
+# 345 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float epsfac;
+# 346 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+enum CudaNonbondedMethod nonbondedMethod;
+# 347 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+enum CudaNonbondedMethod customNonbondedMethod;
+# 348 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float nonbondedCutoff;
+# 349 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float nonbondedCutoffSqr;
+# 350 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float periodicBoxSizeX;
+# 351 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float periodicBoxSizeY;
+# 352 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float periodicBoxSizeZ;
+# 353 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float invPeriodicBoxSizeX;
+# 354 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float invPeriodicBoxSizeY;
+# 355 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float invPeriodicBoxSizeZ;
+# 356 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float recipBoxSizeX;
+# 357 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float recipBoxSizeY;
+# 358 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float recipBoxSizeZ;
+# 359 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float cellVolume;
+# 360 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float alphaEwald;
+# 361 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float factorEwald;
+# 362 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int kmaxX;
+# 363 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int kmaxY;
+# 364 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int kmaxZ;
+# 365 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float reactionFieldK;
+# 366 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float reactionFieldC;
+# 367 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float probeRadius;
+# 368 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float surfaceAreaFactor;
+# 369 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float electricConstant;
+# 370 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float forceConversionFactor;
+# 371 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float preFactor;
+# 372 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float dielectricOffset;
+# 373 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float alphaOBC;
+# 374 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float betaOBC;
+# 375 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float gammaOBC;
+# 376 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float deltaT;
+# 377 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float oneOverDeltaT;
+# 378 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float T;
+# 379 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float kT;
+# 380 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float noiseAmplitude;
+# 381 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float tau;
+# 382 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float tauDeltaT;
+# 383 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float collisionFrequency;
+# 384 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float2 *pObcData;
+# 385 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int gbviBornRadiusScalingMethod;
+# 386 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float gbviQuinticLowerLimitFactor;
+# 387 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float gbviQuinticUpperBornRadiusLimit;
+# 388 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pGBVIData;
+# 389 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pGBVISwitchDerivative;
+# 390 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float2 *pAttr;
+# 391 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pCustomParams;
+# 392 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned customExceptions;
+# 393 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned customParameters;
+# 394 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pCustomBondID;
+# 395 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pCustomBondParams;
+# 396 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned customBonds;
+# 397 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned customBondParameters;
+# 398 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pCustomAngleID1;
+# 399 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int2 *pCustomAngleID2;
+# 400 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pCustomAngleParams;
+# 401 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned customAngles;
+# 402 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned customAngleParameters;
+# 403 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pCustomTorsionID1;
+# 404 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pCustomTorsionID2;
+# 405 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pCustomTorsionParams;
+# 406 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned customTorsions;
+# 407 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned customTorsionParameters;
+# 408 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int *pCustomExternalID;
+# 409 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pCustomExternalParams;
+# 410 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned customExternals;
+# 411 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned customExternalParameters;
+# 412 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pTabulatedFunctionCoefficients[4];
+# 413 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pTabulatedFunctionParams;
+# 414 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float2 *pEwaldCosSinSum;
+# 415 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pTabulatedErfc;
+# 416 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int tabulatedErfcSize;
+# 417 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float tabulatedErfcScale;
+# 418 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int3 pmeGridSize;
+# 419 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int3 pmeGroupSize;
+# 420 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+cufftComplex *pPmeGrid;
+# 421 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pPmeBsplineModuli[3];
+# 422 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pPmeBsplineTheta;
+# 423 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pPmeBsplineDtheta;
+# 424 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int *pPmeAtomRange;
+# 425 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int2 *pPmeAtomGridIndex;
+# 426 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned bonds;
+# 427 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pBondID;
+# 428 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float2 *pBondParameter;
+# 429 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned bond_angles;
+# 430 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pBondAngleID1;
+# 431 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int2 *pBondAngleID2;
+# 432 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float2 *pBondAngleParameter;
+# 433 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned dihedrals;
+# 434 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pDihedralID1;
+# 435 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pDihedralID2;
+# 436 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pDihedralParameter;
+# 437 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned rb_dihedrals;
+# 438 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pRbDihedralID1;
+# 439 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pRbDihedralID2;
+# 440 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pRbDihedralParameter1;
+# 441 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float2 *pRbDihedralParameter2;
+# 442 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned LJ14s;
+# 443 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pLJ14ID;
+# 444 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pLJ14Parameter;
+# 445 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float inverseTotalMass;
+# 446 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned ShakeConstraints;
+# 447 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned settleConstraints;
+# 448 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned ccmaConstraints;
+# 449 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned rigidClusters;
+# 450 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned maxRigidClusterSize;
+# 451 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned clusterShakeBlockSize;
+# 452 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned maxShakeIterations;
+# 453 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned degreesOfFreedom;
+# 454 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float shakeTolerance;
+# 455 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float InvMassJ;
+# 456 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int *pNonShakeID;
+# 457 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pShakeID;
+# 458 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pShakeParameter;
+# 459 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int4 *pSettleID;
+# 460 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float2 *pSettleParameter;
+# 461 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned *pExclusion;
+# 462 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned *pExclusionIndex;
+# 463 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned bond_offset;
+# 464 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned bond_angle_offset;
+# 465 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned dihedral_offset;
+# 466 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned rb_dihedral_offset;
+# 467 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned LJ14_offset;
+# 468 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int *pAtomIndex;
+# 469 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pGridBoundingBox;
+# 470 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pGridCenter;
+# 471 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct int2 *pCcmaAtoms;
+# 472 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pCcmaDistance;
+# 473 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pCcmaDelta1;
+# 474 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pCcmaDelta2;
+# 475 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int *pCcmaAtomConstraints;
+# 476 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int *pCcmaNumAtomConstraints;
+# 477 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int *ccmaConvergedDeviceMarker;
+# 478 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pCcmaReducedMass;
+# 479 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned *pConstraintMatrixColumn;
+# 480 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pConstraintMatrixValue;
+# 483 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pPosq;
+# 484 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pPosqP;
+# 485 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pOldPosq;
+# 486 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pVelm4;
+# 487 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pForce4;
+# 488 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pEnergy;
+# 489 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pBornForce;
+# 490 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pBornSum;
+# 491 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pBornRadii;
+# 492 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float *pObcChain;
+# 493 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pLinearMomentum;
+# 496 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float4 *pRandom4;
+# 497 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct float2 *pRandom2;
+# 498 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct uint4 *pRandomSeed;
+# 499 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int *pRandomPosition;
+# 500 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned randoms;
+# 501 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned totalRandoms;
+# 502 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned randomIterations;
+# 503 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+unsigned randomFrames;};
+# 288 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+struct _Z10ExpressionILi256EE {
+# 289 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int op[256];
+# 290 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+float arg[256];
+# 291 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int length;
+# 291 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+int stackSize;};
+#if !defined(__CUDABE__)
+# 222 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) int min(int, int);
+#endif
+#if !defined(__CUDABE__)
+# 241 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float fminf(float, float);
+#endif
+#if !defined(__CUDABE__)
+# 277 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float fmaxf(float, float);
+#endif
+#if !defined(__CUDABE__)
+# 4855 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float erff(float);
+#endif
+#if !defined(__CUDABE__)
+# 5037 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float erfcf(float);
+#endif
+#if !defined(__CUDABE__)
+# 76 "/usr/local/cuda-5.0/include/texture_fetch_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) struct float4 __ftexfetchi(__texture_type__, struct int4);
+#endif
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+___device__(extern  __no_sc__) float _Z26kEvaluateExpression_kernelILi256EEfP10ExpressionIXT_EEPfS3_(struct _Z10ExpressionILi256EE *, float *, float *);
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+__launch_bounds__(256,1) __global__ __var_used__ extern void _Z37kCalculateCustomExternalForces_kernelv(void);
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+static  __constant__  __var_used__ struct cudaGmxSimulation cSim;
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+static  __constant__  __var_used__ struct _Z10ExpressionILi256EE forceExpX;
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+static  __constant__  __var_used__ struct _Z10ExpressionILi256EE forceExpY;
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+static  __constant__  __var_used__ struct _Z10ExpressionILi256EE forceExpZ;
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+static  __constant__  __var_used__ struct _Z10ExpressionILi256EE energyExp;
+# 31 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+static  __constant__  __var_used__ float globalParams[8];
+# 33 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+static  __text__  __var_used__ __texture_type__ texRef0;
+# 34 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+static  __text__  __var_used__ __texture_type__ texRef1;
+# 35 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+static  __text__  __var_used__ __texture_type__ texRef2;
+# 36 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+static  __text__  __var_used__ __texture_type__ texRef3;
+# 95 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+extern  __shared__ float stack[];
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv117__class_type_infoE[1];
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv120__si_class_type_infoE[1];
+#include "common_functions.h"
+# 99 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+static  __device__  __var_used__ const long _ZTVSt9exception[5] = {0L,0L,0L,0L,0L};
+# 100 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+static  __device__  __var_used__ const long _ZTVN6OpenMM15OpenMMExceptionE[5] = {0L,0L,0L,0L,0L};
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+___device__( __no_sc__) float _Z26kEvaluateExpression_kernelILi256EEfP10ExpressionIXT_EEPfS3_(
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+struct _Z10ExpressionILi256EE *expression, 
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+float *stack, 
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+float *variables){
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 44 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ int __cuda_local_var_40750_9_non_const_stackPointer;
+# 44 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40750_9_non_const_stackPointer = (-1);
+# 44 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 45 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ int i;
+# 45 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+i = 0;
+# 45 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+for (; (i < (expression->length)); i++)
+# 46 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 46 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T235;
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T236;
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T237;
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T238;
+# 50 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T239;
+# 51 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T240;
+# 52 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T241;
+# 53 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T242;
+# 54 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T243;
+# 55 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T244;
+# 56 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T245;
+# 57 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T246;
+# 58 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T247;
+# 59 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T248;
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T249;
+# 61 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T250;
+# 62 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T251;
+# 63 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T252;
+# 64 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T253;
+# 65 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T254;
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ int __cuda_local_var_40753_13_non_const_op;
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40753_13_non_const_op = (((expression->op))[i]);
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op < 9)
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)(++__cuda_local_var_40750_9_non_const_stackPointer)) * (blockDim.x)) + (threadIdx.x))]) = (variables[((((unsigned)(__cuda_local_var_40753_13_non_const_op - 0)) * (blockDim.x)) + (threadIdx.x))]);
+# 50 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 50 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 50 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 51 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op < 21)
+# 51 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 52 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op < 14)
+# 52 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 53 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 9)
+# 53 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 54 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40760_27_non_const_temp;
+# 54 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40760_27_non_const_temp = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]);
+# 55 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)(--__cuda_local_var_40750_9_non_const_stackPointer)) * (blockDim.x)) + (threadIdx.x))]) *= __cuda_local_var_40760_27_non_const_temp;
+# 56 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 56 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 56 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 57 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 10)
+# 57 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 58 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40764_27_non_const_temp;
+# 58 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40764_27_non_const_temp = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]);
+# 59 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)(fdividef(((double)__cuda_local_var_40764_27_non_const_temp), ((double)(stack[((((unsigned)(--__cuda_local_var_40750_9_non_const_stackPointer)) * (blockDim.x)) + (threadIdx.x))])))));
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 61 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 11)
+# 61 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 62 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40768_27_non_const_temp;
+# 62 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40768_27_non_const_temp = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]);
+# 63 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)(--__cuda_local_var_40750_9_non_const_stackPointer)) * (blockDim.x)) + (threadIdx.x))]) += __cuda_local_var_40768_27_non_const_temp;
+# 64 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 64 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 64 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 65 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 12)
+# 65 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 66 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40772_27_non_const_temp;
+# 66 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40772_27_non_const_temp = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]);
+# 67 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = (__cuda_local_var_40772_27_non_const_temp - (stack[((((unsigned)(--__cuda_local_var_40750_9_non_const_stackPointer)) * (blockDim.x)) + (threadIdx.x))]));
+# 68 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 69 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 69 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 69 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T255;
+# 70 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T256;
+# 70 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40776_27_non_const_temp;
+# 70 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40776_27_non_const_temp = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]);
+# 71 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)(((__T255 = __cuda_local_var_40776_27_non_const_temp) , ((void)(__T256 = (stack[((((unsigned)(--__cuda_local_var_40750_9_non_const_stackPointer)) * (blockDim.x)) + (threadIdx.x))])))) , (powf(((double)__T255), ((double)__T256)))));
+# 72 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 72 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 72 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 72 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 74 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op < 17)
+# 74 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 75 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 14)
+# 75 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 76 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) *= (((expression->arg))[i]);
+# 77 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 77 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 77 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 78 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 15)
+# 78 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 79 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)(((__T235 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , ((void)(__T236 = (((expression->arg))[i])))) , (powf(((double)__T235), ((double)__T236)))));
+# 80 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 81 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 81 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 82 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) += (((expression->arg))[i]);
+# 83 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 83 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 84 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 85 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 85 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 86 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 17)
+# 86 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 87 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)(++__cuda_local_var_40750_9_non_const_stackPointer)) * (blockDim.x)) + (threadIdx.x))]) = ((globalParams)[((int)(__float2int_rz(((double)((float)(((expression->arg))[i]))))))]);
+# 88 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 88 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 88 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 89 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 18)
+# 89 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 90 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)(++__cuda_local_var_40750_9_non_const_stackPointer)) * (blockDim.x)) + (threadIdx.x))]) = (((expression->arg))[i]);
+# 91 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 92 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 92 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ int __cuda_local_var_40799_25_non_const_function;
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40800_27_non_const_x;
+# 95 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct float4 __cuda_local_var_40801_28_non_const_params;
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40799_25_non_const_function = ((int)(__float2int_rz(((double)((float)(((expression->arg))[i]))))));
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40800_27_non_const_x = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]);
+# 95 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40801_28_non_const_params = ((cSim.pTabulatedFunctionParams)[__cuda_local_var_40799_25_non_const_function]);
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if ((__cuda_local_var_40800_27_non_const_x < (__cuda_local_var_40801_28_non_const_params.x)) || (__cuda_local_var_40800_27_non_const_x > (__cuda_local_var_40801_28_non_const_params.y)))
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = (0.0F);
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 99 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 99 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 99 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ __texture_type__ __T257;
+# 100 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct int4 __T258;
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T259;
+# 102 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T260;
+# 103 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T261;
+# 104 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T262;
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct float4 __T263;
+# 106 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct float4 __T264;
+# 107 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ __texture_type__ __T265;
+# 108 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct int4 __T266;
+# 109 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T267;
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T268;
+# 111 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T269;
+# 112 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T270;
+# 113 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct float4 __T271;
+# 114 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct float4 __T272;
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ __texture_type__ __T273;
+# 116 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct int4 __T274;
+# 117 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T275;
+# 118 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T276;
+# 119 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T277;
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T278;
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct float4 __T279;
+# 122 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct float4 __T280;
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ int __cuda_local_var_40807_29_non_const_index;
+# 103 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct float4 __cuda_local_var_40809_32_non_const_coeff;
+# 112 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40818_31_non_const_b;
+# 113 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40819_31_non_const_a;
+# 100 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40800_27_non_const_x = ((__cuda_local_var_40800_27_non_const_x - (__cuda_local_var_40801_28_non_const_params.x)) * (__cuda_local_var_40801_28_non_const_params.z));
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40807_29_non_const_index = ((int)(__float2int_rz(((double)((float)(floorf(((double)__cuda_local_var_40800_27_non_const_x))))))));
+# 102 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40807_29_non_const_index = (min(__cuda_local_var_40807_29_non_const_index, ((int)(__float2int_rz(((double)((float)(__cuda_local_var_40801_28_non_const_params.w))))))));
+# 104 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40799_25_non_const_function == 0)
+# 104 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 104 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ __texture_type__ __T281;
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct int4 __T282;
+# 106 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T283;
+# 107 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T284;
+# 108 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T285;
+# 109 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T286;
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct float4 __T287;
+# 111 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ struct float4 __T288;
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40809_32_non_const_coeff = ((__T281 = texRef0) , ((__T288 = (__ftexfetchi(__T281, ((((((__T282.x) = __cuda_local_var_40807_29_non_const_index) , ((void)((__T282.y) = 0))) , ((void)((__T282.z) = 0))) , ((void)((__T282.w) = 0))) , __T282)))) , (((((__T283 = (__T288.x)) , ((void)(__T284 = (__T288.y)))) , ((void)(__T285 = (__T288.z)))) , ((void)(__T286 = (__T288.w)))) , ((((((__T287.x) = __T283) , ((void)((__T287.y) = __T284))) , ((void)((__T287.z) = __T285))) , ((void)((__T287.w) = __T286))) , __T287))));
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 106 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40799_25_non_const_function == 1)
+# 106 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 107 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40809_32_non_const_coeff = ((__T257 = texRef1) , ((__T264 = (__ftexfetchi(__T257, ((((((__T258.x) = __cuda_local_var_40807_29_non_const_index) , ((void)((__T258.y) = 0))) , ((void)((__T258.z) = 0))) , ((void)((__T258.w) = 0))) , __T258)))) , (((((__T259 = (__T264.x)) , ((void)(__T260 = (__T264.y)))) , ((void)(__T261 = (__T264.z)))) , ((void)(__T262 = (__T264.w)))) , ((((((__T263.x) = __T259) , ((void)((__T263.y) = __T260))) , ((void)((__T263.z) = __T261))) , ((void)((__T263.w) = __T262))) , __T263))));
+# 107 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 107 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 107 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 108 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40799_25_non_const_function == 2)
+# 108 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 109 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40809_32_non_const_coeff = ((__T265 = texRef2) , ((__T272 = (__ftexfetchi(__T265, ((((((__T266.x) = __cuda_local_var_40807_29_non_const_index) , ((void)((__T266.y) = 0))) , ((void)((__T266.z) = 0))) , ((void)((__T266.w) = 0))) , __T266)))) , (((((__T267 = (__T272.x)) , ((void)(__T268 = (__T272.y)))) , ((void)(__T269 = (__T272.z)))) , ((void)(__T270 = (__T272.w)))) , ((((((__T271.x) = __T267) , ((void)((__T271.y) = __T268))) , ((void)((__T271.z) = __T269))) , ((void)((__T271.w) = __T270))) , __T271))));
+# 109 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 109 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 109 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 111 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40809_32_non_const_coeff = ((__T273 = texRef3) , ((__T280 = (__ftexfetchi(__T273, ((((((__T274.x) = __cuda_local_var_40807_29_non_const_index) , ((void)((__T274.y) = 0))) , ((void)((__T274.z) = 0))) , ((void)((__T274.w) = 0))) , __T274)))) , (((((__T275 = (__T280.x)) , ((void)(__T276 = (__T280.y)))) , ((void)(__T277 = (__T280.z)))) , ((void)(__T278 = (__T280.w)))) , ((((((__T279.x) = __T275) , ((void)((__T279.y) = __T276))) , ((void)((__T279.z) = __T277))) , ((void)((__T279.w) = __T278))) , __T279))));
+# 111 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 111 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 111 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 112 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40818_31_non_const_b = (__cuda_local_var_40800_27_non_const_x - ((float)__cuda_local_var_40807_29_non_const_index));
+# 113 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40819_31_non_const_a = ((1.0F) - __cuda_local_var_40818_31_non_const_b);
+# 114 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 19)
+# 114 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = (((__cuda_local_var_40819_31_non_const_a * (__cuda_local_var_40809_32_non_const_coeff.x)) + (__cuda_local_var_40818_31_non_const_b * (__cuda_local_var_40809_32_non_const_coeff.y))) + ((float)(fdividef(((double)(((((__cuda_local_var_40819_31_non_const_a * __cuda_local_var_40819_31_non_const_a) * __cuda_local_var_40819_31_non_const_a) - __cuda_local_var_40819_31_non_const_a) * (__cuda_local_var_40809_32_non_const_coeff.z)) + ((((__cuda_local_var_40818_31_non_const_b * __cuda_local_var_40818_31_non_const_b) * __cuda_local_var_40818_31_non_const_b) - __cuda_local_var_40818_31_non_const_b) * (__cuda_local_var_40809_32_non_const_coeff.w)))), ((double)((__cuda_local_var_40801_28_non_const_params.z) * (__cuda_local_var_40801_28_non_const_params.z)))))));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 117 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((((__cuda_local_var_40809_32_non_const_coeff.y) - (__cuda_local_var_40809_32_non_const_coeff.x)) * (__cuda_local_var_40801_28_non_const_params.z)) + ((float)(fdividef(((double)((((1.0F) - (((3.0F) * __cuda_local_var_40819_31_non_const_a) * __cuda_local_var_40819_31_non_const_a)) * (__cuda_local_var_40809_32_non_const_coeff.z)) + (((((3.0F) * __cuda_local_var_40818_31_non_const_b) * __cuda_local_var_40818_31_non_const_b) - (1.0F)) * (__cuda_local_var_40809_32_non_const_coeff.w)))), ((double)(__cuda_local_var_40801_28_non_const_params.z))))));
+# 117 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 118 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 119 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 119 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 122 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 122 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 123 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op < 29)
+# 123 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 124 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 21)
+# 124 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 125 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) *= (-1.0F);
+# 126 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 126 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 126 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 127 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 22)
+# 127 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 128 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((1.0F) / (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]));
+# 129 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 129 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 129 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 130 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 23)
+# 130 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 131 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T237 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (sqrtf(((double)__T237)))));
+# 132 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 132 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 132 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 133 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 24)
+# 133 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 134 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T238 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (expf(((double)__T238)))));
+# 135 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 135 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 135 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 136 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 25)
+# 136 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 137 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T239 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (logf(((double)__T239)))));
+# 138 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 138 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 138 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 139 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 26)
+# 139 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 140 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40846_27_non_const_temp;
+# 140 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40846_27_non_const_temp = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]);
+# 141 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) *= __cuda_local_var_40846_27_non_const_temp;
+# 142 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 142 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 142 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 143 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 27)
+# 143 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 144 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40850_27_non_const_temp;
+# 144 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40850_27_non_const_temp = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]);
+# 145 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) *= (__cuda_local_var_40850_27_non_const_temp * __cuda_local_var_40850_27_non_const_temp);
+# 146 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 147 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 147 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 148 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = (((stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) >= (0.0F)) ? (1.0F) : (0.0F));
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 149 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 150 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 151 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 151 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 152 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 29)
+# 152 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 153 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T240 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (sinf(((double)__T240)))));
+# 154 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 154 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 154 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 155 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 30)
+# 155 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 156 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T241 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (cosf(((double)__T241)))));
+# 157 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 157 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 157 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 158 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 31)
+# 158 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 159 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((1.0F) / ((float)((__T242 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (cosf(((double)__T242))))));
+# 160 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 160 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 160 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 161 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 32)
+# 161 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 162 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((1.0F) / ((float)((__T243 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (sinf(((double)__T243))))));
+# 163 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 163 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 163 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 164 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 33)
+# 164 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 165 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T244 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (tanf(((double)__T244)))));
+# 166 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 166 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 166 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 167 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 34)
+# 167 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 168 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((1.0F) / ((float)((__T245 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (tanf(((double)__T245))))));
+# 169 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 169 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 169 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 170 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 35)
+# 170 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 171 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T246 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (asinf(((double)__T246)))));
+# 172 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 172 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 172 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 173 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 36)
+# 173 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 174 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T247 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (acosf(((double)__T247)))));
+# 175 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 175 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 175 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 176 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 37)
+# 176 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 177 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T248 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (atanf(((double)__T248)))));
+# 178 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 178 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 178 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 179 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 38)
+# 179 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 180 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T249 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (sinhf(((double)__T249)))));
+# 181 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 181 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 181 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 182 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 39)
+# 182 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 183 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T250 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (coshf(((double)__T250)))));
+# 184 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 184 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 184 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 185 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 40)
+# 185 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 186 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T251 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (tanhf(((double)__T251)))));
+# 187 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 187 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 187 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 188 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 41)
+# 188 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 189 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((__T252 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (erff(__T252)));
+# 190 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 190 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 190 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 191 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 42)
+# 191 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 192 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((__T253 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (erfcf(__T253)));
+# 193 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 193 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 193 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 194 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 43)
+# 194 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 194 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T289;
+# 195 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T290;
+# 195 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40901_27_non_const_temp;
+# 195 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40901_27_non_const_temp = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]);
+# 196 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = (((__T289 = __cuda_local_var_40901_27_non_const_temp) , ((void)(__T290 = (stack[((((unsigned)(--__cuda_local_var_40750_9_non_const_stackPointer)) * (blockDim.x)) + (threadIdx.x))])))) , (fminf(__T289, __T290)));
+# 197 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 197 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 197 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 198 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+if (__cuda_local_var_40753_13_non_const_op == 44)
+# 198 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 198 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T291;
+# 199 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __T292;
+# 199 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+ float __cuda_local_var_40905_27_non_const_temp;
+# 199 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+__cuda_local_var_40905_27_non_const_temp = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]);
+# 200 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = (((__T291 = __cuda_local_var_40905_27_non_const_temp) , ((void)(__T292 = (stack[((((unsigned)(--__cuda_local_var_40750_9_non_const_stackPointer)) * (blockDim.x)) + (threadIdx.x))])))) , (fmaxf(__T291, __T292)));
+# 201 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 202 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+else 
+# 202 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+{
+# 203 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+(stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))]) = ((float)((__T254 = (stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))])) , (fabsf(((double)__T254)))));
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 204 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 205 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 206 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 206 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 207 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 207 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 208 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+return stack[((((unsigned)__cuda_local_var_40750_9_non_const_stackPointer) * (blockDim.x)) + (threadIdx.x))];
+# 209 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}
+# 209 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kEvaluateExpression.h"
+}}
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+__launch_bounds__(256,1) __global__ __var_used__ void _Z37kCalculateCustomExternalForces_kernelv(void){
+# 93 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+{
+# 94 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+{
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+ float *__cuda_local_var_40967_12_non_const_variables;
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+ unsigned __cuda_local_var_40968_18_non_const_index;
+# 98 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+ float __cuda_local_var_40969_11_non_const_totalEnergy;
+# 96 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+__cuda_local_var_40967_12_non_const_variables = ((float *)((stack) + ((cSim.customExpressionStackSize) * (blockDim.x))));
+# 97 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+__cuda_local_var_40968_18_non_const_index = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 98 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+__cuda_local_var_40969_11_non_const_totalEnergy = (0.0F);
+# 100 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+while (__cuda_local_var_40968_18_non_const_index < (cSim.customExternals))
+# 101 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+{
+# 102 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+ int __cuda_local_var_40973_13_non_const_atom;
+# 103 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+ struct float4 __cuda_local_var_40974_16_non_const_params;
+# 104 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+ struct float4 __cuda_local_var_40975_16_non_const_pos;
+# 113 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+ struct float4 __cuda_local_var_40984_16_non_const_force;
+# 102 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+__cuda_local_var_40973_13_non_const_atom = ((cSim.pCustomExternalID)[__cuda_local_var_40968_18_non_const_index]);
+# 103 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+__cuda_local_var_40974_16_non_const_params = ((cSim.pCustomExternalParams)[__cuda_local_var_40968_18_non_const_index]);
+# 104 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+__cuda_local_var_40975_16_non_const_pos = ((cSim.pPosq)[__cuda_local_var_40973_13_non_const_atom]);
+# 105 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+(__cuda_local_var_40967_12_non_const_variables[((0U * (blockDim.x)) + (threadIdx.x))]) = (__cuda_local_var_40975_16_non_const_pos.x);
+# 106 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+(__cuda_local_var_40967_12_non_const_variables[((1U * (blockDim.x)) + (threadIdx.x))]) = (__cuda_local_var_40975_16_non_const_pos.y);
+# 107 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+(__cuda_local_var_40967_12_non_const_variables[((2U * (blockDim.x)) + (threadIdx.x))]) = (__cuda_local_var_40975_16_non_const_pos.z);
+# 108 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+(__cuda_local_var_40967_12_non_const_variables[((3U * (blockDim.x)) + (threadIdx.x))]) = (__cuda_local_var_40974_16_non_const_params.x);
+# 109 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+(__cuda_local_var_40967_12_non_const_variables[((4U * (blockDim.x)) + (threadIdx.x))]) = (__cuda_local_var_40974_16_non_const_params.y);
+# 110 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+(__cuda_local_var_40967_12_non_const_variables[((5U * (blockDim.x)) + (threadIdx.x))]) = (__cuda_local_var_40974_16_non_const_params.z);
+# 111 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+(__cuda_local_var_40967_12_non_const_variables[((6U * (blockDim.x)) + (threadIdx.x))]) = (__cuda_local_var_40974_16_non_const_params.w);
+# 112 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+__cuda_local_var_40969_11_non_const_totalEnergy += (_Z26kEvaluateExpression_kernelILi256EEfP10ExpressionIXT_EEPfS3_((&energyExp), stack, __cuda_local_var_40967_12_non_const_variables));
+# 112 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+;
+# 113 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+__cuda_local_var_40984_16_non_const_force = ((cSim.pForce4)[__cuda_local_var_40973_13_non_const_atom]);
+# 114 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+(__cuda_local_var_40984_16_non_const_force.x) -= (_Z26kEvaluateExpression_kernelILi256EEfP10ExpressionIXT_EEPfS3_((&forceExpX), stack, __cuda_local_var_40967_12_non_const_variables));
+# 115 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+(__cuda_local_var_40984_16_non_const_force.y) -= (_Z26kEvaluateExpression_kernelILi256EEfP10ExpressionIXT_EEPfS3_((&forceExpY), stack, __cuda_local_var_40967_12_non_const_variables));
+# 116 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+(__cuda_local_var_40984_16_non_const_force.z) -= (_Z26kEvaluateExpression_kernelILi256EEfP10ExpressionIXT_EEPfS3_((&forceExpZ), stack, __cuda_local_var_40967_12_non_const_variables));
+# 117 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+((cSim.pForce4)[__cuda_local_var_40973_13_non_const_atom]) = __cuda_local_var_40984_16_non_const_force;
+# 118 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+__cuda_local_var_40968_18_non_const_index += ((blockDim.x) * (gridDim.x));
+# 119 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+}
+# 120 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+((cSim.pEnergy)[(((blockIdx.x) * (blockDim.x)) + (threadIdx.x))]) += __cuda_local_var_40969_11_non_const_totalEnergy;
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+} 
+# 121 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateCustomExternalForces.cu"
+}}

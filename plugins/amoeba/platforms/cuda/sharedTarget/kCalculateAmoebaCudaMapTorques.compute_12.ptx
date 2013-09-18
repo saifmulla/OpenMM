@@ -1,0 +1,1358 @@
+	.version 1.4
+	.target sm_12, map_f64_to_f32
+	// compiled with /usr/local/cuda-5.0/open64/lib//be
+	// nvopencc 4.1 built on 2012-09-21
+
+	//-----------------------------------------------------------
+	// Compiling kCalculateAmoebaCudaMapTorques.compute_12.cpp3.i (/tmp/ccBI#.gY7mL7)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_12, Endian:little, Pointer Size:64
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"<command-line>"
+	.file	2	"kCalculateAmoebaCudaMapTorques.compute_12.cudafe2.gpu"
+	.file	3	"/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+	.file	4	"/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//amoebaCudaTypes.h"
+	.file	5	"/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h"
+	.file	6	"/usr/local/cuda-5.0/include/crt/device_runtime.h"
+	.file	7	"/usr/local/cuda-5.0/include/host_defines.h"
+	.file	8	"/usr/local/cuda-5.0/include/builtin_types.h"
+	.file	9	"/usr/local/cuda-5.0/include/device_types.h"
+	.file	10	"/usr/local/cuda-5.0/include/driver_types.h"
+	.file	11	"/usr/local/cuda-5.0/include/surface_types.h"
+	.file	12	"/usr/local/cuda-5.0/include/texture_types.h"
+	.file	13	"/usr/local/cuda-5.0/include/vector_types.h"
+	.file	14	"/usr/local/cuda-5.0/include/device_launch_parameters.h"
+	.file	15	"/usr/local/cuda-5.0/include/crt/storage_class.h"
+	.file	16	"/usr/local/cuda-5.0/include/cuComplex.h"
+	.file	17	"/usr/local/cuda-5.0/include/cufft.h"
+	.file	18	"/home/saifmulla/openmm/OpenMM/plugins/amoeba/platforms/cuda/src/kernels//kCalculateAmoebaCudaMapTorques.cu"
+	.file	19	"/usr/local/cuda-5.0/include/common_functions.h"
+	.file	20	"/usr/local/cuda-5.0/include/math_functions.h"
+	.file	21	"/usr/local/cuda-5.0/include/math_constants.h"
+	.file	22	"/usr/local/cuda-5.0/include/device_functions.h"
+	.file	23	"/usr/local/cuda-5.0/include/sm_11_atomic_functions.h"
+	.file	24	"/usr/local/cuda-5.0/include/sm_12_atomic_functions.h"
+	.file	25	"/usr/local/cuda-5.0/include/sm_13_double_functions.h"
+	.file	26	"/usr/local/cuda-5.0/include/sm_20_atomic_functions.h"
+	.file	27	"/usr/local/cuda-5.0/include/sm_35_atomic_functions.h"
+	.file	28	"/usr/local/cuda-5.0/include/sm_20_intrinsics.h"
+	.file	29	"/usr/local/cuda-5.0/include/sm_30_intrinsics.h"
+	.file	30	"/usr/local/cuda-5.0/include/sm_35_intrinsics.h"
+	.file	31	"/usr/local/cuda-5.0/include/surface_functions.h"
+	.file	32	"/usr/local/cuda-5.0/include/texture_fetch_functions.h"
+	.file	33	"/usr/local/cuda-5.0/include/texture_indirect_functions.h"
+	.file	34	"/usr/local/cuda-5.0/include/surface_indirect_functions.h"
+	.file	35	"/usr/local/cuda-5.0/include/math_functions_dbl_ptx1.h"
+
+	.const .align 8 .b8 cSim[1224];
+	.const .align 8 .b8 cAmoebaSim[1792];
+
+	.entry _Z37amoebaAddMapTorqueForceToForce_kernelv
+	.maxntid 256,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<5>;
+	.reg .u32 %r<20>;
+	.reg .u64 %rd<19>;
+	.reg .f32 %f<16>;
+	.reg .pred %p<8>;
+	.loc	18	100	0
+$LDWbegin__Z37amoebaAddMapTorqueForceToForce_kernelv:
+	.loc	18	105	0
+	mov.u16 	%rh1, %ntid.x;
+	mov.u16 	%rh2, %ctaid.x;
+	mul.wide.u16 	%r1, %rh2, %rh1;
+	cvt.u32.u16 	%r2, %tid.x;
+	add.u32 	%r3, %r2, %r1;
+	mov.s32 	%r4, %r3;
+	ld.const.u32 	%r5, [cSim+200];
+	setp.ge.u32 	%p1, %r3, %r5;
+	@%p1 bra 	$Lt_0_3842;
+	ld.const.s32 	%r6, [cAmoebaSim+608];
+	mov.s32 	%r7, 3;
+	setp.gt.s32 	%p2, %r6, %r7;
+	mov.u16 	%rh3, %nctaid.x;
+	mul.wide.u16 	%r8, %rh3, %rh1;
+	cvt.s64.s32 	%rd1, %r3;
+	mul.wide.s32 	%rd2, %r3, 4;
+	cvt.s64.u32 	%rd3, %r8;
+	ld.const.u64 	%rd4, [cAmoebaSim+616];
+	add.u64 	%rd5, %rd2, %rd4;
+	mul.wide.u32 	%rd6, %r8, 4;
+	ld.const.u64 	%rd7, [cSim+1120];
+	add.u64 	%rd8, %rd2, %rd7;
+$Lt_0_4354:
+ //<loop> Loop body line 105, nesting depth: 1, estimated iterations: unknown
+	.loc	18	112	0
+	mov.s64 	%rd9, %rd5;
+	.loc	18	113	0
+	mov.s32 	%r9, %r6;
+	@!%p2 bra 	$Lt_0_7170;
+	shr.s32 	%r10, %r6, 31;
+	mov.s32 	%r11, 3;
+	and.b32 	%r12, %r10, %r11;
+	add.s32 	%r13, %r12, %r6;
+	shr.s32 	%r14, %r13, 2;
+	cvt.u64.u32 	%rd10, %r5;
+	mov.f32 	%f1, 0f00000000;     	// 0
+	mov.s32 	%r15, %r14;
+$Lt_0_5122:
+ //<loop> Loop body line 113, nesting depth: 2, estimated iterations: unknown
+	.loc	18	116	0
+	ld.global.f32 	%f2, [%rd9+0];
+	.loc	18	117	0
+	mul.lo.u64 	%rd11, %rd10, 4;
+	add.u64 	%rd12, %rd11, %rd9;
+	.loc	18	118	0
+	ld.global.f32 	%f3, [%rd12+0];
+	.loc	18	119	0
+	add.u64 	%rd13, %rd11, %rd12;
+	.loc	18	120	0
+	ld.global.f32 	%f4, [%rd13+0];
+	.loc	18	121	0
+	add.u64 	%rd14, %rd11, %rd13;
+	.loc	18	122	0
+	ld.global.f32 	%f5, [%rd14+0];
+	.loc	18	123	0
+	add.u64 	%rd9, %rd11, %rd14;
+	.loc	18	124	0
+	add.f32 	%f6, %f2, %f3;
+	add.f32 	%f7, %f4, %f6;
+	add.f32 	%f8, %f5, %f7;
+	add.f32 	%f1, %f1, %f8;
+	sub.s32 	%r9, %r9, 4;
+	mov.u32 	%r16, 3;
+	setp.gt.s32 	%p3, %r9, %r16;
+	@%p3 bra 	$Lt_0_5122;
+	bra.uni 	$Lt_0_4610;
+$Lt_0_7170:
+	mov.f32 	%f1, 0f00000000;     	// 0
+$Lt_0_4610:
+	mov.u32 	%r17, 1;
+	setp.le.s32 	%p4, %r9, %r17;
+	@%p4 bra 	$Lt_0_5634;
+	.loc	18	129	0
+	ld.global.f32 	%f9, [%rd9+0];
+	.loc	18	130	0
+	cvt.u64.u32 	%rd15, %r5;
+	mul.wide.u32 	%rd16, %r5, 4;
+	add.u64 	%rd17, %rd16, %rd9;
+	.loc	18	131	0
+	ld.global.f32 	%f10, [%rd17+0];
+	.loc	18	132	0
+	add.u64 	%rd9, %rd16, %rd17;
+	.loc	18	133	0
+	add.f32 	%f11, %f9, %f10;
+	add.f32 	%f1, %f1, %f11;
+	.loc	18	134	0
+	sub.s32 	%r9, %r9, 2;
+$Lt_0_5634:
+	mov.u32 	%r18, 0;
+	setp.le.s32 	%p5, %r9, %r18;
+	@%p5 bra 	$Lt_0_6146;
+	.loc	18	138	0
+	ld.global.f32 	%f12, [%rd9+0];
+	add.f32 	%f1, %f12, %f1;
+$Lt_0_6146:
+	.loc	18	142	0
+	ld.global.f32 	%f13, [%rd8+0];
+	add.f32 	%f14, %f13, %f1;
+	st.global.f32 	[%rd8+0], %f14;
+	add.u32 	%r4, %r4, %r8;
+	add.u64 	%rd8, %rd8, %rd6;
+	add.u64 	%rd5, %rd5, %rd6;
+	setp.lt.u32 	%p6, %r4, %r5;
+	@%p6 bra 	$Lt_0_4354;
+$Lt_0_3842:
+	.loc	18	145	0
+	exit;
+$LDWend__Z37amoebaAddMapTorqueForceToForce_kernelv:
+	} // _Z37amoebaAddMapTorqueForceToForce_kernelv
+
+	.entry _Z32amoebaClearMapTorqueForce_kernelv
+	.maxntid 256,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<5>;
+	.reg .u32 %r<10>;
+	.reg .u64 %rd<8>;
+	.reg .f32 %f<6>;
+	.reg .pred %p<4>;
+	.loc	18	155	0
+$LDWbegin__Z32amoebaClearMapTorqueForce_kernelv:
+	.loc	18	158	0
+	mov.u16 	%rh1, %ntid.x;
+	mov.u16 	%rh2, %ctaid.x;
+	mul.wide.u16 	%r1, %rh2, %rh1;
+	cvt.u32.u16 	%r2, %tid.x;
+	add.u32 	%r3, %r2, %r1;
+	mov.s32 	%r4, %r3;
+	ld.const.u32 	%r5, [cSim+200];
+	ld.const.u32 	%r6, [cAmoebaSim+608];
+	mul.lo.u32 	%r7, %r5, %r6;
+	setp.le.u32 	%p1, %r7, %r3;
+	@%p1 bra 	$Lt_1_1282;
+	mov.u16 	%rh3, %nctaid.x;
+	mul.wide.u16 	%r8, %rh3, %rh1;
+	cvt.s64.u32 	%rd1, %r8;
+	ld.const.u64 	%rd2, [cAmoebaSim+616];
+	cvt.s64.s32 	%rd3, %r3;
+	mul.wide.s32 	%rd4, %r3, 16;
+	add.u64 	%rd5, %rd2, %rd4;
+	mul.wide.u32 	%rd6, %r8, 16;
+$Lt_1_1794:
+ //<loop> Loop body line 158, nesting depth: 1, estimated iterations: unknown
+	.loc	18	161	0
+	mov.f32 	%f1, 0f00000000;     	// 0
+	mov.f32 	%f2, 0f00000000;     	// 0
+	mov.f32 	%f3, 0f00000000;     	// 0
+	mov.f32 	%f4, 0f00000000;     	// 0
+	st.global.v4.f32 	[%rd5+0], {%f1,%f2,%f3,%f4};
+	add.u32 	%r4, %r4, %r8;
+	add.u64 	%rd5, %rd5, %rd6;
+	setp.lt.u32 	%p2, %r4, %r7;
+	@%p2 bra 	$Lt_1_1794;
+$Lt_1_1282:
+	.loc	18	164	0
+	exit;
+$LDWend__Z32amoebaClearMapTorqueForce_kernelv:
+	} // _Z32amoebaClearMapTorqueForce_kernelv
+
+	.entry _Z29amoebaMapTorqueToForce_kernelPf (
+		.param .u64 __cudaparm__Z29amoebaMapTorqueToForce_kernelPf_torque)
+	.maxntid 256,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<5>;
+	.reg .u32 %r<46>;
+	.reg .u64 %rd<38>;
+	.reg .f32 %f<586>;
+	.reg .pred %p<34>;
+	.local .align 4 .b8 __cuda___cuda_local_var_41925_11_non_const_vector_163024[144];
+	.local .align 4 .b8 __cuda___cuda_local_var_41923_11_non_const_forces_2683168[48];
+	.loc	18	174	0
+$LDWbegin__Z29amoebaMapTorqueToForce_kernelPf:
+	.loc	18	182	0
+	mov.u16 	%rh1, %ntid.x;
+	mov.u16 	%rh2, %ctaid.x;
+	mul.wide.u16 	%r1, %rh2, %rh1;
+	cvt.u32.u16 	%r2, %tid.x;
+	add.u32 	%r3, %r2, %r1;
+	mov.s32 	%r4, %r3;
+	ld.const.u32 	%r5, [cSim+0];
+	setp.ge.u32 	%p1, %r3, %r5;
+	@%p1 bra 	$Lt_2_30722;
+	mov.u16 	%rh3, %nctaid.x;
+	mul.wide.u16 	%r6, %rh3, %rh1;
+	cvt.s64.s32 	%rd1, %r3;
+	mul.wide.s32 	%rd2, %r3, 16;
+	cvt.s64.u32 	%rd3, %r6;
+	ld.const.u64 	%rd4, [cAmoebaSim+592];
+$Lt_2_31234:
+ //<loop> Loop body line 182, nesting depth: 1, estimated iterations: unknown
+	.loc	18	213	0
+	add.u64 	%rd5, %rd2, %rd4;
+	ld.global.v2.s32 	{%r7,%r8}, [%rd5+8];
+	mov.u32 	%r9, 4;
+	setp.gt.s32 	%p2, %r8, %r9;
+	@%p2 bra 	$Lt_2_37634;
+	mov.u32 	%r10, 0;
+	setp.lt.s32 	%p3, %r7, %r10;
+	@%p3 bra 	$Lt_2_37634;
+	.loc	18	221	0
+	ld.const.u64 	%rd6, [cSim+1088];
+	add.u64 	%rd7, %rd2, %rd6;
+	cvt.s64.s32 	%rd8, %r7;
+	mul.wide.s32 	%rd9, %r7, 16;
+	add.u64 	%rd10, %rd6, %rd9;
+	ld.global.v4.f32 	{%f1,%f2,%f3,_}, [%rd7+0];
+	ld.global.v4.f32 	{%f4,%f5,%f6,_}, [%rd10+0];
+	sub.f32 	%f7, %f1, %f4;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+0], %f7;
+	.loc	18	222	0
+	sub.f32 	%f8, %f2, %f5;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+4], %f8;
+	.loc	18	223	0
+	sub.f32 	%f9, %f3, %f6;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+8], %f9;
+	.loc	18	59	0
+	mul.f32 	%f10, %f8, %f8;
+	mad.f32 	%f11, %f7, %f7, %f10;
+	mad.f32 	%f12, %f9, %f9, %f11;
+	sqrt.approx.f32 	%f13, %f12;
+	.loc	18	221	0
+	mov.f32 	%f14, 0f00000000;    	// 0
+	setp.gt.f32 	%p4, %f13, %f14;
+	rcp.approx.f32 	%f15, %f13;
+	mov.f32 	%f16, 0f00000000;    	// 0
+	selp.f32 	%f17, %f15, %f16, %p4;
+	.loc	18	62	0
+	mul.f32 	%f18, %f17, %f7;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+0], %f18;
+	.loc	18	63	0
+	mul.f32 	%f19, %f17, %f8;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+4], %f19;
+	.loc	18	64	0
+	mul.f32 	%f20, %f17, %f9;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+8], %f20;
+	.loc	18	60	0
+	mov.s32 	%r11, 4;
+	setp.ne.s32 	%p5, %r8, %r11;
+	@!%p5 bra 	$Lt_2_38146;
+	ld.global.s32 	%r12, [%rd5+0];
+	mov.u32 	%r13, 0;
+	setp.lt.s32 	%p6, %r12, %r13;
+	@%p6 bra 	$Lt_2_38146;
+	.loc	18	230	0
+	cvt.s64.s32 	%rd11, %r12;
+	mul.wide.s32 	%rd12, %r12, 16;
+	add.u64 	%rd10, %rd6, %rd12;
+	ld.global.v4.f32 	{%f21,%f22,%f23,_}, [%rd7+0];
+	ld.global.v4.f32 	{%f24,%f25,%f26,_}, [%rd10+0];
+	sub.f32 	%f27, %f21, %f24;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+12], %f27;
+	.loc	18	231	0
+	sub.f32 	%f28, %f22, %f25;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+16], %f28;
+	.loc	18	232	0
+	sub.f32 	%f29, %f23, %f26;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+20], %f29;
+	bra.uni 	$L_2_29954;
+$Lt_2_38146:
+$L_2_30210:
+	.loc	18	235	0
+	mov.f32 	%f27, 0f3dcccccd;    	// 0.1
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+12], %f27;
+	.loc	18	236	0
+	mov.f32 	%f28, 0f3dcccccd;    	// 0.1
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+16], %f28;
+	.loc	18	237	0
+	mov.f32 	%f29, 0f3dcccccd;    	// 0.1
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+20], %f29;
+$L_2_29954:
+	.loc	18	59	0
+	mul.f32 	%f30, %f28, %f28;
+	mad.f32 	%f31, %f27, %f27, %f30;
+	mad.f32 	%f32, %f29, %f29, %f31;
+	sqrt.approx.f32 	%f33, %f32;
+	.loc	18	240	0
+	mov.f32 	%f34, 0f00000000;    	// 0
+	setp.gt.f32 	%p7, %f33, %f34;
+	rcp.approx.f32 	%f35, %f33;
+	mov.f32 	%f36, 0f00000000;    	// 0
+	selp.f32 	%f37, %f35, %f36, %p7;
+	.loc	18	62	0
+	mul.f32 	%f27, %f37, %f27;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+12], %f27;
+	.loc	18	63	0
+	mul.f32 	%f28, %f37, %f28;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+16], %f28;
+	.loc	18	64	0
+	mul.f32 	%f29, %f37, %f29;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+20], %f29;
+	.loc	18	240	0
+	sub.u32 	%r14, %r8, 2;
+	mov.u32 	%r15, 1;
+	setp.le.u32 	%p8, %r14, %r15;
+	@%p8 bra 	$Lt_2_31746;
+	.loc	18	72	0
+	mul.f32 	%f38, %f28, %f20;
+	mul.f32 	%f39, %f19, %f29;
+	sub.f32 	%f40, %f39, %f38;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+24], %f40;
+	.loc	18	73	0
+	mul.f32 	%f41, %f29, %f18;
+	mul.f32 	%f42, %f20, %f27;
+	sub.f32 	%f43, %f42, %f41;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+28], %f43;
+	.loc	18	74	0
+	mul.f32 	%f44, %f27, %f19;
+	mul.f32 	%f45, %f18, %f28;
+	sub.f32 	%f46, %f45, %f44;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+32], %f46;
+	.loc	18	245	0
+	bra.uni 	$Lt_2_31490;
+$Lt_2_31746:
+	.loc	18	247	0
+	ld.global.s32 	%r16, [%rd5+4];
+	.loc	18	249	0
+	cvt.s64.s32 	%rd13, %r16;
+	mul.wide.s32 	%rd14, %r16, 16;
+	add.u64 	%rd10, %rd6, %rd14;
+	ld.global.v4.f32 	{%f47,%f48,%f49,_}, [%rd7+0];
+	ld.global.v4.f32 	{%f50,%f51,%f52,_}, [%rd10+0];
+	sub.f32 	%f40, %f47, %f50;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+24], %f40;
+	.loc	18	250	0
+	sub.f32 	%f43, %f48, %f51;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+28], %f43;
+	.loc	18	251	0
+	sub.f32 	%f46, %f49, %f52;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+32], %f46;
+$Lt_2_31490:
+	.loc	18	59	0
+	mul.f32 	%f53, %f43, %f43;
+	mad.f32 	%f54, %f40, %f40, %f53;
+	mad.f32 	%f55, %f46, %f46, %f54;
+	sqrt.approx.f32 	%f56, %f55;
+	.loc	18	253	0
+	mov.f32 	%f57, 0f00000000;    	// 0
+	setp.gt.f32 	%p9, %f56, %f57;
+	rcp.approx.f32 	%f58, %f56;
+	mov.f32 	%f59, 0f00000000;    	// 0
+	selp.f32 	%f60, %f58, %f59, %p9;
+	.loc	18	62	0
+	mul.f32 	%f40, %f60, %f40;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+24], %f40;
+	.loc	18	63	0
+	mul.f32 	%f43, %f60, %f43;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+28], %f43;
+	.loc	18	64	0
+	mul.f32 	%f46, %f60, %f46;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+32], %f46;
+	.loc	18	72	0
+	mul.f32 	%f61, %f29, %f19;
+	mul.f32 	%f62, %f20, %f28;
+	sub.f32 	%f63, %f62, %f61;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+60], %f63;
+	.loc	18	73	0
+	mul.f32 	%f64, %f27, %f20;
+	mul.f32 	%f65, %f18, %f29;
+	sub.f32 	%f66, %f65, %f64;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+64], %f66;
+	.loc	18	74	0
+	mul.f32 	%f67, %f28, %f18;
+	mul.f32 	%f68, %f19, %f27;
+	sub.f32 	%f69, %f68, %f67;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+68], %f69;
+	.loc	18	72	0
+	mul.f32 	%f70, %f46, %f19;
+	mul.f32 	%f71, %f20, %f43;
+	sub.f32 	%f72, %f71, %f70;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+72], %f72;
+	.loc	18	73	0
+	mul.f32 	%f73, %f40, %f20;
+	mul.f32 	%f74, %f18, %f46;
+	sub.f32 	%f75, %f74, %f73;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+76], %f75;
+	.loc	18	74	0
+	mul.f32 	%f76, %f43, %f18;
+	mul.f32 	%f77, %f19, %f40;
+	sub.f32 	%f78, %f77, %f76;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+80], %f78;
+	.loc	18	72	0
+	mul.f32 	%f79, %f46, %f28;
+	mul.f32 	%f80, %f29, %f43;
+	sub.f32 	%f81, %f80, %f79;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+84], %f81;
+	.loc	18	73	0
+	mul.f32 	%f82, %f40, %f29;
+	mul.f32 	%f83, %f27, %f46;
+	sub.f32 	%f84, %f83, %f82;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+88], %f84;
+	.loc	18	74	0
+	mul.f32 	%f85, %f43, %f27;
+	mul.f32 	%f86, %f28, %f40;
+	sub.f32 	%f87, %f86, %f85;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+92], %f87;
+	.loc	18	62	0
+	mul.f32 	%f88, %f66, %f66;
+	mad.f32 	%f89, %f63, %f63, %f88;
+	mad.f32 	%f90, %f69, %f69, %f89;
+	sqrt.approx.f32 	%f91, %f90;
+	mov.f32 	%f92, 0f00000000;    	// 0
+	setp.gt.f32 	%p10, %f91, %f92;
+	rcp.approx.f32 	%f93, %f91;
+	mov.f32 	%f94, 0f00000000;    	// 0
+	selp.f32 	%f95, %f93, %f94, %p10;
+	mul.f32 	%f96, %f63, %f95;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+60], %f96;
+	.loc	18	63	0
+	mul.f32 	%f97, %f66, %f95;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+64], %f97;
+	.loc	18	64	0
+	mul.f32 	%f98, %f69, %f95;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+68], %f98;
+	.loc	18	62	0
+	mul.f32 	%f99, %f75, %f75;
+	mad.f32 	%f100, %f72, %f72, %f99;
+	mad.f32 	%f101, %f78, %f78, %f100;
+	sqrt.approx.f32 	%f102, %f101;
+	mov.f32 	%f103, 0f00000000;   	// 0
+	setp.gt.f32 	%p11, %f102, %f103;
+	rcp.approx.f32 	%f104, %f102;
+	mov.f32 	%f105, 0f00000000;   	// 0
+	selp.f32 	%f106, %f104, %f105, %p11;
+	mul.f32 	%f107, %f72, %f106;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+72], %f107;
+	.loc	18	63	0
+	mul.f32 	%f108, %f75, %f106;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+76], %f108;
+	.loc	18	64	0
+	mul.f32 	%f109, %f78, %f106;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+80], %f109;
+	.loc	18	62	0
+	mul.f32 	%f110, %f84, %f84;
+	mad.f32 	%f111, %f81, %f81, %f110;
+	mad.f32 	%f112, %f87, %f87, %f111;
+	sqrt.approx.f32 	%f113, %f112;
+	mov.f32 	%f114, 0f00000000;   	// 0
+	setp.gt.f32 	%p12, %f113, %f114;
+	rcp.approx.f32 	%f115, %f113;
+	mov.f32 	%f116, 0f00000000;   	// 0
+	selp.f32 	%f117, %f115, %f116, %p12;
+	mul.f32 	%f118, %f81, %f117;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+84], %f118;
+	.loc	18	63	0
+	mul.f32 	%f119, %f84, %f117;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+88], %f119;
+	.loc	18	64	0
+	mul.f32 	%f120, %f87, %f117;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+92], %f120;
+	.loc	18	263	0
+	mul.f32 	%f121, %f28, %f19;
+	mad.f32 	%f122, %f18, %f27, %f121;
+	mad.f32 	%f123, %f20, %f29, %f122;
+	mov.f32 	%f124, %f123;
+	.loc	18	264	0
+	mov.f32 	%f125, 0f3f800000;   	// 1
+	mul.f32 	%f126, %f123, %f123;
+	sub.f32 	%f127, %f125, %f126;
+	sqrt.approx.f32 	%f128, %f127;
+	mov.f32 	%f129, %f128;
+	.loc	18	266	0
+	mul.f32 	%f130, %f43, %f19;
+	mad.f32 	%f131, %f18, %f40, %f130;
+	mad.f32 	%f132, %f20, %f46, %f131;
+	mov.f32 	%f133, %f132;
+	.loc	18	267	0
+	mov.f32 	%f134, 0f3f800000;   	// 1
+	mul.f32 	%f135, %f132, %f132;
+	sub.f32 	%f136, %f134, %f135;
+	sqrt.approx.f32 	%f137, %f136;
+	mov.f32 	%f138, %f137;
+	.loc	18	269	0
+	mul.f32 	%f139, %f43, %f28;
+	mad.f32 	%f140, %f27, %f40, %f139;
+	mad.f32 	%f141, %f29, %f46, %f140;
+	mov.f32 	%f142, %f141;
+	.loc	18	270	0
+	mov.f32 	%f143, 0f3f800000;   	// 1
+	mul.f32 	%f144, %f141, %f141;
+	sub.f32 	%f145, %f143, %f144;
+	sqrt.approx.f32 	%f146, %f145;
+	mov.f32 	%f147, %f146;
+	.loc	18	273	0
+	ld.param.u64 	%rd15, [__cudaparm__Z29amoebaMapTorqueToForce_kernelPf_torque];
+	mul.lo.s32 	%r17, %r4, 3;
+	cvt.s64.s32 	%rd16, %r17;
+	mul.wide.s32 	%rd17, %r17, 4;
+	add.u64 	%rd18, %rd15, %rd17;
+	ld.global.f32 	%f148, [%rd18+4];
+	mul.f32 	%f149, %f148, %f19;
+	ld.global.f32 	%f150, [%rd18+0];
+	mad.f32 	%f151, %f150, %f18, %f149;
+	ld.global.f32 	%f152, [%rd18+8];
+	mad.f32 	%f153, %f20, %f152, %f151;
+	mov.f32 	%f154, %f153;
+	.loc	18	274	0
+	ld.global.f32 	%f155, [%rd18+4];
+	mul.f32 	%f156, %f155, %f28;
+	ld.global.f32 	%f157, [%rd18+0];
+	mad.f32 	%f158, %f157, %f27, %f156;
+	ld.global.f32 	%f159, [%rd18+8];
+	mad.f32 	%f160, %f29, %f159, %f158;
+	mov.f32 	%f161, %f160;
+	.loc	18	275	0
+	ld.global.f32 	%f162, [%rd18+4];
+	mul.f32 	%f163, %f162, %f43;
+	ld.global.f32 	%f164, [%rd18+0];
+	mad.f32 	%f165, %f164, %f40, %f163;
+	ld.global.f32 	%f166, [%rd18+8];
+	mad.f32 	%f167, %f46, %f166, %f165;
+	mov.f32 	%f168, %f167;
+	.loc	18	277	0
+	neg.f32 	%f169, %f153;
+	mov.f32 	%f170, %f169;
+	.loc	18	278	0
+	neg.f32 	%f171, %f160;
+	mov.f32 	%f172, %f171;
+	.loc	18	279	0
+	neg.f32 	%f173, %f167;
+	mov.f32 	%f174, %f173;
+	mov.u32 	%r18, 1;
+	setp.gt.u32 	%p13, %r8, %r18;
+	@%p13 bra 	$Lt_2_32258;
+	.loc	18	291	0
+	div.approx.f32 	%f175, %f173, %f13;
+	.loc	18	292	0
+	mov.u32 	%r19, 1;
+	setp.ne.s32 	%p14, %r8, %r19;
+	@%p14 bra 	$Lt_2_32770;
+	.loc	18	295	0
+	mov.f32 	%f176, 0f3f000000;   	// 0.5
+	mul.f32 	%f175, %f175, %f176;
+	.loc	18	296	0
+	mov.f32 	%f177, 0f3f000000;   	// 0.5
+	mul.f32 	%f178, %f173, %f177;
+	div.approx.f32 	%f179, %f178, %f33;
+	bra.uni 	$Lt_2_32514;
+$Lt_2_32770:
+	.loc	18	298	0
+	mov.f32 	%f179, 0f00000000;   	// 0
+$Lt_2_32514:
+	.loc	18	302	0
+	mul.f32 	%f180, %f128, %f13;
+	div.approx.f32 	%f181, %f171, %f180;
+	mul.f32 	%f182, %f175, %f107;
+	mad.f32 	%f183, %f96, %f181, %f182;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+24], %f183;
+	.loc	18	303	0
+	neg.f32 	%f184, %f169;
+	mul.f32 	%f185, %f128, %f33;
+	div.approx.f32 	%f186, %f184, %f185;
+	mul.f32 	%f187, %f179, %f118;
+	mad.f32 	%f188, %f96, %f186, %f187;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+0], %f188;
+	.loc	18	304	0
+	ld.local.f32 	%f189, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+24];
+	add.f32 	%f190, %f189, %f188;
+	neg.f32 	%f191, %f190;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+36], %f191;
+	.loc	18	305	0
+	mov.f32 	%f192, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+12], %f192;
+	.loc	18	302	0
+	mul.f32 	%f193, %f175, %f108;
+	mad.f32 	%f194, %f97, %f181, %f193;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+28], %f194;
+	.loc	18	303	0
+	mul.f32 	%f195, %f179, %f119;
+	mad.f32 	%f196, %f97, %f186, %f195;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+4], %f196;
+	.loc	18	304	0
+	ld.local.f32 	%f197, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+28];
+	add.f32 	%f198, %f197, %f196;
+	neg.f32 	%f199, %f198;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+40], %f199;
+	.loc	18	305	0
+	mov.f32 	%f200, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+16], %f200;
+	.loc	18	302	0
+	mul.f32 	%f201, %f175, %f109;
+	mad.f32 	%f202, %f98, %f181, %f201;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+32], %f202;
+	.loc	18	303	0
+	mul.f32 	%f203, %f179, %f120;
+	mad.f32 	%f204, %f98, %f186, %f203;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+8], %f204;
+	.loc	18	304	0
+	ld.local.f32 	%f205, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+32];
+	add.f32 	%f206, %f205, %f204;
+	neg.f32 	%f207, %f206;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+44], %f207;
+	.loc	18	305	0
+	mov.f32 	%f208, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+20], %f208;
+	bra.uni 	$Lt_2_35074;
+$Lt_2_32258:
+	mov.u32 	%r20, 2;
+	setp.ne.s32 	%p15, %r8, %r20;
+	@%p15 bra 	$Lt_2_33282;
+	.loc	18	312	0
+	add.f32 	%f209, %f40, %f27;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+36], %f209;
+	.loc	18	313	0
+	add.f32 	%f210, %f43, %f28;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+40], %f210;
+	.loc	18	314	0
+	add.f32 	%f211, %f46, %f29;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+44], %f211;
+	.loc	18	72	0
+	mul.f32 	%f212, %f210, %f20;
+	mul.f32 	%f213, %f19, %f211;
+	sub.f32 	%f214, %f213, %f212;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+48], %f214;
+	.loc	18	73	0
+	mul.f32 	%f215, %f211, %f18;
+	mul.f32 	%f216, %f20, %f209;
+	sub.f32 	%f217, %f216, %f215;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+52], %f217;
+	.loc	18	74	0
+	mul.f32 	%f218, %f209, %f19;
+	mul.f32 	%f219, %f18, %f210;
+	sub.f32 	%f220, %f219, %f218;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+56], %f220;
+	.loc	18	62	0
+	mul.f32 	%f221, %f210, %f210;
+	mad.f32 	%f222, %f209, %f209, %f221;
+	mad.f32 	%f223, %f211, %f211, %f222;
+	sqrt.approx.f32 	%f224, %f223;
+	mov.f32 	%f225, 0f00000000;   	// 0
+	setp.gt.f32 	%p16, %f224, %f225;
+	rcp.approx.f32 	%f226, %f224;
+	mov.f32 	%f227, 0f00000000;   	// 0
+	selp.f32 	%f228, %f226, %f227, %p16;
+	mul.f32 	%f229, %f209, %f228;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+36], %f229;
+	.loc	18	63	0
+	mul.f32 	%f230, %f210, %f228;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+40], %f230;
+	.loc	18	64	0
+	mul.f32 	%f231, %f211, %f228;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+44], %f231;
+	.loc	18	62	0
+	mul.f32 	%f232, %f217, %f217;
+	mad.f32 	%f233, %f214, %f214, %f232;
+	mad.f32 	%f234, %f220, %f220, %f233;
+	sqrt.approx.f32 	%f235, %f234;
+	mov.f32 	%f236, 0f00000000;   	// 0
+	setp.gt.f32 	%p17, %f235, %f236;
+	rcp.approx.f32 	%f237, %f235;
+	mov.f32 	%f238, 0f00000000;   	// 0
+	selp.f32 	%f239, %f237, %f238, %p17;
+	mul.f32 	%f240, %f214, %f239;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+48], %f240;
+	.loc	18	63	0
+	mul.f32 	%f241, %f217, %f239;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+52], %f241;
+	.loc	18	64	0
+	mul.f32 	%f242, %f220, %f239;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+56], %f242;
+	.loc	18	72	0
+	mul.f32 	%f243, %f231, %f19;
+	mul.f32 	%f244, %f20, %f230;
+	sub.f32 	%f245, %f244, %f243;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+96], %f245;
+	.loc	18	73	0
+	mul.f32 	%f246, %f229, %f20;
+	mul.f32 	%f247, %f18, %f231;
+	sub.f32 	%f248, %f247, %f246;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+100], %f248;
+	.loc	18	74	0
+	mul.f32 	%f249, %f230, %f18;
+	mul.f32 	%f250, %f19, %f229;
+	sub.f32 	%f251, %f250, %f249;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+104], %f251;
+	.loc	18	72	0
+	mul.f32 	%f252, %f242, %f19;
+	mul.f32 	%f253, %f20, %f241;
+	sub.f32 	%f254, %f253, %f252;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+108], %f254;
+	.loc	18	73	0
+	mul.f32 	%f255, %f240, %f20;
+	mul.f32 	%f256, %f18, %f242;
+	sub.f32 	%f257, %f256, %f255;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+112], %f257;
+	.loc	18	74	0
+	mul.f32 	%f258, %f241, %f18;
+	mul.f32 	%f259, %f19, %f240;
+	sub.f32 	%f260, %f259, %f258;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+116], %f260;
+	.loc	18	72	0
+	mul.f32 	%f261, %f242, %f28;
+	mul.f32 	%f262, %f29, %f241;
+	sub.f32 	%f263, %f262, %f261;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+120], %f263;
+	.loc	18	73	0
+	mul.f32 	%f264, %f240, %f29;
+	mul.f32 	%f265, %f27, %f242;
+	sub.f32 	%f266, %f265, %f264;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+124], %f266;
+	.loc	18	74	0
+	mul.f32 	%f267, %f241, %f27;
+	mul.f32 	%f268, %f28, %f240;
+	sub.f32 	%f269, %f268, %f267;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+128], %f269;
+	.loc	18	72	0
+	mul.f32 	%f270, %f242, %f43;
+	mul.f32 	%f271, %f46, %f241;
+	sub.f32 	%f272, %f271, %f270;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+132], %f272;
+	.loc	18	73	0
+	mul.f32 	%f273, %f240, %f46;
+	mul.f32 	%f274, %f40, %f242;
+	sub.f32 	%f275, %f274, %f273;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+136], %f275;
+	.loc	18	74	0
+	mul.f32 	%f276, %f241, %f40;
+	mul.f32 	%f277, %f43, %f240;
+	sub.f32 	%f278, %f277, %f276;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+140], %f278;
+	.loc	18	58	0
+	mul.f32 	%f279, %f248, %f248;
+	mad.f32 	%f280, %f245, %f245, %f279;
+	mad.f32 	%f281, %f251, %f251, %f280;
+	.loc	18	62	0
+	sqrt.approx.f32 	%f282, %f281;
+	mov.f32 	%f283, 0f00000000;   	// 0
+	setp.gt.f32 	%p18, %f282, %f283;
+	rcp.approx.f32 	%f284, %f282;
+	mov.f32 	%f285, 0f00000000;   	// 0
+	selp.f32 	%f286, %f284, %f285, %p18;
+	mul.f32 	%f287, %f286, %f245;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+96], %f287;
+	.loc	18	63	0
+	mul.f32 	%f288, %f286, %f248;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+100], %f288;
+	.loc	18	64	0
+	mul.f32 	%f289, %f286, %f251;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+104], %f289;
+	.loc	18	60	0
+	mul.f32 	%f290, %f257, %f257;
+	mad.f32 	%f291, %f254, %f254, %f290;
+	mad.f32 	%f292, %f260, %f260, %f291;
+	sqrt.approx.f32 	%f293, %f292;
+	mov.f32 	%f294, 0f00000000;   	// 0
+	setp.gt.f32 	%p19, %f293, %f294;
+	rcp.approx.f32 	%f295, %f293;
+	mov.f32 	%f296, 0f00000000;   	// 0
+	selp.f32 	%f297, %f295, %f296, %p19;
+	.loc	18	62	0
+	mul.f32 	%f298, %f297, %f254;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+108], %f298;
+	.loc	18	63	0
+	mul.f32 	%f299, %f297, %f257;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+112], %f299;
+	.loc	18	64	0
+	mul.f32 	%f300, %f297, %f260;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+116], %f300;
+	.loc	18	60	0
+	mul.f32 	%f301, %f266, %f266;
+	mad.f32 	%f302, %f263, %f263, %f301;
+	mad.f32 	%f303, %f269, %f269, %f302;
+	sqrt.approx.f32 	%f304, %f303;
+	mov.f32 	%f305, 0f00000000;   	// 0
+	setp.gt.f32 	%p20, %f304, %f305;
+	rcp.approx.f32 	%f306, %f304;
+	mov.f32 	%f307, 0f00000000;   	// 0
+	selp.f32 	%f308, %f306, %f307, %p20;
+	.loc	18	62	0
+	mul.f32 	%f309, %f308, %f263;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+120], %f309;
+	.loc	18	63	0
+	mul.f32 	%f310, %f308, %f266;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+124], %f310;
+	.loc	18	64	0
+	mul.f32 	%f311, %f308, %f269;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+128], %f311;
+	.loc	18	60	0
+	mul.f32 	%f312, %f275, %f275;
+	mad.f32 	%f313, %f272, %f272, %f312;
+	mad.f32 	%f314, %f278, %f278, %f313;
+	sqrt.approx.f32 	%f315, %f314;
+	mov.f32 	%f316, 0f00000000;   	// 0
+	setp.gt.f32 	%p21, %f315, %f316;
+	rcp.approx.f32 	%f317, %f315;
+	mov.f32 	%f318, 0f00000000;   	// 0
+	selp.f32 	%f319, %f317, %f318, %p21;
+	.loc	18	62	0
+	mul.f32 	%f320, %f319, %f272;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+132], %f320;
+	.loc	18	63	0
+	mul.f32 	%f321, %f319, %f275;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+136], %f321;
+	.loc	18	64	0
+	mul.f32 	%f322, %f319, %f278;
+	st.local.f32 	[__cuda___cuda_local_var_41925_11_non_const_vector_163024+140], %f322;
+	.loc	18	331	0
+	mul.f32 	%f323, %f230, %f19;
+	mad.f32 	%f324, %f18, %f229, %f323;
+	mad.f32 	%f325, %f20, %f231, %f324;
+	mov.f32 	%f326, %f325;
+	.loc	18	332	0
+	mov.f32 	%f327, 0f3f800000;   	// 1
+	mul.f32 	%f328, %f325, %f325;
+	sub.f32 	%f329, %f327, %f328;
+	sqrt.approx.f32 	%f330, %f329;
+	mov.f32 	%f331, %f330;
+	.loc	18	334	0
+	mul.f32 	%f332, %f241, %f19;
+	mad.f32 	%f333, %f18, %f240, %f332;
+	mad.f32 	%f334, %f20, %f242, %f333;
+	mov.f32 	%f335, %f334;
+	.loc	18	335	0
+	mov.f32 	%f336, 0f3f800000;   	// 1
+	mul.f32 	%f337, %f334, %f334;
+	sub.f32 	%f338, %f336, %f337;
+	sqrt.approx.f32 	%f339, %f338;
+	mov.f32 	%f340, %f339;
+	.loc	18	337	0
+	mul.f32 	%f341, %f241, %f28;
+	mad.f32 	%f342, %f27, %f240, %f341;
+	mad.f32 	%f343, %f29, %f242, %f342;
+	mov.f32 	%f344, %f343;
+	.loc	18	338	0
+	mov.f32 	%f345, 0f3f800000;   	// 1
+	mul.f32 	%f346, %f343, %f343;
+	sub.f32 	%f347, %f345, %f346;
+	sqrt.approx.f32 	%f348, %f347;
+	mov.f32 	%f349, %f348;
+	.loc	18	340	0
+	mul.f32 	%f350, %f241, %f43;
+	mad.f32 	%f351, %f40, %f240, %f350;
+	mad.f32 	%f352, %f46, %f242, %f351;
+	mov.f32 	%f353, %f352;
+	.loc	18	341	0
+	mov.f32 	%f354, 0f3f800000;   	// 1
+	mul.f32 	%f355, %f352, %f352;
+	sub.f32 	%f356, %f354, %f355;
+	sqrt.approx.f32 	%f357, %f356;
+	mov.f32 	%f358, %f357;
+	.loc	18	345	0
+	mul.f32 	%f359, %f240, %f343;
+	sub.f32 	%f360, %f27, %f359;
+	mov.f32 	%f361, %f360;
+	.loc	18	346	0
+	mul.f32 	%f362, %f241, %f343;
+	sub.f32 	%f363, %f28, %f362;
+	mov.f32 	%f364, %f363;
+	.loc	18	347	0
+	mul.f32 	%f365, %f242, %f343;
+	sub.f32 	%f366, %f29, %f365;
+	mov.f32 	%f367, %f366;
+	.loc	18	349	0
+	mul.f32 	%f368, %f240, %f352;
+	sub.f32 	%f369, %f40, %f368;
+	mov.f32 	%f370, %f369;
+	.loc	18	350	0
+	mul.f32 	%f371, %f241, %f352;
+	sub.f32 	%f372, %f43, %f371;
+	mov.f32 	%f373, %f372;
+	.loc	18	351	0
+	mul.f32 	%f374, %f242, %f352;
+	sub.f32 	%f375, %f46, %f374;
+	mov.f32 	%f376, %f375;
+	.loc	18	58	0
+	mul.f32 	%f377, %f363, %f363;
+	mad.f32 	%f378, %f360, %f360, %f377;
+	mad.f32 	%f379, %f366, %f366, %f378;
+	.loc	18	62	0
+	sqrt.approx.f32 	%f380, %f379;
+	mov.f32 	%f381, 0f00000000;   	// 0
+	setp.gt.f32 	%p22, %f380, %f381;
+	rcp.approx.f32 	%f382, %f380;
+	mov.f32 	%f383, 0f00000000;   	// 0
+	selp.f32 	%f384, %f382, %f383, %p22;
+	mul.f32 	%f385, %f384, %f360;
+	mov.f32 	%f386, %f385;
+	.loc	18	63	0
+	mul.f32 	%f387, %f384, %f363;
+	mov.f32 	%f388, %f387;
+	.loc	18	64	0
+	mul.f32 	%f389, %f384, %f366;
+	mov.f32 	%f390, %f389;
+	.loc	18	58	0
+	mul.f32 	%f391, %f372, %f372;
+	mad.f32 	%f392, %f369, %f369, %f391;
+	mad.f32 	%f393, %f375, %f375, %f392;
+	.loc	18	62	0
+	sqrt.approx.f32 	%f394, %f393;
+	mov.f32 	%f395, 0f00000000;   	// 0
+	setp.gt.f32 	%p23, %f394, %f395;
+	rcp.approx.f32 	%f396, %f394;
+	mov.f32 	%f397, 0f00000000;   	// 0
+	selp.f32 	%f398, %f396, %f397, %p23;
+	mul.f32 	%f399, %f398, %f369;
+	mov.f32 	%f400, %f399;
+	.loc	18	63	0
+	mul.f32 	%f401, %f398, %f372;
+	mov.f32 	%f402, %f401;
+	.loc	18	64	0
+	mul.f32 	%f403, %f398, %f375;
+	mov.f32 	%f404, %f403;
+	.loc	18	359	0
+	ld.global.f32 	%f405, [%rd18+4];
+	ld.global.f32 	%f406, [%rd18+0];
+	ld.global.f32 	%f407, [%rd18+8];
+	mul.f32 	%f408, %f405, %f230;
+	mad.f32 	%f409, %f406, %f229, %f408;
+	mad.f32 	%f410, %f231, %f407, %f409;
+	neg.f32 	%f411, %f410;
+	.loc	18	360	0
+	mul.f32 	%f412, %f405, %f241;
+	mad.f32 	%f413, %f406, %f240, %f412;
+	mad.f32 	%f414, %f242, %f407, %f413;
+	neg.f32 	%f415, %f414;
+	.loc	18	367	0
+	div.approx.f32 	%f416, %f415, %f13;
+	mul.f32 	%f417, %f330, %f13;
+	div.approx.f32 	%f418, %f411, %f417;
+	mul.f32 	%f419, %f416, %f298;
+	mad.f32 	%f420, %f287, %f418, %f419;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+24], %f420;
+	.loc	18	368	0
+	mul.f32 	%f421, %f387, %f19;
+	mul.f32 	%f422, %f401, %f19;
+	mad.f32 	%f423, %f385, %f18, %f421;
+	mad.f32 	%f424, %f399, %f18, %f422;
+	mad.f32 	%f425, %f389, %f20, %f423;
+	mad.f32 	%f426, %f403, %f20, %f424;
+	mov.f32 	%f427, 0f3f800000;   	// 1
+	mul.f32 	%f428, %f425, %f425;
+	sub.f32 	%f429, %f427, %f428;
+	mov.f32 	%f430, 0f3f800000;   	// 1
+	mul.f32 	%f431, %f426, %f426;
+	sub.f32 	%f432, %f430, %f431;
+	sqrt.approx.f32 	%f433, %f429;
+	sqrt.approx.f32 	%f434, %f432;
+	add.f32 	%f435, %f433, %f434;
+	mul.f32 	%f436, %f435, %f33;
+	div.approx.f32 	%f437, %f169, %f436;
+	mul.f32 	%f438, %f385, %f343;
+	mul.f32 	%f439, %f240, %f348;
+	sub.f32 	%f440, %f439, %f438;
+	mul.f32 	%f441, %f437, %f440;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+0], %f441;
+	.loc	18	369	0
+	mul.f32 	%f442, %f435, %f56;
+	div.approx.f32 	%f443, %f169, %f442;
+	mul.f32 	%f444, %f399, %f352;
+	mul.f32 	%f445, %f240, %f357;
+	sub.f32 	%f446, %f445, %f444;
+	mul.f32 	%f447, %f443, %f446;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+12], %f447;
+	.loc	18	370	0
+	ld.local.f32 	%f448, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+24];
+	ld.local.f32 	%f449, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+0];
+	add.f32 	%f450, %f449, %f447;
+	add.f32 	%f451, %f448, %f450;
+	neg.f32 	%f452, %f451;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+36], %f452;
+	.loc	18	367	0
+	mul.f32 	%f453, %f416, %f299;
+	mad.f32 	%f454, %f288, %f418, %f453;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+28], %f454;
+	.loc	18	368	0
+	mul.f32 	%f455, %f387, %f343;
+	mul.f32 	%f456, %f241, %f348;
+	sub.f32 	%f457, %f456, %f455;
+	mul.f32 	%f458, %f437, %f457;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+4], %f458;
+	.loc	18	369	0
+	mul.f32 	%f459, %f401, %f352;
+	mul.f32 	%f460, %f241, %f357;
+	sub.f32 	%f461, %f460, %f459;
+	mul.f32 	%f462, %f443, %f461;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+16], %f462;
+	.loc	18	370	0
+	ld.local.f32 	%f463, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+28];
+	ld.local.f32 	%f464, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+4];
+	add.f32 	%f465, %f464, %f462;
+	add.f32 	%f466, %f463, %f465;
+	neg.f32 	%f467, %f466;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+40], %f467;
+	.loc	18	367	0
+	mul.f32 	%f468, %f416, %f300;
+	mad.f32 	%f469, %f289, %f418, %f468;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+32], %f469;
+	.loc	18	368	0
+	mul.f32 	%f470, %f389, %f343;
+	mul.f32 	%f471, %f242, %f348;
+	sub.f32 	%f472, %f471, %f470;
+	mul.f32 	%f473, %f437, %f472;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+8], %f473;
+	.loc	18	369	0
+	mul.f32 	%f474, %f403, %f352;
+	mul.f32 	%f475, %f242, %f357;
+	sub.f32 	%f476, %f475, %f474;
+	mul.f32 	%f477, %f443, %f476;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+20], %f477;
+	.loc	18	370	0
+	ld.local.f32 	%f478, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+32];
+	ld.local.f32 	%f479, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+8];
+	add.f32 	%f480, %f479, %f477;
+	add.f32 	%f481, %f478, %f480;
+	neg.f32 	%f482, %f481;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+44], %f482;
+	bra.uni 	$Lt_2_35074;
+$Lt_2_33282:
+	mov.u32 	%r21, 3;
+	setp.ne.s32 	%p24, %r8, %r21;
+	@%p24 bra 	$Lt_2_33794;
+	mov.u64 	%rd19, __cuda___cuda_local_var_41925_11_non_const_vector_163024;
+	mov.u64 	%rd20, __cuda___cuda_local_var_41923_11_non_const_forces_2683168;
+	mul.f32 	%f180, %f128, %f13;
+	mul.f32 	%f185, %f128, %f33;
+	mul.f32 	%f483, %f137, %f13;
+	mul.f32 	%f484, %f137, %f56;
+	mul.f32 	%f485, %f146, %f33;
+	mul.f32 	%f486, %f146, %f56;
+	mov.s32 	%r22, 0;
+$Lt_2_34562:
+ //<loop> Loop body line 370, nesting depth: 2, iterations: 3
+	.loc	18	378	0
+	ld.local.f32 	%f487, [%rd19+72];
+	mul.f32 	%f488, %f487, %f173;
+	ld.local.f32 	%f489, [%rd19+60];
+	mul.f32 	%f490, %f489, %f171;
+	mul.f32 	%f491, %f487, %f169;
+	mul.f32 	%f492, %f489, %f169;
+	.loc	18	383	0
+	ld.local.f32 	%f493, [%rd19+84];
+	mul.f32 	%f494, %f493, %f173;
+	mul.f32 	%f495, %f493, %f171;
+	.loc	18	388	0
+	neg.f32 	%f496, %f491;
+	.loc	18	397	0
+	div.approx.f32 	%f497, %f490, %f180;
+	div.approx.f32 	%f498, %f492, %f180;
+	div.approx.f32 	%f499, %f488, %f483;
+	div.approx.f32 	%f500, %f491, %f483;
+	add.f32 	%f501, %f497, %f499;
+	sub.f32 	%f502, %f501, %f500;
+	sub.f32 	%f503, %f502, %f498;
+	mov.f32 	%f504, 0f40400000;   	// 3
+	div.approx.f32 	%f505, %f503, %f504;
+	st.local.f32 	[%rd20+24], %f505;
+	.loc	18	398	0
+	div.approx.f32 	%f506, %f490, %f185;
+	div.approx.f32 	%f507, %f492, %f185;
+	div.approx.f32 	%f508, %f494, %f485;
+	div.approx.f32 	%f509, %f495, %f485;
+	sub.f32 	%f510, %f508, %f507;
+	sub.f32 	%f511, %f510, %f509;
+	add.f32 	%f512, %f506, %f511;
+	mov.f32 	%f513, 0f40400000;   	// 3
+	div.approx.f32 	%f514, %f512, %f513;
+	st.local.f32 	[%rd20+0], %f514;
+	.loc	18	399	0
+	div.approx.f32 	%f515, %f488, %f484;
+	div.approx.f32 	%f516, %f496, %f484;
+	div.approx.f32 	%f517, %f495, %f486;
+	div.approx.f32 	%f518, %f494, %f486;
+	sub.f32 	%f519, %f516, %f517;
+	add.f32 	%f520, %f515, %f519;
+	add.f32 	%f521, %f518, %f520;
+	mov.f32 	%f522, 0f40400000;   	// 3
+	div.approx.f32 	%f523, %f521, %f522;
+	st.local.f32 	[%rd20+12], %f523;
+	.loc	18	400	0
+	add.f32 	%f524, %f505, %f514;
+	add.f32 	%f525, %f523, %f524;
+	neg.f32 	%f526, %f525;
+	st.local.f32 	[%rd20+36], %f526;
+	add.s32 	%r22, %r22, 1;
+	add.u64 	%rd20, %rd20, 4;
+	add.u64 	%rd19, %rd19, 4;
+	mov.u32 	%r23, 3;
+	setp.ne.s32 	%p25, %r22, %r23;
+	@%p25 bra 	$Lt_2_34562;
+	bra.uni 	$Lt_2_35074;
+$Lt_2_33794:
+	mov.u32 	%r24, 4;
+	setp.ne.s32 	%p26, %r8, %r24;
+	@%p26 bra 	$Lt_2_35330;
+	.loc	18	409	0
+	mul.f32 	%f527, %f171, %f96;
+	mul.f32 	%f180, %f128, %f13;
+	div.approx.f32 	%f528, %f527, %f180;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+24], %f528;
+	.loc	18	410	0
+	mov.f32 	%f529, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+0], %f529;
+	.loc	18	411	0
+	mov.f32 	%f530, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+12], %f530;
+	.loc	18	412	0
+	neg.f32 	%f531, %f528;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+36], %f531;
+	.loc	18	409	0
+	mul.f32 	%f532, %f171, %f97;
+	div.approx.f32 	%f533, %f532, %f180;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+28], %f533;
+	.loc	18	410	0
+	mov.f32 	%f534, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+4], %f534;
+	.loc	18	411	0
+	mov.f32 	%f535, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+16], %f535;
+	.loc	18	412	0
+	neg.f32 	%f536, %f533;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+40], %f536;
+	.loc	18	409	0
+	mul.f32 	%f537, %f171, %f98;
+	div.approx.f32 	%f538, %f537, %f180;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+32], %f538;
+	.loc	18	410	0
+	mov.f32 	%f539, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+8], %f539;
+	.loc	18	411	0
+	mov.f32 	%f540, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+20], %f540;
+	.loc	18	412	0
+	neg.f32 	%f541, %f538;
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+44], %f541;
+	bra.uni 	$Lt_2_35074;
+$Lt_2_35330:
+	.loc	18	417	0
+	mov.f32 	%f542, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+24], %f542;
+	.loc	18	418	0
+	mov.f32 	%f543, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+0], %f543;
+	.loc	18	419	0
+	mov.f32 	%f544, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+12], %f544;
+	.loc	18	420	0
+	mov.f32 	%f545, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+36], %f545;
+	.loc	18	417	0
+	mov.f32 	%f546, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+28], %f546;
+	.loc	18	418	0
+	mov.f32 	%f547, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+4], %f547;
+	.loc	18	419	0
+	mov.f32 	%f548, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+16], %f548;
+	.loc	18	420	0
+	mov.f32 	%f549, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+40], %f549;
+	.loc	18	417	0
+	mov.f32 	%f550, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+32], %f550;
+	.loc	18	418	0
+	mov.f32 	%f551, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+8], %f551;
+	.loc	18	419	0
+	mov.f32 	%f552, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+20], %f552;
+	.loc	18	420	0
+	mov.f32 	%f553, 0f00000000;   	// 0
+	st.local.f32 	[__cuda___cuda_local_var_41923_11_non_const_forces_2683168+44], %f553;
+$Lt_2_35074:
+$Lt_2_33538:
+$Lt_2_33026:
+$Lt_2_32002:
+	.loc	18	428	0
+	ld.const.u64 	%rd21, [cAmoebaSim+600];
+	add.u64 	%rd22, %rd21, %rd2;
+	ld.global.v4.s32 	{%r25,%r26,%r27,_}, [%rd22+0];
+	.loc	18	429	0
+	ld.global.s32 	%r28, [%rd5+8];
+	ld.const.u64 	%rd23, [cAmoebaSim+616];
+	mov.u32 	%r29, 0;
+	setp.lt.s32 	%p27, %r27, %r29;
+	@%p27 bra 	$LDWendi__Z16loadMappedTorqueiiPf_248_7;
+	.loc	18	83	0
+	ld.const.u32 	%r30, [cSim+188];
+	mul.lo.u32 	%r31, %r27, %r30;
+	add.u32 	%r32, %r28, %r31;
+	cvt.u64.u32 	%rd24, %r32;
+	mul.wide.u32 	%rd25, %r32, 16;
+	add.u64 	%rd26, %rd23, %rd25;
+	ld.global.v4.f32 	{%f554,%f555,%f556,%f557}, [%rd26+0];
+	.loc	18	85	0
+	ld.local.f32 	%f558, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+28];
+	add.f32 	%f559, %f555, %f558;
+	.loc	18	86	0
+	ld.local.f32 	%f560, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+32];
+	add.f32 	%f561, %f556, %f560;
+	.loc	18	87	0
+	ld.local.f32 	%f562, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+24];
+	add.f32 	%f563, %f554, %f562;
+	st.global.v4.f32 	[%rd26+0], {%f563,%f559,%f561,%f557};
+$LDWendi__Z16loadMappedTorqueiiPf_248_7:
+	.loc	18	429	0
+	@!%p5 bra 	$LDWendi__Z16loadMappedTorqueiiPf_248_5;
+	.loc	18	434	0
+	ld.global.s32 	%r33, [%rd5+0];
+	mov.u32 	%r34, 0;
+	setp.lt.s32 	%p28, %r25, %r34;
+	@%p28 bra 	$LDWendi__Z16loadMappedTorqueiiPf_248_5;
+	.loc	18	83	0
+	ld.const.u32 	%r35, [cSim+188];
+	mul.lo.u32 	%r36, %r25, %r35;
+	add.u32 	%r37, %r33, %r36;
+	cvt.u64.u32 	%rd27, %r37;
+	mul.wide.u32 	%rd28, %r37, 16;
+	add.u64 	%rd29, %rd23, %rd28;
+	ld.global.v4.f32 	{%f564,%f565,%f566,%f557}, [%rd29+0];
+	.loc	18	85	0
+	ld.local.f32 	%f567, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+4];
+	add.f32 	%f559, %f565, %f567;
+	.loc	18	86	0
+	ld.local.f32 	%f568, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+8];
+	add.f32 	%f561, %f566, %f568;
+	.loc	18	87	0
+	ld.local.f32 	%f569, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+0];
+	add.f32 	%f570, %f564, %f569;
+	st.global.v4.f32 	[%rd29+0], {%f570,%f559,%f561,%f557};
+$LDWendi__Z16loadMappedTorqueiiPf_248_5:
+$Lt_2_35586:
+	.loc	18	434	0
+	mov.u32 	%r38, 1;
+	setp.gt.u32 	%p29, %r14, %r38;
+	@%p29 bra 	$LDWendi__Z16loadMappedTorqueiiPf_248_3;
+	ld.global.s32 	%r39, [%rd5+4];
+	mov.u32 	%r40, -1;
+	setp.le.s32 	%p30, %r39, %r40;
+	@%p30 bra 	$LDWendi__Z16loadMappedTorqueiiPf_248_3;
+	.loc	18	442	0
+	mov.u32 	%r41, 0;
+	setp.lt.s32 	%p31, %r26, %r41;
+	@%p31 bra 	$LDWendi__Z16loadMappedTorqueiiPf_248_3;
+	.loc	18	83	0
+	ld.const.u32 	%r42, [cSim+188];
+	mul.lo.u32 	%r43, %r26, %r42;
+	add.u32 	%r44, %r39, %r43;
+	cvt.u64.u32 	%rd30, %r44;
+	mul.wide.u32 	%rd31, %r44, 16;
+	add.u64 	%rd32, %rd23, %rd31;
+	ld.global.v4.f32 	{%f571,%f572,%f573,%f557}, [%rd32+0];
+	.loc	18	85	0
+	ld.local.f32 	%f574, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+16];
+	add.f32 	%f559, %f572, %f574;
+	.loc	18	86	0
+	ld.local.f32 	%f575, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+20];
+	add.f32 	%f561, %f573, %f575;
+	.loc	18	87	0
+	ld.local.f32 	%f576, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+12];
+	add.f32 	%f577, %f571, %f576;
+	st.global.v4.f32 	[%rd32+0], {%f577,%f559,%f561,%f557};
+$LDWendi__Z16loadMappedTorqueiiPf_248_3:
+$Lt_2_36610:
+$Lt_2_36098:
+	.loc	18	83	0
+	cvt.u64.u32 	%rd33, %r4;
+	mul.wide.u32 	%rd34, %r4, 16;
+	add.u64 	%rd35, %rd23, %rd34;
+	ld.global.v4.f32 	{%f578,%f579,%f580,%f557}, [%rd35+0];
+	.loc	18	85	0
+	ld.local.f32 	%f581, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+40];
+	add.f32 	%f559, %f579, %f581;
+	.loc	18	86	0
+	ld.local.f32 	%f582, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+44];
+	add.f32 	%f561, %f580, %f582;
+	.loc	18	87	0
+	ld.local.f32 	%f583, [__cuda___cuda_local_var_41923_11_non_const_forces_2683168+36];
+	add.f32 	%f584, %f578, %f583;
+	st.global.v4.f32 	[%rd35+0], {%f584,%f559,%f561,%f557};
+$Lt_2_37634:
+$L_2_29442:
+	add.u32 	%r4, %r4, %r6;
+	mul.lo.u64 	%rd36, %rd3, 16;
+	add.u64 	%rd2, %rd2, %rd36;
+	setp.lt.u32 	%p32, %r4, %r5;
+	@%p32 bra 	$Lt_2_31234;
+$Lt_2_30722:
+	.loc	18	452	0
+	exit;
+$LDWend__Z29amoebaMapTorqueToForce_kernelPf:
+	} // _Z29amoebaMapTorqueToForce_kernelPf
+	.global .align 8 .b8 _ZTVN10__cxxabiv117__class_type_infoE[8];
+	.global .align 8 .b8 _ZTVN10__cxxabiv120__si_class_type_infoE[8];
+	.global .align 8 .b8 _ZTVSt9exception[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	.global .align 8 .b8 _ZTVN6OpenMM15OpenMMExceptionE[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	.global .align 8 .b8 _ZTV15SoADeviceObject[48] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	.global .align 8 .b8 _ZTV10CUDAStreamIfE[64] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+

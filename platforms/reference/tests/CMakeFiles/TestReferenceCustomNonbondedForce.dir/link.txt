@@ -1,0 +1,1 @@
+/usr/bin/g++   -g3 -gdwarf-2    CMakeFiles/TestReferenceCustomNonbondedForce.dir/TestReferenceCustomNonbondedForce.cpp.o  -o ../../../TestReferenceCustomNonbondedForce -rdynamic ../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM 

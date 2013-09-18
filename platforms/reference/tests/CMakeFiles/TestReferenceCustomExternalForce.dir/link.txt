@@ -1,0 +1,1 @@
+/usr/bin/g++   -g3 -gdwarf-2    CMakeFiles/TestReferenceCustomExternalForce.dir/TestReferenceCustomExternalForce.cpp.o  -o ../../../TestReferenceCustomExternalForce -rdynamic ../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM 

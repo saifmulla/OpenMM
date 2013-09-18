@@ -1,0 +1,178 @@
+# 211 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 3
+typedef unsigned long size_t;
+#include "crt/device_runtime.h"
+#if !defined(__CUDABE__)
+# 7489 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) __attribute__((__const__)) float floorf(float);
+#endif
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__global__ __var_used__ extern void _Z28kScaleAtomCoordinates_kernelfi6float3P6float4PiS2_(float, int, struct float3, struct float4 *, int *, int *);
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv117__class_type_infoE[1];
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv120__si_class_type_infoE[1];
+#include "common_functions.h"
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+static  __device__  __var_used__ const long _ZTVSt9exception[5] = {0L,0L,0L,0L,0L};
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+static  __device__  __var_used__ const long _ZTVN6OpenMM15OpenMMExceptionE[5] = {0L,0L,0L,0L,0L};
+#if !defined(__CUDABE__)
+#endif
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__global__ __var_used__ void _Z28kScaleAtomCoordinates_kernelfi6float3P6float4PiS2_(
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+float scale, 
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+int numMolecules, 
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+struct float3 periodicBoxSize, 
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+struct float4 *posq, 
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+int *moleculeAtoms, 
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+int *moleculeStartIndex){
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+{
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+{
+# 38 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ float __T216;
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ float __T217;
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ float __T218;
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ struct float3 __T219;
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ struct float3 __cuda_local_var_38836_12_non_const_invPeriodicBoxSize;
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__cuda_local_var_38836_12_non_const_invPeriodicBoxSize = ((((__T216 = ((1.0F) / (periodicBoxSize.x))) , ((void)(__T217 = ((1.0F) / (periodicBoxSize.y))))) , ((void)(__T218 = ((1.0F) / (periodicBoxSize.z))))) , (((((__T219.x) = __T216) , ((void)((__T219.y) = __T217))) , ((void)((__T219.z) = __T218))) , __T219));
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+{
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ int index;
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+index = ((int)((threadIdx.x) + ((blockIdx.x) * (blockDim.x))));
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+for (; (index < numMolecules); index += ((blockDim.x) * (gridDim.x)))
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+{
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ struct float3 __T220;
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ float __T221;
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ float __T222;
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ float __T223;
+# 44 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ struct float3 __T224;
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ int __cuda_local_var_38838_13_non_const_first;
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ int __cuda_local_var_38839_13_non_const_last;
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ int __cuda_local_var_38840_13_non_const_numAtoms;
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ struct float3 __cuda_local_var_38844_16_non_const_center;
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ int __cuda_local_var_38857_13_non_const_xcell;
+# 61 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ int __cuda_local_var_38858_13_non_const_ycell;
+# 62 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ int __cuda_local_var_38859_13_non_const_zcell;
+# 63 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ struct float3 __cuda_local_var_38860_16_non_const_delta;
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__cuda_local_var_38838_13_non_const_first = (moleculeStartIndex[index]);
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__cuda_local_var_38839_13_non_const_last = (moleculeStartIndex[(index + 1)]);
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__cuda_local_var_38840_13_non_const_numAtoms = (__cuda_local_var_38839_13_non_const_last - __cuda_local_var_38838_13_non_const_first);
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__cuda_local_var_38844_16_non_const_center = (((((__T220.x) = (0.0F)) , ((void)((__T220.y) = (0.0F)))) , ((void)((__T220.z) = (0.0F)))) , __T220);
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+{
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ int atom;
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+atom = __cuda_local_var_38838_13_non_const_first;
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+for (; (atom < __cuda_local_var_38839_13_non_const_last); atom++)
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+{
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ struct float4 __cuda_local_var_38846_20_non_const_pos;
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__cuda_local_var_38846_20_non_const_pos = (posq[(moleculeAtoms[atom])]);
+# 50 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38844_16_non_const_center.x) += (__cuda_local_var_38846_20_non_const_pos.x);
+# 51 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38844_16_non_const_center.y) += (__cuda_local_var_38846_20_non_const_pos.y);
+# 52 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38844_16_non_const_center.z) += (__cuda_local_var_38846_20_non_const_pos.z);
+# 53 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+}
+# 53 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+}
+# 54 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38844_16_non_const_center.x) = ((float)(fdividef(((double)(__cuda_local_var_38844_16_non_const_center.x)), ((double)((float)__cuda_local_var_38840_13_non_const_numAtoms)))));
+# 55 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38844_16_non_const_center.y) = ((float)(fdividef(((double)(__cuda_local_var_38844_16_non_const_center.y)), ((double)((float)__cuda_local_var_38840_13_non_const_numAtoms)))));
+# 56 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38844_16_non_const_center.z) = ((float)(fdividef(((double)(__cuda_local_var_38844_16_non_const_center.z)), ((double)((float)__cuda_local_var_38840_13_non_const_numAtoms)))));
+# 60 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__cuda_local_var_38857_13_non_const_xcell = ((int)(__float2int_rz(((double)((float)(floorf(((__cuda_local_var_38844_16_non_const_center.x) * (__cuda_local_var_38836_12_non_const_invPeriodicBoxSize.x)))))))));
+# 61 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__cuda_local_var_38858_13_non_const_ycell = ((int)(__float2int_rz(((double)((float)(floorf(((__cuda_local_var_38844_16_non_const_center.y) * (__cuda_local_var_38836_12_non_const_invPeriodicBoxSize.y)))))))));
+# 62 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__cuda_local_var_38859_13_non_const_zcell = ((int)(__float2int_rz(((double)((float)(floorf(((__cuda_local_var_38844_16_non_const_center.z) * (__cuda_local_var_38836_12_non_const_invPeriodicBoxSize.z)))))))));
+# 63 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__cuda_local_var_38860_16_non_const_delta = ((((__T221 = (((float)__cuda_local_var_38857_13_non_const_xcell) * (periodicBoxSize.x))) , ((void)(__T222 = (((float)__cuda_local_var_38858_13_non_const_ycell) * (periodicBoxSize.y))))) , ((void)(__T223 = (((float)__cuda_local_var_38859_13_non_const_zcell) * (periodicBoxSize.z))))) , (((((__T224.x) = __T221) , ((void)((__T224.y) = __T222))) , ((void)((__T224.z) = __T223))) , __T224));
+# 64 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38844_16_non_const_center.x) -= (__cuda_local_var_38860_16_non_const_delta.x);
+# 65 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38844_16_non_const_center.y) -= (__cuda_local_var_38860_16_non_const_delta.y);
+# 66 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38844_16_non_const_center.z) -= (__cuda_local_var_38860_16_non_const_delta.z);
+# 70 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38860_16_non_const_delta.x) = (((__cuda_local_var_38844_16_non_const_center.x) * (scale - (1.0F))) - (__cuda_local_var_38860_16_non_const_delta.x));
+# 71 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38860_16_non_const_delta.y) = (((__cuda_local_var_38844_16_non_const_center.y) * (scale - (1.0F))) - (__cuda_local_var_38860_16_non_const_delta.y));
+# 72 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38860_16_non_const_delta.z) = (((__cuda_local_var_38844_16_non_const_center.z) * (scale - (1.0F))) - (__cuda_local_var_38860_16_non_const_delta.z));
+# 72 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+{
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ int atom;
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+atom = __cuda_local_var_38838_13_non_const_first;
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+for (; (atom < __cuda_local_var_38839_13_non_const_last); atom++)
+# 73 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+{
+# 74 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+ struct float4 __cuda_local_var_38871_20_non_const_pos;
+# 74 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+__cuda_local_var_38871_20_non_const_pos = (posq[(moleculeAtoms[atom])]);
+# 75 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38871_20_non_const_pos.x) += (__cuda_local_var_38860_16_non_const_delta.x);
+# 76 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38871_20_non_const_pos.y) += (__cuda_local_var_38860_16_non_const_delta.y);
+# 77 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(__cuda_local_var_38871_20_non_const_pos.z) += (__cuda_local_var_38860_16_non_const_delta.z);
+# 78 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+(posq[(moleculeAtoms[atom])]) = __cuda_local_var_38871_20_non_const_pos;
+# 79 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+}
+# 79 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+}
+# 80 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+}
+# 80 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+}
+# 81 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+} 
+# 81 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kMonteCarloBarostat.cu"
+}}

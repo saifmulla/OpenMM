@@ -1,0 +1,1 @@
+/usr/bin/g++   -g3 -gdwarf-2    CMakeFiles/TestReferenceOBCSoftcoreForce.dir/TestReferenceOBCSoftcoreForce.cpp.o  -o ../../../../../TestReferenceOBCSoftcoreForce -rdynamic ../../../../../libOpenMM_d.so ../../../../../libOpenMMFreeEnergy_d.so ../../../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM 

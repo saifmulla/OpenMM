@@ -1,0 +1,1 @@
+/usr/bin/g++   -g3 -gdwarf-2    CMakeFiles/TestOpenCLRpmd.dir/TestOpenCLRpmd.cpp.o  -o ../../../../../TestOpenCLRpmd -rdynamic ../../../../../libOpenMMRPMD_d.so ../../../../../libOpenMM_d.so -ldl -Wl,-rpath,/home/saifmulla/openmm/OpenMM 

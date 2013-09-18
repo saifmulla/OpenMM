@@ -1,0 +1,110 @@
+# 211 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 3
+typedef unsigned long size_t;
+#include "crt/device_runtime.h"
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+__global__ __var_used__ extern void _Z26kPrepareConstraints_kerneliP6float4S0_S0_(int, struct float4 *, struct float4 *, struct float4 *);
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+__global__ __var_used__ extern void _Z25kFinishConstraints_kerneliP6float4S0_(int, struct float4 *, struct float4 *);
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv117__class_type_infoE[1];
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv120__si_class_type_infoE[1];
+#include "common_functions.h"
+# 51 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+static  __device__  __var_used__ const long _ZTVSt9exception[5] = {0L,0L,0L,0L,0L};
+# 52 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+static  __device__  __var_used__ const long _ZTVN6OpenMM15OpenMMExceptionE[5] = {0L,0L,0L,0L,0L};
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+__global__ __var_used__ void _Z26kPrepareConstraints_kerneliP6float4S0_S0_(
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+int numAtoms, 
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+struct float4 *oldPos, 
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+struct float4 *posq, 
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+struct float4 *posqP){
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+{
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+{
+# 39 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+{
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ int index;
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+index = ((int)((threadIdx.x) + ((blockIdx.x) * (blockDim.x))));
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+for (; (index < numAtoms); index += ((blockDim.x) * (gridDim.x)))
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+{
+# 40 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ float __T224;
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ struct float4 __T225;
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ struct float4 __cuda_local_var_38993_16_non_const_pos;
+# 41 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+__cuda_local_var_38993_16_non_const_pos = (posq[index]);
+# 42 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+(oldPos[index]) = __cuda_local_var_38993_16_non_const_pos;
+# 43 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+(posqP[index]) = ((__T224 = (__cuda_local_var_38993_16_non_const_pos.w)) , ((((((__T225.x) = (0.0F)) , ((void)((__T225.y) = (0.0F)))) , ((void)((__T225.z) = (0.0F)))) , ((void)((__T225.w) = __T224))) , __T225));
+# 44 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+}
+# 44 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+}
+# 45 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+} 
+# 45 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+}}
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+__global__ __var_used__ void _Z25kFinishConstraints_kerneliP6float4S0_(
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+int numAtoms, 
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+struct float4 *posq, 
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+struct float4 *posqP){
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+{
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+{
+# 47 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+{
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ int index;
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+index = ((int)((threadIdx.x) + ((blockIdx.x) * (blockDim.x))));
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+for (; (index < numAtoms); index += ((blockDim.x) * (gridDim.x)))
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+{
+# 48 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ float __T226;
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ float __T227;
+# 50 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ float __T228;
+# 51 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ float __T229;
+# 52 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ struct float4 __T230;
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ struct float4 __cuda_local_var_39001_16_non_const_pos;
+# 50 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+ struct float4 __cuda_local_var_39002_16_non_const_delta;
+# 49 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+__cuda_local_var_39001_16_non_const_pos = (posq[index]);
+# 50 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+__cuda_local_var_39002_16_non_const_delta = (posqP[index]);
+# 51 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+(posq[index]) = (((((__T226 = ((__cuda_local_var_39001_16_non_const_pos.x) + (__cuda_local_var_39002_16_non_const_delta.x))) , ((void)(__T227 = ((__cuda_local_var_39001_16_non_const_pos.y) + (__cuda_local_var_39002_16_non_const_delta.y))))) , ((void)(__T228 = ((__cuda_local_var_39001_16_non_const_pos.z) + (__cuda_local_var_39002_16_non_const_delta.z))))) , ((void)(__T229 = (__cuda_local_var_39001_16_non_const_pos.w)))) , ((((((__T230.x) = __T226) , ((void)((__T230.y) = __T227))) , ((void)((__T230.z) = __T228))) , ((void)((__T230.w) = __T229))) , __T230));
+# 52 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+}
+# 52 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+}
+# 53 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+} 
+# 53 "/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kApplyConstraints.cu"
+}}

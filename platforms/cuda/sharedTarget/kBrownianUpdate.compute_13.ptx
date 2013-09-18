@@ -1,0 +1,229 @@
+	.version 1.4
+	.target sm_13
+	// compiled with /usr/local/cuda-5.0/open64/lib//be
+	// nvopencc 4.1 built on 2012-09-21
+
+	//-----------------------------------------------------------
+	// Compiling kBrownianUpdate.compute_13.cpp3.i (/tmp/ccBI#.cTfedK)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_13, Endian:little, Pointer Size:64
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"<command-line>"
+	.file	2	"kBrownianUpdate.compute_13.cudafe2.gpu"
+	.file	3	"/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+	.file	4	"/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h"
+	.file	5	"/usr/local/cuda-5.0/include/crt/device_runtime.h"
+	.file	6	"/usr/local/cuda-5.0/include/host_defines.h"
+	.file	7	"/usr/local/cuda-5.0/include/builtin_types.h"
+	.file	8	"/usr/local/cuda-5.0/include/device_types.h"
+	.file	9	"/usr/local/cuda-5.0/include/driver_types.h"
+	.file	10	"/usr/local/cuda-5.0/include/surface_types.h"
+	.file	11	"/usr/local/cuda-5.0/include/texture_types.h"
+	.file	12	"/usr/local/cuda-5.0/include/vector_types.h"
+	.file	13	"/usr/local/cuda-5.0/include/device_launch_parameters.h"
+	.file	14	"/usr/local/cuda-5.0/include/crt/storage_class.h"
+	.file	15	"/usr/local/cuda-5.0/include/cuComplex.h"
+	.file	16	"/usr/local/cuda-5.0/include/cufft.h"
+	.file	17	"/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kBrownianUpdate.cu"
+	.file	18	"/usr/local/cuda-5.0/include/common_functions.h"
+	.file	19	"/usr/local/cuda-5.0/include/math_functions.h"
+	.file	20	"/usr/local/cuda-5.0/include/math_constants.h"
+	.file	21	"/usr/local/cuda-5.0/include/device_functions.h"
+	.file	22	"/usr/local/cuda-5.0/include/sm_11_atomic_functions.h"
+	.file	23	"/usr/local/cuda-5.0/include/sm_12_atomic_functions.h"
+	.file	24	"/usr/local/cuda-5.0/include/sm_13_double_functions.h"
+	.file	25	"/usr/local/cuda-5.0/include/sm_20_atomic_functions.h"
+	.file	26	"/usr/local/cuda-5.0/include/sm_35_atomic_functions.h"
+	.file	27	"/usr/local/cuda-5.0/include/sm_20_intrinsics.h"
+	.file	28	"/usr/local/cuda-5.0/include/sm_30_intrinsics.h"
+	.file	29	"/usr/local/cuda-5.0/include/sm_35_intrinsics.h"
+	.file	30	"/usr/local/cuda-5.0/include/surface_functions.h"
+	.file	31	"/usr/local/cuda-5.0/include/texture_fetch_functions.h"
+	.file	32	"/usr/local/cuda-5.0/include/texture_indirect_functions.h"
+	.file	33	"/usr/local/cuda-5.0/include/surface_indirect_functions.h"
+	.file	34	"/usr/local/cuda-5.0/include/math_functions_dbl_ptx3.h"
+
+	.const .align 8 .b8 cSim[1224];
+
+	.entry _Z27kBrownianUpdatePart1_kernelv
+	.maxntid 384,1,1
+	.maxnctapersm 1
+	{
+	.reg .u32 %r<13>;
+	.reg .u64 %rd<24>;
+	.reg .f32 %f<24>;
+	.reg .pred %p<4>;
+	.loc	17	62	0
+$LDWbegin__Z27kBrownianUpdatePart1_kernelv:
+	.loc	17	65	0
+	cvt.u32.u16 	%r1, %ctaid.x;
+	ld.const.u64 	%rd1, [cSim+1200];
+	cvt.u64.u32 	%rd2, %r1;
+	mul.wide.u32 	%rd3, %r1, 4;
+	add.u64 	%rd4, %rd1, %rd3;
+	ld.global.s32 	%r2, [%rd4+0];
+	.loc	17	66	0
+	bar.sync 	0;
+	cvt.u32.u16 	%r3, %ntid.x;
+	mul.lo.u32 	%r4, %r3, %r1;
+	cvt.u32.u16 	%r5, %tid.x;
+	add.u32 	%r6, %r5, %r4;
+	mov.s32 	%r7, %r6;
+	ld.const.u32 	%r8, [cSim+0];
+	setp.ge.u32 	%p1, %r6, %r8;
+	@%p1 bra 	$Lt_0_1282;
+	cvt.u32.u16 	%r9, %nctaid.x;
+	mul.lo.u32 	%r10, %r9, %r3;
+	cvt.u64.u32 	%rd5, %r6;
+	mul.wide.u32 	%rd6, %r6, 16;
+	cvt.s64.u32 	%rd7, %r10;
+	ld.const.u64 	%rd8, [cSim+1088];
+	add.u64 	%rd9, %rd6, %rd8;
+	mul.wide.u32 	%rd10, %r10, 16;
+	ld.const.u64 	%rd11, [cSim+1120];
+	add.u64 	%rd12, %rd6, %rd11;
+	ld.const.u64 	%rd13, [cSim+1112];
+	add.u64 	%rd14, %rd6, %rd13;
+	ld.const.u64 	%rd15, [cSim+1104];
+	add.u64 	%rd16, %rd6, %rd15;
+	ld.const.u64 	%rd17, [cSim+1096];
+	add.u64 	%rd18, %rd6, %rd17;
+	ld.const.f32 	%f1, [cSim+360];
+	ld.const.f32 	%f2, [cSim+368];
+	ld.const.u64 	%rd19, [cSim+1176];
+$Lt_0_1794:
+ //<loop> Loop body line 66, nesting depth: 1, estimated iterations: unknown
+	.loc	17	70	0
+	add.u32 	%r11, %r2, %r7;
+	cvt.u64.u32 	%rd20, %r11;
+	mul.wide.u32 	%rd21, %r11, 16;
+	add.u64 	%rd22, %rd19, %rd21;
+	ld.global.v4.f32 	{%f3,%f4,%f5,_}, [%rd22+0];
+	ld.global.v4.f32 	{%f6,%f7,%f8,%f9}, [%rd9+0];
+	ld.global.v4.f32 	{%f10,%f11,%f12,_}, [%rd12+0];
+	.loc	17	73	0
+	ld.global.f32 	%f13, [%rd14+12];
+	st.global.v4.f32 	[%rd16+0], {%f6,%f7,%f8,%f9};
+	.loc	17	81	0
+	mul.f32 	%f14, %f13, %f2;
+	sqrt.approx.f32 	%f15, %f13;
+	mul.f32 	%f16, %f15, %f1;
+	mul.f32 	%f17, %f14, %f10;
+	mad.f32 	%f18, %f3, %f16, %f17;
+	mul.f32 	%f19, %f16, %f4;
+	mad.f32 	%f20, %f14, %f11, %f19;
+	mul.f32 	%f21, %f16, %f5;
+	mad.f32 	%f22, %f14, %f12, %f21;
+	st.global.v4.f32 	[%rd18+0], {%f18,%f20,%f22,%f9};
+	add.u32 	%r7, %r10, %r7;
+	add.u64 	%rd18, %rd18, %rd10;
+	add.u64 	%rd16, %rd16, %rd10;
+	add.u64 	%rd14, %rd14, %rd10;
+	add.u64 	%rd12, %rd12, %rd10;
+	add.u64 	%rd9, %rd9, %rd10;
+	setp.lt.u32 	%p2, %r7, %r8;
+	@%p2 bra 	$Lt_0_1794;
+$Lt_0_1282:
+	.loc	17	84	0
+	exit;
+$LDWend__Z27kBrownianUpdatePart1_kernelv:
+	} // _Z27kBrownianUpdatePart1_kernelv
+
+	.entry _Z27kBrownianUpdatePart2_kernelv
+	.maxntid 384,1,1
+	.maxnctapersm 1
+	{
+	.reg .u32 %r<17>;
+	.reg .u64 %rd<16>;
+	.reg .f32 %f<17>;
+	.reg .pred %p<6>;
+	.loc	17	101	0
+$LDWbegin__Z27kBrownianUpdatePart2_kernelv:
+	.loc	17	104	0
+	cvt.u32.u16 	%r1, %ctaid.x;
+	ld.const.u64 	%rd1, [cSim+1200];
+	cvt.u64.u32 	%rd2, %r1;
+	mul.wide.u32 	%rd3, %r1, 4;
+	add.u64 	%rd4, %rd1, %rd3;
+	ld.global.s32 	%r2, [%rd4+0];
+	.loc	17	105	0
+	bar.sync 	0;
+	cvt.u32.u16 	%r3, %ntid.x;
+	mul.lo.u32 	%r4, %r3, %r1;
+	cvt.u32.u16 	%r5, %tid.x;
+	add.u32 	%r6, %r4, %r5;
+	mov.s32 	%r7, %r6;
+	ld.const.u32 	%r8, [cSim+0];
+	setp.ge.u32 	%p1, %r6, %r8;
+	@%p1 bra 	$Lt_1_2818;
+	cvt.u32.u16 	%r9, %nctaid.x;
+	mul.lo.u32 	%r10, %r9, %r3;
+	cvt.u64.u32 	%rd5, %r6;
+	mul.wide.u32 	%rd6, %r6, 16;
+	cvt.s64.u32 	%rd7, %r10;
+	ld.const.u64 	%rd8, [cSim+1112];
+	add.u64 	%rd9, %rd6, %rd8;
+	mul.wide.u32 	%rd10, %r10, 16;
+	ld.const.u64 	%rd11, [cSim+1096];
+	add.u64 	%rd12, %rd6, %rd11;
+	ld.const.u64 	%rd13, [cSim+1088];
+	add.u64 	%rd14, %rd6, %rd13;
+	ld.const.f32 	%f1, [cSim+348];
+$Lt_1_3330:
+ //<loop> Loop body line 105, nesting depth: 1, estimated iterations: unknown
+	.loc	17	109	0
+	ld.global.f32 	%f2, [%rd9+12];
+	ld.global.v4.f32 	{%f3,%f4,%f5,%f6}, [%rd12+0];
+	.loc	17	113	0
+	mul.f32 	%f7, %f3, %f1;
+	.loc	17	114	0
+	mul.f32 	%f8, %f4, %f1;
+	.loc	17	115	0
+	mul.f32 	%f9, %f5, %f1;
+	ld.global.v4.f32 	{%f10,%f11,%f12,_}, [%rd14+0];
+	.loc	17	117	0
+	add.f32 	%f13, %f10, %f3;
+	.loc	17	118	0
+	add.f32 	%f14, %f11, %f4;
+	.loc	17	119	0
+	add.f32 	%f15, %f12, %f5;
+	st.global.v4.f32 	[%rd14+0], {%f13,%f14,%f15,%f6};
+	st.global.v4.f32 	[%rd9+0], {%f7,%f8,%f9,%f2};
+	.loc	17	122	0
+	add.u32 	%r7, %r10, %r7;
+	add.u64 	%rd14, %rd14, %rd10;
+	add.u64 	%rd12, %rd12, %rd10;
+	add.u64 	%rd9, %rd9, %rd10;
+	setp.lt.u32 	%p2, %r7, %r8;
+	@%p2 bra 	$Lt_1_3330;
+$Lt_1_2818:
+	mov.u32 	%r11, 0;
+	setp.ne.u32 	%p3, %r5, %r11;
+	@%p3 bra 	$Lt_1_3842;
+	.loc	17	130	0
+	ld.const.u32 	%r12, [cSim+4];
+	add.u32 	%r2, %r12, %r2;
+	ld.const.u32 	%r13, [cSim+1208];
+	.loc	17	133	0
+	sub.u32 	%r14, %r2, %r13;
+	setp.gt.u32 	%p4, %r2, %r13;
+	selp.u32 	%r15, %r14, %r2, %p4;
+	st.global.s32 	[%rd4+0], %r15;
+$Lt_1_3842:
+	.loc	17	135	0
+	exit;
+$LDWend__Z27kBrownianUpdatePart2_kernelv:
+	} // _Z27kBrownianUpdatePart2_kernelv
+	.global .align 8 .b8 _ZTVN10__cxxabiv117__class_type_infoE[8];
+	.global .align 8 .b8 _ZTVN10__cxxabiv120__si_class_type_infoE[8];
+	.global .align 8 .b8 _ZTVSt9exception[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	.global .align 8 .b8 _ZTVN6OpenMM15OpenMMExceptionE[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+

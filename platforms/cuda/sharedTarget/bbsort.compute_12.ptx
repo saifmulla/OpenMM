@@ -1,0 +1,614 @@
+	.version 1.4
+	.target sm_12, map_f64_to_f32
+	// compiled with /usr/local/cuda-5.0/open64/lib//be
+	// nvopencc 4.1 built on 2012-09-21
+
+	//-----------------------------------------------------------
+	// Compiling bbsort.compute_12.cpp3.i (/tmp/ccBI#.RnK8U1)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_12, Endian:little, Pointer Size:64
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"<command-line>"
+	.file	2	"bbsort.compute_12.cudafe2.gpu"
+	.file	3	"/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h"
+	.file	4	"/usr/local/cuda-5.0/include/crt/device_runtime.h"
+	.file	5	"/usr/local/cuda-5.0/include/host_defines.h"
+	.file	6	"/usr/local/cuda-5.0/include/builtin_types.h"
+	.file	7	"/usr/local/cuda-5.0/include/device_types.h"
+	.file	8	"/usr/local/cuda-5.0/include/driver_types.h"
+	.file	9	"/usr/local/cuda-5.0/include/surface_types.h"
+	.file	10	"/usr/local/cuda-5.0/include/texture_types.h"
+	.file	11	"/usr/local/cuda-5.0/include/vector_types.h"
+	.file	12	"/usr/local/cuda-5.0/include/device_launch_parameters.h"
+	.file	13	"/usr/local/cuda-5.0/include/crt/storage_class.h"
+	.file	14	"/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//bbsort_kernel.cu"
+	.file	15	"/usr/local/cuda-5.0/include/common_functions.h"
+	.file	16	"/usr/local/cuda-5.0/include/math_functions.h"
+	.file	17	"/usr/local/cuda-5.0/include/math_constants.h"
+	.file	18	"/usr/local/cuda-5.0/include/device_functions.h"
+	.file	19	"/usr/local/cuda-5.0/include/sm_11_atomic_functions.h"
+	.file	20	"/usr/local/cuda-5.0/include/sm_12_atomic_functions.h"
+	.file	21	"/usr/local/cuda-5.0/include/sm_13_double_functions.h"
+	.file	22	"/usr/local/cuda-5.0/include/sm_20_atomic_functions.h"
+	.file	23	"/usr/local/cuda-5.0/include/sm_35_atomic_functions.h"
+	.file	24	"/usr/local/cuda-5.0/include/sm_20_intrinsics.h"
+	.file	25	"/usr/local/cuda-5.0/include/sm_30_intrinsics.h"
+	.file	26	"/usr/local/cuda-5.0/include/sm_35_intrinsics.h"
+	.file	27	"/usr/local/cuda-5.0/include/surface_functions.h"
+	.file	28	"/usr/local/cuda-5.0/include/texture_fetch_functions.h"
+	.file	29	"/usr/local/cuda-5.0/include/texture_indirect_functions.h"
+	.file	30	"/usr/local/cuda-5.0/include/surface_indirect_functions.h"
+	.file	31	"/usr/local/cuda-5.0/include/math_functions_dbl_ptx1.h"
+
+
+	.entry _Z10reduceSumDPfii (
+		.param .u64 __cudaparm__Z10reduceSumDPfii_dDiffData,
+		.param .s32 __cudaparm__Z10reduceSumDPfii_step,
+		.param .s32 __cudaparm__Z10reduceSumDPfii_length)
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<8>;
+	.reg .u64 %rd<9>;
+	.reg .f32 %f<5>;
+	.reg .pred %p<3>;
+	.loc	14	64	0
+$LDWbegin__Z10reduceSumDPfii:
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r1, %rh1, %rh2;
+	cvt.u32.u16 	%r2, %tid.x;
+	add.u32 	%r3, %r2, %r1;
+	ld.param.s32 	%r4, [__cudaparm__Z10reduceSumDPfii_step];
+	add.s32 	%r5, %r4, %r3;
+	ld.param.s32 	%r6, [__cudaparm__Z10reduceSumDPfii_length];
+	setp.gt.s32 	%p1, %r6, %r5;
+	@%p1 bra 	$Lt_0_1026;
+	bra.uni 	$LBB4__Z10reduceSumDPfii;
+$Lt_0_1026:
+	.loc	14	72	0
+	ld.param.u64 	%rd1, [__cudaparm__Z10reduceSumDPfii_dDiffData];
+	cvt.s64.s32 	%rd2, %r3;
+	mul.wide.s32 	%rd3, %r3, 4;
+	add.u64 	%rd4, %rd1, %rd3;
+	ld.global.f32 	%f1, [%rd4+0];
+	cvt.s64.s32 	%rd5, %r5;
+	mul.wide.s32 	%rd6, %r5, 4;
+	add.u64 	%rd7, %rd1, %rd6;
+	ld.global.f32 	%f2, [%rd7+0];
+	add.f32 	%f3, %f1, %f2;
+	st.global.f32 	[%rd4+0], %f3;
+$LBB4__Z10reduceSumDPfii:
+	.loc	14	73	0
+	exit;
+$LDWend__Z10reduceSumDPfii:
+	} // _Z10reduceSumDPfii
+
+	.entry _Z10reduceMaxDI4int2EvPT_ii (
+		.param .u64 __cudaparm__Z10reduceMaxDI4int2EvPT_ii_dData,
+		.param .s32 __cudaparm__Z10reduceMaxDI4int2EvPT_ii_step,
+		.param .s32 __cudaparm__Z10reduceMaxDI4int2EvPT_ii_length)
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<12>;
+	.reg .u64 %rd<9>;
+	.reg .pred %p<4>;
+	.loc	14	43	0
+$LDWbegin__Z10reduceMaxDI4int2EvPT_ii:
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r1, %rh1, %rh2;
+	cvt.u32.u16 	%r2, %tid.x;
+	add.u32 	%r3, %r2, %r1;
+	ld.param.s32 	%r4, [__cudaparm__Z10reduceMaxDI4int2EvPT_ii_step];
+	add.s32 	%r5, %r4, %r3;
+	ld.param.s32 	%r6, [__cudaparm__Z10reduceMaxDI4int2EvPT_ii_length];
+	setp.gt.s32 	%p1, %r6, %r5;
+	@%p1 bra 	$Lt_1_1794;
+	bra.uni 	$LBB7__Z10reduceMaxDI4int2EvPT_ii;
+$Lt_1_1794:
+	.loc	14	49	0
+	ld.param.u64 	%rd1, [__cudaparm__Z10reduceMaxDI4int2EvPT_ii_dData];
+	cvt.s64.s32 	%rd2, %r3;
+	mul.wide.s32 	%rd3, %r3, 8;
+	add.u64 	%rd4, %rd1, %rd3;
+	cvt.s64.s32 	%rd5, %r5;
+	mul.wide.s32 	%rd6, %r5, 8;
+	add.u64 	%rd7, %rd1, %rd6;
+	ld.global.s32 	%r7, [%rd4+4];
+	ld.global.s32 	%r8, [%rd7+4];
+	setp.le.s32 	%p2, %r7, %r8;
+	@%p2 bra 	$Lt_1_2562;
+	ld.global.s32 	%r9, [%rd4+0];
+	mov.s32 	%r10, %r7;
+	bra.uni 	$Lt_1_2306;
+$Lt_1_2562:
+	ld.global.s32 	%r9, [%rd7+0];
+	mov.s32 	%r10, %r8;
+$Lt_1_2306:
+	st.global.v2.s32 	[%rd4+0], {%r9,%r10};
+$LBB7__Z10reduceMaxDI4int2EvPT_ii:
+	.loc	14	50	0
+	exit;
+$LDWend__Z10reduceMaxDI4int2EvPT_ii:
+	} // _Z10reduceMaxDI4int2EvPT_ii
+
+	.entry _Z10reduceMinDI4int2EvPT_ii (
+		.param .u64 __cudaparm__Z10reduceMinDI4int2EvPT_ii_dData,
+		.param .s32 __cudaparm__Z10reduceMinDI4int2EvPT_ii_step,
+		.param .s32 __cudaparm__Z10reduceMinDI4int2EvPT_ii_length)
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<12>;
+	.reg .u64 %rd<9>;
+	.reg .pred %p<4>;
+	.loc	14	53	0
+$LDWbegin__Z10reduceMinDI4int2EvPT_ii:
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r1, %rh1, %rh2;
+	cvt.u32.u16 	%r2, %tid.x;
+	add.u32 	%r3, %r2, %r1;
+	ld.param.s32 	%r4, [__cudaparm__Z10reduceMinDI4int2EvPT_ii_step];
+	add.s32 	%r5, %r4, %r3;
+	ld.param.s32 	%r6, [__cudaparm__Z10reduceMinDI4int2EvPT_ii_length];
+	setp.gt.s32 	%p1, %r6, %r5;
+	@%p1 bra 	$Lt_2_1794;
+	bra.uni 	$LBB7__Z10reduceMinDI4int2EvPT_ii;
+$Lt_2_1794:
+	.loc	14	61	0
+	ld.param.u64 	%rd1, [__cudaparm__Z10reduceMinDI4int2EvPT_ii_dData];
+	cvt.s64.s32 	%rd2, %r3;
+	mul.wide.s32 	%rd3, %r3, 8;
+	add.u64 	%rd4, %rd1, %rd3;
+	cvt.s64.s32 	%rd5, %r5;
+	mul.wide.s32 	%rd6, %r5, 8;
+	add.u64 	%rd7, %rd1, %rd6;
+	ld.global.s32 	%r7, [%rd4+4];
+	ld.global.s32 	%r8, [%rd7+4];
+	setp.ge.s32 	%p2, %r7, %r8;
+	@%p2 bra 	$Lt_2_2562;
+	ld.global.s32 	%r9, [%rd4+0];
+	mov.s32 	%r10, %r7;
+	bra.uni 	$Lt_2_2306;
+$Lt_2_2562:
+	ld.global.s32 	%r9, [%rd7+0];
+	mov.s32 	%r10, %r8;
+$Lt_2_2306:
+	st.global.v2.s32 	[%rd4+0], {%r9,%r10};
+$LBB7__Z10reduceMinDI4int2EvPT_ii:
+	.loc	14	62	0
+	exit;
+$LDWend__Z10reduceMinDI4int2EvPT_ii:
+	} // _Z10reduceMinDI4int2EvPT_ii
+	.extern	.shared .align 8 .b8 sData[];
+
+	.entry _Z14calDifferenceDI4int2EvPT_Pfi (
+		.param .u64 __cudaparm__Z14calDifferenceDI4int2EvPT_Pfi_dData,
+		.param .u64 __cudaparm__Z14calDifferenceDI4int2EvPT_Pfi_dDiffData,
+		.param .s32 __cudaparm__Z14calDifferenceDI4int2EvPT_Pfi_size)
+	{
+	.reg .u32 %r<16>;
+	.reg .u64 %rd<13>;
+	.reg .f32 %f<4>;
+	.reg .pred %p<4>;
+	.loc	14	76	0
+$LDWbegin__Z14calDifferenceDI4int2EvPT_Pfi:
+	cvt.u32.u16 	%r1, %ntid.x;
+	cvt.u32.u16 	%r2, %ctaid.x;
+	mul.lo.u32 	%r3, %r2, %r1;
+	cvt.u32.u16 	%r4, %tid.x;
+	add.u32 	%r5, %r3, %r4;
+	ld.param.s32 	%r6, [__cudaparm__Z14calDifferenceDI4int2EvPT_Pfi_size];
+	sub.s32 	%r7, %r6, 1;
+	setp.le.s32 	%p1, %r5, %r7;
+	@%p1 bra 	$Lt_3_1794;
+	bra.uni 	$LBB7__Z14calDifferenceDI4int2EvPT_Pfi;
+$Lt_3_1794:
+	.loc	14	87	0
+	cvt.s64.s32 	%rd1, %r5;
+	mov.u64 	%rd2, sData;
+	cvt.u64.u32 	%rd3, %r4;
+	mul.wide.u32 	%rd4, %r4, 8;
+	add.u64 	%rd5, %rd2, %rd4;
+	ld.param.u64 	%rd6, [__cudaparm__Z14calDifferenceDI4int2EvPT_Pfi_dData];
+	mul.wide.s32 	%rd7, %r5, 8;
+	add.u64 	%rd8, %rd6, %rd7;
+	ld.global.v2.s32 	{%r8,%r9}, [%rd8+0];
+	st.shared.s32 	[%rd5+0], %r8;
+	st.shared.s32 	[%rd5+4], %r9;
+	.loc	14	89	0
+	bar.sync 	0;
+	ld.param.u64 	%rd9, [__cudaparm__Z14calDifferenceDI4int2EvPT_Pfi_dDiffData];
+	mul.wide.s32 	%rd10, %r5, 4;
+	add.u64 	%rd11, %rd9, %rd10;
+	sub.u32 	%r10, %r1, 1;
+	setp.ge.u32 	%p2, %r4, %r10;
+	@%p2 bra 	$Lt_3_2562;
+	.loc	14	92	0
+	ld.shared.s32 	%r11, [%rd5+12];
+	ld.shared.s32 	%r12, [%rd5+4];
+	sub.s32 	%r13, %r11, %r12;
+	abs.s32 	%r14, %r13;
+	cvt.rn.f32.s32 	%f1, %r14;
+	st.global.f32 	[%rd11+0], %f1;
+	bra.uni 	$LBB7__Z14calDifferenceDI4int2EvPT_Pfi;
+$Lt_3_2562:
+	.loc	14	94	0
+	mov.f32 	%f2, 0f00000000;     	// 0
+	st.global.f32 	[%rd11+0], %f2;
+$LBB7__Z14calDifferenceDI4int2EvPT_Pfi:
+	.loc	14	96	0
+	exit;
+$LDWend__Z14calDifferenceDI4int2EvPT_Pfi:
+	} // _Z14calDifferenceDI4int2EvPT_Pfi
+
+	.entry _Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii (
+		.param .u64 __cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_dDatas,
+		.param .s32 __cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_number,
+		.param .u64 __cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_dSliceCounts,
+		.param .u64 __cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_dOffsetInSlice,
+		.param .f32 __cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_minValue,
+		.param .f32 __cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_step,
+		.param .s32 __cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_sliceSize,
+		.param .s32 __cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_blockCount)
+	{
+	.reg .u32 %rv1;
+	.reg .u32 %r<14>;
+	.reg .u64 %rd<13>;
+	.reg .f32 %f<7>;
+	.reg .pred %p<3>;
+	.loc	14	186	0
+$LDWbegin__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii:
+	ld.param.s32 	%r1, [__cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_blockCount];
+	cvt.u32.u16 	%r2, %tid.x;
+	mul.lo.u32 	%r3, %r1, %r2;
+	cvt.u32.u16 	%r4, %ctaid.x;
+	add.u32 	%r5, %r4, %r3;
+	ld.param.s32 	%r6, [__cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_number];
+	sub.u32 	%r7, %r6, 1;
+	setp.le.u32 	%p1, %r5, %r7;
+	@%p1 bra 	$Lt_4_1026;
+	bra.uni 	$LBB4__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii;
+$Lt_4_1026:
+	.loc	14	193	0
+	cvt.u64.u32 	%rd1, %r5;
+	ld.param.u64 	%rd2, [__cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_dDatas];
+	mul.wide.u32 	%rd3, %r5, 8;
+	add.u64 	%rd4, %rd2, %rd3;
+	ld.global.s32 	%r8, [%rd4+4];
+	.loc	14	195	0
+	ld.param.u64 	%rd5, [__cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_dSliceCounts];
+	cvt.rn.f32.s32 	%f1, %r8;
+	ld.param.f32 	%f2, [__cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_minValue];
+	sub.f32 	%f3, %f1, %f2;
+	ld.param.f32 	%f4, [__cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_step];
+	div.approx.f32 	%f5, %f3, %f4;
+	cvt.rzi.u32.f32 	%r9, %f5;
+	cvt.u64.u32 	%rd6, %r9;
+	mul.wide.u32 	%rd7, %r9, 4;
+	add.u64 	%rd8, %rd5, %rd7;
+	mov.u32 	%r10, 268435455;
+	atom.global.inc.u32 	%r11, [%rd8], %r10;
+	mov.s32 	%r12, %r11;
+	.loc	14	197	0
+	ld.param.u64 	%rd9, [__cudaparm__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii_dOffsetInSlice];
+	mul.wide.u32 	%rd10, %r5, 4;
+	add.u64 	%rd11, %rd9, %rd10;
+	st.global.u32 	[%rd11+0], %r12;
+$LBB4__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii:
+	.loc	14	199	0
+	exit;
+$LDWend__Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii:
+	} // _Z34assignElementToSlicesNearlySortedDI4int2EvPT_iPjS3_ffii
+
+	.entry _Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi (
+		.param .u64 __cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_dDatas,
+		.param .s32 __cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_number,
+		.param .u64 __cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_dSliceCounts,
+		.param .u64 __cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_dOffsetInSlice,
+		.param .f32 __cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_minValue,
+		.param .f32 __cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_step,
+		.param .s32 __cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_sliceSize)
+	{
+	.reg .u32 %rv1;
+	.reg .u32 %r<14>;
+	.reg .u64 %rd<13>;
+	.reg .f32 %f<7>;
+	.reg .pred %p<3>;
+	.loc	14	170	0
+$LDWbegin__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi:
+	cvt.s32.u16 	%r1, %ctaid.x;
+	cvt.s32.u16 	%r2, %ntid.x;
+	mul24.lo.s32 	%r3, %r1, %r2;
+	cvt.u32.u16 	%r4, %tid.x;
+	add.u32 	%r5, %r3, %r4;
+	ld.param.s32 	%r6, [__cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_number];
+	sub.u32 	%r7, %r6, 1;
+	setp.le.u32 	%p1, %r5, %r7;
+	@%p1 bra 	$Lt_5_1026;
+	bra.uni 	$LBB4__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi;
+$Lt_5_1026:
+	.loc	14	177	0
+	cvt.u64.u32 	%rd1, %r5;
+	ld.param.u64 	%rd2, [__cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_dDatas];
+	mul.wide.u32 	%rd3, %r5, 8;
+	add.u64 	%rd4, %rd2, %rd3;
+	ld.global.s32 	%r8, [%rd4+4];
+	.loc	14	179	0
+	ld.param.u64 	%rd5, [__cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_dSliceCounts];
+	cvt.rn.f32.s32 	%f1, %r8;
+	ld.param.f32 	%f2, [__cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_minValue];
+	sub.f32 	%f3, %f1, %f2;
+	ld.param.f32 	%f4, [__cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_step];
+	div.approx.f32 	%f5, %f3, %f4;
+	cvt.rzi.u32.f32 	%r9, %f5;
+	cvt.u64.u32 	%rd6, %r9;
+	mul.wide.u32 	%rd7, %r9, 4;
+	add.u64 	%rd8, %rd5, %rd7;
+	mov.u32 	%r10, 268435455;
+	atom.global.inc.u32 	%r11, [%rd8], %r10;
+	mov.s32 	%r12, %r11;
+	.loc	14	181	0
+	ld.param.u64 	%rd9, [__cudaparm__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi_dOffsetInSlice];
+	mul.wide.u32 	%rd10, %r5, 4;
+	add.u64 	%rd11, %rd9, %rd10;
+	st.global.u32 	[%rd11+0], %r12;
+$LBB4__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi:
+	.loc	14	183	0
+	exit;
+$LDWend__Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi:
+	} // _Z22assignElementToSlicesDI4int2EvPT_iPjS3_ffi
+	.tex .u64 tBucketOffsets;
+	.tex .u64 tBucketOfSlices;
+	.tex .u64 tSliceOffsetInBucket;
+
+	.entry _Z22assignElementToBucketDI4int2EvPT_S2_iPjff (
+		.param .u64 __cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_dDatas,
+		.param .u64 __cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_dNewDatas,
+		.param .s32 __cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_number,
+		.param .u64 __cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_dOffsetInSlice,
+		.param .f32 __cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_minValue,
+		.param .f32 __cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_step)
+	{
+	.reg .u32 %r<52>;
+	.reg .u64 %rd<13>;
+	.reg .f32 %f<7>;
+	.reg .pred %p<3>;
+	.loc	14	202	0
+$LDWbegin__Z22assignElementToBucketDI4int2EvPT_S2_iPjff:
+	cvt.s32.u16 	%r1, %ctaid.x;
+	cvt.s32.u16 	%r2, %ntid.x;
+	mul24.lo.s32 	%r3, %r1, %r2;
+	cvt.u32.u16 	%r4, %tid.x;
+	add.u32 	%r5, %r3, %r4;
+	ld.param.s32 	%r6, [__cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_number];
+	sub.u32 	%r7, %r6, 1;
+	setp.le.u32 	%p1, %r5, %r7;
+	@%p1 bra 	$Lt_6_1026;
+	bra.uni 	$LBB7__Z22assignElementToBucketDI4int2EvPT_S2_iPjff;
+$Lt_6_1026:
+	.loc	14	210	0
+	cvt.u64.u32 	%rd1, %r5;
+	ld.param.u64 	%rd2, [__cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_dDatas];
+	mul.wide.u32 	%rd3, %r5, 8;
+	add.u64 	%rd4, %rd2, %rd3;
+	ld.global.s32 	%r8, [%rd4+4];
+	.loc	14	212	0
+	cvt.rn.f32.s32 	%f1, %r8;
+	ld.param.f32 	%f2, [__cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_minValue];
+	sub.f32 	%f3, %f1, %f2;
+	ld.param.f32 	%f4, [__cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_step];
+	div.approx.f32 	%f5, %f3, %f4;
+	cvt.rzi.u32.f32 	%r9, %f5;
+	mov.u32 	%r10, %r9;
+	mov.s32 	%r11, 0;
+	mov.u32 	%r12, %r11;
+	mov.s32 	%r13, 0;
+	mov.u32 	%r14, %r13;
+	mov.s32 	%r15, 0;
+	mov.u32 	%r16, %r15;
+	tex.1d.v4.u32.s32 {%r17,%r18,%r19,%r20},[tBucketOfSlices,{%r10,%r12,%r14,%r16}];
+	mov.s32 	%r21, %r17;
+	.loc	14	214	0
+	mov.u32 	%r22, %r21;
+	mov.s32 	%r23, 0;
+	mov.u32 	%r24, %r23;
+	mov.s32 	%r25, 0;
+	mov.u32 	%r26, %r25;
+	mov.s32 	%r27, 0;
+	mov.u32 	%r28, %r27;
+	tex.1d.v4.u32.s32 {%r29,%r30,%r31,%r32},[tBucketOffsets,{%r22,%r24,%r26,%r28}];
+	mov.s32 	%r33, %r29;
+	mov.u32 	%r34, %r9;
+	mov.s32 	%r35, 0;
+	mov.u32 	%r36, %r35;
+	mov.s32 	%r37, 0;
+	mov.u32 	%r38, %r37;
+	mov.s32 	%r39, 0;
+	mov.u32 	%r40, %r39;
+	tex.1d.v4.u32.s32 {%r41,%r42,%r43,%r44},[tSliceOffsetInBucket,{%r34,%r36,%r38,%r40}];
+	mov.s32 	%r45, %r41;
+	ld.param.u64 	%rd5, [__cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_dOffsetInSlice];
+	mul.lo.u64 	%rd6, %rd1, 4;
+	add.u64 	%rd7, %rd5, %rd6;
+	ld.global.u32 	%r46, [%rd7+0];
+	add.u32 	%r47, %r33, %r45;
+	add.u32 	%r48, %r46, %r47;
+	.loc	14	216	0
+	ld.param.u64 	%rd8, [__cudaparm__Z22assignElementToBucketDI4int2EvPT_S2_iPjff_dNewDatas];
+	cvt.u64.u32 	%rd9, %r48;
+	mul.wide.u32 	%rd10, %r48, 8;
+	add.u64 	%rd11, %rd8, %rd10;
+	ld.global.v2.s32 	{%r49,%r50}, [%rd4+0];
+	st.global.v2.s32 	[%rd11+0], {%r49,%r50};
+$LBB7__Z22assignElementToBucketDI4int2EvPT_S2_iPjff:
+	.loc	14	218	0
+	exit;
+$LDWend__Z22assignElementToBucketDI4int2EvPT_S2_iPjff:
+	} // _Z22assignElementToBucketDI4int2EvPT_S2_iPjff
+	.extern	.shared .align 8 .b8 shared[];
+	.tex .u64 tBucketSizes;
+
+	.entry _Z12bitonicSortDI4int2EvPT_ (
+		.param .u64 __cudaparm__Z12bitonicSortDI4int2EvPT__datas)
+	{
+	.reg .u32 %r<57>;
+	.reg .u64 %rd<17>;
+	.reg .pred %p<12>;
+	.shared .u32 __cuda_local_var_15845_39_non_const_count;
+	.shared .u32 __cuda_local_var_15846_39_non_const_offset;
+	.loc	14	108	0
+$LDWbegin__Z12bitonicSortDI4int2EvPT_:
+	cvt.u32.u16 	%r1, %tid.x;
+	mov.u32 	%r2, 0;
+	setp.ne.u32 	%p1, %r1, %r2;
+	@%p1 bra 	$Lt_7_7682;
+	.loc	14	121	0
+	cvt.u32.u16 	%r3, %ctaid.x;
+	mov.u32 	%r4, %r3;
+	mov.s32 	%r5, 0;
+	mov.u32 	%r6, %r5;
+	mov.s32 	%r7, 0;
+	mov.u32 	%r8, %r7;
+	mov.s32 	%r9, 0;
+	mov.u32 	%r10, %r9;
+	tex.1d.v4.u32.s32 {%r11,%r12,%r13,%r14},[tBucketSizes,{%r4,%r6,%r8,%r10}];
+	mov.s32 	%r15, %r11;
+	st.shared.u32 	[__cuda_local_var_15845_39_non_const_count], %r15;
+	.loc	14	122	0
+	mov.u32 	%r16, %r3;
+	mov.s32 	%r17, 0;
+	mov.u32 	%r18, %r17;
+	mov.s32 	%r19, 0;
+	mov.u32 	%r20, %r19;
+	mov.s32 	%r21, 0;
+	mov.u32 	%r22, %r21;
+	tex.1d.v4.u32.s32 {%r23,%r24,%r25,%r26},[tBucketOffsets,{%r16,%r18,%r20,%r22}];
+	mov.s32 	%r27, %r23;
+	st.shared.u32 	[__cuda_local_var_15846_39_non_const_offset], %r27;
+$Lt_7_7682:
+	.loc	14	125	0
+	bar.sync 	0;
+	mov.u64 	%rd1, shared;
+	cvt.u64.u32 	%rd2, %r1;
+	mul.wide.u32 	%rd3, %r1, 8;
+	add.u64 	%rd4, %rd1, %rd3;
+	ld.shared.u32 	%r28, [__cuda_local_var_15845_39_non_const_count];
+	setp.le.u32 	%p2, %r28, %r1;
+	@%p2 bra 	$Lt_7_8450;
+	.loc	14	128	0
+	ld.param.u64 	%rd5, [__cudaparm__Z12bitonicSortDI4int2EvPT__datas];
+	ld.shared.u32 	%r29, [__cuda_local_var_15846_39_non_const_offset];
+	add.u32 	%r30, %r29, %r1;
+	cvt.u64.u32 	%rd6, %r30;
+	mul.wide.u32 	%rd7, %r30, 8;
+	add.u64 	%rd8, %rd5, %rd7;
+	ld.global.v2.s32 	{%r31,%r32}, [%rd8+0];
+	st.shared.s32 	[%rd4+0], %r31;
+	st.shared.s32 	[%rd4+4], %r32;
+	bra.uni 	$Lt_7_8194;
+$Lt_7_8450:
+	.loc	14	33	0
+	mov.s32 	%r33, 1073741823;
+	st.shared.s32 	[%rd4+0], %r33;
+	.loc	14	34	0
+	mov.s32 	%r34, 1342177279;
+	st.shared.s32 	[%rd4+4], %r34;
+$Lt_7_8194:
+	.loc	14	134	0
+	bar.sync 	0;
+	mov.u32 	%r35, 2;
+$Lt_7_9218:
+ //<loop> Loop body line 134, nesting depth: 1, estimated iterations: unknown
+	.loc	14	138	0
+	shr.u32 	%r36, %r35, 1;
+	mov.s32 	%r37, %r36;
+	mov.u32 	%r38, 0;
+	setp.eq.u32 	%p3, %r36, %r38;
+	@%p3 bra 	$Lt_7_9474;
+$Lt_7_9986:
+	xor.b32 	%r39, %r37, %r1;
+	setp.le.u32 	%p4, %r39, %r1;
+	@%p4 bra 	$Lt_7_11778;
+	ld.shared.s32 	%r40, [%rd4+4];
+	cvt.u64.u32 	%rd9, %r39;
+	mul.wide.u32 	%rd10, %r39, 8;
+	add.u64 	%rd11, %rd1, %rd10;
+	ld.shared.s32 	%r41, [%rd11+4];
+	and.b32 	%r42, %r35, %r1;
+	mov.u32 	%r43, 0;
+	setp.ne.u32 	%p5, %r42, %r43;
+	.loc	14	149	0
+	ld.shared.s32 	%r44, [%rd4+0];
+	.loc	14	138	0
+	@%p5 bra 	$Lt_7_11010;
+	ld.shared.s32 	%r41, [%rd11+4];
+	ld.shared.s32 	%r40, [%rd4+4];
+	.loc	14	147	0
+	setp.ge.s32 	%p6, %r41, %r40;
+	@%p6 bra 	$Lt_7_11778;
+	.loc	14	149	0
+	ld.shared.s32 	%r45, [%rd11+0];
+	st.shared.s32 	[%rd4+0], %r45;
+	ld.shared.s32 	%r46, [%rd11+4];
+	st.shared.s32 	[%rd4+4], %r46;
+	st.shared.s32 	[%rd11+0], %r44;
+	st.shared.s32 	[%rd11+4], %r40;
+	bra.uni 	$Lt_7_11778;
+$Lt_7_11010:
+	.loc	14	138	0
+	ld.shared.s32 	%r41, [%rd11+4];
+	ld.shared.s32 	%r40, [%rd4+4];
+	.loc	14	154	0
+	setp.le.s32 	%p7, %r41, %r40;
+	@%p7 bra 	$Lt_7_11778;
+	.loc	14	156	0
+	ld.shared.s32 	%r47, [%rd11+0];
+	st.shared.s32 	[%rd4+0], %r47;
+	ld.shared.s32 	%r48, [%rd11+4];
+	st.shared.s32 	[%rd4+4], %r48;
+	st.shared.s32 	[%rd11+0], %r44;
+	st.shared.s32 	[%rd11+4], %r40;
+$Lt_7_11778:
+$Lt_7_10754:
+$Lt_7_10242:
+	.loc	14	161	0
+	bar.sync 	0;
+	.loc	14	138	0
+	shr.u32 	%r37, %r37, 1;
+	mov.u32 	%r49, 0;
+	setp.ne.u32 	%p8, %r37, %r49;
+	@%p8 bra 	$Lt_7_9986;
+$Lt_7_9474:
+	.loc	14	136	0
+	mul.lo.u32 	%r35, %r35, 2;
+	mov.u32 	%r50, 512;
+	setp.le.u32 	%p9, %r35, %r50;
+	@%p9 bra 	$Lt_7_9218;
+	ld.shared.u32 	%r51, [__cuda_local_var_15845_39_non_const_count];
+	setp.le.u32 	%p10, %r51, %r1;
+	@%p10 bra 	$Lt_7_12802;
+	.loc	14	165	0
+	ld.param.u64 	%rd12, [__cudaparm__Z12bitonicSortDI4int2EvPT__datas];
+	ld.shared.u32 	%r52, [__cuda_local_var_15846_39_non_const_offset];
+	add.u32 	%r53, %r52, %r1;
+	cvt.u64.u32 	%rd13, %r53;
+	mul.wide.u32 	%rd14, %r53, 8;
+	add.u64 	%rd15, %rd12, %rd14;
+	ld.shared.s32 	%r54, [%rd4+0];
+	ld.shared.s32 	%r55, [%rd4+4];
+	st.global.v2.s32 	[%rd15+0], {%r54,%r55};
+$Lt_7_12802:
+	.loc	14	166	0
+	exit;
+$LDWend__Z12bitonicSortDI4int2EvPT_:
+	} // _Z12bitonicSortDI4int2EvPT_
+

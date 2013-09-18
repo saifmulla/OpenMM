@@ -1,0 +1,1 @@
+/usr/bin/g++   -g3 -gdwarf-2    CMakeFiles/TestOpenCLEwald.dir/TestOpenCLEwald.cpp.o  -o ../../../TestOpenCLEwald -rdynamic ../../../libOpenMMOpenCL_d.so ../../../libOpenMM_d.so -ldl -lOpenCL -lpthread -Wl,-rpath,/home/saifmulla/openmm/OpenMM 

@@ -1,0 +1,908 @@
+# 272 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod {
+# 274 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+NO_CUTOFF,
+# 275 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+CUTOFF,
+# 276 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+PERIODIC,
+# 277 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+EWALD,
+# 278 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+PARTICLE_MESH_EWALD};
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+enum CudaFreeEnergyNonbondedMethod {
+# 46 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+FREE_ENERGY_NO_CUTOFF,
+# 47 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+FREE_ENERGY_CUTOFF,
+# 48 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+FREE_ENERGY_PERIODIC};
+# 294 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct cudaGmxSimulation;
+# 51 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+struct cudaFreeEnergyGmxSimulation;
+# 211 "/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" 3
+typedef unsigned long size_t;
+#include "crt/device_runtime.h"
+# 60 "/usr/local/cuda-5.0/include/cuComplex.h"
+typedef struct float2 cuFloatComplex;
+# 282 "/usr/local/cuda-5.0/include/cuComplex.h"
+typedef cuFloatComplex cuComplex;
+# 100 "/usr/local/cuda-5.0/include/cufft.h"
+typedef cuComplex cufftComplex;
+# 294 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct cudaGmxSimulation {
+# 296 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned atoms;
+# 297 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned paddedNumberOfAtoms;
+# 298 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned blocks;
+# 299 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned blocksPerSM;
+# 300 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_blocks;
+# 301 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_blocks;
+# 302 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned interaction_blocks;
+# 303 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned threads_per_block;
+# 304 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_threads_per_block;
+# 305 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_threads_per_block;
+# 306 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_update_threads_per_block;
+# 307 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned update_threads_per_block;
+# 308 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf_reduce_threads_per_block;
+# 309 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bsf_reduce_threads_per_block;
+# 310 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_shake_threads_per_block;
+# 311 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned shake_threads_per_block;
+# 312 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned settle_threads_per_block;
+# 313 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ccma_threads_per_block;
+# 314 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned max_localForces_threads_per_block;
+# 315 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned localForces_threads_per_block;
+# 316 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned random_threads_per_block;
+# 317 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned interaction_threads_per_block;
+# 318 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned custom_exception_threads_per_block;
+# 319 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExpressionStackSize;
+# 320 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned workUnits;
+# 321 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pWorkUnit;
+# 322 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pInteractingWorkUnit;
+# 323 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pInteractionFlag;
+# 324 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pStepSize;
+# 325 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pLangevinParameters;
+# 326 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float errorTol;
+# 327 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+size_t *pInteractionCount;
+# 328 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbond_workBlock;
+# 329 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bornForce2_workBlock;
+# 330 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned workUnitsPerSM;
+# 331 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nbWorkUnitsPerBlock;
+# 332 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nbWorkUnitsPerBlockRemainder;
+# 333 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf2WorkUnitsPerBlock;
+# 334 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bf2WorkUnitsPerBlockRemainder;
+# 337 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride;
+# 338 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride2;
+# 339 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride3;
+# 340 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned stride4;
+# 341 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned nonbondOutputBuffers;
+# 342 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned outputBuffers;
+# 343 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned energyOutputBuffers;
+# 344 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float bigFloat;
+# 345 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float epsfac;
+# 346 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod nonbondedMethod;
+# 347 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+enum CudaNonbondedMethod customNonbondedMethod;
+# 348 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float nonbondedCutoff;
+# 349 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float nonbondedCutoffSqr;
+# 350 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeX;
+# 351 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeY;
+# 352 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float periodicBoxSizeZ;
+# 353 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeX;
+# 354 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeY;
+# 355 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float invPeriodicBoxSizeZ;
+# 356 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeX;
+# 357 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeY;
+# 358 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float recipBoxSizeZ;
+# 359 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float cellVolume;
+# 360 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float alphaEwald;
+# 361 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float factorEwald;
+# 362 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxX;
+# 363 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxY;
+# 364 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int kmaxZ;
+# 365 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float reactionFieldK;
+# 366 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float reactionFieldC;
+# 367 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float probeRadius;
+# 368 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float surfaceAreaFactor;
+# 369 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float electricConstant;
+# 370 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float forceConversionFactor;
+# 371 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float preFactor;
+# 372 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float dielectricOffset;
+# 373 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float alphaOBC;
+# 374 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float betaOBC;
+# 375 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gammaOBC;
+# 376 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float deltaT;
+# 377 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float oneOverDeltaT;
+# 378 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float T;
+# 379 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float kT;
+# 380 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float noiseAmplitude;
+# 381 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tau;
+# 382 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tauDeltaT;
+# 383 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float collisionFrequency;
+# 384 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pObcData;
+# 385 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int gbviBornRadiusScalingMethod;
+# 386 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gbviQuinticLowerLimitFactor;
+# 387 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float gbviQuinticUpperBornRadiusLimit;
+# 388 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGBVIData;
+# 389 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pGBVISwitchDerivative;
+# 390 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pAttr;
+# 391 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomParams;
+# 392 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExceptions;
+# 393 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customParameters;
+# 394 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomBondID;
+# 395 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomBondParams;
+# 396 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customBonds;
+# 397 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customBondParameters;
+# 398 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomAngleID1;
+# 399 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pCustomAngleID2;
+# 400 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomAngleParams;
+# 401 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customAngles;
+# 402 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customAngleParameters;
+# 403 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomTorsionID1;
+# 404 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pCustomTorsionID2;
+# 405 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomTorsionParams;
+# 406 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customTorsions;
+# 407 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customTorsionParameters;
+# 408 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCustomExternalID;
+# 409 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCustomExternalParams;
+# 410 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExternals;
+# 411 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned customExternalParameters;
+# 412 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pTabulatedFunctionCoefficients[4];
+# 413 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pTabulatedFunctionParams;
+# 414 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pEwaldCosSinSum;
+# 415 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pTabulatedErfc;
+# 416 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int tabulatedErfcSize;
+# 417 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float tabulatedErfcScale;
+# 418 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int3 pmeGridSize;
+# 419 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int3 pmeGroupSize;
+# 420 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+cufftComplex *pPmeGrid;
+# 421 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pPmeBsplineModuli[3];
+# 422 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPmeBsplineTheta;
+# 423 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPmeBsplineDtheta;
+# 424 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pPmeAtomRange;
+# 425 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pPmeAtomGridIndex;
+# 426 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bonds;
+# 427 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pBondID;
+# 428 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pBondParameter;
+# 429 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_angles;
+# 430 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pBondAngleID1;
+# 431 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pBondAngleID2;
+# 432 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pBondAngleParameter;
+# 433 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned dihedrals;
+# 434 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pDihedralID1;
+# 435 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pDihedralID2;
+# 436 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pDihedralParameter;
+# 437 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rb_dihedrals;
+# 438 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pRbDihedralID1;
+# 439 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pRbDihedralID2;
+# 440 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pRbDihedralParameter1;
+# 441 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pRbDihedralParameter2;
+# 442 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned LJ14s;
+# 443 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pLJ14ID;
+# 444 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pLJ14Parameter;
+# 445 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float inverseTotalMass;
+# 446 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ShakeConstraints;
+# 447 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned settleConstraints;
+# 448 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned ccmaConstraints;
+# 449 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rigidClusters;
+# 450 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned maxRigidClusterSize;
+# 451 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned clusterShakeBlockSize;
+# 452 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned maxShakeIterations;
+# 453 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned degreesOfFreedom;
+# 454 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float shakeTolerance;
+# 455 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float InvMassJ;
+# 456 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pNonShakeID;
+# 457 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pShakeID;
+# 458 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pShakeParameter;
+# 459 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int4 *pSettleID;
+# 460 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pSettleParameter;
+# 461 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pExclusion;
+# 462 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pExclusionIndex;
+# 463 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_offset;
+# 464 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned bond_angle_offset;
+# 465 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned dihedral_offset;
+# 466 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned rb_dihedral_offset;
+# 467 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned LJ14_offset;
+# 468 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pAtomIndex;
+# 469 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGridBoundingBox;
+# 470 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pGridCenter;
+# 471 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct int2 *pCcmaAtoms;
+# 472 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pCcmaDistance;
+# 473 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaDelta1;
+# 474 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaDelta2;
+# 475 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCcmaAtomConstraints;
+# 476 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pCcmaNumAtomConstraints;
+# 477 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *ccmaConvergedDeviceMarker;
+# 478 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pCcmaReducedMass;
+# 479 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned *pConstraintMatrixColumn;
+# 480 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pConstraintMatrixValue;
+# 483 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPosq;
+# 484 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pPosqP;
+# 485 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pOldPosq;
+# 486 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pVelm4;
+# 487 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pForce4;
+# 488 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pEnergy;
+# 489 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornForce;
+# 490 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornSum;
+# 491 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pBornRadii;
+# 492 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+float *pObcChain;
+# 493 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pLinearMomentum;
+# 496 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float4 *pRandom4;
+# 497 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct float2 *pRandom2;
+# 498 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+struct uint4 *pRandomSeed;
+# 499 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+int *pRandomPosition;
+# 500 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randoms;
+# 501 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned totalRandoms;
+# 502 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randomIterations;
+# 503 "/home/saifmulla/openmm/OpenMM/platforms/cuda/src/kernels/cudatypes.h"
+unsigned randomFrames;};
+# 51 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+struct cudaFreeEnergyGmxSimulation {
+# 55 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+unsigned LJ14_count;
+# 56 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+struct int4 *pLJ14ID;
+# 57 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+struct float4 *pLJ14Parameter;
+# 59 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float epsfac;
+# 60 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+enum CudaFreeEnergyNonbondedMethod nonbondedMethod;
+# 61 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float nonbondedCutoff;
+# 62 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float nonbondedCutoffSqr;
+# 64 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float periodicBoxSizeX;
+# 65 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float periodicBoxSizeY;
+# 66 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float periodicBoxSizeZ;
+# 68 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float invPeriodicBoxSizeX;
+# 69 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float invPeriodicBoxSizeY;
+# 70 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float invPeriodicBoxSizeZ;
+# 72 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float recipBoxSizeX;
+# 73 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float recipBoxSizeY;
+# 74 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float recipBoxSizeZ;
+# 76 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float cellVolume;
+# 78 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float reactionFieldK;
+# 79 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float reactionFieldC;
+# 80 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+struct float4 *pSigEps4;
+# 82 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+int bornRadiiScalingMethod;
+# 83 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float quinticLowerLimitFactor;
+# 84 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float quinticUpperLimit;
+# 85 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float *pSwitchDerivative;
+# 87 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//freeEnergyCudaTypes.h"
+float *pNonPolarScalingFactors;};
+#if !defined(__CUDABE__)
+# 7358 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) float sqrtf(float);
+#endif
+#if !defined(__CUDABE__)
+# 7489 "/usr/local/cuda-5.0/include/math_functions.h"
+ __device_builtin__ ___device__(extern  __no_sc__) __attribute__((__const__)) float floorf(float);
+#endif
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__global__ __var_used__ extern void _Z36kCalculateLocalSoftcoreForces_kernelv(void);
+# 35 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+static  __constant__  __var_used__ struct cudaGmxSimulation cSim;
+# 36 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+static  __constant__  __var_used__ struct cudaFreeEnergyGmxSimulation feSim;
+# 37 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv117__class_type_infoE[1];
+# 38 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+static  __device__  __var_used__ const long _ZTVN10__cxxabiv120__si_class_type_infoE[1];
+#include "common_functions.h"
+# 40 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+static  __device__  __var_used__ const long _ZTVSt9exception[5] = {0L,0L,0L,0L,0L};
+# 41 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+static  __device__  __var_used__ const long _ZTVN6OpenMM15OpenMMExceptionE[5] = {0L,0L,0L,0L,0L};
+# 42 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+static  __device__  __var_used__ const long _ZTV15SoADeviceObject[6] = {0L,0L,0L,0L,0L,0L};
+# 43 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+static  __device__  __var_used__ const long _ZTV10CUDAStreamI4int4E[8] = {0L,0L,0L,0L,0L,0L,0L,0L};
+# 44 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+static  __device__  __var_used__ const long _ZTV10CUDAStreamI6float4E[8] = {0L,0L,0L,0L,0L,0L,0L,0L};
+#if !defined(__CUDABE__)
+#endif
+#if !defined(__CUDABE__)
+#endif
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__global__ __var_used__ void _Z36kCalculateLocalSoftcoreForces_kernelv(void){
+# 123 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 124 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 125 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ unsigned __cuda_local_var_41257_18_non_const_pos;
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41259_11_non_const_energy;
+# 125 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41257_18_non_const_pos = (((blockIdx.x) * (blockDim.x)) + (threadIdx.x));
+# 127 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41259_11_non_const_energy = (0.0F);
+# 129 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+if (((int)(feSim.nonbondedMethod)) == 0)
+# 130 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 131 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+while (__cuda_local_var_41257_18_non_const_pos < (feSim.LJ14_count))
+# 132 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct int4 __cuda_local_var_41265_18_non_const_atom;
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41266_20_non_const_LJ14;
+# 136 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41268_20_non_const_a1;
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41269_20_non_const_a2;
+# 139 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float3 __cuda_local_var_41271_20_non_const_d;
+# 144 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41276_19_non_const_r2;
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41277_19_non_const_inverseR;
+# 151 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41283_19_non_const_sig2;
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41285_19_non_const_sig6;
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41286_19_non_const_dEdR;
+# 160 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ unsigned __cuda_local_var_41292_26_non_const_offsetA;
+# 161 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ unsigned __cuda_local_var_41293_26_non_const_offsetB;
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41294_20_non_const_forceA;
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41295_20_non_const_forceB;
+# 133 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41265_18_non_const_atom = ((feSim.pLJ14ID)[__cuda_local_var_41257_18_non_const_pos]);
+# 134 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41266_20_non_const_LJ14 = ((feSim.pLJ14Parameter)[__cuda_local_var_41257_18_non_const_pos]);
+# 136 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41268_20_non_const_a1 = ((cSim.pPosq)[(__cuda_local_var_41265_18_non_const_atom.x)]);
+# 137 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41269_20_non_const_a2 = ((cSim.pPosq)[(__cuda_local_var_41265_18_non_const_atom.y)]);
+# 140 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41271_20_non_const_d.x) = ((__cuda_local_var_41268_20_non_const_a1.x) - (__cuda_local_var_41269_20_non_const_a2.x));
+# 141 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41271_20_non_const_d.y) = ((__cuda_local_var_41268_20_non_const_a1.y) - (__cuda_local_var_41269_20_non_const_a2.y));
+# 142 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41271_20_non_const_d.z) = ((__cuda_local_var_41268_20_non_const_a1.z) - (__cuda_local_var_41269_20_non_const_a2.z));
+# 144 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41276_19_non_const_r2 = ((((__cuda_local_var_41271_20_non_const_d.x) * (__cuda_local_var_41271_20_non_const_d.x)) + ((__cuda_local_var_41271_20_non_const_d.y) * (__cuda_local_var_41271_20_non_const_d.y))) + ((__cuda_local_var_41271_20_non_const_d.z) * (__cuda_local_var_41271_20_non_const_d.z)));
+# 145 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41277_19_non_const_inverseR = ((1.0F) / (sqrtf(__cuda_local_var_41276_19_non_const_r2)));
+# 151 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41283_19_non_const_sig2 = (__cuda_local_var_41277_19_non_const_inverseR * (__cuda_local_var_41266_20_non_const_LJ14.y));
+# 152 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41283_19_non_const_sig2 *= __cuda_local_var_41283_19_non_const_sig2;
+# 153 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41285_19_non_const_sig6 = ((__cuda_local_var_41283_19_non_const_sig2 * __cuda_local_var_41283_19_non_const_sig2) * __cuda_local_var_41283_19_non_const_sig2);
+# 154 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41286_19_non_const_dEdR = (((__cuda_local_var_41266_20_non_const_LJ14.x) * (((12.0F) * __cuda_local_var_41285_19_non_const_sig6) - (6.0F))) * __cuda_local_var_41285_19_non_const_sig6);
+# 155 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41259_11_non_const_energy += (((__cuda_local_var_41266_20_non_const_LJ14.x) * (__cuda_local_var_41285_19_non_const_sig6 - (1.0F))) * __cuda_local_var_41285_19_non_const_sig6);
+# 157 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41259_11_non_const_energy += ((__cuda_local_var_41266_20_non_const_LJ14.z) * __cuda_local_var_41277_19_non_const_inverseR);
+# 158 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41286_19_non_const_dEdR += ((__cuda_local_var_41266_20_non_const_LJ14.z) * __cuda_local_var_41277_19_non_const_inverseR);
+# 159 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41286_19_non_const_dEdR *= (__cuda_local_var_41277_19_non_const_inverseR * __cuda_local_var_41277_19_non_const_inverseR);
+# 160 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41292_26_non_const_offsetA = (((unsigned)(__cuda_local_var_41265_18_non_const_atom.x)) + (((unsigned)(__cuda_local_var_41265_18_non_const_atom.z)) * (cSim.stride)));
+# 161 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41293_26_non_const_offsetB = (((unsigned)(__cuda_local_var_41265_18_non_const_atom.y)) + (((unsigned)(__cuda_local_var_41265_18_non_const_atom.w)) * (cSim.stride)));
+# 162 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41294_20_non_const_forceA = ((cSim.pForce4)[__cuda_local_var_41292_26_non_const_offsetA]);
+# 163 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41295_20_non_const_forceB = ((cSim.pForce4)[__cuda_local_var_41293_26_non_const_offsetB]);
+# 164 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41271_20_non_const_d.x) *= __cuda_local_var_41286_19_non_const_dEdR;
+# 165 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41271_20_non_const_d.y) *= __cuda_local_var_41286_19_non_const_dEdR;
+# 166 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41271_20_non_const_d.z) *= __cuda_local_var_41286_19_non_const_dEdR;
+# 167 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41294_20_non_const_forceA.x) += (__cuda_local_var_41271_20_non_const_d.x);
+# 168 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41294_20_non_const_forceA.y) += (__cuda_local_var_41271_20_non_const_d.y);
+# 169 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41294_20_non_const_forceA.z) += (__cuda_local_var_41271_20_non_const_d.z);
+# 170 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41295_20_non_const_forceB.x) -= (__cuda_local_var_41271_20_non_const_d.x);
+# 171 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41295_20_non_const_forceB.y) -= (__cuda_local_var_41271_20_non_const_d.y);
+# 172 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41295_20_non_const_forceB.z) -= (__cuda_local_var_41271_20_non_const_d.z);
+# 173 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+((cSim.pForce4)[__cuda_local_var_41292_26_non_const_offsetA]) = __cuda_local_var_41294_20_non_const_forceA;
+# 174 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+((cSim.pForce4)[__cuda_local_var_41293_26_non_const_offsetB]) = __cuda_local_var_41295_20_non_const_forceB;
+# 175 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41257_18_non_const_pos += ((blockDim.x) * (gridDim.x));
+# 176 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+}
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+}
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+else 
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+if (((int)(feSim.nonbondedMethod)) == 1)
+# 178 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 179 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41311_15_non_const_LJ14_energy;
+# 180 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+while (__cuda_local_var_41257_18_non_const_pos < (feSim.LJ14_count))
+# 180 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 181 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct int4 __cuda_local_var_41313_18_non_const_atom;
+# 182 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41314_20_non_const_LJ14;
+# 183 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41315_20_non_const_a1;
+# 184 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41316_20_non_const_a2;
+# 185 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float3 __cuda_local_var_41317_20_non_const_d;
+# 189 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41321_19_non_const_r2;
+# 190 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41322_19_non_const_inverseR;
+# 194 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41326_19_non_const_sig2;
+# 196 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41328_19_non_const_sig6;
+# 197 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41329_19_non_const_dEdR;
+# 210 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ unsigned __cuda_local_var_41342_26_non_const_offsetA;
+# 211 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ unsigned __cuda_local_var_41343_26_non_const_offsetB;
+# 212 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41344_20_non_const_forceA;
+# 213 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41345_20_non_const_forceB;
+# 181 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41313_18_non_const_atom = ((feSim.pLJ14ID)[__cuda_local_var_41257_18_non_const_pos]);
+# 182 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41314_20_non_const_LJ14 = ((feSim.pLJ14Parameter)[__cuda_local_var_41257_18_non_const_pos]);
+# 183 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41315_20_non_const_a1 = ((cSim.pPosq)[(__cuda_local_var_41313_18_non_const_atom.x)]);
+# 184 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41316_20_non_const_a2 = ((cSim.pPosq)[(__cuda_local_var_41313_18_non_const_atom.y)]);
+# 186 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41317_20_non_const_d.x) = ((__cuda_local_var_41315_20_non_const_a1.x) - (__cuda_local_var_41316_20_non_const_a2.x));
+# 187 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41317_20_non_const_d.y) = ((__cuda_local_var_41315_20_non_const_a1.y) - (__cuda_local_var_41316_20_non_const_a2.y));
+# 188 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41317_20_non_const_d.z) = ((__cuda_local_var_41315_20_non_const_a1.z) - (__cuda_local_var_41316_20_non_const_a2.z));
+# 189 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41321_19_non_const_r2 = ((((__cuda_local_var_41317_20_non_const_d.x) * (__cuda_local_var_41317_20_non_const_d.x)) + ((__cuda_local_var_41317_20_non_const_d.y) * (__cuda_local_var_41317_20_non_const_d.y))) + ((__cuda_local_var_41317_20_non_const_d.z) * (__cuda_local_var_41317_20_non_const_d.z)));
+# 190 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41322_19_non_const_inverseR = ((1.0F) / (sqrtf(__cuda_local_var_41321_19_non_const_r2)));
+# 194 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41326_19_non_const_sig2 = (__cuda_local_var_41322_19_non_const_inverseR * (__cuda_local_var_41314_20_non_const_LJ14.y));
+# 195 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41326_19_non_const_sig2 *= __cuda_local_var_41326_19_non_const_sig2;
+# 196 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41328_19_non_const_sig6 = ((__cuda_local_var_41326_19_non_const_sig2 * __cuda_local_var_41326_19_non_const_sig2) * __cuda_local_var_41326_19_non_const_sig2);
+# 197 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41329_19_non_const_dEdR = (((__cuda_local_var_41314_20_non_const_LJ14.x) * (((12.0F) * __cuda_local_var_41328_19_non_const_sig6) - (6.0F))) * __cuda_local_var_41328_19_non_const_sig6);
+# 198 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41311_15_non_const_LJ14_energy = (((__cuda_local_var_41314_20_non_const_LJ14.x) * (__cuda_local_var_41328_19_non_const_sig6 - (1.0F))) * __cuda_local_var_41328_19_non_const_sig6);
+# 200 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41311_15_non_const_LJ14_energy += ((__cuda_local_var_41314_20_non_const_LJ14.z) * ((__cuda_local_var_41322_19_non_const_inverseR + ((cSim.reactionFieldK) * __cuda_local_var_41321_19_non_const_r2)) - (cSim.reactionFieldC)));
+# 201 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41329_19_non_const_dEdR += ((__cuda_local_var_41314_20_non_const_LJ14.z) * (__cuda_local_var_41322_19_non_const_inverseR - (((2.0F) * (cSim.reactionFieldK)) * __cuda_local_var_41321_19_non_const_r2)));
+# 202 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41329_19_non_const_dEdR *= (__cuda_local_var_41322_19_non_const_inverseR * __cuda_local_var_41322_19_non_const_inverseR);
+# 203 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+if (__cuda_local_var_41321_19_non_const_r2 > (feSim.nonbondedCutoffSqr))
+# 204 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 205 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41329_19_non_const_dEdR = (0.0F);
+# 206 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41311_15_non_const_LJ14_energy = (0.0F);
+# 207 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+}
+# 208 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41259_11_non_const_energy += __cuda_local_var_41311_15_non_const_LJ14_energy;
+# 210 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41342_26_non_const_offsetA = (((unsigned)(__cuda_local_var_41313_18_non_const_atom.x)) + (((unsigned)(__cuda_local_var_41313_18_non_const_atom.z)) * (cSim.stride)));
+# 211 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41343_26_non_const_offsetB = (((unsigned)(__cuda_local_var_41313_18_non_const_atom.y)) + (((unsigned)(__cuda_local_var_41313_18_non_const_atom.w)) * (cSim.stride)));
+# 212 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41344_20_non_const_forceA = ((cSim.pForce4)[__cuda_local_var_41342_26_non_const_offsetA]);
+# 213 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41345_20_non_const_forceB = ((cSim.pForce4)[__cuda_local_var_41343_26_non_const_offsetB]);
+# 214 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41317_20_non_const_d.x) *= __cuda_local_var_41329_19_non_const_dEdR;
+# 215 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41317_20_non_const_d.y) *= __cuda_local_var_41329_19_non_const_dEdR;
+# 216 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41317_20_non_const_d.z) *= __cuda_local_var_41329_19_non_const_dEdR;
+# 217 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41344_20_non_const_forceA.x) += (__cuda_local_var_41317_20_non_const_d.x);
+# 218 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41344_20_non_const_forceA.y) += (__cuda_local_var_41317_20_non_const_d.y);
+# 219 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41344_20_non_const_forceA.z) += (__cuda_local_var_41317_20_non_const_d.z);
+# 220 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41345_20_non_const_forceB.x) -= (__cuda_local_var_41317_20_non_const_d.x);
+# 221 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41345_20_non_const_forceB.y) -= (__cuda_local_var_41317_20_non_const_d.y);
+# 222 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41345_20_non_const_forceB.z) -= (__cuda_local_var_41317_20_non_const_d.z);
+# 223 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+((cSim.pForce4)[__cuda_local_var_41342_26_non_const_offsetA]) = __cuda_local_var_41344_20_non_const_forceA;
+# 224 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+((cSim.pForce4)[__cuda_local_var_41343_26_non_const_offsetB]) = __cuda_local_var_41345_20_non_const_forceB;
+# 225 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41257_18_non_const_pos += ((blockDim.x) * (gridDim.x));
+# 226 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+}
+# 227 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+}
+# 227 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+else 
+# 227 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 227 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+if (((int)(feSim.nonbondedMethod)) == 2)
+# 227 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 228 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41360_15_non_const_LJ14_energy;
+# 229 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+while (__cuda_local_var_41257_18_non_const_pos < (feSim.LJ14_count))
+# 229 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 230 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct int4 __cuda_local_var_41362_18_non_const_atom;
+# 231 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41363_20_non_const_LJ14;
+# 232 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41364_20_non_const_a1;
+# 233 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41365_20_non_const_a2;
+# 234 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float3 __cuda_local_var_41366_20_non_const_d;
+# 241 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41373_19_non_const_r2;
+# 242 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41374_19_non_const_inverseR;
+# 246 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41378_19_non_const_sig2;
+# 248 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41380_19_non_const_sig6;
+# 249 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ float __cuda_local_var_41381_19_non_const_dEdR;
+# 263 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ unsigned __cuda_local_var_41395_26_non_const_offsetA;
+# 264 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ unsigned __cuda_local_var_41396_26_non_const_offsetB;
+# 265 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41397_20_non_const_forceA;
+# 266 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+ struct float4 __cuda_local_var_41398_20_non_const_forceB;
+# 230 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41362_18_non_const_atom = ((feSim.pLJ14ID)[__cuda_local_var_41257_18_non_const_pos]);
+# 231 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41363_20_non_const_LJ14 = ((feSim.pLJ14Parameter)[__cuda_local_var_41257_18_non_const_pos]);
+# 232 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41364_20_non_const_a1 = ((cSim.pPosq)[(__cuda_local_var_41362_18_non_const_atom.x)]);
+# 233 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41365_20_non_const_a2 = ((cSim.pPosq)[(__cuda_local_var_41362_18_non_const_atom.y)]);
+# 235 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41366_20_non_const_d.x) = ((__cuda_local_var_41364_20_non_const_a1.x) - (__cuda_local_var_41365_20_non_const_a2.x));
+# 236 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41366_20_non_const_d.y) = ((__cuda_local_var_41364_20_non_const_a1.y) - (__cuda_local_var_41365_20_non_const_a2.y));
+# 237 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41366_20_non_const_d.z) = ((__cuda_local_var_41364_20_non_const_a1.z) - (__cuda_local_var_41365_20_non_const_a2.z));
+# 238 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41366_20_non_const_d.x) -= ((floorf((((float)(fdividef(((double)(__cuda_local_var_41366_20_non_const_d.x)), ((double)(cSim.periodicBoxSizeX))))) + (0.5F)))) * (cSim.periodicBoxSizeX));
+# 239 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41366_20_non_const_d.y) -= ((floorf((((float)(fdividef(((double)(__cuda_local_var_41366_20_non_const_d.y)), ((double)(cSim.periodicBoxSizeY))))) + (0.5F)))) * (cSim.periodicBoxSizeY));
+# 240 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41366_20_non_const_d.z) -= ((floorf((((float)(fdividef(((double)(__cuda_local_var_41366_20_non_const_d.z)), ((double)(cSim.periodicBoxSizeZ))))) + (0.5F)))) * (cSim.periodicBoxSizeZ));
+# 241 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41373_19_non_const_r2 = ((((__cuda_local_var_41366_20_non_const_d.x) * (__cuda_local_var_41366_20_non_const_d.x)) + ((__cuda_local_var_41366_20_non_const_d.y) * (__cuda_local_var_41366_20_non_const_d.y))) + ((__cuda_local_var_41366_20_non_const_d.z) * (__cuda_local_var_41366_20_non_const_d.z)));
+# 242 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41374_19_non_const_inverseR = ((1.0F) / (sqrtf(__cuda_local_var_41373_19_non_const_r2)));
+# 246 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41378_19_non_const_sig2 = (__cuda_local_var_41374_19_non_const_inverseR * (__cuda_local_var_41363_20_non_const_LJ14.y));
+# 247 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41378_19_non_const_sig2 *= __cuda_local_var_41378_19_non_const_sig2;
+# 248 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41380_19_non_const_sig6 = ((__cuda_local_var_41378_19_non_const_sig2 * __cuda_local_var_41378_19_non_const_sig2) * __cuda_local_var_41378_19_non_const_sig2);
+# 249 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41381_19_non_const_dEdR = (((__cuda_local_var_41363_20_non_const_LJ14.x) * (((12.0F) * __cuda_local_var_41380_19_non_const_sig6) - (6.0F))) * __cuda_local_var_41380_19_non_const_sig6);
+# 250 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41360_15_non_const_LJ14_energy = (((__cuda_local_var_41363_20_non_const_LJ14.x) * (__cuda_local_var_41380_19_non_const_sig6 - (1.0F))) * __cuda_local_var_41380_19_non_const_sig6);
+# 252 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41360_15_non_const_LJ14_energy += ((__cuda_local_var_41363_20_non_const_LJ14.z) * ((__cuda_local_var_41374_19_non_const_inverseR + ((cSim.reactionFieldK) * __cuda_local_var_41373_19_non_const_r2)) - (cSim.reactionFieldC)));
+# 254 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41381_19_non_const_dEdR += ((__cuda_local_var_41363_20_non_const_LJ14.z) * (__cuda_local_var_41374_19_non_const_inverseR - (((2.0F) * (cSim.reactionFieldK)) * __cuda_local_var_41373_19_non_const_r2)));
+# 255 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41381_19_non_const_dEdR *= (__cuda_local_var_41374_19_non_const_inverseR * __cuda_local_var_41374_19_non_const_inverseR);
+# 256 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+if (__cuda_local_var_41373_19_non_const_r2 > (feSim.nonbondedCutoffSqr))
+# 257 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+{
+# 258 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41381_19_non_const_dEdR = (0.0F);
+# 259 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41360_15_non_const_LJ14_energy = (0.0F);
+# 260 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+}
+# 261 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41259_11_non_const_energy += __cuda_local_var_41360_15_non_const_LJ14_energy;
+# 263 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41395_26_non_const_offsetA = (((unsigned)(__cuda_local_var_41362_18_non_const_atom.x)) + (((unsigned)(__cuda_local_var_41362_18_non_const_atom.z)) * (cSim.stride)));
+# 264 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41396_26_non_const_offsetB = (((unsigned)(__cuda_local_var_41362_18_non_const_atom.y)) + (((unsigned)(__cuda_local_var_41362_18_non_const_atom.w)) * (cSim.stride)));
+# 265 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41397_20_non_const_forceA = ((cSim.pForce4)[__cuda_local_var_41395_26_non_const_offsetA]);
+# 266 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41398_20_non_const_forceB = ((cSim.pForce4)[__cuda_local_var_41396_26_non_const_offsetB]);
+# 267 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41366_20_non_const_d.x) *= __cuda_local_var_41381_19_non_const_dEdR;
+# 268 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41366_20_non_const_d.y) *= __cuda_local_var_41381_19_non_const_dEdR;
+# 269 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41366_20_non_const_d.z) *= __cuda_local_var_41381_19_non_const_dEdR;
+# 270 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41397_20_non_const_forceA.x) += (__cuda_local_var_41366_20_non_const_d.x);
+# 271 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41397_20_non_const_forceA.y) += (__cuda_local_var_41366_20_non_const_d.y);
+# 272 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41397_20_non_const_forceA.z) += (__cuda_local_var_41366_20_non_const_d.z);
+# 273 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41398_20_non_const_forceB.x) -= (__cuda_local_var_41366_20_non_const_d.x);
+# 274 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41398_20_non_const_forceB.y) -= (__cuda_local_var_41366_20_non_const_d.y);
+# 275 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+(__cuda_local_var_41398_20_non_const_forceB.z) -= (__cuda_local_var_41366_20_non_const_d.z);
+# 276 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+((cSim.pForce4)[__cuda_local_var_41395_26_non_const_offsetA]) = __cuda_local_var_41397_20_non_const_forceA;
+# 277 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+((cSim.pForce4)[__cuda_local_var_41396_26_non_const_offsetB]) = __cuda_local_var_41398_20_non_const_forceB;
+# 278 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+__cuda_local_var_41257_18_non_const_pos += ((blockDim.x) * (gridDim.x));
+# 279 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+}
+# 280 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+}
+# 280 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+}
+# 280 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+}
+# 281 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+((cSim.pEnergy)[(((blockIdx.x) * (blockDim.x)) + (threadIdx.x))]) += __cuda_local_var_41259_11_non_const_energy;
+# 282 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+} 
+# 282 "/home/saifmulla/openmm/OpenMM/plugins/freeEnergy/platforms/cuda/src/kernels//kCalculateLocalSoftcoreForces.cu"
+}}

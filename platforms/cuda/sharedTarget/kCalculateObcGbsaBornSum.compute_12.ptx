@@ -1,0 +1,3591 @@
+	.version 1.4
+	.target sm_12, map_f64_to_f32
+	// compiled with /usr/local/cuda-5.0/open64/lib//be
+	// nvopencc 4.1 built on 2012-09-21
+
+	//-----------------------------------------------------------
+	// Compiling kCalculateObcGbsaBornSum.compute_12.cpp3.i (/tmp/ccBI#.3d7UFz)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_12, Endian:little, Pointer Size:64
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"<command-line>"
+	.file	2	"kCalculateObcGbsaBornSum.compute_12.cudafe2.gpu"
+	.file	3	"/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//cudatypes.h"
+	.file	4	"/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateObcGbsaBornSum.cu"
+	.file	5	"/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h"
+	.file	6	"/usr/local/cuda-5.0/include/crt/device_runtime.h"
+	.file	7	"/usr/local/cuda-5.0/include/host_defines.h"
+	.file	8	"/usr/local/cuda-5.0/include/builtin_types.h"
+	.file	9	"/usr/local/cuda-5.0/include/device_types.h"
+	.file	10	"/usr/local/cuda-5.0/include/driver_types.h"
+	.file	11	"/usr/local/cuda-5.0/include/surface_types.h"
+	.file	12	"/usr/local/cuda-5.0/include/texture_types.h"
+	.file	13	"/usr/local/cuda-5.0/include/vector_types.h"
+	.file	14	"/usr/local/cuda-5.0/include/device_launch_parameters.h"
+	.file	15	"/usr/local/cuda-5.0/include/crt/storage_class.h"
+	.file	16	"/usr/local/cuda-5.0/include/cuComplex.h"
+	.file	17	"/usr/local/cuda-5.0/include/cufft.h"
+	.file	18	"/home/saifmulla/openmm/OpenMM/platforms/cuda/./src/kernels//kCalculateObcGbsaBornSum.h"
+	.file	19	"/usr/local/cuda-5.0/include/common_functions.h"
+	.file	20	"/usr/local/cuda-5.0/include/math_functions.h"
+	.file	21	"/usr/local/cuda-5.0/include/math_constants.h"
+	.file	22	"/usr/local/cuda-5.0/include/device_functions.h"
+	.file	23	"/usr/local/cuda-5.0/include/sm_11_atomic_functions.h"
+	.file	24	"/usr/local/cuda-5.0/include/sm_12_atomic_functions.h"
+	.file	25	"/usr/local/cuda-5.0/include/sm_13_double_functions.h"
+	.file	26	"/usr/local/cuda-5.0/include/sm_20_atomic_functions.h"
+	.file	27	"/usr/local/cuda-5.0/include/sm_35_atomic_functions.h"
+	.file	28	"/usr/local/cuda-5.0/include/sm_20_intrinsics.h"
+	.file	29	"/usr/local/cuda-5.0/include/sm_30_intrinsics.h"
+	.file	30	"/usr/local/cuda-5.0/include/sm_35_intrinsics.h"
+	.file	31	"/usr/local/cuda-5.0/include/surface_functions.h"
+	.file	32	"/usr/local/cuda-5.0/include/texture_fetch_functions.h"
+	.file	33	"/usr/local/cuda-5.0/include/texture_indirect_functions.h"
+	.file	34	"/usr/local/cuda-5.0/include/surface_indirect_functions.h"
+	.file	35	"/usr/local/cuda-5.0/include/math_functions_dbl_ptx1.h"
+
+	.extern	.shared .align 4 .b8 sA[];
+	.const .align 8 .b8 cSim[1224];
+
+	.entry _Z33kCalculateObcGbsaN2BornSum_kernelPj (
+		.param .u64 __cudaparm__Z33kCalculateObcGbsaN2BornSum_kernelPj_workUnit)
+	.maxntid 320,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<59>;
+	.reg .u64 %rd<43>;
+	.reg .f32 %f<141>;
+	.reg .pred %p<22>;
+	.loc	18	41	0
+$LDWbegin__Z33kCalculateObcGbsaN2BornSum_kernelPj:
+	.loc	18	46	0
+	ld.const.u64 	%rd1, [cSim+152];
+	ld.global.u32 	%r1, [%rd1+0];
+	.loc	18	48	0
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r2, %rh1, %rh2;
+	ld.const.u32 	%r3, [cSim+16];
+	ld.const.u32 	%r4, [cSim+32];
+	mul.lo.u32 	%r5, %r3, %r4;
+	cvt.u32.u16 	%r6, %tid.x;
+	add.u32 	%r7, %r2, %r6;
+	shr.u32 	%r8, %r5, 5;
+	shr.u32 	%r9, %r7, 5;
+	mul.lo.u32 	%r10, %r9, %r1;
+	div.u32 	%r11, %r10, %r8;
+	mov.s32 	%r12, %r11;
+	add.u32 	%r13, %r9, 1;
+	mul.lo.u32 	%r14, %r13, %r1;
+	div.u32 	%r15, %r14, %r8;
+	setp.le.u32 	%p1, %r15, %r11;
+	@%p1 bra 	$Lt_0_11010;
+	mov.u64 	%rd2, sA;
+	sub.u32 	%r16, %r15, %r11;
+	and.b32 	%r17, %r6, 31;
+	ld.param.u64 	%rd3, [__cudaparm__Z33kCalculateObcGbsaN2BornSum_kernelPj_workUnit];
+	cvt.u64.u32 	%rd4, %r11;
+	mul.wide.u32 	%rd5, %r11, 4;
+	add.u64 	%rd6, %rd3, %rd5;
+	cvt.u64.u32 	%rd7, %r6;
+	mul.wide.u32 	%rd8, %r6, 28;
+	add.u64 	%rd9, %rd2, %rd8;
+	sub.u32 	%r18, %r6, %r17;
+	cvt.u64.u32 	%rd10, %r18;
+	mul.wide.u32 	%rd11, %r18, 28;
+	add.u64 	%rd12, %rd11, %rd2;
+	ld.const.u64 	%rd13, [cSim+1144];
+	ld.const.u32 	%r19, [cSim+0];
+	ld.const.u64 	%rd14, [cSim+376];
+	ld.const.u64 	%rd15, [cSim+1088];
+	ld.const.u32 	%r20, [cSim+188];
+	mov.s32 	%r21, %r16;
+$Lt_0_11522:
+ //<loop> Loop body line 48, nesting depth: 1, estimated iterations: unknown
+	.loc	18	58	0
+	ld.global.u32 	%r22, [%rd6+0];
+	.loc	18	69	0
+	mov.s32 	%r23, %r17;
+	shr.u32 	%r24, %r22, 17;
+	shl.b32 	%r25, %r22, 15;
+	shr.u32 	%r26, %r25, 17;
+	shl.b32 	%r27, %r24, 5;
+	mul.lo.u32 	%r28, %r24, %r20;
+	shl.b32 	%r29, %r26, 5;
+	add.u32 	%r30, %r17, %r27;
+	cvt.u64.u32 	%rd16, %r30;
+	mul.wide.u32 	%rd17, %r30, 16;
+	add.u64 	%rd18, %rd15, %rd17;
+	mul.wide.u32 	%rd19, %r30, 8;
+	add.u64 	%rd20, %rd14, %rd19;
+	ld.global.v4.f32 	{%f1,%f2,%f3,_}, [%rd18+0];
+	ld.global.v2.f32 	{%f4,%f5}, [%rd20+0];
+	setp.ne.u32 	%p2, %r27, %r29;
+	@%p2 bra 	$Lt_0_12034;
+	.loc	18	78	0
+	st.volatile.shared.f32 	[%rd9+0], %f1;
+	.loc	18	79	0
+	st.volatile.shared.f32 	[%rd9+4], %f2;
+	.loc	18	80	0
+	st.volatile.shared.f32 	[%rd9+8], %f3;
+	.loc	18	81	0
+	st.volatile.shared.f32 	[%rd9+12], %f4;
+	.loc	18	82	0
+	st.volatile.shared.f32 	[%rd9+16], %f5;
+	mov.u64 	%rd21, 0;
+	mov.s32 	%r31, %r27;
+	add.u32 	%r32, %r27, 32;
+	setp.lt.u32 	%p3, %r30, %r19;
+	mov.pred 	%p4, %p3;
+	mov.pred 	%p5, %p6;
+	selp.s32 	%r33, 1, 0, %p4;
+	mov.f32 	%f6, 0f00000000;     	// 0
+$Lt_0_12802:
+ //<loop> Loop body line 82, nesting depth: 2, iterations: 32
+	.loc	18	87	0
+	add.s64 	%rd22, %rd21, %rd11;
+	add.u64 	%rd23, %rd2, %rd22;
+	ld.volatile.shared.f32 	%f7, [%rd23+0];
+	sub.f32 	%f8, %f7, %f1;
+	.loc	18	88	0
+	ld.volatile.shared.f32 	%f9, [%rd23+4];
+	sub.f32 	%f10, %f9, %f2;
+	.loc	18	89	0
+	ld.volatile.shared.f32 	%f11, [%rd23+8];
+	sub.f32 	%f12, %f11, %f3;
+	set.lt.u32.u32 	%r34, %r31, %r19;
+	neg.s32 	%r35, %r34;
+	and.b32 	%r36, %r33, %r35;
+	mov.u32 	%r37, 0;
+	setp.eq.s32 	%p7, %r36, %r37;
+	@%p7 bra 	$Lt_0_13058;
+	.loc	18	104	0
+	mul.f32 	%f13, %f10, %f10;
+	mad.f32 	%f14, %f8, %f8, %f13;
+	mad.f32 	%f15, %f12, %f12, %f14;
+	sqrt.approx.f32 	%f16, %f15;
+	add.u64 	%rd24, %rd21, %rd12;
+	ld.volatile.shared.f32 	%f17, [%rd24+16];
+	add.f32 	%f18, %f17, %f16;
+	set.ne.u32.u32 	%r38, %r31, %r30;
+	neg.s32 	%r39, %r38;
+	set.lt.u32.f32 	%r40, %f4, %f18;
+	neg.s32 	%r41, %r40;
+	and.b32 	%r42, %r39, %r41;
+	mov.u32 	%r43, 0;
+	setp.eq.s32 	%p8, %r42, %r43;
+	@%p8 bra 	$Lt_0_13570;
+	.loc	18	107	0
+	ld.volatile.shared.f32 	%f19, [%rd24+16];
+	sub.f32 	%f20, %f16, %f19;
+	.loc	18	112	0
+	abs.f32 	%f21, %f20;
+	rcp.approx.f32 	%f22, %f18;
+	max.f32 	%f23, %f21, %f4;
+	mul.f32 	%f24, %f22, %f22;
+	rcp.approx.f32 	%f25, %f23;
+	mul.f32 	%f26, %f25, %f25;
+	rcp.approx.f32 	%f27, %f16;
+	sub.f32 	%f28, %f25, %f22;
+	mov.f32 	%f29, 0f3e800000;    	// 0.25
+	mul.f32 	%f30, %f16, %f29;
+	sub.f32 	%f31, %f24, %f26;
+	mad.f32 	%f32, %f30, %f31, %f28;
+	div.approx.f32 	%f33, %f22, %f25;
+	lg2.approx.f32 	%f34, %f33;
+	mov.f32 	%f35, 0f3f317218;    	// 0.693147
+	mul.f32 	%f36, %f34, %f35;
+	mov.f32 	%f37, 0f3f000000;    	// 0.5
+	mul.f32 	%f38, %f27, %f37;
+	mad.f32 	%f39, %f36, %f38, %f32;
+	ld.volatile.shared.f32 	%f40, [%rd24+16];
+	ld.volatile.shared.f32 	%f41, [%rd24+16];
+	mov.f32 	%f42, 0f3e800000;    	// 0.25
+	mul.f32 	%f43, %f41, %f42;
+	mul.f32 	%f44, %f40, %f43;
+	mul.f32 	%f45, %f27, %f44;
+	sub.f32 	%f46, %f26, %f24;
+	mad.f32 	%f47, %f45, %f46, %f39;
+	add.f32 	%f6, %f6, %f47;
+	.loc	18	118	0
+	ld.volatile.shared.f32 	%f48, [%rd24+16];
+	sub.f32 	%f49, %f48, %f16;
+	setp.lt.f32 	%p9, %f4, %f49;
+	@!%p9 bra 	$Lt_0_14082;
+	.loc	18	121	0
+	rcp.approx.f32 	%f50, %f4;
+	sub.f32 	%f51, %f50, %f25;
+	add.f32 	%f52, %f51, %f51;
+	add.f32 	%f6, %f6, %f52;
+$Lt_0_14082:
+$Lt_0_13570:
+$Lt_0_13058:
+	add.u32 	%r31, %r31, 1;
+	add.u64 	%rd21, %rd21, 28;
+	setp.ne.u32 	%p10, %r31, %r32;
+	@%p10 bra 	$Lt_0_12802;
+	.loc	18	133	0
+	add.u32 	%r44, %r28, %r30;
+	cvt.u64.u32 	%rd25, %r44;
+	mul.wide.u32 	%rd26, %r44, 4;
+	add.u64 	%rd27, %rd13, %rd26;
+	st.global.f32 	[%rd27+0], %f6;
+	bra.uni 	$Lt_0_11778;
+$Lt_0_12034:
+	.loc	18	142	0
+	add.u32 	%r45, %r17, %r29;
+	cvt.u64.u32 	%rd28, %r45;
+	mul.wide.u32 	%rd29, %r45, 16;
+	add.u64 	%rd30, %rd15, %rd29;
+	ld.global.v4.f32 	{%f53,%f54,%f55,_}, [%rd30+0];
+	.loc	18	143	0
+	mul.wide.u32 	%rd31, %r45, 8;
+	add.u64 	%rd32, %rd14, %rd31;
+	ld.global.v2.f32 	{%f56,%f57}, [%rd32+0];
+	.loc	18	146	0
+	st.volatile.shared.f32 	[%rd9+0], %f53;
+	.loc	18	147	0
+	st.volatile.shared.f32 	[%rd9+4], %f54;
+	.loc	18	148	0
+	st.volatile.shared.f32 	[%rd9+8], %f55;
+	.loc	18	149	0
+	st.volatile.shared.f32 	[%rd9+12], %f56;
+	.loc	18	150	0
+	st.volatile.shared.f32 	[%rd9+16], %f57;
+	.loc	18	151	0
+	mov.f32 	%f58, 0f00000000;    	// 0
+	st.volatile.shared.f32 	[%rd9+20], %f58;
+	setp.lt.u32 	%p11, %r30, %r19;
+	mov.pred 	%p12, %p11;
+	mov.pred 	%p13, %p6;
+	selp.s32 	%r33, 1, 0, %p12;
+	mov.u32 	%r46, 0;
+	mov.f32 	%f59, 0f00000000;    	// 0
+$Lt_0_15362:
+ //<loop> Loop body line 151, nesting depth: 2, iterations: 32
+	.loc	18	166	0
+	cvt.u64.u32 	%rd33, %r23;
+	mul.wide.u32 	%rd34, %r23, 28;
+	add.u64 	%rd35, %rd12, %rd34;
+	ld.volatile.shared.f32 	%f60, [%rd35+0];
+	sub.f32 	%f8, %f60, %f1;
+	.loc	18	167	0
+	ld.volatile.shared.f32 	%f61, [%rd35+4];
+	sub.f32 	%f10, %f61, %f2;
+	.loc	18	168	0
+	ld.volatile.shared.f32 	%f62, [%rd35+8];
+	sub.f32 	%f12, %f62, %f3;
+	add.u32 	%r47, %r29, %r23;
+	set.gt.u32.u32 	%r48, %r19, %r47;
+	neg.s32 	%r49, %r48;
+	and.b32 	%r50, %r33, %r49;
+	mov.u32 	%r51, 0;
+	setp.eq.s32 	%p14, %r50, %r51;
+	@%p14 bra 	$Lt_0_15618;
+	.loc	18	183	0
+	mul.f32 	%f63, %f10, %f10;
+	mad.f32 	%f64, %f8, %f8, %f63;
+	mad.f32 	%f65, %f12, %f12, %f64;
+	sqrt.approx.f32 	%f16, %f65;
+	ld.volatile.shared.f32 	%f66, [%rd35+16];
+	add.f32 	%f67, %f66, %f16;
+	setp.lt.f32 	%p15, %f4, %f67;
+	@!%p15 bra 	$Lt_0_16130;
+	.loc	18	186	0
+	ld.volatile.shared.f32 	%f68, [%rd35+16];
+	sub.f32 	%f69, %f16, %f68;
+	.loc	18	191	0
+	abs.f32 	%f70, %f69;
+	rcp.approx.f32 	%f71, %f67;
+	max.f32 	%f72, %f70, %f4;
+	mul.f32 	%f73, %f71, %f71;
+	rcp.approx.f32 	%f74, %f72;
+	mul.f32 	%f75, %f74, %f74;
+	rcp.approx.f32 	%f76, %f16;
+	sub.f32 	%f77, %f74, %f71;
+	mov.f32 	%f78, 0f3e800000;    	// 0.25
+	mul.f32 	%f79, %f16, %f78;
+	sub.f32 	%f80, %f73, %f75;
+	mad.f32 	%f81, %f79, %f80, %f77;
+	div.approx.f32 	%f82, %f71, %f74;
+	lg2.approx.f32 	%f83, %f82;
+	mov.f32 	%f84, 0f3f317218;    	// 0.693147
+	mul.f32 	%f85, %f83, %f84;
+	mov.f32 	%f86, 0f3f000000;    	// 0.5
+	mul.f32 	%f87, %f76, %f86;
+	mad.f32 	%f88, %f85, %f87, %f81;
+	ld.volatile.shared.f32 	%f89, [%rd35+16];
+	ld.volatile.shared.f32 	%f90, [%rd35+16];
+	mov.f32 	%f91, 0f3e800000;    	// 0.25
+	mul.f32 	%f92, %f90, %f91;
+	mul.f32 	%f93, %f89, %f92;
+	mul.f32 	%f94, %f76, %f93;
+	sub.f32 	%f95, %f75, %f73;
+	mad.f32 	%f96, %f94, %f95, %f88;
+	.loc	18	197	0
+	ld.volatile.shared.f32 	%f97, [%rd35+16];
+	sub.f32 	%f98, %f97, %f16;
+	setp.lt.f32 	%p16, %f4, %f98;
+	@!%p16 bra 	$Lt_0_16642;
+	.loc	18	200	0
+	rcp.approx.f32 	%f99, %f4;
+	sub.f32 	%f100, %f99, %f74;
+	add.f32 	%f101, %f100, %f100;
+	add.f32 	%f96, %f96, %f101;
+$Lt_0_16642:
+	.loc	18	202	0
+	add.f32 	%f59, %f96, %f59;
+$Lt_0_16130:
+	add.f32 	%f102, %f16, %f5;
+	ld.volatile.shared.f32 	%f103, [%rd35+12];
+	setp.lt.f32 	%p17, %f103, %f102;
+	@!%p17 bra 	$Lt_0_17154;
+	.loc	18	207	0
+	ld.volatile.shared.f32 	%f104, [%rd35+12];
+	.loc	22	2349	0
+	sub.f32 	%f105, %f16, %f5;
+	rcp.approx.f32 	%f106, %f102;
+	abs.f32 	%f107, %f105;
+	max.f32 	%f108, %f107, %f104;
+	rcp.approx.f32 	%f109, %f108;
+	div.approx.f32 	%f110, %f106, %f109;
+	lg2.approx.f32 	%f111, %f110;
+	.loc	18	212	0
+	rcp.approx.f32 	%f112, %f16;
+	mul.f32 	%f113, %f106, %f106;
+	mul.f32 	%f114, %f109, %f109;
+	sub.f32 	%f115, %f109, %f106;
+	mov.f32 	%f116, 0f3e800000;   	// 0.25
+	mul.f32 	%f117, %f16, %f116;
+	sub.f32 	%f118, %f113, %f114;
+	mad.f32 	%f119, %f117, %f118, %f115;
+	mov.f32 	%f120, 0f3f317218;   	// 0.693147
+	mul.f32 	%f121, %f111, %f120;
+	mov.f32 	%f122, 0f3f000000;   	// 0.5
+	mul.f32 	%f123, %f112, %f122;
+	mad.f32 	%f124, %f121, %f123, %f119;
+	mov.f32 	%f125, 0f3e800000;   	// 0.25
+	mul.f32 	%f126, %f5, %f125;
+	mul.f32 	%f127, %f5, %f126;
+	mul.f32 	%f128, %f112, %f127;
+	sub.f32 	%f129, %f114, %f113;
+	mad.f32 	%f130, %f128, %f129, %f124;
+	.loc	18	218	0
+	ld.volatile.shared.f32 	%f131, [%rd35+12];
+	sub.f32 	%f132, %f5, %f16;
+	setp.lt.f32 	%p18, %f131, %f132;
+	@!%p18 bra 	$Lt_0_17666;
+	.loc	18	221	0
+	ld.volatile.shared.f32 	%f133, [%rd35+12];
+	rcp.approx.f32 	%f134, %f133;
+	sub.f32 	%f135, %f134, %f109;
+	add.f32 	%f136, %f135, %f135;
+	add.f32 	%f130, %f130, %f136;
+$Lt_0_17666:
+	.loc	18	223	0
+	ld.volatile.shared.f32 	%f137, [%rd35+20];
+	add.f32 	%f138, %f137, %f130;
+	st.volatile.shared.f32 	[%rd35+20], %f138;
+$Lt_0_17154:
+$Lt_0_15618:
+	.loc	18	226	0
+	sub.u32 	%r52, %r23, 1;
+	and.b32 	%r23, %r52, 31;
+	add.u32 	%r46, %r46, 1;
+	mov.u32 	%r53, 32;
+	setp.ne.u32 	%p19, %r46, %r53;
+	@%p19 bra 	$Lt_0_15362;
+	.loc	18	325	0
+	and.b32 	%r54, %r26, 134217727;
+	mul.lo.u32 	%r55, %r20, %r54;
+	add.u32 	%r56, %r30, %r55;
+	cvt.u64.u32 	%rd36, %r56;
+	mul.wide.u32 	%rd37, %r56, 4;
+	add.u64 	%rd38, %rd13, %rd37;
+	st.global.f32 	[%rd38+0], %f59;
+	.loc	18	327	0
+	ld.volatile.shared.f32 	%f139, [%rd9+20];
+	add.u32 	%r57, %r28, %r45;
+	cvt.u64.u32 	%rd39, %r57;
+	mul.wide.u32 	%rd40, %r57, 4;
+	add.u64 	%rd41, %rd13, %rd40;
+	st.global.f32 	[%rd41+0], %f139;
+$Lt_0_11778:
+	add.u32 	%r12, %r12, 1;
+	add.u64 	%rd6, %rd6, 4;
+	setp.ne.u32 	%p20, %r15, %r12;
+	@%p20 bra 	$Lt_0_11522;
+$Lt_0_11010:
+	.loc	18	332	0
+	exit;
+$LDWend__Z33kCalculateObcGbsaN2BornSum_kernelPj:
+	} // _Z33kCalculateObcGbsaN2BornSum_kernelPj
+
+	.entry _Z39kCalculateObcGbsaN2ByWarpBornSum_kernelPj (
+		.param .u64 __cudaparm__Z39kCalculateObcGbsaN2ByWarpBornSum_kernelPj_workUnit)
+	.maxntid 320,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<56>;
+	.reg .u64 %rd<40>;
+	.reg .f32 %f<147>;
+	.reg .pred %p<22>;
+	.loc	18	41	0
+$LDWbegin__Z39kCalculateObcGbsaN2ByWarpBornSum_kernelPj:
+	.loc	18	46	0
+	ld.const.u64 	%rd1, [cSim+152];
+	ld.global.u32 	%r1, [%rd1+0];
+	.loc	18	48	0
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r2, %rh1, %rh2;
+	ld.const.u32 	%r3, [cSim+16];
+	ld.const.u32 	%r4, [cSim+32];
+	mul.lo.u32 	%r5, %r3, %r4;
+	cvt.u32.u16 	%r6, %tid.x;
+	add.u32 	%r7, %r2, %r6;
+	shr.u32 	%r8, %r5, 5;
+	shr.u32 	%r9, %r7, 5;
+	mul.lo.u32 	%r10, %r9, %r1;
+	div.u32 	%r11, %r10, %r8;
+	mov.s32 	%r12, %r11;
+	add.u32 	%r13, %r9, 1;
+	mul.lo.u32 	%r14, %r13, %r1;
+	div.u32 	%r15, %r14, %r8;
+	setp.le.u32 	%p1, %r15, %r11;
+	@%p1 bra 	$Lt_1_11010;
+	mov.u64 	%rd2, sA;
+	sub.u32 	%r16, %r15, %r11;
+	and.b32 	%r17, %r6, 31;
+	ld.param.u64 	%rd3, [__cudaparm__Z39kCalculateObcGbsaN2ByWarpBornSum_kernelPj_workUnit];
+	cvt.u64.u32 	%rd4, %r11;
+	mul.wide.u32 	%rd5, %r11, 4;
+	add.u64 	%rd6, %rd3, %rd5;
+	cvt.u64.u32 	%rd7, %r6;
+	mul.wide.u32 	%rd8, %r6, 28;
+	add.u64 	%rd9, %rd2, %rd8;
+	ld.const.u32 	%r18, [cSim+188];
+	mul.lo.u32 	%r19, %r18, %r9;
+	sub.u32 	%r20, %r6, %r17;
+	cvt.u64.u32 	%rd10, %r20;
+	mul.wide.u32 	%rd11, %r20, 28;
+	add.u64 	%rd12, %rd11, %rd2;
+	ld.const.u32 	%r21, [cSim+0];
+	ld.const.u64 	%rd13, [cSim+1144];
+	ld.const.u64 	%rd14, [cSim+376];
+	ld.const.u64 	%rd15, [cSim+1088];
+	mov.s32 	%r22, %r16;
+$Lt_1_11522:
+ //<loop> Loop body line 48, nesting depth: 1, estimated iterations: unknown
+	.loc	18	58	0
+	ld.global.u32 	%r23, [%rd6+0];
+	.loc	18	69	0
+	mov.s32 	%r24, %r17;
+	shr.u32 	%r25, %r23, 17;
+	shl.b32 	%r26, %r23, 15;
+	shr.u32 	%r27, %r26, 17;
+	shl.b32 	%r28, %r25, 5;
+	shl.b32 	%r29, %r27, 5;
+	add.u32 	%r30, %r17, %r28;
+	cvt.u64.u32 	%rd16, %r30;
+	mul.wide.u32 	%rd17, %r30, 16;
+	add.u64 	%rd18, %rd15, %rd17;
+	mul.wide.u32 	%rd19, %r30, 8;
+	add.u64 	%rd20, %rd14, %rd19;
+	ld.global.v4.f32 	{%f1,%f2,%f3,_}, [%rd18+0];
+	ld.global.v2.f32 	{%f4,%f5}, [%rd20+0];
+	add.u32 	%r31, %r19, %r30;
+	cvt.u64.u32 	%rd21, %r31;
+	mul.wide.u32 	%rd22, %r31, 4;
+	add.u64 	%rd23, %rd13, %rd22;
+	setp.ne.u32 	%p2, %r28, %r29;
+	@%p2 bra 	$Lt_1_12034;
+	.loc	18	78	0
+	st.volatile.shared.f32 	[%rd9+0], %f1;
+	.loc	18	79	0
+	st.volatile.shared.f32 	[%rd9+4], %f2;
+	.loc	18	80	0
+	st.volatile.shared.f32 	[%rd9+8], %f3;
+	.loc	18	81	0
+	st.volatile.shared.f32 	[%rd9+12], %f4;
+	.loc	18	82	0
+	st.volatile.shared.f32 	[%rd9+16], %f5;
+	mov.u64 	%rd24, 0;
+	mov.s32 	%r32, %r28;
+	add.u32 	%r33, %r28, 32;
+	setp.lt.u32 	%p3, %r30, %r21;
+	mov.pred 	%p4, %p3;
+	mov.pred 	%p5, %p6;
+	selp.s32 	%r34, 1, 0, %p4;
+	mov.f32 	%f6, 0f00000000;     	// 0
+$Lt_1_12802:
+ //<loop> Loop body line 82, nesting depth: 2, iterations: 32
+	.loc	18	87	0
+	add.s64 	%rd25, %rd24, %rd11;
+	add.u64 	%rd26, %rd2, %rd25;
+	ld.volatile.shared.f32 	%f7, [%rd26+0];
+	sub.f32 	%f8, %f7, %f1;
+	.loc	18	88	0
+	ld.volatile.shared.f32 	%f9, [%rd26+4];
+	sub.f32 	%f10, %f9, %f2;
+	.loc	18	89	0
+	ld.volatile.shared.f32 	%f11, [%rd26+8];
+	sub.f32 	%f12, %f11, %f3;
+	set.lt.u32.u32 	%r35, %r32, %r21;
+	neg.s32 	%r36, %r35;
+	and.b32 	%r37, %r34, %r36;
+	mov.u32 	%r38, 0;
+	setp.eq.s32 	%p7, %r37, %r38;
+	@%p7 bra 	$Lt_1_13058;
+	.loc	18	104	0
+	mul.f32 	%f13, %f10, %f10;
+	mad.f32 	%f14, %f8, %f8, %f13;
+	mad.f32 	%f15, %f12, %f12, %f14;
+	sqrt.approx.f32 	%f16, %f15;
+	add.u64 	%rd27, %rd24, %rd12;
+	ld.volatile.shared.f32 	%f17, [%rd27+16];
+	add.f32 	%f18, %f17, %f16;
+	set.ne.u32.u32 	%r39, %r32, %r30;
+	neg.s32 	%r40, %r39;
+	set.lt.u32.f32 	%r41, %f4, %f18;
+	neg.s32 	%r42, %r41;
+	and.b32 	%r43, %r40, %r42;
+	mov.u32 	%r44, 0;
+	setp.eq.s32 	%p8, %r43, %r44;
+	@%p8 bra 	$Lt_1_13570;
+	.loc	18	107	0
+	ld.volatile.shared.f32 	%f19, [%rd27+16];
+	sub.f32 	%f20, %f16, %f19;
+	.loc	18	112	0
+	abs.f32 	%f21, %f20;
+	rcp.approx.f32 	%f22, %f18;
+	max.f32 	%f23, %f21, %f4;
+	mul.f32 	%f24, %f22, %f22;
+	rcp.approx.f32 	%f25, %f23;
+	mul.f32 	%f26, %f25, %f25;
+	rcp.approx.f32 	%f27, %f16;
+	sub.f32 	%f28, %f25, %f22;
+	mov.f32 	%f29, 0f3e800000;    	// 0.25
+	mul.f32 	%f30, %f16, %f29;
+	sub.f32 	%f31, %f24, %f26;
+	mad.f32 	%f32, %f30, %f31, %f28;
+	div.approx.f32 	%f33, %f22, %f25;
+	lg2.approx.f32 	%f34, %f33;
+	mov.f32 	%f35, 0f3f317218;    	// 0.693147
+	mul.f32 	%f36, %f34, %f35;
+	mov.f32 	%f37, 0f3f000000;    	// 0.5
+	mul.f32 	%f38, %f27, %f37;
+	mad.f32 	%f39, %f36, %f38, %f32;
+	ld.volatile.shared.f32 	%f40, [%rd27+16];
+	ld.volatile.shared.f32 	%f41, [%rd27+16];
+	mov.f32 	%f42, 0f3e800000;    	// 0.25
+	mul.f32 	%f43, %f41, %f42;
+	mul.f32 	%f44, %f40, %f43;
+	mul.f32 	%f45, %f27, %f44;
+	sub.f32 	%f46, %f26, %f24;
+	mad.f32 	%f47, %f45, %f46, %f39;
+	add.f32 	%f6, %f6, %f47;
+	.loc	18	118	0
+	ld.volatile.shared.f32 	%f48, [%rd27+16];
+	sub.f32 	%f49, %f48, %f16;
+	setp.lt.f32 	%p9, %f4, %f49;
+	@!%p9 bra 	$Lt_1_14082;
+	.loc	18	121	0
+	rcp.approx.f32 	%f50, %f4;
+	sub.f32 	%f51, %f50, %f25;
+	add.f32 	%f52, %f51, %f51;
+	add.f32 	%f6, %f6, %f52;
+$Lt_1_14082:
+$Lt_1_13570:
+$Lt_1_13058:
+	add.u32 	%r32, %r32, 1;
+	add.u64 	%rd24, %rd24, 28;
+	setp.ne.u32 	%p10, %r32, %r33;
+	@%p10 bra 	$Lt_1_12802;
+	.loc	18	130	0
+	ld.global.f32 	%f53, [%rd23+0];
+	add.f32 	%f54, %f53, %f6;
+	st.global.f32 	[%rd23+0], %f54;
+	bra.uni 	$Lt_1_11778;
+$Lt_1_12034:
+	.loc	18	142	0
+	add.u32 	%r45, %r17, %r29;
+	cvt.u64.u32 	%rd28, %r45;
+	mul.wide.u32 	%rd29, %r45, 16;
+	add.u64 	%rd30, %rd15, %rd29;
+	ld.global.v4.f32 	{%f55,%f56,%f57,_}, [%rd30+0];
+	.loc	18	143	0
+	mul.wide.u32 	%rd31, %r45, 8;
+	add.u64 	%rd32, %rd14, %rd31;
+	ld.global.v2.f32 	{%f58,%f59}, [%rd32+0];
+	.loc	18	146	0
+	st.volatile.shared.f32 	[%rd9+0], %f55;
+	.loc	18	147	0
+	st.volatile.shared.f32 	[%rd9+4], %f56;
+	.loc	18	148	0
+	st.volatile.shared.f32 	[%rd9+8], %f57;
+	.loc	18	149	0
+	st.volatile.shared.f32 	[%rd9+12], %f58;
+	.loc	18	150	0
+	st.volatile.shared.f32 	[%rd9+16], %f59;
+	.loc	18	151	0
+	mov.f32 	%f60, 0f00000000;    	// 0
+	st.volatile.shared.f32 	[%rd9+20], %f60;
+	setp.lt.u32 	%p11, %r30, %r21;
+	mov.pred 	%p12, %p11;
+	mov.pred 	%p13, %p6;
+	selp.s32 	%r34, 1, 0, %p12;
+	mov.u32 	%r46, 0;
+	mov.f32 	%f61, 0f00000000;    	// 0
+$Lt_1_15362:
+ //<loop> Loop body line 151, nesting depth: 2, iterations: 32
+	.loc	18	166	0
+	cvt.u64.u32 	%rd33, %r24;
+	mul.wide.u32 	%rd34, %r24, 28;
+	add.u64 	%rd35, %rd12, %rd34;
+	ld.volatile.shared.f32 	%f62, [%rd35+0];
+	sub.f32 	%f8, %f62, %f1;
+	.loc	18	167	0
+	ld.volatile.shared.f32 	%f63, [%rd35+4];
+	sub.f32 	%f10, %f63, %f2;
+	.loc	18	168	0
+	ld.volatile.shared.f32 	%f64, [%rd35+8];
+	sub.f32 	%f12, %f64, %f3;
+	add.u32 	%r47, %r29, %r24;
+	set.gt.u32.u32 	%r48, %r21, %r47;
+	neg.s32 	%r49, %r48;
+	and.b32 	%r50, %r34, %r49;
+	mov.u32 	%r51, 0;
+	setp.eq.s32 	%p14, %r50, %r51;
+	@%p14 bra 	$Lt_1_15618;
+	.loc	18	183	0
+	mul.f32 	%f65, %f10, %f10;
+	mad.f32 	%f66, %f8, %f8, %f65;
+	mad.f32 	%f67, %f12, %f12, %f66;
+	sqrt.approx.f32 	%f16, %f67;
+	ld.volatile.shared.f32 	%f68, [%rd35+16];
+	add.f32 	%f69, %f68, %f16;
+	setp.lt.f32 	%p15, %f4, %f69;
+	@!%p15 bra 	$Lt_1_16130;
+	.loc	18	186	0
+	ld.volatile.shared.f32 	%f70, [%rd35+16];
+	sub.f32 	%f71, %f16, %f70;
+	.loc	18	191	0
+	abs.f32 	%f72, %f71;
+	rcp.approx.f32 	%f73, %f69;
+	max.f32 	%f74, %f72, %f4;
+	mul.f32 	%f75, %f73, %f73;
+	rcp.approx.f32 	%f76, %f74;
+	mul.f32 	%f77, %f76, %f76;
+	rcp.approx.f32 	%f78, %f16;
+	sub.f32 	%f79, %f76, %f73;
+	mov.f32 	%f80, 0f3e800000;    	// 0.25
+	mul.f32 	%f81, %f16, %f80;
+	sub.f32 	%f82, %f75, %f77;
+	mad.f32 	%f83, %f81, %f82, %f79;
+	div.approx.f32 	%f84, %f73, %f76;
+	lg2.approx.f32 	%f85, %f84;
+	mov.f32 	%f86, 0f3f317218;    	// 0.693147
+	mul.f32 	%f87, %f85, %f86;
+	mov.f32 	%f88, 0f3f000000;    	// 0.5
+	mul.f32 	%f89, %f78, %f88;
+	mad.f32 	%f90, %f87, %f89, %f83;
+	ld.volatile.shared.f32 	%f91, [%rd35+16];
+	ld.volatile.shared.f32 	%f92, [%rd35+16];
+	mov.f32 	%f93, 0f3e800000;    	// 0.25
+	mul.f32 	%f94, %f92, %f93;
+	mul.f32 	%f95, %f91, %f94;
+	mul.f32 	%f96, %f78, %f95;
+	sub.f32 	%f97, %f77, %f75;
+	mad.f32 	%f98, %f96, %f97, %f90;
+	.loc	18	197	0
+	ld.volatile.shared.f32 	%f99, [%rd35+16];
+	sub.f32 	%f100, %f99, %f16;
+	setp.lt.f32 	%p16, %f4, %f100;
+	@!%p16 bra 	$Lt_1_16642;
+	.loc	18	200	0
+	rcp.approx.f32 	%f101, %f4;
+	sub.f32 	%f102, %f101, %f76;
+	add.f32 	%f103, %f102, %f102;
+	add.f32 	%f98, %f98, %f103;
+$Lt_1_16642:
+	.loc	18	202	0
+	add.f32 	%f61, %f98, %f61;
+$Lt_1_16130:
+	add.f32 	%f104, %f16, %f5;
+	ld.volatile.shared.f32 	%f105, [%rd35+12];
+	setp.lt.f32 	%p17, %f105, %f104;
+	@!%p17 bra 	$Lt_1_17154;
+	.loc	18	207	0
+	ld.volatile.shared.f32 	%f106, [%rd35+12];
+	.loc	22	2349	0
+	sub.f32 	%f107, %f16, %f5;
+	rcp.approx.f32 	%f108, %f104;
+	abs.f32 	%f109, %f107;
+	max.f32 	%f110, %f109, %f106;
+	rcp.approx.f32 	%f111, %f110;
+	div.approx.f32 	%f112, %f108, %f111;
+	lg2.approx.f32 	%f113, %f112;
+	.loc	18	212	0
+	rcp.approx.f32 	%f114, %f16;
+	mul.f32 	%f115, %f108, %f108;
+	mul.f32 	%f116, %f111, %f111;
+	sub.f32 	%f117, %f111, %f108;
+	mov.f32 	%f118, 0f3e800000;   	// 0.25
+	mul.f32 	%f119, %f16, %f118;
+	sub.f32 	%f120, %f115, %f116;
+	mad.f32 	%f121, %f119, %f120, %f117;
+	mov.f32 	%f122, 0f3f317218;   	// 0.693147
+	mul.f32 	%f123, %f113, %f122;
+	mov.f32 	%f124, 0f3f000000;   	// 0.5
+	mul.f32 	%f125, %f114, %f124;
+	mad.f32 	%f126, %f123, %f125, %f121;
+	mov.f32 	%f127, 0f3e800000;   	// 0.25
+	mul.f32 	%f128, %f5, %f127;
+	mul.f32 	%f129, %f5, %f128;
+	mul.f32 	%f130, %f114, %f129;
+	sub.f32 	%f131, %f116, %f115;
+	mad.f32 	%f132, %f130, %f131, %f126;
+	.loc	18	218	0
+	ld.volatile.shared.f32 	%f133, [%rd35+12];
+	sub.f32 	%f134, %f5, %f16;
+	setp.lt.f32 	%p18, %f133, %f134;
+	@!%p18 bra 	$Lt_1_17666;
+	.loc	18	221	0
+	ld.volatile.shared.f32 	%f135, [%rd35+12];
+	rcp.approx.f32 	%f136, %f135;
+	sub.f32 	%f137, %f136, %f111;
+	add.f32 	%f138, %f137, %f137;
+	add.f32 	%f132, %f132, %f138;
+$Lt_1_17666:
+	.loc	18	223	0
+	ld.volatile.shared.f32 	%f139, [%rd35+20];
+	add.f32 	%f140, %f139, %f132;
+	st.volatile.shared.f32 	[%rd35+20], %f140;
+$Lt_1_17154:
+$Lt_1_15618:
+	.loc	18	226	0
+	sub.u32 	%r52, %r24, 1;
+	and.b32 	%r24, %r52, 31;
+	add.u32 	%r46, %r46, 1;
+	mov.u32 	%r53, 32;
+	setp.ne.u32 	%p19, %r46, %r53;
+	@%p19 bra 	$Lt_1_15362;
+	.loc	18	320	0
+	ld.global.f32 	%f141, [%rd23+0];
+	add.f32 	%f142, %f141, %f61;
+	st.global.f32 	[%rd23+0], %f142;
+	.loc	18	322	0
+	add.u32 	%r54, %r45, %r19;
+	cvt.u64.u32 	%rd36, %r54;
+	mul.wide.u32 	%rd37, %r54, 4;
+	add.u64 	%rd38, %rd13, %rd37;
+	ld.global.f32 	%f143, [%rd38+0];
+	ld.volatile.shared.f32 	%f144, [%rd9+20];
+	add.f32 	%f145, %f143, %f144;
+	st.global.f32 	[%rd38+0], %f145;
+$Lt_1_11778:
+	add.u32 	%r12, %r12, 1;
+	add.u64 	%rd6, %rd6, 4;
+	setp.ne.u32 	%p20, %r15, %r12;
+	@%p20 bra 	$Lt_1_11522;
+$Lt_1_11010:
+	.loc	18	332	0
+	exit;
+$LDWend__Z39kCalculateObcGbsaN2ByWarpBornSum_kernelPj:
+	} // _Z39kCalculateObcGbsaN2ByWarpBornSum_kernelPj
+
+	.entry _Z37kCalculateObcGbsaCutoffBornSum_kernelPj (
+		.param .u64 __cudaparm__Z37kCalculateObcGbsaCutoffBornSum_kernelPj_workUnit)
+	.maxntid 320,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<93>;
+	.reg .u64 %rd<55>;
+	.reg .f32 %f<229>;
+	.reg .pred %p<36>;
+	.loc	18	41	0
+$LDWbegin__Z37kCalculateObcGbsaCutoffBornSum_kernelPj:
+	.loc	18	46	0
+	ld.const.u64 	%rd1, [cSim+152];
+	ld.global.u32 	%r1, [%rd1+0];
+	.loc	18	51	0
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r2, %rh1, %rh2;
+	ld.const.u32 	%r3, [cSim+32];
+	ld.const.u32 	%r4, [cSim+16];
+	mul.lo.u32 	%r5, %r4, %r3;
+	cvt.u32.u16 	%r6, %tid.x;
+	add.u32 	%r7, %r2, %r6;
+	shr.u32 	%r8, %r5, 5;
+	shr.u32 	%r9, %r7, 5;
+	mul.lo.u32 	%r10, %r9, %r1;
+	div.u32 	%r11, %r10, %r8;
+	mov.s32 	%r12, %r11;
+	add.u32 	%r13, %r9, 1;
+	mul.lo.u32 	%r14, %r13, %r1;
+	div.u32 	%r15, %r14, %r8;
+	setp.le.u32 	%p1, %r15, %r11;
+	@%p1 bra 	$Lt_2_23042;
+	mov.u64 	%rd2, sA;
+	cvt.u64.u32 	%rd3, %r3;
+	mul.wide.u32 	%rd4, %r3, 28;
+	add.u64 	%rd5, %rd2, %rd4;
+	sub.u32 	%r16, %r15, %r11;
+	and.b32 	%r17, %r6, 31;
+	cvt.u64.u32 	%rd6, %r6;
+	cvt.u64.u32 	%rd7, %r11;
+	mul.wide.u32 	%rd8, %r11, 4;
+	mul.wide.u32 	%rd9, %r6, 28;
+	add.u64 	%rd10, %rd2, %rd9;
+	ld.const.u64 	%rd11, [cSim+1144];
+	ld.const.u64 	%rd12, [cSim+376];
+	ld.const.u64 	%rd13, [cSim+1088];
+	ld.const.u32 	%r18, [cSim+188];
+	ld.param.u64 	%rd14, [__cudaparm__Z37kCalculateObcGbsaCutoffBornSum_kernelPj_workUnit];
+	mov.s32 	%r19, %r16;
+$Lt_2_23554:
+ //<loop> Loop body line 51, nesting depth: 1, estimated iterations: unknown
+	ld.param.u64 	%rd14, [__cudaparm__Z37kCalculateObcGbsaCutoffBornSum_kernelPj_workUnit];
+	.loc	18	58	0
+	add.u64 	%rd15, %rd8, %rd14;
+	ld.global.u32 	%r20, [%rd15+0];
+	.loc	18	69	0
+	mov.s32 	%r21, %r17;
+	shr.u32 	%r22, %r20, 17;
+	shl.b32 	%r23, %r20, 15;
+	shr.u32 	%r24, %r23, 17;
+	shl.b32 	%r25, %r22, 5;
+	mul.lo.u32 	%r26, %r22, %r18;
+	shl.b32 	%r27, %r24, 5;
+	add.u32 	%r28, %r17, %r25;
+	cvt.u64.u32 	%rd16, %r28;
+	mul.wide.u32 	%rd17, %r28, 16;
+	add.u64 	%rd18, %rd13, %rd17;
+	mul.wide.u32 	%rd19, %r28, 8;
+	add.u64 	%rd20, %rd12, %rd19;
+	ld.global.v4.f32 	{%f1,%f2,%f3,_}, [%rd18+0];
+	ld.global.v2.f32 	{%f4,%f5}, [%rd20+0];
+	setp.ne.u32 	%p2, %r25, %r27;
+	@%p2 bra 	$Lt_2_24066;
+	.loc	18	78	0
+	st.volatile.shared.f32 	[%rd10+0], %f1;
+	.loc	18	79	0
+	st.volatile.shared.f32 	[%rd10+4], %f2;
+	.loc	18	80	0
+	st.volatile.shared.f32 	[%rd10+8], %f3;
+	.loc	18	81	0
+	st.volatile.shared.f32 	[%rd10+12], %f4;
+	.loc	18	82	0
+	st.volatile.shared.f32 	[%rd10+16], %f5;
+	sub.u32 	%r29, %r6, %r17;
+	cvt.u64.u32 	%rd21, %r29;
+	mul.wide.u32 	%rd22, %r29, 28;
+	add.u64 	%rd23, %rd22, %rd2;
+	mov.u64 	%rd24, 0;
+	mov.s32 	%r30, %r25;
+	add.u32 	%r31, %r25, 32;
+	ld.const.u32 	%r32, [cSim+0];
+	setp.lt.u32 	%p3, %r28, %r32;
+	mov.pred 	%p4, %p3;
+	mov.pred 	%p5, %p6;
+	selp.s32 	%r33, 1, 0, %p4;
+	mov.f32 	%f6, 0f00000000;     	// 0
+	ld.const.f32 	%f7, [cSim+236];
+$Lt_2_24834:
+ //<loop> Loop body line 82, nesting depth: 2, iterations: 32
+	.loc	18	87	0
+	add.s64 	%rd25, %rd24, %rd22;
+	add.u64 	%rd26, %rd2, %rd25;
+	ld.volatile.shared.f32 	%f8, [%rd26+0];
+	sub.f32 	%f9, %f8, %f1;
+	.loc	18	88	0
+	ld.volatile.shared.f32 	%f10, [%rd26+4];
+	sub.f32 	%f11, %f10, %f2;
+	.loc	18	89	0
+	ld.volatile.shared.f32 	%f12, [%rd26+8];
+	sub.f32 	%f13, %f12, %f3;
+	mul.f32 	%f14, %f11, %f11;
+	mad.f32 	%f15, %f9, %f9, %f14;
+	mad.f32 	%f16, %f13, %f13, %f15;
+	set.lt.u32.f32 	%r34, %f16, %f7;
+	neg.s32 	%r35, %r34;
+	set.lt.u32.u32 	%r36, %r30, %r32;
+	neg.s32 	%r37, %r36;
+	and.b32 	%r38, %r33, %r37;
+	and.b32 	%r39, %r35, %r38;
+	mov.u32 	%r40, 0;
+	setp.eq.s32 	%p7, %r39, %r40;
+	@%p7 bra 	$Lt_2_26114;
+	.loc	18	104	0
+	sqrt.approx.f32 	%f17, %f16;
+	add.u64 	%rd27, %rd24, %rd23;
+	ld.volatile.shared.f32 	%f18, [%rd27+16];
+	add.f32 	%f19, %f18, %f17;
+	set.ne.u32.u32 	%r41, %r30, %r28;
+	neg.s32 	%r42, %r41;
+	set.lt.u32.f32 	%r43, %f4, %f19;
+	neg.s32 	%r44, %r43;
+	and.b32 	%r45, %r42, %r44;
+	mov.u32 	%r46, 0;
+	setp.eq.s32 	%p8, %r45, %r46;
+	@%p8 bra 	$Lt_2_26114;
+	.loc	18	107	0
+	ld.volatile.shared.f32 	%f20, [%rd27+16];
+	sub.f32 	%f21, %f17, %f20;
+	.loc	18	112	0
+	abs.f32 	%f22, %f21;
+	rcp.approx.f32 	%f23, %f19;
+	max.f32 	%f24, %f22, %f4;
+	mul.f32 	%f25, %f23, %f23;
+	rcp.approx.f32 	%f26, %f24;
+	mul.f32 	%f27, %f26, %f26;
+	rcp.approx.f32 	%f28, %f17;
+	sub.f32 	%f29, %f26, %f23;
+	mov.f32 	%f30, 0f3e800000;    	// 0.25
+	mul.f32 	%f31, %f17, %f30;
+	sub.f32 	%f32, %f25, %f27;
+	mad.f32 	%f33, %f31, %f32, %f29;
+	div.approx.f32 	%f34, %f23, %f26;
+	lg2.approx.f32 	%f35, %f34;
+	mov.f32 	%f36, 0f3f317218;    	// 0.693147
+	mul.f32 	%f37, %f35, %f36;
+	mov.f32 	%f38, 0f3f000000;    	// 0.5
+	mul.f32 	%f39, %f28, %f38;
+	mad.f32 	%f40, %f37, %f39, %f33;
+	ld.volatile.shared.f32 	%f41, [%rd27+16];
+	ld.volatile.shared.f32 	%f42, [%rd27+16];
+	mov.f32 	%f43, 0f3e800000;    	// 0.25
+	mul.f32 	%f44, %f42, %f43;
+	mul.f32 	%f45, %f41, %f44;
+	mul.f32 	%f46, %f28, %f45;
+	sub.f32 	%f47, %f27, %f25;
+	mad.f32 	%f48, %f46, %f47, %f40;
+	add.f32 	%f6, %f6, %f48;
+	.loc	18	118	0
+	ld.volatile.shared.f32 	%f49, [%rd27+16];
+	sub.f32 	%f50, %f49, %f17;
+	setp.lt.f32 	%p9, %f4, %f50;
+	@!%p9 bra 	$Lt_2_26114;
+	.loc	18	121	0
+	rcp.approx.f32 	%f51, %f4;
+	sub.f32 	%f52, %f51, %f26;
+	add.f32 	%f53, %f52, %f52;
+	add.f32 	%f6, %f6, %f53;
+$Lt_2_26114:
+$Lt_2_25602:
+$Lt_2_25090:
+	add.u32 	%r30, %r30, 1;
+	add.u64 	%rd24, %rd24, 28;
+	setp.ne.u32 	%p10, %r30, %r31;
+	@%p10 bra 	$Lt_2_24834;
+	.loc	18	133	0
+	add.u32 	%r47, %r26, %r28;
+	cvt.u64.u32 	%rd28, %r47;
+	mul.wide.u32 	%rd29, %r47, 4;
+	add.u64 	%rd30, %rd11, %rd29;
+	st.global.f32 	[%rd30+0], %f6;
+	bra.uni 	$Lt_2_23810;
+$Lt_2_24066:
+	.loc	18	142	0
+	add.u32 	%r48, %r17, %r27;
+	cvt.u64.u32 	%rd31, %r48;
+	mul.wide.u32 	%rd32, %r48, 16;
+	add.u64 	%rd33, %rd13, %rd32;
+	ld.global.v4.f32 	{%f54,%f55,%f56,_}, [%rd33+0];
+	.loc	18	143	0
+	mul.wide.u32 	%rd34, %r48, 8;
+	add.u64 	%rd35, %rd12, %rd34;
+	ld.global.v2.f32 	{%f57,%f58}, [%rd35+0];
+	.loc	18	146	0
+	st.volatile.shared.f32 	[%rd10+0], %f54;
+	.loc	18	147	0
+	st.volatile.shared.f32 	[%rd10+4], %f55;
+	.loc	18	148	0
+	st.volatile.shared.f32 	[%rd10+8], %f56;
+	.loc	18	149	0
+	st.volatile.shared.f32 	[%rd10+12], %f57;
+	.loc	18	150	0
+	st.volatile.shared.f32 	[%rd10+16], %f58;
+	.loc	18	151	0
+	mov.f32 	%f59, 0f00000000;    	// 0
+	st.volatile.shared.f32 	[%rd10+20], %f59;
+	.loc	18	154	0
+	ld.const.u64 	%rd36, [cSim+120];
+	add.u64 	%rd37, %rd36, %rd8;
+	ld.global.u32 	%r49, [%rd37+0];
+	mov.u32 	%r50, 0;
+	setp.ne.u32 	%p11, %r49, %r50;
+	@%p11 bra 	$Lt_2_27138;
+	mov.f32 	%f60, 0f00000000;    	// 0
+	bra.uni 	$Lt_2_27394;
+$Lt_2_27138:
+	sub.u32 	%r51, %r6, %r17;
+	cvt.u64.u32 	%rd38, %r51;
+	mul.wide.u32 	%rd39, %r51, 28;
+	add.u64 	%rd23, %rd2, %rd39;
+	mov.u32 	%r52, -1;
+	setp.ne.u32 	%p12, %r49, %r52;
+	@%p12 bra 	$Lt_2_27650;
+	ld.const.u32 	%r32, [cSim+0];
+	setp.lt.u32 	%p13, %r28, %r32;
+	mov.pred 	%p14, %p13;
+	mov.pred 	%p15, %p6;
+	selp.s32 	%r33, 1, 0, %p14;
+	mov.u32 	%r53, 0;
+	ld.const.f32 	%f7, [cSim+236];
+	mov.f32 	%f60, 0f00000000;    	// 0
+$Lt_2_28418:
+ //<loop> Loop body line 154, nesting depth: 2, iterations: 32
+	.loc	18	166	0
+	cvt.u64.u32 	%rd40, %r21;
+	mul.wide.u32 	%rd41, %r21, 28;
+	add.u64 	%rd42, %rd23, %rd41;
+	ld.volatile.shared.f32 	%f61, [%rd42+0];
+	sub.f32 	%f9, %f61, %f1;
+	.loc	18	167	0
+	ld.volatile.shared.f32 	%f62, [%rd42+4];
+	sub.f32 	%f11, %f62, %f2;
+	.loc	18	168	0
+	ld.volatile.shared.f32 	%f63, [%rd42+8];
+	sub.f32 	%f13, %f63, %f3;
+	mul.f32 	%f14, %f11, %f11;
+	mad.f32 	%f15, %f9, %f9, %f14;
+	mad.f32 	%f16, %f13, %f13, %f15;
+	set.lt.u32.f32 	%r54, %f16, %f7;
+	neg.s32 	%r55, %r54;
+	add.u32 	%r56, %r27, %r21;
+	set.gt.u32.u32 	%r57, %r32, %r56;
+	neg.s32 	%r58, %r57;
+	and.b32 	%r59, %r33, %r58;
+	and.b32 	%r60, %r55, %r59;
+	mov.u32 	%r61, 0;
+	setp.eq.s32 	%p16, %r60, %r61;
+	@%p16 bra 	$Lt_2_30210;
+	.loc	18	183	0
+	sqrt.approx.f32 	%f17, %f16;
+	ld.volatile.shared.f32 	%f64, [%rd42+16];
+	add.f32 	%f65, %f64, %f17;
+	setp.lt.f32 	%p17, %f4, %f65;
+	@!%p17 bra 	$Lt_2_29186;
+	.loc	18	186	0
+	ld.volatile.shared.f32 	%f66, [%rd42+16];
+	sub.f32 	%f67, %f17, %f66;
+	.loc	18	191	0
+	abs.f32 	%f68, %f67;
+	rcp.approx.f32 	%f69, %f65;
+	max.f32 	%f70, %f68, %f4;
+	mul.f32 	%f71, %f69, %f69;
+	rcp.approx.f32 	%f72, %f70;
+	mul.f32 	%f73, %f72, %f72;
+	rcp.approx.f32 	%f74, %f17;
+	sub.f32 	%f75, %f72, %f69;
+	mov.f32 	%f76, 0f3e800000;    	// 0.25
+	mul.f32 	%f77, %f17, %f76;
+	sub.f32 	%f78, %f71, %f73;
+	mad.f32 	%f79, %f77, %f78, %f75;
+	div.approx.f32 	%f80, %f69, %f72;
+	lg2.approx.f32 	%f81, %f80;
+	mov.f32 	%f82, 0f3f317218;    	// 0.693147
+	mul.f32 	%f83, %f81, %f82;
+	mov.f32 	%f84, 0f3f000000;    	// 0.5
+	mul.f32 	%f85, %f74, %f84;
+	mad.f32 	%f86, %f83, %f85, %f79;
+	ld.volatile.shared.f32 	%f87, [%rd42+16];
+	ld.volatile.shared.f32 	%f88, [%rd42+16];
+	mov.f32 	%f89, 0f3e800000;    	// 0.25
+	mul.f32 	%f90, %f88, %f89;
+	mul.f32 	%f91, %f87, %f90;
+	mul.f32 	%f92, %f74, %f91;
+	sub.f32 	%f93, %f73, %f71;
+	mad.f32 	%f94, %f92, %f93, %f86;
+	.loc	18	197	0
+	ld.volatile.shared.f32 	%f95, [%rd42+16];
+	sub.f32 	%f96, %f95, %f17;
+	setp.lt.f32 	%p18, %f4, %f96;
+	@!%p18 bra 	$Lt_2_29698;
+	.loc	18	200	0
+	rcp.approx.f32 	%f51, %f4;
+	sub.f32 	%f97, %f51, %f72;
+	add.f32 	%f98, %f97, %f97;
+	add.f32 	%f94, %f94, %f98;
+$Lt_2_29698:
+	.loc	18	202	0
+	add.f32 	%f60, %f94, %f60;
+$Lt_2_29186:
+	add.f32 	%f99, %f17, %f5;
+	ld.volatile.shared.f32 	%f100, [%rd42+12];
+	setp.lt.f32 	%p19, %f100, %f99;
+	@!%p19 bra 	$Lt_2_30210;
+	.loc	18	207	0
+	ld.volatile.shared.f32 	%f101, [%rd42+12];
+	.loc	22	2349	0
+	sub.f32 	%f102, %f17, %f5;
+	rcp.approx.f32 	%f103, %f99;
+	abs.f32 	%f104, %f102;
+	max.f32 	%f105, %f104, %f101;
+	rcp.approx.f32 	%f106, %f105;
+	div.approx.f32 	%f107, %f103, %f106;
+	lg2.approx.f32 	%f108, %f107;
+	.loc	18	212	0
+	rcp.approx.f32 	%f109, %f17;
+	mul.f32 	%f110, %f103, %f103;
+	mul.f32 	%f111, %f106, %f106;
+	sub.f32 	%f112, %f106, %f103;
+	mov.f32 	%f113, 0f3e800000;   	// 0.25
+	mul.f32 	%f114, %f17, %f113;
+	sub.f32 	%f115, %f110, %f111;
+	mad.f32 	%f116, %f114, %f115, %f112;
+	mov.f32 	%f117, 0f3f317218;   	// 0.693147
+	mul.f32 	%f118, %f108, %f117;
+	mov.f32 	%f119, 0f3f000000;   	// 0.5
+	mul.f32 	%f120, %f109, %f119;
+	mad.f32 	%f121, %f118, %f120, %f116;
+	mov.f32 	%f122, 0f3e800000;   	// 0.25
+	mul.f32 	%f123, %f5, %f122;
+	mul.f32 	%f124, %f5, %f123;
+	mul.f32 	%f125, %f109, %f124;
+	sub.f32 	%f126, %f111, %f110;
+	mad.f32 	%f127, %f125, %f126, %f121;
+	.loc	18	218	0
+	ld.volatile.shared.f32 	%f128, [%rd42+12];
+	sub.f32 	%f129, %f5, %f17;
+	setp.lt.f32 	%p20, %f128, %f129;
+	@!%p20 bra 	$Lt_2_30722;
+	.loc	18	221	0
+	ld.volatile.shared.f32 	%f130, [%rd42+12];
+	rcp.approx.f32 	%f131, %f130;
+	sub.f32 	%f132, %f131, %f106;
+	add.f32 	%f133, %f132, %f132;
+	add.f32 	%f127, %f127, %f133;
+$Lt_2_30722:
+	.loc	18	223	0
+	ld.volatile.shared.f32 	%f134, [%rd42+20];
+	add.f32 	%f135, %f134, %f127;
+	st.volatile.shared.f32 	[%rd42+20], %f135;
+$Lt_2_30210:
+$Lt_2_28674:
+	.loc	18	226	0
+	sub.u32 	%r62, %r21, 1;
+	and.b32 	%r21, %r62, 31;
+	add.u32 	%r53, %r53, 1;
+	mov.u32 	%r63, 32;
+	setp.ne.u32 	%p21, %r53, %r63;
+	@%p21 bra 	$Lt_2_28418;
+	bra.uni 	$Lt_2_27394;
+$Lt_2_27650:
+	mov.u32 	%r64, 0;
+	mov.f32 	%f60, 0f00000000;    	// 0
+$Lt_2_32002:
+ //<loop> Loop body line 226, nesting depth: 2, iterations: 32
+	shl.b32 	%r65, 1, %r64;
+	and.b32 	%r66, %r49, %r65;
+	mov.u32 	%r67, 0;
+	setp.eq.u32 	%p22, %r66, %r67;
+	@%p22 bra 	$Lt_2_37378;
+	.loc	18	238	0
+	mul.lo.u64 	%rd43, %rd6, 4;
+	add.u64 	%rd44, %rd5, %rd43;
+	mov.f32 	%f136, 0f00000000;   	// 0
+	st.volatile.shared.f32 	[%rd44+0], %f136;
+	.loc	18	239	0
+	cvt.u64.u32 	%rd45, %r64;
+	mul.wide.u32 	%rd46, %r64, 28;
+	add.u64 	%rd47, %rd23, %rd46;
+	ld.volatile.shared.f32 	%f137, [%rd47+0];
+	sub.f32 	%f9, %f137, %f1;
+	.loc	18	240	0
+	ld.volatile.shared.f32 	%f138, [%rd47+4];
+	sub.f32 	%f11, %f138, %f2;
+	.loc	18	241	0
+	ld.volatile.shared.f32 	%f139, [%rd47+8];
+	sub.f32 	%f13, %f139, %f3;
+	mul.f32 	%f14, %f11, %f11;
+	mad.f32 	%f15, %f9, %f9, %f14;
+	mad.f32 	%f16, %f13, %f13, %f15;
+	ld.const.u32 	%r32, [cSim+0];
+	ld.const.f32 	%f140, [cSim+236];
+	set.gt.u32.f32 	%r68, %f140, %f16;
+	neg.s32 	%r69, %r68;
+	add.u32 	%r70, %r27, %r64;
+	set.gt.u32.u32 	%r71, %r32, %r70;
+	neg.s32 	%r72, %r71;
+	set.lt.u32.u32 	%r73, %r28, %r32;
+	neg.s32 	%r74, %r73;
+	and.b32 	%r75, %r72, %r74;
+	and.b32 	%r76, %r69, %r75;
+	mov.u32 	%r77, 0;
+	setp.eq.s32 	%p23, %r76, %r77;
+	@%p23 bra 	$Lt_2_34306;
+	.loc	18	256	0
+	sqrt.approx.f32 	%f17, %f16;
+	ld.volatile.shared.f32 	%f141, [%rd47+16];
+	add.f32 	%f142, %f141, %f17;
+	setp.lt.f32 	%p24, %f4, %f142;
+	@!%p24 bra 	$Lt_2_33282;
+	.loc	18	259	0
+	ld.volatile.shared.f32 	%f143, [%rd47+16];
+	sub.f32 	%f144, %f17, %f143;
+	.loc	18	264	0
+	abs.f32 	%f145, %f144;
+	rcp.approx.f32 	%f146, %f142;
+	max.f32 	%f147, %f145, %f4;
+	mul.f32 	%f148, %f146, %f146;
+	rcp.approx.f32 	%f149, %f147;
+	mul.f32 	%f150, %f149, %f149;
+	rcp.approx.f32 	%f151, %f17;
+	sub.f32 	%f152, %f149, %f146;
+	mov.f32 	%f153, 0f3e800000;   	// 0.25
+	mul.f32 	%f154, %f17, %f153;
+	sub.f32 	%f155, %f148, %f150;
+	mad.f32 	%f156, %f154, %f155, %f152;
+	div.approx.f32 	%f157, %f146, %f149;
+	lg2.approx.f32 	%f158, %f157;
+	mov.f32 	%f159, 0f3f317218;   	// 0.693147
+	mul.f32 	%f160, %f158, %f159;
+	mov.f32 	%f161, 0f3f000000;   	// 0.5
+	mul.f32 	%f162, %f151, %f161;
+	mad.f32 	%f163, %f160, %f162, %f156;
+	ld.volatile.shared.f32 	%f164, [%rd47+16];
+	ld.volatile.shared.f32 	%f165, [%rd47+16];
+	mov.f32 	%f166, 0f3e800000;   	// 0.25
+	mul.f32 	%f167, %f165, %f166;
+	mul.f32 	%f168, %f164, %f167;
+	mul.f32 	%f169, %f151, %f168;
+	sub.f32 	%f170, %f150, %f148;
+	mad.f32 	%f171, %f169, %f170, %f163;
+	.loc	18	270	0
+	ld.volatile.shared.f32 	%f172, [%rd47+16];
+	sub.f32 	%f173, %f172, %f17;
+	setp.lt.f32 	%p25, %f4, %f173;
+	@!%p25 bra 	$Lt_2_33794;
+	.loc	18	273	0
+	rcp.approx.f32 	%f51, %f4;
+	sub.f32 	%f174, %f51, %f149;
+	add.f32 	%f175, %f174, %f174;
+	add.f32 	%f171, %f171, %f175;
+$Lt_2_33794:
+	.loc	18	275	0
+	add.f32 	%f60, %f171, %f60;
+$Lt_2_33282:
+	add.f32 	%f99, %f17, %f5;
+	ld.volatile.shared.f32 	%f176, [%rd47+12];
+	setp.lt.f32 	%p26, %f176, %f99;
+	@!%p26 bra 	$Lt_2_34306;
+	.loc	18	280	0
+	ld.volatile.shared.f32 	%f177, [%rd47+12];
+	.loc	22	2349	0
+	sub.f32 	%f178, %f17, %f5;
+	rcp.approx.f32 	%f179, %f99;
+	abs.f32 	%f180, %f178;
+	max.f32 	%f181, %f180, %f177;
+	rcp.approx.f32 	%f182, %f181;
+	div.approx.f32 	%f183, %f179, %f182;
+	lg2.approx.f32 	%f184, %f183;
+	.loc	18	285	0
+	rcp.approx.f32 	%f185, %f17;
+	mul.f32 	%f186, %f179, %f179;
+	mul.f32 	%f187, %f182, %f182;
+	sub.f32 	%f188, %f182, %f179;
+	mov.f32 	%f189, 0f3e800000;   	// 0.25
+	mul.f32 	%f190, %f17, %f189;
+	sub.f32 	%f191, %f186, %f187;
+	mad.f32 	%f192, %f190, %f191, %f188;
+	mov.f32 	%f193, 0f3f317218;   	// 0.693147
+	mul.f32 	%f194, %f184, %f193;
+	mov.f32 	%f195, 0f3f000000;   	// 0.5
+	mul.f32 	%f196, %f185, %f195;
+	mad.f32 	%f197, %f194, %f196, %f192;
+	mov.f32 	%f198, 0f3e800000;   	// 0.25
+	mul.f32 	%f199, %f5, %f198;
+	mul.f32 	%f200, %f5, %f199;
+	mul.f32 	%f201, %f185, %f200;
+	sub.f32 	%f202, %f187, %f186;
+	mad.f32 	%f203, %f201, %f202, %f197;
+	.loc	18	291	0
+	ld.volatile.shared.f32 	%f204, [%rd47+12];
+	sub.f32 	%f205, %f5, %f17;
+	setp.lt.f32 	%p27, %f204, %f205;
+	@!%p27 bra 	$Lt_2_34818;
+	.loc	18	294	0
+	ld.volatile.shared.f32 	%f206, [%rd47+12];
+	rcp.approx.f32 	%f207, %f206;
+	sub.f32 	%f208, %f207, %f182;
+	add.f32 	%f209, %f208, %f208;
+	add.f32 	%f203, %f203, %f209;
+$Lt_2_34818:
+	.loc	18	296	0
+	st.volatile.shared.f32 	[%rd44+0], %f203;
+$Lt_2_34306:
+$Lt_2_32770:
+	and.b32 	%r78, %r6, 1;
+	mov.u32 	%r79, 0;
+	setp.ne.u32 	%p28, %r78, %r79;
+	@%p28 bra 	$Lt_2_35330;
+	.loc	18	303	0
+	ld.volatile.shared.f32 	%f210, [%rd44+0];
+	ld.volatile.shared.f32 	%f211, [%rd44+4];
+	add.f32 	%f212, %f210, %f211;
+	st.volatile.shared.f32 	[%rd44+0], %f212;
+$Lt_2_35330:
+	and.b32 	%r80, %r6, 3;
+	mov.u32 	%r81, 0;
+	setp.ne.u32 	%p29, %r80, %r81;
+	@%p29 bra 	$Lt_2_35842;
+	.loc	18	305	0
+	ld.volatile.shared.f32 	%f213, [%rd44+0];
+	ld.volatile.shared.f32 	%f214, [%rd44+8];
+	add.f32 	%f215, %f213, %f214;
+	st.volatile.shared.f32 	[%rd44+0], %f215;
+$Lt_2_35842:
+	and.b32 	%r82, %r6, 7;
+	mov.u32 	%r83, 0;
+	setp.ne.u32 	%p30, %r82, %r83;
+	@%p30 bra 	$Lt_2_36354;
+	.loc	18	307	0
+	ld.volatile.shared.f32 	%f216, [%rd44+0];
+	ld.volatile.shared.f32 	%f217, [%rd44+16];
+	add.f32 	%f218, %f216, %f217;
+	st.volatile.shared.f32 	[%rd44+0], %f218;
+$Lt_2_36354:
+	and.b32 	%r84, %r6, 15;
+	mov.u32 	%r85, 0;
+	setp.ne.u32 	%p31, %r84, %r85;
+	@%p31 bra 	$Lt_2_36866;
+	.loc	18	309	0
+	ld.volatile.shared.f32 	%f219, [%rd44+0];
+	ld.volatile.shared.f32 	%f220, [%rd44+32];
+	add.f32 	%f221, %f219, %f220;
+	st.volatile.shared.f32 	[%rd44+0], %f221;
+$Lt_2_36866:
+	mov.u32 	%r86, 0;
+	setp.ne.u32 	%p32, %r17, %r86;
+	@%p32 bra 	$Lt_2_37378;
+	.loc	18	311	0
+	ld.volatile.shared.f32 	%f222, [%rd47+20];
+	ld.volatile.shared.f32 	%f223, [%rd44+0];
+	ld.volatile.shared.f32 	%f224, [%rd44+64];
+	add.f32 	%f225, %f223, %f224;
+	add.f32 	%f226, %f222, %f225;
+	st.volatile.shared.f32 	[%rd47+20], %f226;
+$Lt_2_37378:
+$Lt_2_32258:
+	add.u32 	%r64, %r64, 1;
+	mov.u32 	%r87, 32;
+	setp.ne.u32 	%p33, %r64, %r87;
+	@%p33 bra 	$Lt_2_32002;
+$Lt_2_27394:
+$Lt_2_26882:
+	.loc	18	325	0
+	and.b32 	%r88, %r24, 134217727;
+	mul.lo.u32 	%r89, %r18, %r88;
+	add.u32 	%r90, %r28, %r89;
+	cvt.u64.u32 	%rd48, %r90;
+	mul.wide.u32 	%rd49, %r90, 4;
+	add.u64 	%rd50, %rd11, %rd49;
+	st.global.f32 	[%rd50+0], %f60;
+	.loc	18	327	0
+	ld.volatile.shared.f32 	%f227, [%rd10+20];
+	add.u32 	%r91, %r26, %r48;
+	cvt.u64.u32 	%rd51, %r91;
+	mul.wide.u32 	%rd52, %r91, 4;
+	add.u64 	%rd53, %rd11, %rd52;
+	st.global.f32 	[%rd53+0], %f227;
+$Lt_2_23810:
+	add.u32 	%r12, %r12, 1;
+	add.u64 	%rd8, %rd8, 4;
+	setp.ne.u32 	%p34, %r15, %r12;
+	@%p34 bra 	$Lt_2_23554;
+$Lt_2_23042:
+	.loc	18	332	0
+	exit;
+$LDWend__Z37kCalculateObcGbsaCutoffBornSum_kernelPj:
+	} // _Z37kCalculateObcGbsaCutoffBornSum_kernelPj
+
+	.entry _Z43kCalculateObcGbsaCutoffByWarpBornSum_kernelPj (
+		.param .u64 __cudaparm__Z43kCalculateObcGbsaCutoffByWarpBornSum_kernelPj_workUnit)
+	.maxntid 320,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<90>;
+	.reg .u64 %rd<52>;
+	.reg .f32 %f<235>;
+	.reg .pred %p<36>;
+	.loc	18	41	0
+$LDWbegin__Z43kCalculateObcGbsaCutoffByWarpBornSum_kernelPj:
+	.loc	18	46	0
+	ld.const.u64 	%rd1, [cSim+152];
+	ld.global.u32 	%r1, [%rd1+0];
+	.loc	18	51	0
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r2, %rh1, %rh2;
+	ld.const.u32 	%r3, [cSim+32];
+	ld.const.u32 	%r4, [cSim+16];
+	mul.lo.u32 	%r5, %r4, %r3;
+	cvt.u32.u16 	%r6, %tid.x;
+	add.u32 	%r7, %r2, %r6;
+	shr.u32 	%r8, %r5, 5;
+	shr.u32 	%r9, %r7, 5;
+	mul.lo.u32 	%r10, %r9, %r1;
+	div.u32 	%r11, %r10, %r8;
+	mov.s32 	%r12, %r11;
+	add.u32 	%r13, %r9, 1;
+	mul.lo.u32 	%r14, %r13, %r1;
+	div.u32 	%r15, %r14, %r8;
+	setp.le.u32 	%p1, %r15, %r11;
+	@%p1 bra 	$Lt_3_23042;
+	mov.u64 	%rd2, sA;
+	cvt.u64.u32 	%rd3, %r3;
+	mul.wide.u32 	%rd4, %r3, 28;
+	add.u64 	%rd5, %rd2, %rd4;
+	sub.u32 	%r16, %r15, %r11;
+	and.b32 	%r17, %r6, 31;
+	cvt.u64.u32 	%rd6, %r6;
+	cvt.u64.u32 	%rd7, %r11;
+	mul.wide.u32 	%rd8, %r11, 4;
+	mul.wide.u32 	%rd9, %r6, 28;
+	add.u64 	%rd10, %rd2, %rd9;
+	ld.const.u32 	%r18, [cSim+188];
+	mul.lo.u32 	%r19, %r18, %r9;
+	ld.const.u64 	%rd11, [cSim+1144];
+	ld.const.u64 	%rd12, [cSim+376];
+	ld.const.u64 	%rd13, [cSim+1088];
+	ld.param.u64 	%rd14, [__cudaparm__Z43kCalculateObcGbsaCutoffByWarpBornSum_kernelPj_workUnit];
+	mov.s32 	%r20, %r16;
+$Lt_3_23554:
+ //<loop> Loop body line 51, nesting depth: 1, estimated iterations: unknown
+	ld.param.u64 	%rd14, [__cudaparm__Z43kCalculateObcGbsaCutoffByWarpBornSum_kernelPj_workUnit];
+	.loc	18	58	0
+	add.u64 	%rd15, %rd8, %rd14;
+	ld.global.u32 	%r21, [%rd15+0];
+	.loc	18	69	0
+	mov.s32 	%r22, %r17;
+	shr.u32 	%r23, %r21, 17;
+	shl.b32 	%r24, %r21, 15;
+	shr.u32 	%r25, %r24, 17;
+	shl.b32 	%r26, %r23, 5;
+	shl.b32 	%r27, %r25, 5;
+	add.u32 	%r28, %r17, %r26;
+	cvt.u64.u32 	%rd16, %r28;
+	mul.wide.u32 	%rd17, %r28, 16;
+	add.u64 	%rd18, %rd13, %rd17;
+	mul.wide.u32 	%rd19, %r28, 8;
+	add.u64 	%rd20, %rd12, %rd19;
+	ld.global.v4.f32 	{%f1,%f2,%f3,_}, [%rd18+0];
+	ld.global.v2.f32 	{%f4,%f5}, [%rd20+0];
+	add.u32 	%r29, %r19, %r28;
+	cvt.u64.u32 	%rd21, %r29;
+	mul.wide.u32 	%rd22, %r29, 4;
+	add.u64 	%rd23, %rd11, %rd22;
+	setp.ne.u32 	%p2, %r26, %r27;
+	@%p2 bra 	$Lt_3_24066;
+	.loc	18	78	0
+	st.volatile.shared.f32 	[%rd10+0], %f1;
+	.loc	18	79	0
+	st.volatile.shared.f32 	[%rd10+4], %f2;
+	.loc	18	80	0
+	st.volatile.shared.f32 	[%rd10+8], %f3;
+	.loc	18	81	0
+	st.volatile.shared.f32 	[%rd10+12], %f4;
+	.loc	18	82	0
+	st.volatile.shared.f32 	[%rd10+16], %f5;
+	sub.u32 	%r30, %r6, %r17;
+	cvt.u64.u32 	%rd24, %r30;
+	mul.wide.u32 	%rd25, %r30, 28;
+	add.u64 	%rd26, %rd25, %rd2;
+	mov.u64 	%rd27, 0;
+	mov.s32 	%r31, %r26;
+	add.u32 	%r32, %r26, 32;
+	ld.const.u32 	%r33, [cSim+0];
+	setp.lt.u32 	%p3, %r28, %r33;
+	mov.pred 	%p4, %p3;
+	mov.pred 	%p5, %p6;
+	selp.s32 	%r34, 1, 0, %p4;
+	mov.f32 	%f6, 0f00000000;     	// 0
+	ld.const.f32 	%f7, [cSim+236];
+$Lt_3_24834:
+ //<loop> Loop body line 82, nesting depth: 2, iterations: 32
+	.loc	18	87	0
+	add.s64 	%rd28, %rd27, %rd25;
+	add.u64 	%rd29, %rd2, %rd28;
+	ld.volatile.shared.f32 	%f8, [%rd29+0];
+	sub.f32 	%f9, %f8, %f1;
+	.loc	18	88	0
+	ld.volatile.shared.f32 	%f10, [%rd29+4];
+	sub.f32 	%f11, %f10, %f2;
+	.loc	18	89	0
+	ld.volatile.shared.f32 	%f12, [%rd29+8];
+	sub.f32 	%f13, %f12, %f3;
+	mul.f32 	%f14, %f11, %f11;
+	mad.f32 	%f15, %f9, %f9, %f14;
+	mad.f32 	%f16, %f13, %f13, %f15;
+	set.lt.u32.f32 	%r35, %f16, %f7;
+	neg.s32 	%r36, %r35;
+	set.lt.u32.u32 	%r37, %r31, %r33;
+	neg.s32 	%r38, %r37;
+	and.b32 	%r39, %r34, %r38;
+	and.b32 	%r40, %r36, %r39;
+	mov.u32 	%r41, 0;
+	setp.eq.s32 	%p7, %r40, %r41;
+	@%p7 bra 	$Lt_3_26114;
+	.loc	18	104	0
+	sqrt.approx.f32 	%f17, %f16;
+	add.u64 	%rd30, %rd27, %rd26;
+	ld.volatile.shared.f32 	%f18, [%rd30+16];
+	add.f32 	%f19, %f18, %f17;
+	set.ne.u32.u32 	%r42, %r31, %r28;
+	neg.s32 	%r43, %r42;
+	set.lt.u32.f32 	%r44, %f4, %f19;
+	neg.s32 	%r45, %r44;
+	and.b32 	%r46, %r43, %r45;
+	mov.u32 	%r47, 0;
+	setp.eq.s32 	%p8, %r46, %r47;
+	@%p8 bra 	$Lt_3_26114;
+	.loc	18	107	0
+	ld.volatile.shared.f32 	%f20, [%rd30+16];
+	sub.f32 	%f21, %f17, %f20;
+	.loc	18	112	0
+	abs.f32 	%f22, %f21;
+	rcp.approx.f32 	%f23, %f19;
+	max.f32 	%f24, %f22, %f4;
+	mul.f32 	%f25, %f23, %f23;
+	rcp.approx.f32 	%f26, %f24;
+	mul.f32 	%f27, %f26, %f26;
+	rcp.approx.f32 	%f28, %f17;
+	sub.f32 	%f29, %f26, %f23;
+	mov.f32 	%f30, 0f3e800000;    	// 0.25
+	mul.f32 	%f31, %f17, %f30;
+	sub.f32 	%f32, %f25, %f27;
+	mad.f32 	%f33, %f31, %f32, %f29;
+	div.approx.f32 	%f34, %f23, %f26;
+	lg2.approx.f32 	%f35, %f34;
+	mov.f32 	%f36, 0f3f317218;    	// 0.693147
+	mul.f32 	%f37, %f35, %f36;
+	mov.f32 	%f38, 0f3f000000;    	// 0.5
+	mul.f32 	%f39, %f28, %f38;
+	mad.f32 	%f40, %f37, %f39, %f33;
+	ld.volatile.shared.f32 	%f41, [%rd30+16];
+	ld.volatile.shared.f32 	%f42, [%rd30+16];
+	mov.f32 	%f43, 0f3e800000;    	// 0.25
+	mul.f32 	%f44, %f42, %f43;
+	mul.f32 	%f45, %f41, %f44;
+	mul.f32 	%f46, %f28, %f45;
+	sub.f32 	%f47, %f27, %f25;
+	mad.f32 	%f48, %f46, %f47, %f40;
+	add.f32 	%f6, %f6, %f48;
+	.loc	18	118	0
+	ld.volatile.shared.f32 	%f49, [%rd30+16];
+	sub.f32 	%f50, %f49, %f17;
+	setp.lt.f32 	%p9, %f4, %f50;
+	@!%p9 bra 	$Lt_3_26114;
+	.loc	18	121	0
+	rcp.approx.f32 	%f51, %f4;
+	sub.f32 	%f52, %f51, %f26;
+	add.f32 	%f53, %f52, %f52;
+	add.f32 	%f6, %f6, %f53;
+$Lt_3_26114:
+$Lt_3_25602:
+$Lt_3_25090:
+	add.u32 	%r31, %r31, 1;
+	add.u64 	%rd27, %rd27, 28;
+	setp.ne.u32 	%p10, %r31, %r32;
+	@%p10 bra 	$Lt_3_24834;
+	.loc	18	130	0
+	ld.global.f32 	%f54, [%rd23+0];
+	add.f32 	%f55, %f54, %f6;
+	st.global.f32 	[%rd23+0], %f55;
+	bra.uni 	$Lt_3_23810;
+$Lt_3_24066:
+	.loc	18	142	0
+	add.u32 	%r48, %r17, %r27;
+	cvt.u64.u32 	%rd31, %r48;
+	mul.wide.u32 	%rd32, %r48, 16;
+	add.u64 	%rd33, %rd13, %rd32;
+	ld.global.v4.f32 	{%f56,%f57,%f58,_}, [%rd33+0];
+	.loc	18	143	0
+	mul.wide.u32 	%rd34, %r48, 8;
+	add.u64 	%rd35, %rd12, %rd34;
+	ld.global.v2.f32 	{%f59,%f60}, [%rd35+0];
+	.loc	18	146	0
+	st.volatile.shared.f32 	[%rd10+0], %f56;
+	.loc	18	147	0
+	st.volatile.shared.f32 	[%rd10+4], %f57;
+	.loc	18	148	0
+	st.volatile.shared.f32 	[%rd10+8], %f58;
+	.loc	18	149	0
+	st.volatile.shared.f32 	[%rd10+12], %f59;
+	.loc	18	150	0
+	st.volatile.shared.f32 	[%rd10+16], %f60;
+	.loc	18	151	0
+	mov.f32 	%f61, 0f00000000;    	// 0
+	st.volatile.shared.f32 	[%rd10+20], %f61;
+	.loc	18	154	0
+	ld.const.u64 	%rd36, [cSim+120];
+	add.u64 	%rd37, %rd36, %rd8;
+	ld.global.u32 	%r49, [%rd37+0];
+	mov.u32 	%r50, 0;
+	setp.ne.u32 	%p11, %r49, %r50;
+	@%p11 bra 	$Lt_3_27138;
+	mov.f32 	%f62, 0f00000000;    	// 0
+	bra.uni 	$Lt_3_27394;
+$Lt_3_27138:
+	sub.u32 	%r51, %r6, %r17;
+	cvt.u64.u32 	%rd38, %r51;
+	mul.wide.u32 	%rd39, %r51, 28;
+	add.u64 	%rd26, %rd2, %rd39;
+	mov.u32 	%r52, -1;
+	setp.ne.u32 	%p12, %r49, %r52;
+	@%p12 bra 	$Lt_3_27650;
+	ld.const.u32 	%r33, [cSim+0];
+	setp.lt.u32 	%p13, %r28, %r33;
+	mov.pred 	%p14, %p13;
+	mov.pred 	%p15, %p6;
+	selp.s32 	%r34, 1, 0, %p14;
+	mov.u32 	%r53, 0;
+	ld.const.f32 	%f7, [cSim+236];
+	mov.f32 	%f62, 0f00000000;    	// 0
+$Lt_3_28418:
+ //<loop> Loop body line 154, nesting depth: 2, iterations: 32
+	.loc	18	166	0
+	cvt.u64.u32 	%rd40, %r22;
+	mul.wide.u32 	%rd41, %r22, 28;
+	add.u64 	%rd42, %rd26, %rd41;
+	ld.volatile.shared.f32 	%f63, [%rd42+0];
+	sub.f32 	%f9, %f63, %f1;
+	.loc	18	167	0
+	ld.volatile.shared.f32 	%f64, [%rd42+4];
+	sub.f32 	%f11, %f64, %f2;
+	.loc	18	168	0
+	ld.volatile.shared.f32 	%f65, [%rd42+8];
+	sub.f32 	%f13, %f65, %f3;
+	mul.f32 	%f14, %f11, %f11;
+	mad.f32 	%f15, %f9, %f9, %f14;
+	mad.f32 	%f16, %f13, %f13, %f15;
+	set.lt.u32.f32 	%r54, %f16, %f7;
+	neg.s32 	%r55, %r54;
+	add.u32 	%r56, %r27, %r22;
+	set.gt.u32.u32 	%r57, %r33, %r56;
+	neg.s32 	%r58, %r57;
+	and.b32 	%r59, %r34, %r58;
+	and.b32 	%r60, %r55, %r59;
+	mov.u32 	%r61, 0;
+	setp.eq.s32 	%p16, %r60, %r61;
+	@%p16 bra 	$Lt_3_30210;
+	.loc	18	183	0
+	sqrt.approx.f32 	%f17, %f16;
+	ld.volatile.shared.f32 	%f66, [%rd42+16];
+	add.f32 	%f67, %f66, %f17;
+	setp.lt.f32 	%p17, %f4, %f67;
+	@!%p17 bra 	$Lt_3_29186;
+	.loc	18	186	0
+	ld.volatile.shared.f32 	%f68, [%rd42+16];
+	sub.f32 	%f69, %f17, %f68;
+	.loc	18	191	0
+	abs.f32 	%f70, %f69;
+	rcp.approx.f32 	%f71, %f67;
+	max.f32 	%f72, %f70, %f4;
+	mul.f32 	%f73, %f71, %f71;
+	rcp.approx.f32 	%f74, %f72;
+	mul.f32 	%f75, %f74, %f74;
+	rcp.approx.f32 	%f76, %f17;
+	sub.f32 	%f77, %f74, %f71;
+	mov.f32 	%f78, 0f3e800000;    	// 0.25
+	mul.f32 	%f79, %f17, %f78;
+	sub.f32 	%f80, %f73, %f75;
+	mad.f32 	%f81, %f79, %f80, %f77;
+	div.approx.f32 	%f82, %f71, %f74;
+	lg2.approx.f32 	%f83, %f82;
+	mov.f32 	%f84, 0f3f317218;    	// 0.693147
+	mul.f32 	%f85, %f83, %f84;
+	mov.f32 	%f86, 0f3f000000;    	// 0.5
+	mul.f32 	%f87, %f76, %f86;
+	mad.f32 	%f88, %f85, %f87, %f81;
+	ld.volatile.shared.f32 	%f89, [%rd42+16];
+	ld.volatile.shared.f32 	%f90, [%rd42+16];
+	mov.f32 	%f91, 0f3e800000;    	// 0.25
+	mul.f32 	%f92, %f90, %f91;
+	mul.f32 	%f93, %f89, %f92;
+	mul.f32 	%f94, %f76, %f93;
+	sub.f32 	%f95, %f75, %f73;
+	mad.f32 	%f96, %f94, %f95, %f88;
+	.loc	18	197	0
+	ld.volatile.shared.f32 	%f97, [%rd42+16];
+	sub.f32 	%f98, %f97, %f17;
+	setp.lt.f32 	%p18, %f4, %f98;
+	@!%p18 bra 	$Lt_3_29698;
+	.loc	18	200	0
+	rcp.approx.f32 	%f51, %f4;
+	sub.f32 	%f99, %f51, %f74;
+	add.f32 	%f100, %f99, %f99;
+	add.f32 	%f96, %f96, %f100;
+$Lt_3_29698:
+	.loc	18	202	0
+	add.f32 	%f62, %f96, %f62;
+$Lt_3_29186:
+	add.f32 	%f101, %f17, %f5;
+	ld.volatile.shared.f32 	%f102, [%rd42+12];
+	setp.lt.f32 	%p19, %f102, %f101;
+	@!%p19 bra 	$Lt_3_30210;
+	.loc	18	207	0
+	ld.volatile.shared.f32 	%f103, [%rd42+12];
+	.loc	22	2349	0
+	sub.f32 	%f104, %f17, %f5;
+	rcp.approx.f32 	%f105, %f101;
+	abs.f32 	%f106, %f104;
+	max.f32 	%f107, %f106, %f103;
+	rcp.approx.f32 	%f108, %f107;
+	div.approx.f32 	%f109, %f105, %f108;
+	lg2.approx.f32 	%f110, %f109;
+	.loc	18	212	0
+	rcp.approx.f32 	%f111, %f17;
+	mul.f32 	%f112, %f105, %f105;
+	mul.f32 	%f113, %f108, %f108;
+	sub.f32 	%f114, %f108, %f105;
+	mov.f32 	%f115, 0f3e800000;   	// 0.25
+	mul.f32 	%f116, %f17, %f115;
+	sub.f32 	%f117, %f112, %f113;
+	mad.f32 	%f118, %f116, %f117, %f114;
+	mov.f32 	%f119, 0f3f317218;   	// 0.693147
+	mul.f32 	%f120, %f110, %f119;
+	mov.f32 	%f121, 0f3f000000;   	// 0.5
+	mul.f32 	%f122, %f111, %f121;
+	mad.f32 	%f123, %f120, %f122, %f118;
+	mov.f32 	%f124, 0f3e800000;   	// 0.25
+	mul.f32 	%f125, %f5, %f124;
+	mul.f32 	%f126, %f5, %f125;
+	mul.f32 	%f127, %f111, %f126;
+	sub.f32 	%f128, %f113, %f112;
+	mad.f32 	%f129, %f127, %f128, %f123;
+	.loc	18	218	0
+	ld.volatile.shared.f32 	%f130, [%rd42+12];
+	sub.f32 	%f131, %f5, %f17;
+	setp.lt.f32 	%p20, %f130, %f131;
+	@!%p20 bra 	$Lt_3_30722;
+	.loc	18	221	0
+	ld.volatile.shared.f32 	%f132, [%rd42+12];
+	rcp.approx.f32 	%f133, %f132;
+	sub.f32 	%f134, %f133, %f108;
+	add.f32 	%f135, %f134, %f134;
+	add.f32 	%f129, %f129, %f135;
+$Lt_3_30722:
+	.loc	18	223	0
+	ld.volatile.shared.f32 	%f136, [%rd42+20];
+	add.f32 	%f137, %f136, %f129;
+	st.volatile.shared.f32 	[%rd42+20], %f137;
+$Lt_3_30210:
+$Lt_3_28674:
+	.loc	18	226	0
+	sub.u32 	%r62, %r22, 1;
+	and.b32 	%r22, %r62, 31;
+	add.u32 	%r53, %r53, 1;
+	mov.u32 	%r63, 32;
+	setp.ne.u32 	%p21, %r53, %r63;
+	@%p21 bra 	$Lt_3_28418;
+	bra.uni 	$Lt_3_27394;
+$Lt_3_27650:
+	mov.u32 	%r64, 0;
+	mov.f32 	%f62, 0f00000000;    	// 0
+$Lt_3_32002:
+ //<loop> Loop body line 226, nesting depth: 2, iterations: 32
+	shl.b32 	%r65, 1, %r64;
+	and.b32 	%r66, %r49, %r65;
+	mov.u32 	%r67, 0;
+	setp.eq.u32 	%p22, %r66, %r67;
+	@%p22 bra 	$Lt_3_37378;
+	.loc	18	238	0
+	mul.lo.u64 	%rd43, %rd6, 4;
+	add.u64 	%rd44, %rd5, %rd43;
+	mov.f32 	%f138, 0f00000000;   	// 0
+	st.volatile.shared.f32 	[%rd44+0], %f138;
+	.loc	18	239	0
+	cvt.u64.u32 	%rd45, %r64;
+	mul.wide.u32 	%rd46, %r64, 28;
+	add.u64 	%rd47, %rd26, %rd46;
+	ld.volatile.shared.f32 	%f139, [%rd47+0];
+	sub.f32 	%f9, %f139, %f1;
+	.loc	18	240	0
+	ld.volatile.shared.f32 	%f140, [%rd47+4];
+	sub.f32 	%f11, %f140, %f2;
+	.loc	18	241	0
+	ld.volatile.shared.f32 	%f141, [%rd47+8];
+	sub.f32 	%f13, %f141, %f3;
+	mul.f32 	%f14, %f11, %f11;
+	mad.f32 	%f15, %f9, %f9, %f14;
+	mad.f32 	%f16, %f13, %f13, %f15;
+	ld.const.u32 	%r33, [cSim+0];
+	ld.const.f32 	%f142, [cSim+236];
+	set.gt.u32.f32 	%r68, %f142, %f16;
+	neg.s32 	%r69, %r68;
+	add.u32 	%r70, %r27, %r64;
+	set.gt.u32.u32 	%r71, %r33, %r70;
+	neg.s32 	%r72, %r71;
+	set.lt.u32.u32 	%r73, %r28, %r33;
+	neg.s32 	%r74, %r73;
+	and.b32 	%r75, %r72, %r74;
+	and.b32 	%r76, %r69, %r75;
+	mov.u32 	%r77, 0;
+	setp.eq.s32 	%p23, %r76, %r77;
+	@%p23 bra 	$Lt_3_34306;
+	.loc	18	256	0
+	sqrt.approx.f32 	%f17, %f16;
+	ld.volatile.shared.f32 	%f143, [%rd47+16];
+	add.f32 	%f144, %f143, %f17;
+	setp.lt.f32 	%p24, %f4, %f144;
+	@!%p24 bra 	$Lt_3_33282;
+	.loc	18	259	0
+	ld.volatile.shared.f32 	%f145, [%rd47+16];
+	sub.f32 	%f146, %f17, %f145;
+	.loc	18	264	0
+	abs.f32 	%f147, %f146;
+	rcp.approx.f32 	%f148, %f144;
+	max.f32 	%f149, %f147, %f4;
+	mul.f32 	%f150, %f148, %f148;
+	rcp.approx.f32 	%f151, %f149;
+	mul.f32 	%f152, %f151, %f151;
+	rcp.approx.f32 	%f153, %f17;
+	sub.f32 	%f154, %f151, %f148;
+	mov.f32 	%f155, 0f3e800000;   	// 0.25
+	mul.f32 	%f156, %f17, %f155;
+	sub.f32 	%f157, %f150, %f152;
+	mad.f32 	%f158, %f156, %f157, %f154;
+	div.approx.f32 	%f159, %f148, %f151;
+	lg2.approx.f32 	%f160, %f159;
+	mov.f32 	%f161, 0f3f317218;   	// 0.693147
+	mul.f32 	%f162, %f160, %f161;
+	mov.f32 	%f163, 0f3f000000;   	// 0.5
+	mul.f32 	%f164, %f153, %f163;
+	mad.f32 	%f165, %f162, %f164, %f158;
+	ld.volatile.shared.f32 	%f166, [%rd47+16];
+	ld.volatile.shared.f32 	%f167, [%rd47+16];
+	mov.f32 	%f168, 0f3e800000;   	// 0.25
+	mul.f32 	%f169, %f167, %f168;
+	mul.f32 	%f170, %f166, %f169;
+	mul.f32 	%f171, %f153, %f170;
+	sub.f32 	%f172, %f152, %f150;
+	mad.f32 	%f173, %f171, %f172, %f165;
+	.loc	18	270	0
+	ld.volatile.shared.f32 	%f174, [%rd47+16];
+	sub.f32 	%f175, %f174, %f17;
+	setp.lt.f32 	%p25, %f4, %f175;
+	@!%p25 bra 	$Lt_3_33794;
+	.loc	18	273	0
+	rcp.approx.f32 	%f51, %f4;
+	sub.f32 	%f176, %f51, %f151;
+	add.f32 	%f177, %f176, %f176;
+	add.f32 	%f173, %f173, %f177;
+$Lt_3_33794:
+	.loc	18	275	0
+	add.f32 	%f62, %f173, %f62;
+$Lt_3_33282:
+	add.f32 	%f101, %f17, %f5;
+	ld.volatile.shared.f32 	%f178, [%rd47+12];
+	setp.lt.f32 	%p26, %f178, %f101;
+	@!%p26 bra 	$Lt_3_34306;
+	.loc	18	280	0
+	ld.volatile.shared.f32 	%f179, [%rd47+12];
+	.loc	22	2349	0
+	sub.f32 	%f180, %f17, %f5;
+	rcp.approx.f32 	%f181, %f101;
+	abs.f32 	%f182, %f180;
+	max.f32 	%f183, %f182, %f179;
+	rcp.approx.f32 	%f184, %f183;
+	div.approx.f32 	%f185, %f181, %f184;
+	lg2.approx.f32 	%f186, %f185;
+	.loc	18	285	0
+	rcp.approx.f32 	%f187, %f17;
+	mul.f32 	%f188, %f181, %f181;
+	mul.f32 	%f189, %f184, %f184;
+	sub.f32 	%f190, %f184, %f181;
+	mov.f32 	%f191, 0f3e800000;   	// 0.25
+	mul.f32 	%f192, %f17, %f191;
+	sub.f32 	%f193, %f188, %f189;
+	mad.f32 	%f194, %f192, %f193, %f190;
+	mov.f32 	%f195, 0f3f317218;   	// 0.693147
+	mul.f32 	%f196, %f186, %f195;
+	mov.f32 	%f197, 0f3f000000;   	// 0.5
+	mul.f32 	%f198, %f187, %f197;
+	mad.f32 	%f199, %f196, %f198, %f194;
+	mov.f32 	%f200, 0f3e800000;   	// 0.25
+	mul.f32 	%f201, %f5, %f200;
+	mul.f32 	%f202, %f5, %f201;
+	mul.f32 	%f203, %f187, %f202;
+	sub.f32 	%f204, %f189, %f188;
+	mad.f32 	%f205, %f203, %f204, %f199;
+	.loc	18	291	0
+	ld.volatile.shared.f32 	%f206, [%rd47+12];
+	sub.f32 	%f207, %f5, %f17;
+	setp.lt.f32 	%p27, %f206, %f207;
+	@!%p27 bra 	$Lt_3_34818;
+	.loc	18	294	0
+	ld.volatile.shared.f32 	%f208, [%rd47+12];
+	rcp.approx.f32 	%f209, %f208;
+	sub.f32 	%f210, %f209, %f184;
+	add.f32 	%f211, %f210, %f210;
+	add.f32 	%f205, %f205, %f211;
+$Lt_3_34818:
+	.loc	18	296	0
+	st.volatile.shared.f32 	[%rd44+0], %f205;
+$Lt_3_34306:
+$Lt_3_32770:
+	and.b32 	%r78, %r6, 1;
+	mov.u32 	%r79, 0;
+	setp.ne.u32 	%p28, %r78, %r79;
+	@%p28 bra 	$Lt_3_35330;
+	.loc	18	303	0
+	ld.volatile.shared.f32 	%f212, [%rd44+0];
+	ld.volatile.shared.f32 	%f213, [%rd44+4];
+	add.f32 	%f214, %f212, %f213;
+	st.volatile.shared.f32 	[%rd44+0], %f214;
+$Lt_3_35330:
+	and.b32 	%r80, %r6, 3;
+	mov.u32 	%r81, 0;
+	setp.ne.u32 	%p29, %r80, %r81;
+	@%p29 bra 	$Lt_3_35842;
+	.loc	18	305	0
+	ld.volatile.shared.f32 	%f215, [%rd44+0];
+	ld.volatile.shared.f32 	%f216, [%rd44+8];
+	add.f32 	%f217, %f215, %f216;
+	st.volatile.shared.f32 	[%rd44+0], %f217;
+$Lt_3_35842:
+	and.b32 	%r82, %r6, 7;
+	mov.u32 	%r83, 0;
+	setp.ne.u32 	%p30, %r82, %r83;
+	@%p30 bra 	$Lt_3_36354;
+	.loc	18	307	0
+	ld.volatile.shared.f32 	%f218, [%rd44+0];
+	ld.volatile.shared.f32 	%f219, [%rd44+16];
+	add.f32 	%f220, %f218, %f219;
+	st.volatile.shared.f32 	[%rd44+0], %f220;
+$Lt_3_36354:
+	and.b32 	%r84, %r6, 15;
+	mov.u32 	%r85, 0;
+	setp.ne.u32 	%p31, %r84, %r85;
+	@%p31 bra 	$Lt_3_36866;
+	.loc	18	309	0
+	ld.volatile.shared.f32 	%f221, [%rd44+0];
+	ld.volatile.shared.f32 	%f222, [%rd44+32];
+	add.f32 	%f223, %f221, %f222;
+	st.volatile.shared.f32 	[%rd44+0], %f223;
+$Lt_3_36866:
+	mov.u32 	%r86, 0;
+	setp.ne.u32 	%p32, %r17, %r86;
+	@%p32 bra 	$Lt_3_37378;
+	.loc	18	311	0
+	ld.volatile.shared.f32 	%f224, [%rd47+20];
+	ld.volatile.shared.f32 	%f225, [%rd44+0];
+	ld.volatile.shared.f32 	%f226, [%rd44+64];
+	add.f32 	%f227, %f225, %f226;
+	add.f32 	%f228, %f224, %f227;
+	st.volatile.shared.f32 	[%rd47+20], %f228;
+$Lt_3_37378:
+$Lt_3_32258:
+	add.u32 	%r64, %r64, 1;
+	mov.u32 	%r87, 32;
+	setp.ne.u32 	%p33, %r64, %r87;
+	@%p33 bra 	$Lt_3_32002;
+$Lt_3_27394:
+$Lt_3_26882:
+	.loc	18	320	0
+	ld.global.f32 	%f229, [%rd23+0];
+	add.f32 	%f230, %f229, %f62;
+	st.global.f32 	[%rd23+0], %f230;
+	.loc	18	322	0
+	add.u32 	%r88, %r48, %r19;
+	cvt.u64.u32 	%rd48, %r88;
+	mul.wide.u32 	%rd49, %r88, 4;
+	add.u64 	%rd50, %rd11, %rd49;
+	ld.global.f32 	%f231, [%rd50+0];
+	ld.volatile.shared.f32 	%f232, [%rd10+20];
+	add.f32 	%f233, %f231, %f232;
+	st.global.f32 	[%rd50+0], %f233;
+$Lt_3_23810:
+	add.u32 	%r12, %r12, 1;
+	add.u64 	%rd8, %rd8, 4;
+	setp.ne.u32 	%p34, %r15, %r12;
+	@%p34 bra 	$Lt_3_23554;
+$Lt_3_23042:
+	.loc	18	332	0
+	exit;
+$LDWend__Z43kCalculateObcGbsaCutoffByWarpBornSum_kernelPj:
+	} // _Z43kCalculateObcGbsaCutoffByWarpBornSum_kernelPj
+
+	.entry _Z39kCalculateObcGbsaPeriodicBornSum_kernelPj (
+		.param .u64 __cudaparm__Z39kCalculateObcGbsaPeriodicBornSum_kernelPj_workUnit)
+	.maxntid 320,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<93>;
+	.reg .u64 %rd<55>;
+	.reg .f32 %f<286>;
+	.reg .pred %p<36>;
+	.loc	18	41	0
+$LDWbegin__Z39kCalculateObcGbsaPeriodicBornSum_kernelPj:
+	.loc	18	46	0
+	ld.const.u64 	%rd1, [cSim+152];
+	ld.global.u32 	%r1, [%rd1+0];
+	.loc	18	51	0
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r2, %rh1, %rh2;
+	ld.const.u32 	%r3, [cSim+32];
+	ld.const.u32 	%r4, [cSim+16];
+	mul.lo.u32 	%r5, %r4, %r3;
+	cvt.u32.u16 	%r6, %tid.x;
+	add.u32 	%r7, %r2, %r6;
+	shr.u32 	%r8, %r5, 5;
+	shr.u32 	%r9, %r7, 5;
+	mul.lo.u32 	%r10, %r9, %r1;
+	div.u32 	%r11, %r10, %r8;
+	mov.s32 	%r12, %r11;
+	add.u32 	%r13, %r9, 1;
+	mul.lo.u32 	%r14, %r13, %r1;
+	div.u32 	%r15, %r14, %r8;
+	setp.le.u32 	%p1, %r15, %r11;
+	@%p1 bra 	$Lt_4_23042;
+	mov.u64 	%rd2, sA;
+	cvt.u64.u32 	%rd3, %r3;
+	mul.wide.u32 	%rd4, %r3, 28;
+	add.u64 	%rd5, %rd2, %rd4;
+	sub.u32 	%r16, %r15, %r11;
+	and.b32 	%r17, %r6, 31;
+	cvt.u64.u32 	%rd6, %r6;
+	cvt.u64.u32 	%rd7, %r11;
+	mul.wide.u32 	%rd8, %r11, 4;
+	mul.wide.u32 	%rd9, %r6, 28;
+	add.u64 	%rd10, %rd2, %rd9;
+	ld.const.u64 	%rd11, [cSim+1144];
+	ld.const.u64 	%rd12, [cSim+376];
+	ld.const.u64 	%rd13, [cSim+1088];
+	ld.const.u32 	%r18, [cSim+188];
+	ld.param.u64 	%rd14, [__cudaparm__Z39kCalculateObcGbsaPeriodicBornSum_kernelPj_workUnit];
+	mov.s32 	%r19, %r16;
+$Lt_4_23554:
+ //<loop> Loop body line 51, nesting depth: 1, estimated iterations: unknown
+	ld.param.u64 	%rd14, [__cudaparm__Z39kCalculateObcGbsaPeriodicBornSum_kernelPj_workUnit];
+	.loc	18	58	0
+	add.u64 	%rd15, %rd8, %rd14;
+	ld.global.u32 	%r20, [%rd15+0];
+	.loc	18	69	0
+	mov.s32 	%r21, %r17;
+	shr.u32 	%r22, %r20, 17;
+	shl.b32 	%r23, %r20, 15;
+	shr.u32 	%r24, %r23, 17;
+	shl.b32 	%r25, %r22, 5;
+	mul.lo.u32 	%r26, %r22, %r18;
+	shl.b32 	%r27, %r24, 5;
+	add.u32 	%r28, %r17, %r25;
+	cvt.u64.u32 	%rd16, %r28;
+	mul.wide.u32 	%rd17, %r28, 16;
+	add.u64 	%rd18, %rd13, %rd17;
+	mul.wide.u32 	%rd19, %r28, 8;
+	add.u64 	%rd20, %rd12, %rd19;
+	ld.global.v4.f32 	{%f1,%f2,%f3,_}, [%rd18+0];
+	ld.global.v2.f32 	{%f4,%f5}, [%rd20+0];
+	setp.ne.u32 	%p2, %r25, %r27;
+	@%p2 bra 	$Lt_4_24066;
+	.loc	18	78	0
+	st.volatile.shared.f32 	[%rd10+0], %f1;
+	.loc	18	79	0
+	st.volatile.shared.f32 	[%rd10+4], %f2;
+	.loc	18	80	0
+	st.volatile.shared.f32 	[%rd10+8], %f3;
+	.loc	18	81	0
+	st.volatile.shared.f32 	[%rd10+12], %f4;
+	.loc	18	82	0
+	st.volatile.shared.f32 	[%rd10+16], %f5;
+	sub.u32 	%r29, %r6, %r17;
+	cvt.u64.u32 	%rd21, %r29;
+	mul.wide.u32 	%rd22, %r29, 28;
+	add.u64 	%rd23, %rd22, %rd2;
+	mov.u64 	%rd24, 0;
+	mov.s32 	%r30, %r25;
+	add.u32 	%r31, %r25, 32;
+	ld.const.u32 	%r32, [cSim+0];
+	setp.lt.u32 	%p3, %r28, %r32;
+	mov.pred 	%p4, %p3;
+	mov.pred 	%p5, %p6;
+	selp.s32 	%r33, 1, 0, %p4;
+	mov.f32 	%f6, 0f00000000;     	// 0
+	ld.const.f32 	%f7, [cSim+236];
+	ld.const.f32 	%f8, [cSim+248];
+	ld.const.f32 	%f9, [cSim+260];
+	ld.const.f32 	%f10, [cSim+244];
+	ld.const.f32 	%f11, [cSim+256];
+	ld.const.f32 	%f12, [cSim+240];
+	ld.const.f32 	%f13, [cSim+252];
+$Lt_4_24834:
+ //<loop> Loop body line 82, nesting depth: 2, iterations: 32
+	.loc	18	87	0
+	add.s64 	%rd25, %rd24, %rd22;
+	add.u64 	%rd26, %rd2, %rd25;
+	ld.volatile.shared.f32 	%f14, [%rd26+0];
+	sub.f32 	%f15, %f14, %f1;
+	.loc	18	88	0
+	ld.volatile.shared.f32 	%f16, [%rd26+4];
+	sub.f32 	%f17, %f16, %f2;
+	.loc	18	89	0
+	ld.volatile.shared.f32 	%f18, [%rd26+8];
+	sub.f32 	%f19, %f18, %f3;
+	.loc	18	91	0
+	mov.f32 	%f20, 0f3f000000;    	// 0.5
+	mad.f32 	%f21, %f15, %f13, %f20;
+	cvt.rmi.f32.f32 	%f22, %f21;
+	mul.f32 	%f23, %f22, %f12;
+	sub.f32 	%f24, %f15, %f23;
+	.loc	18	92	0
+	mov.f32 	%f25, 0f3f000000;    	// 0.5
+	mad.f32 	%f26, %f17, %f11, %f25;
+	cvt.rmi.f32.f32 	%f27, %f26;
+	mul.f32 	%f28, %f27, %f10;
+	sub.f32 	%f29, %f17, %f28;
+	.loc	18	93	0
+	mov.f32 	%f30, 0f3f000000;    	// 0.5
+	mad.f32 	%f31, %f19, %f9, %f30;
+	cvt.rmi.f32.f32 	%f32, %f31;
+	mul.f32 	%f33, %f32, %f8;
+	sub.f32 	%f34, %f19, %f33;
+	mul.f32 	%f35, %f29, %f29;
+	mad.f32 	%f36, %f24, %f24, %f35;
+	mad.f32 	%f37, %f34, %f34, %f36;
+	set.lt.u32.f32 	%r34, %f37, %f7;
+	neg.s32 	%r35, %r34;
+	set.lt.u32.u32 	%r36, %r30, %r32;
+	neg.s32 	%r37, %r36;
+	and.b32 	%r38, %r33, %r37;
+	and.b32 	%r39, %r35, %r38;
+	mov.u32 	%r40, 0;
+	setp.eq.s32 	%p7, %r39, %r40;
+	@%p7 bra 	$Lt_4_26114;
+	.loc	18	104	0
+	sqrt.approx.f32 	%f38, %f37;
+	add.u64 	%rd27, %rd24, %rd23;
+	ld.volatile.shared.f32 	%f39, [%rd27+16];
+	add.f32 	%f40, %f39, %f38;
+	set.ne.u32.u32 	%r41, %r30, %r28;
+	neg.s32 	%r42, %r41;
+	set.lt.u32.f32 	%r43, %f4, %f40;
+	neg.s32 	%r44, %r43;
+	and.b32 	%r45, %r42, %r44;
+	mov.u32 	%r46, 0;
+	setp.eq.s32 	%p8, %r45, %r46;
+	@%p8 bra 	$Lt_4_26114;
+	.loc	18	107	0
+	ld.volatile.shared.f32 	%f41, [%rd27+16];
+	sub.f32 	%f42, %f38, %f41;
+	.loc	18	112	0
+	abs.f32 	%f43, %f42;
+	rcp.approx.f32 	%f44, %f40;
+	max.f32 	%f45, %f43, %f4;
+	mul.f32 	%f46, %f44, %f44;
+	rcp.approx.f32 	%f47, %f45;
+	mul.f32 	%f48, %f47, %f47;
+	rcp.approx.f32 	%f49, %f38;
+	sub.f32 	%f50, %f47, %f44;
+	mov.f32 	%f51, 0f3e800000;    	// 0.25
+	mul.f32 	%f52, %f38, %f51;
+	sub.f32 	%f53, %f46, %f48;
+	mad.f32 	%f54, %f52, %f53, %f50;
+	div.approx.f32 	%f55, %f44, %f47;
+	lg2.approx.f32 	%f56, %f55;
+	mov.f32 	%f57, 0f3f317218;    	// 0.693147
+	mul.f32 	%f58, %f56, %f57;
+	mov.f32 	%f59, 0f3f000000;    	// 0.5
+	mul.f32 	%f60, %f49, %f59;
+	mad.f32 	%f61, %f58, %f60, %f54;
+	ld.volatile.shared.f32 	%f62, [%rd27+16];
+	ld.volatile.shared.f32 	%f63, [%rd27+16];
+	mov.f32 	%f64, 0f3e800000;    	// 0.25
+	mul.f32 	%f65, %f63, %f64;
+	mul.f32 	%f66, %f62, %f65;
+	mul.f32 	%f67, %f49, %f66;
+	sub.f32 	%f68, %f48, %f46;
+	mad.f32 	%f69, %f67, %f68, %f61;
+	add.f32 	%f6, %f6, %f69;
+	.loc	18	118	0
+	ld.volatile.shared.f32 	%f70, [%rd27+16];
+	sub.f32 	%f71, %f70, %f38;
+	setp.lt.f32 	%p9, %f4, %f71;
+	@!%p9 bra 	$Lt_4_26114;
+	.loc	18	121	0
+	rcp.approx.f32 	%f72, %f4;
+	sub.f32 	%f73, %f72, %f47;
+	add.f32 	%f74, %f73, %f73;
+	add.f32 	%f6, %f6, %f74;
+$Lt_4_26114:
+$Lt_4_25602:
+$Lt_4_25090:
+	add.u32 	%r30, %r30, 1;
+	add.u64 	%rd24, %rd24, 28;
+	setp.ne.u32 	%p10, %r30, %r31;
+	@%p10 bra 	$Lt_4_24834;
+	.loc	18	133	0
+	add.u32 	%r47, %r26, %r28;
+	cvt.u64.u32 	%rd28, %r47;
+	mul.wide.u32 	%rd29, %r47, 4;
+	add.u64 	%rd30, %rd11, %rd29;
+	st.global.f32 	[%rd30+0], %f6;
+	bra.uni 	$Lt_4_23810;
+$Lt_4_24066:
+	.loc	18	142	0
+	add.u32 	%r48, %r17, %r27;
+	cvt.u64.u32 	%rd31, %r48;
+	mul.wide.u32 	%rd32, %r48, 16;
+	add.u64 	%rd33, %rd13, %rd32;
+	ld.global.v4.f32 	{%f75,%f76,%f77,_}, [%rd33+0];
+	.loc	18	143	0
+	mul.wide.u32 	%rd34, %r48, 8;
+	add.u64 	%rd35, %rd12, %rd34;
+	ld.global.v2.f32 	{%f78,%f79}, [%rd35+0];
+	.loc	18	146	0
+	st.volatile.shared.f32 	[%rd10+0], %f75;
+	.loc	18	147	0
+	st.volatile.shared.f32 	[%rd10+4], %f76;
+	.loc	18	148	0
+	st.volatile.shared.f32 	[%rd10+8], %f77;
+	.loc	18	149	0
+	st.volatile.shared.f32 	[%rd10+12], %f78;
+	.loc	18	150	0
+	st.volatile.shared.f32 	[%rd10+16], %f79;
+	.loc	18	151	0
+	mov.f32 	%f80, 0f00000000;    	// 0
+	st.volatile.shared.f32 	[%rd10+20], %f80;
+	.loc	18	154	0
+	ld.const.u64 	%rd36, [cSim+120];
+	add.u64 	%rd37, %rd36, %rd8;
+	ld.global.u32 	%r49, [%rd37+0];
+	mov.u32 	%r50, 0;
+	setp.ne.u32 	%p11, %r49, %r50;
+	@%p11 bra 	$Lt_4_27138;
+	mov.f32 	%f81, 0f00000000;    	// 0
+	bra.uni 	$Lt_4_27394;
+$Lt_4_27138:
+	sub.u32 	%r51, %r6, %r17;
+	cvt.u64.u32 	%rd38, %r51;
+	mul.wide.u32 	%rd39, %r51, 28;
+	add.u64 	%rd23, %rd2, %rd39;
+	mov.u32 	%r52, -1;
+	setp.ne.u32 	%p12, %r49, %r52;
+	@%p12 bra 	$Lt_4_27650;
+	ld.const.u32 	%r32, [cSim+0];
+	setp.lt.u32 	%p13, %r28, %r32;
+	mov.pred 	%p14, %p13;
+	mov.pred 	%p15, %p6;
+	selp.s32 	%r33, 1, 0, %p14;
+	mov.u32 	%r53, 0;
+	ld.const.f32 	%f7, [cSim+236];
+	ld.const.f32 	%f8, [cSim+248];
+	ld.const.f32 	%f9, [cSim+260];
+	ld.const.f32 	%f10, [cSim+244];
+	ld.const.f32 	%f11, [cSim+256];
+	ld.const.f32 	%f12, [cSim+240];
+	ld.const.f32 	%f13, [cSim+252];
+	mov.f32 	%f81, 0f00000000;    	// 0
+$Lt_4_28418:
+ //<loop> Loop body line 154, nesting depth: 2, iterations: 32
+	.loc	18	166	0
+	cvt.u64.u32 	%rd40, %r21;
+	mul.wide.u32 	%rd41, %r21, 28;
+	add.u64 	%rd42, %rd23, %rd41;
+	ld.volatile.shared.f32 	%f82, [%rd42+0];
+	sub.f32 	%f83, %f82, %f1;
+	.loc	18	167	0
+	ld.volatile.shared.f32 	%f84, [%rd42+4];
+	sub.f32 	%f85, %f84, %f2;
+	.loc	18	168	0
+	ld.volatile.shared.f32 	%f86, [%rd42+8];
+	sub.f32 	%f87, %f86, %f3;
+	.loc	18	170	0
+	mov.f32 	%f88, 0f3f000000;    	// 0.5
+	mad.f32 	%f89, %f83, %f13, %f88;
+	cvt.rmi.f32.f32 	%f90, %f89;
+	mul.f32 	%f91, %f90, %f12;
+	sub.f32 	%f24, %f83, %f91;
+	.loc	18	171	0
+	mov.f32 	%f92, 0f3f000000;    	// 0.5
+	mad.f32 	%f93, %f85, %f11, %f92;
+	cvt.rmi.f32.f32 	%f94, %f93;
+	mul.f32 	%f95, %f94, %f10;
+	sub.f32 	%f29, %f85, %f95;
+	.loc	18	172	0
+	mov.f32 	%f96, 0f3f000000;    	// 0.5
+	mad.f32 	%f97, %f87, %f9, %f96;
+	cvt.rmi.f32.f32 	%f98, %f97;
+	mul.f32 	%f99, %f98, %f8;
+	sub.f32 	%f34, %f87, %f99;
+	mul.f32 	%f35, %f29, %f29;
+	mad.f32 	%f36, %f24, %f24, %f35;
+	mad.f32 	%f37, %f34, %f34, %f36;
+	set.lt.u32.f32 	%r54, %f37, %f7;
+	neg.s32 	%r55, %r54;
+	add.u32 	%r56, %r27, %r21;
+	set.gt.u32.u32 	%r57, %r32, %r56;
+	neg.s32 	%r58, %r57;
+	and.b32 	%r59, %r33, %r58;
+	and.b32 	%r60, %r55, %r59;
+	mov.u32 	%r61, 0;
+	setp.eq.s32 	%p16, %r60, %r61;
+	@%p16 bra 	$Lt_4_30210;
+	.loc	18	183	0
+	sqrt.approx.f32 	%f38, %f37;
+	ld.volatile.shared.f32 	%f100, [%rd42+16];
+	add.f32 	%f101, %f100, %f38;
+	setp.lt.f32 	%p17, %f4, %f101;
+	@!%p17 bra 	$Lt_4_29186;
+	.loc	18	186	0
+	ld.volatile.shared.f32 	%f102, [%rd42+16];
+	sub.f32 	%f103, %f38, %f102;
+	.loc	18	191	0
+	abs.f32 	%f104, %f103;
+	rcp.approx.f32 	%f105, %f101;
+	max.f32 	%f106, %f104, %f4;
+	mul.f32 	%f107, %f105, %f105;
+	rcp.approx.f32 	%f108, %f106;
+	mul.f32 	%f109, %f108, %f108;
+	rcp.approx.f32 	%f110, %f38;
+	sub.f32 	%f111, %f108, %f105;
+	mov.f32 	%f112, 0f3e800000;   	// 0.25
+	mul.f32 	%f113, %f38, %f112;
+	sub.f32 	%f114, %f107, %f109;
+	mad.f32 	%f115, %f113, %f114, %f111;
+	div.approx.f32 	%f116, %f105, %f108;
+	lg2.approx.f32 	%f117, %f116;
+	mov.f32 	%f118, 0f3f317218;   	// 0.693147
+	mul.f32 	%f119, %f117, %f118;
+	mov.f32 	%f120, 0f3f000000;   	// 0.5
+	mul.f32 	%f121, %f110, %f120;
+	mad.f32 	%f122, %f119, %f121, %f115;
+	ld.volatile.shared.f32 	%f123, [%rd42+16];
+	ld.volatile.shared.f32 	%f124, [%rd42+16];
+	mov.f32 	%f125, 0f3e800000;   	// 0.25
+	mul.f32 	%f126, %f124, %f125;
+	mul.f32 	%f127, %f123, %f126;
+	mul.f32 	%f128, %f110, %f127;
+	sub.f32 	%f129, %f109, %f107;
+	mad.f32 	%f130, %f128, %f129, %f122;
+	.loc	18	197	0
+	ld.volatile.shared.f32 	%f131, [%rd42+16];
+	sub.f32 	%f132, %f131, %f38;
+	setp.lt.f32 	%p18, %f4, %f132;
+	@!%p18 bra 	$Lt_4_29698;
+	.loc	18	200	0
+	rcp.approx.f32 	%f72, %f4;
+	sub.f32 	%f133, %f72, %f108;
+	add.f32 	%f134, %f133, %f133;
+	add.f32 	%f130, %f130, %f134;
+$Lt_4_29698:
+	.loc	18	202	0
+	add.f32 	%f81, %f130, %f81;
+$Lt_4_29186:
+	add.f32 	%f135, %f38, %f5;
+	ld.volatile.shared.f32 	%f136, [%rd42+12];
+	setp.lt.f32 	%p19, %f136, %f135;
+	@!%p19 bra 	$Lt_4_30210;
+	.loc	18	207	0
+	ld.volatile.shared.f32 	%f137, [%rd42+12];
+	.loc	22	2349	0
+	sub.f32 	%f138, %f38, %f5;
+	rcp.approx.f32 	%f139, %f135;
+	abs.f32 	%f140, %f138;
+	max.f32 	%f141, %f140, %f137;
+	rcp.approx.f32 	%f142, %f141;
+	div.approx.f32 	%f143, %f139, %f142;
+	lg2.approx.f32 	%f144, %f143;
+	.loc	18	212	0
+	rcp.approx.f32 	%f145, %f38;
+	mul.f32 	%f146, %f139, %f139;
+	mul.f32 	%f147, %f142, %f142;
+	sub.f32 	%f148, %f142, %f139;
+	mov.f32 	%f149, 0f3e800000;   	// 0.25
+	mul.f32 	%f150, %f38, %f149;
+	sub.f32 	%f151, %f146, %f147;
+	mad.f32 	%f152, %f150, %f151, %f148;
+	mov.f32 	%f153, 0f3f317218;   	// 0.693147
+	mul.f32 	%f154, %f144, %f153;
+	mov.f32 	%f155, 0f3f000000;   	// 0.5
+	mul.f32 	%f156, %f145, %f155;
+	mad.f32 	%f157, %f154, %f156, %f152;
+	mov.f32 	%f158, 0f3e800000;   	// 0.25
+	mul.f32 	%f159, %f5, %f158;
+	mul.f32 	%f160, %f5, %f159;
+	mul.f32 	%f161, %f145, %f160;
+	sub.f32 	%f162, %f147, %f146;
+	mad.f32 	%f163, %f161, %f162, %f157;
+	.loc	18	218	0
+	ld.volatile.shared.f32 	%f164, [%rd42+12];
+	sub.f32 	%f165, %f5, %f38;
+	setp.lt.f32 	%p20, %f164, %f165;
+	@!%p20 bra 	$Lt_4_30722;
+	.loc	18	221	0
+	ld.volatile.shared.f32 	%f166, [%rd42+12];
+	rcp.approx.f32 	%f167, %f166;
+	sub.f32 	%f168, %f167, %f142;
+	add.f32 	%f169, %f168, %f168;
+	add.f32 	%f163, %f163, %f169;
+$Lt_4_30722:
+	.loc	18	223	0
+	ld.volatile.shared.f32 	%f170, [%rd42+20];
+	add.f32 	%f171, %f170, %f163;
+	st.volatile.shared.f32 	[%rd42+20], %f171;
+$Lt_4_30210:
+$Lt_4_28674:
+	.loc	18	226	0
+	sub.u32 	%r62, %r21, 1;
+	and.b32 	%r21, %r62, 31;
+	add.u32 	%r53, %r53, 1;
+	mov.u32 	%r63, 32;
+	setp.ne.u32 	%p21, %r53, %r63;
+	@%p21 bra 	$Lt_4_28418;
+	bra.uni 	$Lt_4_27394;
+$Lt_4_27650:
+	mov.u32 	%r64, 0;
+	mov.f32 	%f81, 0f00000000;    	// 0
+$Lt_4_32002:
+ //<loop> Loop body line 226, nesting depth: 2, iterations: 32
+	shl.b32 	%r65, 1, %r64;
+	and.b32 	%r66, %r49, %r65;
+	mov.u32 	%r67, 0;
+	setp.eq.u32 	%p22, %r66, %r67;
+	@%p22 bra 	$Lt_4_37378;
+	.loc	18	238	0
+	mul.lo.u64 	%rd43, %rd6, 4;
+	add.u64 	%rd44, %rd5, %rd43;
+	mov.f32 	%f172, 0f00000000;   	// 0
+	st.volatile.shared.f32 	[%rd44+0], %f172;
+	.loc	18	239	0
+	cvt.u64.u32 	%rd45, %r64;
+	mul.wide.u32 	%rd46, %r64, 28;
+	add.u64 	%rd47, %rd23, %rd46;
+	ld.volatile.shared.f32 	%f173, [%rd47+0];
+	sub.f32 	%f174, %f173, %f1;
+	.loc	18	240	0
+	ld.volatile.shared.f32 	%f175, [%rd47+4];
+	sub.f32 	%f176, %f175, %f2;
+	.loc	18	241	0
+	ld.volatile.shared.f32 	%f177, [%rd47+8];
+	sub.f32 	%f178, %f177, %f3;
+	.loc	18	243	0
+	mov.f32 	%f179, 0f3f000000;   	// 0.5
+	ld.const.f32 	%f180, [cSim+252];
+	mad.f32 	%f181, %f174, %f180, %f179;
+	cvt.rmi.f32.f32 	%f182, %f181;
+	ld.const.f32 	%f183, [cSim+240];
+	mul.f32 	%f184, %f182, %f183;
+	sub.f32 	%f24, %f174, %f184;
+	.loc	18	244	0
+	mov.f32 	%f185, 0f3f000000;   	// 0.5
+	ld.const.f32 	%f186, [cSim+256];
+	mad.f32 	%f187, %f176, %f186, %f185;
+	cvt.rmi.f32.f32 	%f188, %f187;
+	ld.const.f32 	%f189, [cSim+244];
+	mul.f32 	%f190, %f188, %f189;
+	sub.f32 	%f29, %f176, %f190;
+	.loc	18	245	0
+	mov.f32 	%f191, 0f3f000000;   	// 0.5
+	ld.const.f32 	%f192, [cSim+260];
+	mad.f32 	%f193, %f178, %f192, %f191;
+	cvt.rmi.f32.f32 	%f194, %f193;
+	ld.const.f32 	%f195, [cSim+248];
+	mul.f32 	%f196, %f194, %f195;
+	sub.f32 	%f34, %f178, %f196;
+	mul.f32 	%f35, %f29, %f29;
+	mad.f32 	%f36, %f24, %f24, %f35;
+	mad.f32 	%f37, %f34, %f34, %f36;
+	ld.const.u32 	%r32, [cSim+0];
+	ld.const.f32 	%f197, [cSim+236];
+	set.gt.u32.f32 	%r68, %f197, %f37;
+	neg.s32 	%r69, %r68;
+	add.u32 	%r70, %r27, %r64;
+	set.gt.u32.u32 	%r71, %r32, %r70;
+	neg.s32 	%r72, %r71;
+	set.lt.u32.u32 	%r73, %r28, %r32;
+	neg.s32 	%r74, %r73;
+	and.b32 	%r75, %r72, %r74;
+	and.b32 	%r76, %r69, %r75;
+	mov.u32 	%r77, 0;
+	setp.eq.s32 	%p23, %r76, %r77;
+	@%p23 bra 	$Lt_4_34306;
+	.loc	18	256	0
+	sqrt.approx.f32 	%f38, %f37;
+	ld.volatile.shared.f32 	%f198, [%rd47+16];
+	add.f32 	%f199, %f198, %f38;
+	setp.lt.f32 	%p24, %f4, %f199;
+	@!%p24 bra 	$Lt_4_33282;
+	.loc	18	259	0
+	ld.volatile.shared.f32 	%f200, [%rd47+16];
+	sub.f32 	%f201, %f38, %f200;
+	.loc	18	264	0
+	abs.f32 	%f202, %f201;
+	rcp.approx.f32 	%f203, %f199;
+	max.f32 	%f204, %f202, %f4;
+	mul.f32 	%f205, %f203, %f203;
+	rcp.approx.f32 	%f206, %f204;
+	mul.f32 	%f207, %f206, %f206;
+	rcp.approx.f32 	%f208, %f38;
+	sub.f32 	%f209, %f206, %f203;
+	mov.f32 	%f210, 0f3e800000;   	// 0.25
+	mul.f32 	%f211, %f38, %f210;
+	sub.f32 	%f212, %f205, %f207;
+	mad.f32 	%f213, %f211, %f212, %f209;
+	div.approx.f32 	%f214, %f203, %f206;
+	lg2.approx.f32 	%f215, %f214;
+	mov.f32 	%f216, 0f3f317218;   	// 0.693147
+	mul.f32 	%f217, %f215, %f216;
+	mov.f32 	%f218, 0f3f000000;   	// 0.5
+	mul.f32 	%f219, %f208, %f218;
+	mad.f32 	%f220, %f217, %f219, %f213;
+	ld.volatile.shared.f32 	%f221, [%rd47+16];
+	ld.volatile.shared.f32 	%f222, [%rd47+16];
+	mov.f32 	%f223, 0f3e800000;   	// 0.25
+	mul.f32 	%f224, %f222, %f223;
+	mul.f32 	%f225, %f221, %f224;
+	mul.f32 	%f226, %f208, %f225;
+	sub.f32 	%f227, %f207, %f205;
+	mad.f32 	%f228, %f226, %f227, %f220;
+	.loc	18	270	0
+	ld.volatile.shared.f32 	%f229, [%rd47+16];
+	sub.f32 	%f230, %f229, %f38;
+	setp.lt.f32 	%p25, %f4, %f230;
+	@!%p25 bra 	$Lt_4_33794;
+	.loc	18	273	0
+	rcp.approx.f32 	%f72, %f4;
+	sub.f32 	%f231, %f72, %f206;
+	add.f32 	%f232, %f231, %f231;
+	add.f32 	%f228, %f228, %f232;
+$Lt_4_33794:
+	.loc	18	275	0
+	add.f32 	%f81, %f228, %f81;
+$Lt_4_33282:
+	add.f32 	%f135, %f38, %f5;
+	ld.volatile.shared.f32 	%f233, [%rd47+12];
+	setp.lt.f32 	%p26, %f233, %f135;
+	@!%p26 bra 	$Lt_4_34306;
+	.loc	18	280	0
+	ld.volatile.shared.f32 	%f234, [%rd47+12];
+	.loc	22	2349	0
+	sub.f32 	%f235, %f38, %f5;
+	rcp.approx.f32 	%f236, %f135;
+	abs.f32 	%f237, %f235;
+	max.f32 	%f238, %f237, %f234;
+	rcp.approx.f32 	%f239, %f238;
+	div.approx.f32 	%f240, %f236, %f239;
+	lg2.approx.f32 	%f241, %f240;
+	.loc	18	285	0
+	rcp.approx.f32 	%f242, %f38;
+	mul.f32 	%f243, %f236, %f236;
+	mul.f32 	%f244, %f239, %f239;
+	sub.f32 	%f245, %f239, %f236;
+	mov.f32 	%f246, 0f3e800000;   	// 0.25
+	mul.f32 	%f247, %f38, %f246;
+	sub.f32 	%f248, %f243, %f244;
+	mad.f32 	%f249, %f247, %f248, %f245;
+	mov.f32 	%f250, 0f3f317218;   	// 0.693147
+	mul.f32 	%f251, %f241, %f250;
+	mov.f32 	%f252, 0f3f000000;   	// 0.5
+	mul.f32 	%f253, %f242, %f252;
+	mad.f32 	%f254, %f251, %f253, %f249;
+	mov.f32 	%f255, 0f3e800000;   	// 0.25
+	mul.f32 	%f256, %f5, %f255;
+	mul.f32 	%f257, %f5, %f256;
+	mul.f32 	%f258, %f242, %f257;
+	sub.f32 	%f259, %f244, %f243;
+	mad.f32 	%f260, %f258, %f259, %f254;
+	.loc	18	291	0
+	ld.volatile.shared.f32 	%f261, [%rd47+12];
+	sub.f32 	%f262, %f5, %f38;
+	setp.lt.f32 	%p27, %f261, %f262;
+	@!%p27 bra 	$Lt_4_34818;
+	.loc	18	294	0
+	ld.volatile.shared.f32 	%f263, [%rd47+12];
+	rcp.approx.f32 	%f264, %f263;
+	sub.f32 	%f265, %f264, %f239;
+	add.f32 	%f266, %f265, %f265;
+	add.f32 	%f260, %f260, %f266;
+$Lt_4_34818:
+	.loc	18	296	0
+	st.volatile.shared.f32 	[%rd44+0], %f260;
+$Lt_4_34306:
+$Lt_4_32770:
+	and.b32 	%r78, %r6, 1;
+	mov.u32 	%r79, 0;
+	setp.ne.u32 	%p28, %r78, %r79;
+	@%p28 bra 	$Lt_4_35330;
+	.loc	18	303	0
+	ld.volatile.shared.f32 	%f267, [%rd44+0];
+	ld.volatile.shared.f32 	%f268, [%rd44+4];
+	add.f32 	%f269, %f267, %f268;
+	st.volatile.shared.f32 	[%rd44+0], %f269;
+$Lt_4_35330:
+	and.b32 	%r80, %r6, 3;
+	mov.u32 	%r81, 0;
+	setp.ne.u32 	%p29, %r80, %r81;
+	@%p29 bra 	$Lt_4_35842;
+	.loc	18	305	0
+	ld.volatile.shared.f32 	%f270, [%rd44+0];
+	ld.volatile.shared.f32 	%f271, [%rd44+8];
+	add.f32 	%f272, %f270, %f271;
+	st.volatile.shared.f32 	[%rd44+0], %f272;
+$Lt_4_35842:
+	and.b32 	%r82, %r6, 7;
+	mov.u32 	%r83, 0;
+	setp.ne.u32 	%p30, %r82, %r83;
+	@%p30 bra 	$Lt_4_36354;
+	.loc	18	307	0
+	ld.volatile.shared.f32 	%f273, [%rd44+0];
+	ld.volatile.shared.f32 	%f274, [%rd44+16];
+	add.f32 	%f275, %f273, %f274;
+	st.volatile.shared.f32 	[%rd44+0], %f275;
+$Lt_4_36354:
+	and.b32 	%r84, %r6, 15;
+	mov.u32 	%r85, 0;
+	setp.ne.u32 	%p31, %r84, %r85;
+	@%p31 bra 	$Lt_4_36866;
+	.loc	18	309	0
+	ld.volatile.shared.f32 	%f276, [%rd44+0];
+	ld.volatile.shared.f32 	%f277, [%rd44+32];
+	add.f32 	%f278, %f276, %f277;
+	st.volatile.shared.f32 	[%rd44+0], %f278;
+$Lt_4_36866:
+	mov.u32 	%r86, 0;
+	setp.ne.u32 	%p32, %r17, %r86;
+	@%p32 bra 	$Lt_4_37378;
+	.loc	18	311	0
+	ld.volatile.shared.f32 	%f279, [%rd47+20];
+	ld.volatile.shared.f32 	%f280, [%rd44+0];
+	ld.volatile.shared.f32 	%f281, [%rd44+64];
+	add.f32 	%f282, %f280, %f281;
+	add.f32 	%f283, %f279, %f282;
+	st.volatile.shared.f32 	[%rd47+20], %f283;
+$Lt_4_37378:
+$Lt_4_32258:
+	add.u32 	%r64, %r64, 1;
+	mov.u32 	%r87, 32;
+	setp.ne.u32 	%p33, %r64, %r87;
+	@%p33 bra 	$Lt_4_32002;
+$Lt_4_27394:
+$Lt_4_26882:
+	.loc	18	325	0
+	and.b32 	%r88, %r24, 134217727;
+	mul.lo.u32 	%r89, %r18, %r88;
+	add.u32 	%r90, %r28, %r89;
+	cvt.u64.u32 	%rd48, %r90;
+	mul.wide.u32 	%rd49, %r90, 4;
+	add.u64 	%rd50, %rd11, %rd49;
+	st.global.f32 	[%rd50+0], %f81;
+	.loc	18	327	0
+	ld.volatile.shared.f32 	%f284, [%rd10+20];
+	add.u32 	%r91, %r26, %r48;
+	cvt.u64.u32 	%rd51, %r91;
+	mul.wide.u32 	%rd52, %r91, 4;
+	add.u64 	%rd53, %rd11, %rd52;
+	st.global.f32 	[%rd53+0], %f284;
+$Lt_4_23810:
+	add.u32 	%r12, %r12, 1;
+	add.u64 	%rd8, %rd8, 4;
+	setp.ne.u32 	%p34, %r15, %r12;
+	@%p34 bra 	$Lt_4_23554;
+$Lt_4_23042:
+	.loc	18	332	0
+	exit;
+$LDWend__Z39kCalculateObcGbsaPeriodicBornSum_kernelPj:
+	} // _Z39kCalculateObcGbsaPeriodicBornSum_kernelPj
+
+	.entry _Z45kCalculateObcGbsaPeriodicByWarpBornSum_kernelPj (
+		.param .u64 __cudaparm__Z45kCalculateObcGbsaPeriodicByWarpBornSum_kernelPj_workUnit)
+	.maxntid 320,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<90>;
+	.reg .u64 %rd<52>;
+	.reg .f32 %f<292>;
+	.reg .pred %p<36>;
+	.loc	18	41	0
+$LDWbegin__Z45kCalculateObcGbsaPeriodicByWarpBornSum_kernelPj:
+	.loc	18	46	0
+	ld.const.u64 	%rd1, [cSim+152];
+	ld.global.u32 	%r1, [%rd1+0];
+	.loc	18	51	0
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r2, %rh1, %rh2;
+	ld.const.u32 	%r3, [cSim+32];
+	ld.const.u32 	%r4, [cSim+16];
+	mul.lo.u32 	%r5, %r4, %r3;
+	cvt.u32.u16 	%r6, %tid.x;
+	add.u32 	%r7, %r2, %r6;
+	shr.u32 	%r8, %r5, 5;
+	shr.u32 	%r9, %r7, 5;
+	mul.lo.u32 	%r10, %r9, %r1;
+	div.u32 	%r11, %r10, %r8;
+	mov.s32 	%r12, %r11;
+	add.u32 	%r13, %r9, 1;
+	mul.lo.u32 	%r14, %r13, %r1;
+	div.u32 	%r15, %r14, %r8;
+	setp.le.u32 	%p1, %r15, %r11;
+	@%p1 bra 	$Lt_5_23042;
+	mov.u64 	%rd2, sA;
+	cvt.u64.u32 	%rd3, %r3;
+	mul.wide.u32 	%rd4, %r3, 28;
+	add.u64 	%rd5, %rd2, %rd4;
+	sub.u32 	%r16, %r15, %r11;
+	and.b32 	%r17, %r6, 31;
+	cvt.u64.u32 	%rd6, %r6;
+	cvt.u64.u32 	%rd7, %r11;
+	mul.wide.u32 	%rd8, %r11, 4;
+	mul.wide.u32 	%rd9, %r6, 28;
+	add.u64 	%rd10, %rd2, %rd9;
+	ld.const.u32 	%r18, [cSim+188];
+	mul.lo.u32 	%r19, %r18, %r9;
+	ld.const.u64 	%rd11, [cSim+1144];
+	ld.const.u64 	%rd12, [cSim+376];
+	ld.const.u64 	%rd13, [cSim+1088];
+	ld.param.u64 	%rd14, [__cudaparm__Z45kCalculateObcGbsaPeriodicByWarpBornSum_kernelPj_workUnit];
+	mov.s32 	%r20, %r16;
+$Lt_5_23554:
+ //<loop> Loop body line 51, nesting depth: 1, estimated iterations: unknown
+	ld.param.u64 	%rd14, [__cudaparm__Z45kCalculateObcGbsaPeriodicByWarpBornSum_kernelPj_workUnit];
+	.loc	18	58	0
+	add.u64 	%rd15, %rd8, %rd14;
+	ld.global.u32 	%r21, [%rd15+0];
+	.loc	18	69	0
+	mov.s32 	%r22, %r17;
+	shr.u32 	%r23, %r21, 17;
+	shl.b32 	%r24, %r21, 15;
+	shr.u32 	%r25, %r24, 17;
+	shl.b32 	%r26, %r23, 5;
+	shl.b32 	%r27, %r25, 5;
+	add.u32 	%r28, %r17, %r26;
+	cvt.u64.u32 	%rd16, %r28;
+	mul.wide.u32 	%rd17, %r28, 16;
+	add.u64 	%rd18, %rd13, %rd17;
+	mul.wide.u32 	%rd19, %r28, 8;
+	add.u64 	%rd20, %rd12, %rd19;
+	ld.global.v4.f32 	{%f1,%f2,%f3,_}, [%rd18+0];
+	ld.global.v2.f32 	{%f4,%f5}, [%rd20+0];
+	add.u32 	%r29, %r19, %r28;
+	cvt.u64.u32 	%rd21, %r29;
+	mul.wide.u32 	%rd22, %r29, 4;
+	add.u64 	%rd23, %rd11, %rd22;
+	setp.ne.u32 	%p2, %r26, %r27;
+	@%p2 bra 	$Lt_5_24066;
+	.loc	18	78	0
+	st.volatile.shared.f32 	[%rd10+0], %f1;
+	.loc	18	79	0
+	st.volatile.shared.f32 	[%rd10+4], %f2;
+	.loc	18	80	0
+	st.volatile.shared.f32 	[%rd10+8], %f3;
+	.loc	18	81	0
+	st.volatile.shared.f32 	[%rd10+12], %f4;
+	.loc	18	82	0
+	st.volatile.shared.f32 	[%rd10+16], %f5;
+	sub.u32 	%r30, %r6, %r17;
+	cvt.u64.u32 	%rd24, %r30;
+	mul.wide.u32 	%rd25, %r30, 28;
+	add.u64 	%rd26, %rd25, %rd2;
+	mov.u64 	%rd27, 0;
+	mov.s32 	%r31, %r26;
+	add.u32 	%r32, %r26, 32;
+	ld.const.u32 	%r33, [cSim+0];
+	setp.lt.u32 	%p3, %r28, %r33;
+	mov.pred 	%p4, %p3;
+	mov.pred 	%p5, %p6;
+	selp.s32 	%r34, 1, 0, %p4;
+	mov.f32 	%f6, 0f00000000;     	// 0
+	ld.const.f32 	%f7, [cSim+236];
+	ld.const.f32 	%f8, [cSim+248];
+	ld.const.f32 	%f9, [cSim+260];
+	ld.const.f32 	%f10, [cSim+244];
+	ld.const.f32 	%f11, [cSim+256];
+	ld.const.f32 	%f12, [cSim+240];
+	ld.const.f32 	%f13, [cSim+252];
+$Lt_5_24834:
+ //<loop> Loop body line 82, nesting depth: 2, iterations: 32
+	.loc	18	87	0
+	add.s64 	%rd28, %rd27, %rd25;
+	add.u64 	%rd29, %rd2, %rd28;
+	ld.volatile.shared.f32 	%f14, [%rd29+0];
+	sub.f32 	%f15, %f14, %f1;
+	.loc	18	88	0
+	ld.volatile.shared.f32 	%f16, [%rd29+4];
+	sub.f32 	%f17, %f16, %f2;
+	.loc	18	89	0
+	ld.volatile.shared.f32 	%f18, [%rd29+8];
+	sub.f32 	%f19, %f18, %f3;
+	.loc	18	91	0
+	mov.f32 	%f20, 0f3f000000;    	// 0.5
+	mad.f32 	%f21, %f15, %f13, %f20;
+	cvt.rmi.f32.f32 	%f22, %f21;
+	mul.f32 	%f23, %f22, %f12;
+	sub.f32 	%f24, %f15, %f23;
+	.loc	18	92	0
+	mov.f32 	%f25, 0f3f000000;    	// 0.5
+	mad.f32 	%f26, %f17, %f11, %f25;
+	cvt.rmi.f32.f32 	%f27, %f26;
+	mul.f32 	%f28, %f27, %f10;
+	sub.f32 	%f29, %f17, %f28;
+	.loc	18	93	0
+	mov.f32 	%f30, 0f3f000000;    	// 0.5
+	mad.f32 	%f31, %f19, %f9, %f30;
+	cvt.rmi.f32.f32 	%f32, %f31;
+	mul.f32 	%f33, %f32, %f8;
+	sub.f32 	%f34, %f19, %f33;
+	mul.f32 	%f35, %f29, %f29;
+	mad.f32 	%f36, %f24, %f24, %f35;
+	mad.f32 	%f37, %f34, %f34, %f36;
+	set.lt.u32.f32 	%r35, %f37, %f7;
+	neg.s32 	%r36, %r35;
+	set.lt.u32.u32 	%r37, %r31, %r33;
+	neg.s32 	%r38, %r37;
+	and.b32 	%r39, %r34, %r38;
+	and.b32 	%r40, %r36, %r39;
+	mov.u32 	%r41, 0;
+	setp.eq.s32 	%p7, %r40, %r41;
+	@%p7 bra 	$Lt_5_26114;
+	.loc	18	104	0
+	sqrt.approx.f32 	%f38, %f37;
+	add.u64 	%rd30, %rd27, %rd26;
+	ld.volatile.shared.f32 	%f39, [%rd30+16];
+	add.f32 	%f40, %f39, %f38;
+	set.ne.u32.u32 	%r42, %r31, %r28;
+	neg.s32 	%r43, %r42;
+	set.lt.u32.f32 	%r44, %f4, %f40;
+	neg.s32 	%r45, %r44;
+	and.b32 	%r46, %r43, %r45;
+	mov.u32 	%r47, 0;
+	setp.eq.s32 	%p8, %r46, %r47;
+	@%p8 bra 	$Lt_5_26114;
+	.loc	18	107	0
+	ld.volatile.shared.f32 	%f41, [%rd30+16];
+	sub.f32 	%f42, %f38, %f41;
+	.loc	18	112	0
+	abs.f32 	%f43, %f42;
+	rcp.approx.f32 	%f44, %f40;
+	max.f32 	%f45, %f43, %f4;
+	mul.f32 	%f46, %f44, %f44;
+	rcp.approx.f32 	%f47, %f45;
+	mul.f32 	%f48, %f47, %f47;
+	rcp.approx.f32 	%f49, %f38;
+	sub.f32 	%f50, %f47, %f44;
+	mov.f32 	%f51, 0f3e800000;    	// 0.25
+	mul.f32 	%f52, %f38, %f51;
+	sub.f32 	%f53, %f46, %f48;
+	mad.f32 	%f54, %f52, %f53, %f50;
+	div.approx.f32 	%f55, %f44, %f47;
+	lg2.approx.f32 	%f56, %f55;
+	mov.f32 	%f57, 0f3f317218;    	// 0.693147
+	mul.f32 	%f58, %f56, %f57;
+	mov.f32 	%f59, 0f3f000000;    	// 0.5
+	mul.f32 	%f60, %f49, %f59;
+	mad.f32 	%f61, %f58, %f60, %f54;
+	ld.volatile.shared.f32 	%f62, [%rd30+16];
+	ld.volatile.shared.f32 	%f63, [%rd30+16];
+	mov.f32 	%f64, 0f3e800000;    	// 0.25
+	mul.f32 	%f65, %f63, %f64;
+	mul.f32 	%f66, %f62, %f65;
+	mul.f32 	%f67, %f49, %f66;
+	sub.f32 	%f68, %f48, %f46;
+	mad.f32 	%f69, %f67, %f68, %f61;
+	add.f32 	%f6, %f6, %f69;
+	.loc	18	118	0
+	ld.volatile.shared.f32 	%f70, [%rd30+16];
+	sub.f32 	%f71, %f70, %f38;
+	setp.lt.f32 	%p9, %f4, %f71;
+	@!%p9 bra 	$Lt_5_26114;
+	.loc	18	121	0
+	rcp.approx.f32 	%f72, %f4;
+	sub.f32 	%f73, %f72, %f47;
+	add.f32 	%f74, %f73, %f73;
+	add.f32 	%f6, %f6, %f74;
+$Lt_5_26114:
+$Lt_5_25602:
+$Lt_5_25090:
+	add.u32 	%r31, %r31, 1;
+	add.u64 	%rd27, %rd27, 28;
+	setp.ne.u32 	%p10, %r31, %r32;
+	@%p10 bra 	$Lt_5_24834;
+	.loc	18	130	0
+	ld.global.f32 	%f75, [%rd23+0];
+	add.f32 	%f76, %f75, %f6;
+	st.global.f32 	[%rd23+0], %f76;
+	bra.uni 	$Lt_5_23810;
+$Lt_5_24066:
+	.loc	18	142	0
+	add.u32 	%r48, %r17, %r27;
+	cvt.u64.u32 	%rd31, %r48;
+	mul.wide.u32 	%rd32, %r48, 16;
+	add.u64 	%rd33, %rd13, %rd32;
+	ld.global.v4.f32 	{%f77,%f78,%f79,_}, [%rd33+0];
+	.loc	18	143	0
+	mul.wide.u32 	%rd34, %r48, 8;
+	add.u64 	%rd35, %rd12, %rd34;
+	ld.global.v2.f32 	{%f80,%f81}, [%rd35+0];
+	.loc	18	146	0
+	st.volatile.shared.f32 	[%rd10+0], %f77;
+	.loc	18	147	0
+	st.volatile.shared.f32 	[%rd10+4], %f78;
+	.loc	18	148	0
+	st.volatile.shared.f32 	[%rd10+8], %f79;
+	.loc	18	149	0
+	st.volatile.shared.f32 	[%rd10+12], %f80;
+	.loc	18	150	0
+	st.volatile.shared.f32 	[%rd10+16], %f81;
+	.loc	18	151	0
+	mov.f32 	%f82, 0f00000000;    	// 0
+	st.volatile.shared.f32 	[%rd10+20], %f82;
+	.loc	18	154	0
+	ld.const.u64 	%rd36, [cSim+120];
+	add.u64 	%rd37, %rd36, %rd8;
+	ld.global.u32 	%r49, [%rd37+0];
+	mov.u32 	%r50, 0;
+	setp.ne.u32 	%p11, %r49, %r50;
+	@%p11 bra 	$Lt_5_27138;
+	mov.f32 	%f83, 0f00000000;    	// 0
+	bra.uni 	$Lt_5_27394;
+$Lt_5_27138:
+	sub.u32 	%r51, %r6, %r17;
+	cvt.u64.u32 	%rd38, %r51;
+	mul.wide.u32 	%rd39, %r51, 28;
+	add.u64 	%rd26, %rd2, %rd39;
+	mov.u32 	%r52, -1;
+	setp.ne.u32 	%p12, %r49, %r52;
+	@%p12 bra 	$Lt_5_27650;
+	ld.const.u32 	%r33, [cSim+0];
+	setp.lt.u32 	%p13, %r28, %r33;
+	mov.pred 	%p14, %p13;
+	mov.pred 	%p15, %p6;
+	selp.s32 	%r34, 1, 0, %p14;
+	mov.u32 	%r53, 0;
+	ld.const.f32 	%f7, [cSim+236];
+	ld.const.f32 	%f8, [cSim+248];
+	ld.const.f32 	%f9, [cSim+260];
+	ld.const.f32 	%f10, [cSim+244];
+	ld.const.f32 	%f11, [cSim+256];
+	ld.const.f32 	%f12, [cSim+240];
+	ld.const.f32 	%f13, [cSim+252];
+	mov.f32 	%f83, 0f00000000;    	// 0
+$Lt_5_28418:
+ //<loop> Loop body line 154, nesting depth: 2, iterations: 32
+	.loc	18	166	0
+	cvt.u64.u32 	%rd40, %r22;
+	mul.wide.u32 	%rd41, %r22, 28;
+	add.u64 	%rd42, %rd26, %rd41;
+	ld.volatile.shared.f32 	%f84, [%rd42+0];
+	sub.f32 	%f85, %f84, %f1;
+	.loc	18	167	0
+	ld.volatile.shared.f32 	%f86, [%rd42+4];
+	sub.f32 	%f87, %f86, %f2;
+	.loc	18	168	0
+	ld.volatile.shared.f32 	%f88, [%rd42+8];
+	sub.f32 	%f89, %f88, %f3;
+	.loc	18	170	0
+	mov.f32 	%f90, 0f3f000000;    	// 0.5
+	mad.f32 	%f91, %f85, %f13, %f90;
+	cvt.rmi.f32.f32 	%f92, %f91;
+	mul.f32 	%f93, %f92, %f12;
+	sub.f32 	%f24, %f85, %f93;
+	.loc	18	171	0
+	mov.f32 	%f94, 0f3f000000;    	// 0.5
+	mad.f32 	%f95, %f87, %f11, %f94;
+	cvt.rmi.f32.f32 	%f96, %f95;
+	mul.f32 	%f97, %f96, %f10;
+	sub.f32 	%f29, %f87, %f97;
+	.loc	18	172	0
+	mov.f32 	%f98, 0f3f000000;    	// 0.5
+	mad.f32 	%f99, %f89, %f9, %f98;
+	cvt.rmi.f32.f32 	%f100, %f99;
+	mul.f32 	%f101, %f100, %f8;
+	sub.f32 	%f34, %f89, %f101;
+	mul.f32 	%f35, %f29, %f29;
+	mad.f32 	%f36, %f24, %f24, %f35;
+	mad.f32 	%f37, %f34, %f34, %f36;
+	set.lt.u32.f32 	%r54, %f37, %f7;
+	neg.s32 	%r55, %r54;
+	add.u32 	%r56, %r27, %r22;
+	set.gt.u32.u32 	%r57, %r33, %r56;
+	neg.s32 	%r58, %r57;
+	and.b32 	%r59, %r34, %r58;
+	and.b32 	%r60, %r55, %r59;
+	mov.u32 	%r61, 0;
+	setp.eq.s32 	%p16, %r60, %r61;
+	@%p16 bra 	$Lt_5_30210;
+	.loc	18	183	0
+	sqrt.approx.f32 	%f38, %f37;
+	ld.volatile.shared.f32 	%f102, [%rd42+16];
+	add.f32 	%f103, %f102, %f38;
+	setp.lt.f32 	%p17, %f4, %f103;
+	@!%p17 bra 	$Lt_5_29186;
+	.loc	18	186	0
+	ld.volatile.shared.f32 	%f104, [%rd42+16];
+	sub.f32 	%f105, %f38, %f104;
+	.loc	18	191	0
+	abs.f32 	%f106, %f105;
+	rcp.approx.f32 	%f107, %f103;
+	max.f32 	%f108, %f106, %f4;
+	mul.f32 	%f109, %f107, %f107;
+	rcp.approx.f32 	%f110, %f108;
+	mul.f32 	%f111, %f110, %f110;
+	rcp.approx.f32 	%f112, %f38;
+	sub.f32 	%f113, %f110, %f107;
+	mov.f32 	%f114, 0f3e800000;   	// 0.25
+	mul.f32 	%f115, %f38, %f114;
+	sub.f32 	%f116, %f109, %f111;
+	mad.f32 	%f117, %f115, %f116, %f113;
+	div.approx.f32 	%f118, %f107, %f110;
+	lg2.approx.f32 	%f119, %f118;
+	mov.f32 	%f120, 0f3f317218;   	// 0.693147
+	mul.f32 	%f121, %f119, %f120;
+	mov.f32 	%f122, 0f3f000000;   	// 0.5
+	mul.f32 	%f123, %f112, %f122;
+	mad.f32 	%f124, %f121, %f123, %f117;
+	ld.volatile.shared.f32 	%f125, [%rd42+16];
+	ld.volatile.shared.f32 	%f126, [%rd42+16];
+	mov.f32 	%f127, 0f3e800000;   	// 0.25
+	mul.f32 	%f128, %f126, %f127;
+	mul.f32 	%f129, %f125, %f128;
+	mul.f32 	%f130, %f112, %f129;
+	sub.f32 	%f131, %f111, %f109;
+	mad.f32 	%f132, %f130, %f131, %f124;
+	.loc	18	197	0
+	ld.volatile.shared.f32 	%f133, [%rd42+16];
+	sub.f32 	%f134, %f133, %f38;
+	setp.lt.f32 	%p18, %f4, %f134;
+	@!%p18 bra 	$Lt_5_29698;
+	.loc	18	200	0
+	rcp.approx.f32 	%f72, %f4;
+	sub.f32 	%f135, %f72, %f110;
+	add.f32 	%f136, %f135, %f135;
+	add.f32 	%f132, %f132, %f136;
+$Lt_5_29698:
+	.loc	18	202	0
+	add.f32 	%f83, %f132, %f83;
+$Lt_5_29186:
+	add.f32 	%f137, %f38, %f5;
+	ld.volatile.shared.f32 	%f138, [%rd42+12];
+	setp.lt.f32 	%p19, %f138, %f137;
+	@!%p19 bra 	$Lt_5_30210;
+	.loc	18	207	0
+	ld.volatile.shared.f32 	%f139, [%rd42+12];
+	.loc	22	2349	0
+	sub.f32 	%f140, %f38, %f5;
+	rcp.approx.f32 	%f141, %f137;
+	abs.f32 	%f142, %f140;
+	max.f32 	%f143, %f142, %f139;
+	rcp.approx.f32 	%f144, %f143;
+	div.approx.f32 	%f145, %f141, %f144;
+	lg2.approx.f32 	%f146, %f145;
+	.loc	18	212	0
+	rcp.approx.f32 	%f147, %f38;
+	mul.f32 	%f148, %f141, %f141;
+	mul.f32 	%f149, %f144, %f144;
+	sub.f32 	%f150, %f144, %f141;
+	mov.f32 	%f151, 0f3e800000;   	// 0.25
+	mul.f32 	%f152, %f38, %f151;
+	sub.f32 	%f153, %f148, %f149;
+	mad.f32 	%f154, %f152, %f153, %f150;
+	mov.f32 	%f155, 0f3f317218;   	// 0.693147
+	mul.f32 	%f156, %f146, %f155;
+	mov.f32 	%f157, 0f3f000000;   	// 0.5
+	mul.f32 	%f158, %f147, %f157;
+	mad.f32 	%f159, %f156, %f158, %f154;
+	mov.f32 	%f160, 0f3e800000;   	// 0.25
+	mul.f32 	%f161, %f5, %f160;
+	mul.f32 	%f162, %f5, %f161;
+	mul.f32 	%f163, %f147, %f162;
+	sub.f32 	%f164, %f149, %f148;
+	mad.f32 	%f165, %f163, %f164, %f159;
+	.loc	18	218	0
+	ld.volatile.shared.f32 	%f166, [%rd42+12];
+	sub.f32 	%f167, %f5, %f38;
+	setp.lt.f32 	%p20, %f166, %f167;
+	@!%p20 bra 	$Lt_5_30722;
+	.loc	18	221	0
+	ld.volatile.shared.f32 	%f168, [%rd42+12];
+	rcp.approx.f32 	%f169, %f168;
+	sub.f32 	%f170, %f169, %f144;
+	add.f32 	%f171, %f170, %f170;
+	add.f32 	%f165, %f165, %f171;
+$Lt_5_30722:
+	.loc	18	223	0
+	ld.volatile.shared.f32 	%f172, [%rd42+20];
+	add.f32 	%f173, %f172, %f165;
+	st.volatile.shared.f32 	[%rd42+20], %f173;
+$Lt_5_30210:
+$Lt_5_28674:
+	.loc	18	226	0
+	sub.u32 	%r62, %r22, 1;
+	and.b32 	%r22, %r62, 31;
+	add.u32 	%r53, %r53, 1;
+	mov.u32 	%r63, 32;
+	setp.ne.u32 	%p21, %r53, %r63;
+	@%p21 bra 	$Lt_5_28418;
+	bra.uni 	$Lt_5_27394;
+$Lt_5_27650:
+	mov.u32 	%r64, 0;
+	mov.f32 	%f83, 0f00000000;    	// 0
+$Lt_5_32002:
+ //<loop> Loop body line 226, nesting depth: 2, iterations: 32
+	shl.b32 	%r65, 1, %r64;
+	and.b32 	%r66, %r49, %r65;
+	mov.u32 	%r67, 0;
+	setp.eq.u32 	%p22, %r66, %r67;
+	@%p22 bra 	$Lt_5_37378;
+	.loc	18	238	0
+	mul.lo.u64 	%rd43, %rd6, 4;
+	add.u64 	%rd44, %rd5, %rd43;
+	mov.f32 	%f174, 0f00000000;   	// 0
+	st.volatile.shared.f32 	[%rd44+0], %f174;
+	.loc	18	239	0
+	cvt.u64.u32 	%rd45, %r64;
+	mul.wide.u32 	%rd46, %r64, 28;
+	add.u64 	%rd47, %rd26, %rd46;
+	ld.volatile.shared.f32 	%f175, [%rd47+0];
+	sub.f32 	%f176, %f175, %f1;
+	.loc	18	240	0
+	ld.volatile.shared.f32 	%f177, [%rd47+4];
+	sub.f32 	%f178, %f177, %f2;
+	.loc	18	241	0
+	ld.volatile.shared.f32 	%f179, [%rd47+8];
+	sub.f32 	%f180, %f179, %f3;
+	.loc	18	243	0
+	mov.f32 	%f181, 0f3f000000;   	// 0.5
+	ld.const.f32 	%f182, [cSim+252];
+	mad.f32 	%f183, %f176, %f182, %f181;
+	cvt.rmi.f32.f32 	%f184, %f183;
+	ld.const.f32 	%f185, [cSim+240];
+	mul.f32 	%f186, %f184, %f185;
+	sub.f32 	%f24, %f176, %f186;
+	.loc	18	244	0
+	mov.f32 	%f187, 0f3f000000;   	// 0.5
+	ld.const.f32 	%f188, [cSim+256];
+	mad.f32 	%f189, %f178, %f188, %f187;
+	cvt.rmi.f32.f32 	%f190, %f189;
+	ld.const.f32 	%f191, [cSim+244];
+	mul.f32 	%f192, %f190, %f191;
+	sub.f32 	%f29, %f178, %f192;
+	.loc	18	245	0
+	mov.f32 	%f193, 0f3f000000;   	// 0.5
+	ld.const.f32 	%f194, [cSim+260];
+	mad.f32 	%f195, %f180, %f194, %f193;
+	cvt.rmi.f32.f32 	%f196, %f195;
+	ld.const.f32 	%f197, [cSim+248];
+	mul.f32 	%f198, %f196, %f197;
+	sub.f32 	%f34, %f180, %f198;
+	mul.f32 	%f35, %f29, %f29;
+	mad.f32 	%f36, %f24, %f24, %f35;
+	mad.f32 	%f37, %f34, %f34, %f36;
+	ld.const.u32 	%r33, [cSim+0];
+	ld.const.f32 	%f199, [cSim+236];
+	set.gt.u32.f32 	%r68, %f199, %f37;
+	neg.s32 	%r69, %r68;
+	add.u32 	%r70, %r27, %r64;
+	set.gt.u32.u32 	%r71, %r33, %r70;
+	neg.s32 	%r72, %r71;
+	set.lt.u32.u32 	%r73, %r28, %r33;
+	neg.s32 	%r74, %r73;
+	and.b32 	%r75, %r72, %r74;
+	and.b32 	%r76, %r69, %r75;
+	mov.u32 	%r77, 0;
+	setp.eq.s32 	%p23, %r76, %r77;
+	@%p23 bra 	$Lt_5_34306;
+	.loc	18	256	0
+	sqrt.approx.f32 	%f38, %f37;
+	ld.volatile.shared.f32 	%f200, [%rd47+16];
+	add.f32 	%f201, %f200, %f38;
+	setp.lt.f32 	%p24, %f4, %f201;
+	@!%p24 bra 	$Lt_5_33282;
+	.loc	18	259	0
+	ld.volatile.shared.f32 	%f202, [%rd47+16];
+	sub.f32 	%f203, %f38, %f202;
+	.loc	18	264	0
+	abs.f32 	%f204, %f203;
+	rcp.approx.f32 	%f205, %f201;
+	max.f32 	%f206, %f204, %f4;
+	mul.f32 	%f207, %f205, %f205;
+	rcp.approx.f32 	%f208, %f206;
+	mul.f32 	%f209, %f208, %f208;
+	rcp.approx.f32 	%f210, %f38;
+	sub.f32 	%f211, %f208, %f205;
+	mov.f32 	%f212, 0f3e800000;   	// 0.25
+	mul.f32 	%f213, %f38, %f212;
+	sub.f32 	%f214, %f207, %f209;
+	mad.f32 	%f215, %f213, %f214, %f211;
+	div.approx.f32 	%f216, %f205, %f208;
+	lg2.approx.f32 	%f217, %f216;
+	mov.f32 	%f218, 0f3f317218;   	// 0.693147
+	mul.f32 	%f219, %f217, %f218;
+	mov.f32 	%f220, 0f3f000000;   	// 0.5
+	mul.f32 	%f221, %f210, %f220;
+	mad.f32 	%f222, %f219, %f221, %f215;
+	ld.volatile.shared.f32 	%f223, [%rd47+16];
+	ld.volatile.shared.f32 	%f224, [%rd47+16];
+	mov.f32 	%f225, 0f3e800000;   	// 0.25
+	mul.f32 	%f226, %f224, %f225;
+	mul.f32 	%f227, %f223, %f226;
+	mul.f32 	%f228, %f210, %f227;
+	sub.f32 	%f229, %f209, %f207;
+	mad.f32 	%f230, %f228, %f229, %f222;
+	.loc	18	270	0
+	ld.volatile.shared.f32 	%f231, [%rd47+16];
+	sub.f32 	%f232, %f231, %f38;
+	setp.lt.f32 	%p25, %f4, %f232;
+	@!%p25 bra 	$Lt_5_33794;
+	.loc	18	273	0
+	rcp.approx.f32 	%f72, %f4;
+	sub.f32 	%f233, %f72, %f208;
+	add.f32 	%f234, %f233, %f233;
+	add.f32 	%f230, %f230, %f234;
+$Lt_5_33794:
+	.loc	18	275	0
+	add.f32 	%f83, %f230, %f83;
+$Lt_5_33282:
+	add.f32 	%f137, %f38, %f5;
+	ld.volatile.shared.f32 	%f235, [%rd47+12];
+	setp.lt.f32 	%p26, %f235, %f137;
+	@!%p26 bra 	$Lt_5_34306;
+	.loc	18	280	0
+	ld.volatile.shared.f32 	%f236, [%rd47+12];
+	.loc	22	2349	0
+	sub.f32 	%f237, %f38, %f5;
+	rcp.approx.f32 	%f238, %f137;
+	abs.f32 	%f239, %f237;
+	max.f32 	%f240, %f239, %f236;
+	rcp.approx.f32 	%f241, %f240;
+	div.approx.f32 	%f242, %f238, %f241;
+	lg2.approx.f32 	%f243, %f242;
+	.loc	18	285	0
+	rcp.approx.f32 	%f244, %f38;
+	mul.f32 	%f245, %f238, %f238;
+	mul.f32 	%f246, %f241, %f241;
+	sub.f32 	%f247, %f241, %f238;
+	mov.f32 	%f248, 0f3e800000;   	// 0.25
+	mul.f32 	%f249, %f38, %f248;
+	sub.f32 	%f250, %f245, %f246;
+	mad.f32 	%f251, %f249, %f250, %f247;
+	mov.f32 	%f252, 0f3f317218;   	// 0.693147
+	mul.f32 	%f253, %f243, %f252;
+	mov.f32 	%f254, 0f3f000000;   	// 0.5
+	mul.f32 	%f255, %f244, %f254;
+	mad.f32 	%f256, %f253, %f255, %f251;
+	mov.f32 	%f257, 0f3e800000;   	// 0.25
+	mul.f32 	%f258, %f5, %f257;
+	mul.f32 	%f259, %f5, %f258;
+	mul.f32 	%f260, %f244, %f259;
+	sub.f32 	%f261, %f246, %f245;
+	mad.f32 	%f262, %f260, %f261, %f256;
+	.loc	18	291	0
+	ld.volatile.shared.f32 	%f263, [%rd47+12];
+	sub.f32 	%f264, %f5, %f38;
+	setp.lt.f32 	%p27, %f263, %f264;
+	@!%p27 bra 	$Lt_5_34818;
+	.loc	18	294	0
+	ld.volatile.shared.f32 	%f265, [%rd47+12];
+	rcp.approx.f32 	%f266, %f265;
+	sub.f32 	%f267, %f266, %f241;
+	add.f32 	%f268, %f267, %f267;
+	add.f32 	%f262, %f262, %f268;
+$Lt_5_34818:
+	.loc	18	296	0
+	st.volatile.shared.f32 	[%rd44+0], %f262;
+$Lt_5_34306:
+$Lt_5_32770:
+	and.b32 	%r78, %r6, 1;
+	mov.u32 	%r79, 0;
+	setp.ne.u32 	%p28, %r78, %r79;
+	@%p28 bra 	$Lt_5_35330;
+	.loc	18	303	0
+	ld.volatile.shared.f32 	%f269, [%rd44+0];
+	ld.volatile.shared.f32 	%f270, [%rd44+4];
+	add.f32 	%f271, %f269, %f270;
+	st.volatile.shared.f32 	[%rd44+0], %f271;
+$Lt_5_35330:
+	and.b32 	%r80, %r6, 3;
+	mov.u32 	%r81, 0;
+	setp.ne.u32 	%p29, %r80, %r81;
+	@%p29 bra 	$Lt_5_35842;
+	.loc	18	305	0
+	ld.volatile.shared.f32 	%f272, [%rd44+0];
+	ld.volatile.shared.f32 	%f273, [%rd44+8];
+	add.f32 	%f274, %f272, %f273;
+	st.volatile.shared.f32 	[%rd44+0], %f274;
+$Lt_5_35842:
+	and.b32 	%r82, %r6, 7;
+	mov.u32 	%r83, 0;
+	setp.ne.u32 	%p30, %r82, %r83;
+	@%p30 bra 	$Lt_5_36354;
+	.loc	18	307	0
+	ld.volatile.shared.f32 	%f275, [%rd44+0];
+	ld.volatile.shared.f32 	%f276, [%rd44+16];
+	add.f32 	%f277, %f275, %f276;
+	st.volatile.shared.f32 	[%rd44+0], %f277;
+$Lt_5_36354:
+	and.b32 	%r84, %r6, 15;
+	mov.u32 	%r85, 0;
+	setp.ne.u32 	%p31, %r84, %r85;
+	@%p31 bra 	$Lt_5_36866;
+	.loc	18	309	0
+	ld.volatile.shared.f32 	%f278, [%rd44+0];
+	ld.volatile.shared.f32 	%f279, [%rd44+32];
+	add.f32 	%f280, %f278, %f279;
+	st.volatile.shared.f32 	[%rd44+0], %f280;
+$Lt_5_36866:
+	mov.u32 	%r86, 0;
+	setp.ne.u32 	%p32, %r17, %r86;
+	@%p32 bra 	$Lt_5_37378;
+	.loc	18	311	0
+	ld.volatile.shared.f32 	%f281, [%rd47+20];
+	ld.volatile.shared.f32 	%f282, [%rd44+0];
+	ld.volatile.shared.f32 	%f283, [%rd44+64];
+	add.f32 	%f284, %f282, %f283;
+	add.f32 	%f285, %f281, %f284;
+	st.volatile.shared.f32 	[%rd47+20], %f285;
+$Lt_5_37378:
+$Lt_5_32258:
+	add.u32 	%r64, %r64, 1;
+	mov.u32 	%r87, 32;
+	setp.ne.u32 	%p33, %r64, %r87;
+	@%p33 bra 	$Lt_5_32002;
+$Lt_5_27394:
+$Lt_5_26882:
+	.loc	18	320	0
+	ld.global.f32 	%f286, [%rd23+0];
+	add.f32 	%f287, %f286, %f83;
+	st.global.f32 	[%rd23+0], %f287;
+	.loc	18	322	0
+	add.u32 	%r88, %r48, %r19;
+	cvt.u64.u32 	%rd48, %r88;
+	mul.wide.u32 	%rd49, %r88, 4;
+	add.u64 	%rd50, %rd11, %rd49;
+	ld.global.f32 	%f288, [%rd50+0];
+	ld.volatile.shared.f32 	%f289, [%rd10+20];
+	add.f32 	%f290, %f288, %f289;
+	st.global.f32 	[%rd50+0], %f290;
+$Lt_5_23810:
+	add.u32 	%r12, %r12, 1;
+	add.u64 	%rd8, %rd8, 4;
+	setp.ne.u32 	%p34, %r15, %r12;
+	@%p34 bra 	$Lt_5_23554;
+$Lt_5_23042:
+	.loc	18	332	0
+	exit;
+$LDWend__Z45kCalculateObcGbsaPeriodicByWarpBornSum_kernelPj:
+	} // _Z45kCalculateObcGbsaPeriodicByWarpBornSum_kernelPj
+
+	.entry _Z28kReduceObcGbsaBornSum_kernelv
+	.maxntid 384,1,1
+	.maxnctapersm 1
+	{
+	.reg .u16 %rh<5>;
+	.reg .u32 %r<18>;
+	.reg .u64 %rd<18>;
+	.reg .f32 %f<100>;
+	.reg .pred %p<9>;
+	.loc	4	99	0
+$LDWbegin__Z28kReduceObcGbsaBornSum_kernelv:
+	.loc	4	101	0
+	mov.u16 	%rh1, %ntid.x;
+	mov.u16 	%rh2, %ctaid.x;
+	mul.wide.u16 	%r1, %rh2, %rh1;
+	cvt.u32.u16 	%r2, %tid.x;
+	add.u32 	%r3, %r2, %r1;
+	mov.s32 	%r4, %r3;
+	ld.const.u32 	%r5, [cSim+0];
+	setp.ge.u32 	%p1, %r3, %r5;
+	@%p1 bra 	$Lt_6_4610;
+	cvt.u64.u32 	%rd1, %r3;
+	ld.const.u32 	%r6, [cSim+204];
+	mov.u32 	%r7, 0;
+	setp.gt.u32 	%p2, %r6, %r7;
+	ld.const.f32 	%f1, [cSim+336];
+	add.f32 	%f2, %f1, %f1;
+	ld.const.f32 	%f3, [cSim+340];
+	mov.f32 	%f4, 0f40400000;     	// 3
+	mul.f32 	%f5, %f3, %f4;
+	mov.u16 	%rh3, %nctaid.x;
+	mul.wide.u16 	%r8, %rh3, %rh1;
+	cvt.s64.u32 	%rd2, %r8;
+	mul.wide.u32 	%rd3, %r3, 4;
+	ld.const.u64 	%rd4, [cSim+376];
+	mul.wide.u32 	%rd5, %r3, 8;
+	add.u64 	%rd6, %rd4, %rd5;
+	mul.wide.u32 	%rd7, %r8, 8;
+	ld.const.u64 	%rd8, [cSim+1160];
+	ld.const.u64 	%rd9, [cSim+1152];
+	ld.const.f32 	%f6, [cSim+328];
+	ld.const.f32 	%f7, [cSim+332];
+$Lt_6_5122:
+ //<loop> Loop body line 101, nesting depth: 1, estimated iterations: unknown
+	.loc	4	107	0
+	ld.global.f32 	%f8, [%rd6+0];
+	@!%p2 bra 	$Lt_6_7426;
+	mov.s32 	%r9, %r6;
+	ld.const.u32 	%r10, [cSim+188];
+	cvt.u64.u32 	%rd10, %r10;
+	mul.wide.u32 	%rd11, %r10, 4;
+	ld.const.u64 	%rd12, [cSim+1144];
+	add.s64 	%rd13, %rd3, %rd12;
+	mov.s32 	%r11, 0;
+	mov.f32 	%f9, 0f00000000;     	// 0
+	mov.s32 	%r12, %r9;
+$Lt_6_5890:
+ //<loop> Loop body line 107, nesting depth: 2, estimated iterations: unknown
+	.loc	4	112	0
+	ld.global.f32 	%f10, [%rd13+0];
+	add.f32 	%f9, %f10, %f9;
+	add.s32 	%r11, %r11, 1;
+	add.s64 	%rd13, %rd13, %rd11;
+	setp.ne.u32 	%p3, %r11, %r6;
+	@%p3 bra 	$Lt_6_5890;
+	bra.uni 	$Lt_6_5378;
+$Lt_6_7426:
+	mov.f32 	%f9, 0f00000000;     	// 0
+$Lt_6_5378:
+	.loc	4	117	0
+	mov.f32 	%f11, 0f3f000000;    	// 0.5
+	mul.f32 	%f12, %f8, %f11;
+	mul.f32 	%f9, %f9, %f12;
+	.loc	4	120	0
+	mul.f32 	%f13, %f9, %f9;
+	mul.f32 	%f14, %f13, %f1;
+	mul.f32 	%f15, %f13, %f9;
+	mul.f32 	%f16, %f9, %f7;
+	sub.f32 	%f17, %f16, %f14;
+	mad.f32 	%f18, %f15, %f3, %f17;
+	abs.f32 	%f19, %f18;
+	mov.f32 	%f20, 0f3f0ccccd;    	// 0.55
+	setp.ge.f32 	%p4, %f19, %f20;
+	@!%p4 bra 	$Lt_6_6658;
+	.loc	20	8429	0
+	add.f32 	%f21, %f19, %f19;
+	mov.f32 	%f22, 0f3fb8aa3b;    	// 1.4427
+	mul.f32 	%f23, %f21, %f22;
+	cvt.rzi.f32.f32 	%f24, %f23;
+	mov.f32 	%f25, %f24;
+	mov.f32 	%f26, 0fbf317200;    	// -0.693146
+	mov.f32 	%f27, %f26;
+	mov.f32 	%f28, %f21;
+	mad.f32 %f29, %f25, %f27, %f28;
+	mov.f32 	%f30, %f29;
+	mov.f32 	%f31, %f24;
+	mov.f32 	%f32, 0fb5bfbe8e;    	// -1.42861e-06
+	mov.f32 	%f33, %f32;
+	mov.f32 	%f34, %f30;
+	mad.f32 %f35, %f31, %f33, %f34;
+	mov.f32 	%f36, %f35;
+	mov.f32 	%f37, 0f3fb8aa3b;    	// 1.4427
+	mul.f32 	%f38, %f36, %f37;
+	ex2.approx.f32 	%f39, %f38;
+	mov.f32 	%f40, %f39;
+	ex2.approx.f32 	%f41, %f24;
+	mov.f32 	%f42, %f41;
+	mov.f32 	%f43, 0f3f800000;    	// 1
+	mov.f32 	%f44, %f43;
+	mad.f32 %f45, %f40, %f42, %f44;
+	mov.f32 	%f46, %f45;
+	.loc	20	8437	0
+	mov.f32 	%f47, %f46;
+	rcp.approx.ftz.f32 %f48,%f47;
+	mov.f32 	%f49, %f48;
+	.loc	20	8429	0
+	mov.f32 	%f50, %f49;
+	mov.f32 	%f51, 0fc0000000;    	// -2
+	mov.f32 	%f52, %f51;
+	mov.f32 	%f53, 0f3f800000;    	// 1
+	mov.f32 	%f54, %f53;
+	mad.f32 %f55, %f50, %f52, %f54;
+	mov.f32 	%f56, %f55;
+	.loc	20	9237	0
+	mov.f32 	%f57, 0f3f800000;    	// 1
+	mov.f32 	%f58, 0f42b00000;    	// 88
+	setp.ge.f32 	%p5, %f19, %f58;
+	selp.f32 	%f59, %f57, %f56, %p5;
+	mov.b32 	%r13, %f59;
+	mov.b32 	%r14, %f18;
+	and.b32 	%r15, %r14, -2147483648;
+	or.b32 	%r16, %r13, %r15;
+	mov.b32 	%f60, %r16;
+	bra.uni 	$Lt_6_6402;
+$Lt_6_6658:
+	.loc	20	8429	0
+	mul.f32 	%f61, %f18, %f18;
+	mov.f32 	%f62, 0f3c86a81b;    	// 0.0164376
+	mov.f32 	%f63, %f62;
+	mov.f32 	%f64, %f61;
+	mov.f32 	%f65, 0fbd57be66;    	// -0.0526718
+	mov.f32 	%f66, %f65;
+	mad.f32 %f67, %f63, %f64, %f66;
+	mov.f32 	%f56, %f67;
+	mov.f32 	%f68, %f56;
+	mov.f32 	%f69, %f61;
+	mov.f32 	%f70, 0f3e08677b;    	// 0.133207
+	mov.f32 	%f71, %f70;
+	mad.f32 %f72, %f68, %f69, %f71;
+	mov.f32 	%f56, %f72;
+	mov.f32 	%f73, %f56;
+	mov.f32 	%f74, %f61;
+	mov.f32 	%f75, 0fbeaaaa29;    	// -0.333329
+	mov.f32 	%f76, %f75;
+	mad.f32 %f77, %f73, %f74, %f76;
+	mov.f32 	%f56, %f77;
+	mul.f32 	%f78, %f61, %f56;
+	mov.f32 	%f79, %f78;
+	mov.f32 	%f80, %f18;
+	mov.f32 	%f81, %f18;
+	mad.f32 %f82, %f79, %f80, %f81;
+	mov.f32 	%f56, %f82;
+	.loc	20	9240	0
+	add.f32 	%f83, %f18, %f18;
+	mov.f32 	%f84, 0f00000000;    	// 0
+	setp.eq.f32 	%p6, %f18, %f84;
+	selp.f32 	%f60, %f83, %f56, %p6;
+$Lt_6_6402:
+	.loc	4	125	0
+	add.f32 	%f85, %f8, %f6;
+	rcp.approx.f32 	%f86, %f8;
+	div.approx.f32 	%f87, %f60, %f85;
+	sub.f32 	%f88, %f86, %f87;
+	rcp.approx.f32 	%f89, %f88;
+	add.u64 	%rd14, %rd3, %rd9;
+	st.global.f32 	[%rd14+0], %f89;
+	.loc	4	126	0
+	mul.f32 	%f90, %f9, %f2;
+	sub.f32 	%f91, %f7, %f90;
+	mad.f32 	%f92, %f13, %f5, %f91;
+	mul.f32 	%f93, %f8, %f92;
+	mov.f32 	%f94, 0f3f800000;    	// 1
+	mul.f32 	%f95, %f60, %f60;
+	sub.f32 	%f96, %f94, %f95;
+	mul.f32 	%f97, %f93, %f96;
+	div.approx.f32 	%f98, %f97, %f85;
+	add.u64 	%rd15, %rd3, %rd8;
+	st.global.f32 	[%rd15+0], %f98;
+	add.u32 	%r4, %r8, %r4;
+	mul.lo.u64 	%rd16, %rd2, 4;
+	add.u64 	%rd3, %rd3, %rd16;
+	add.u64 	%rd6, %rd6, %rd7;
+	setp.lt.u32 	%p7, %r4, %r5;
+	@%p7 bra 	$Lt_6_5122;
+$Lt_6_4610:
+	.loc	4	129	0
+	exit;
+$LDWend__Z28kReduceObcGbsaBornSum_kernelv:
+	} // _Z28kReduceObcGbsaBornSum_kernelv
+	.global .align 8 .b8 _ZTVN10__cxxabiv117__class_type_infoE[8];
+	.global .align 8 .b8 _ZTVN10__cxxabiv120__si_class_type_infoE[8];
+	.global .align 8 .b8 _ZTVSt9exception[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	.global .align 8 .b8 _ZTVN6OpenMM15OpenMMExceptionE[40] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
