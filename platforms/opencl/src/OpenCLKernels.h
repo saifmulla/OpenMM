@@ -1323,6 +1323,7 @@ private:
 //	unsigned int moleculeSize_; //size of each molecule such as argon=>1, sodium=>2,water=>3
 	OpenCLContext& cl_;
 	cl::Kernel mcomKernel_,reduceLongVirialKernel_,reduceFloat4VirialKernel_;
+	int nBins_;
 };
 } // namespace OpenMM
 #endif /*OPENMM_OPENCLKERNELS_H_*/

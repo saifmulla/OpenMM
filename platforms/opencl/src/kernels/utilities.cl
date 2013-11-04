@@ -191,3 +191,7 @@ __kernel void computeMoleculeCentresOfMass(__global float4* posq,
     }
 }
 
+/**
+ * this kernel performs calculation of virial inside bins
+ */
+
