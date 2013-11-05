@@ -87,21 +87,22 @@ __kernel void updateVelocitiesInBins(__global const float4* restrict posq,
 {
     unsigned int idx = get_global_id(0);
     int nbins = (int) NBINS;
-    while(idx<NUM_ATOMS)
+
+    if(idx<NUM_ATOMS)
     {
-	int bn = -1;
         float4 velocity = velm[idx];
 	if(velocity.w!=0.0){
 		float4 rSI = posq[idx] - startPoint[0];
         	float rD =
 ((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
-        	bn = (int) floor(rD/unitVector[0].w);
+        	int bn = (int) rD/unitVector[0].w;
+		int s = bn == nbins;
+                bn -= s;
 		velocity.x *= binChi[bn];
 		velocity.y *= binChi[bn];
 		velocity.z *= binChi[bn];
 		velm[idx] = velocity;
 	}
-	idx += get_global_id(0);
     }
 }
 
