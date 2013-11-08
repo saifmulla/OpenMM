@@ -194,6 +194,13 @@ public:
         return queue;
     }
     /**
+     * get the cl::Event object 
+     * @return cl::Event
+     */
+    cl::Event& getProfileEvent(){
+        return profileEvent;
+    }
+    /**
      * Get the array which contains the position (the xyz components) and charge (the w component) of each atom.
      */
     OpenCLArray<mm_float4>& getPosq() {
@@ -534,6 +541,7 @@ private:
     cl::Context context;
     cl::Device device;
     cl::CommandQueue queue;
+    cl::Event profileEvent;
     cl::Program utilities;
     cl::Kernel clearBufferKernel;
     cl::Kernel clearTwoBuffersKernel;

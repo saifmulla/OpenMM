@@ -3781,12 +3781,12 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
 
         cl::Program randomProgram = cl.createProgram(OpenCLKernelSources::customIntegrator, defines);
         //initialize external force
-        /*int nbins = context.getMeasurements().getNBins();
-        Vec3* extforces = context.getMeasurements().getExtForces();
+        /*int nbins = context.getControls().getBinForceNBins();
+        Vec3* extforces = context.getControls().getBinForces();
         extForce = new OpenCLArray<mm_float4>(cl,(int) nbins,"extForce",true);
         int b = 0;
         while(b<nbins){
-        	(*extForce)[b] = mm_float4(extforces[b][0],extforces[b][1],extforces[b][2],0.0);
+	       	(*extForce)[b] = mm_float4(extforces[b][0],extforces[b][1],extforces[b][2],0.0);
         	b++;
         }
         extForce->upload();
@@ -4099,9 +4099,13 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             kernels[i][0].setArg<cl_uint>(9, integration.prepareRandomNumbers(requiredGaussian[i]));
             if (requiredUniform[i] > 0)
                 cl.executeKernel(randomKernel, numAtoms);
-          /*  if(i==2){
-				cl.executeKernel(extForceKernel,numAtoms);
-			}*/
+            if(i==2){
+			//	cl.executeKernel(extForceKernel,numAtoms);
+			// TODO: optimise the following code checks later
+			if(context.getControlSet()){
+				context.getControls().controlBeforeForces(context);
+			}
+	    }
             cl.executeKernel(kernels[i][0], numAtoms);
 
 
@@ -4140,7 +4144,8 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
      * ideally check if controltools class is set and if it's set then
      * invoke the function on controltools class
      */
-    context.getControls().controlAfterForces(context);
+    if(context.getControlSet())
+        context.getControls().controlAfterForces(context);
     //the next line invoked reduction of virial kernel and downloads forces
 //    context.getMeasurements().measureAtEnd(context);
 //    std::vector<OpenMM::Vec3>& forces = context.getMeasurements().updForces();
@@ -4519,61 +4524,33 @@ void OpenCLMeasureCombinedFieldsKernel::calculate(ContextImpl& impl){
 
 //implementation for OpenCLControlBinForcesKernel class
 OpenCLControlBinForcesKernel::~OpenCLControlBinForcesKernel(){
-//    if(binForces_!=NULL)
-//        delete binForces_;
-//    if(startPoint_!=NULL)
-//        delete startPoint_;
-//    if(unitVector_!=NULL)
-//        delete unitVector_;
-//    //TODO: delete later
-//    if(temp_!=NULL)
-//        delete temp_;
+    if(binForces_!=NULL)
+        delete binForces_;
 }
 void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
-//    OpenMM::Vec3* temp = impl.getControls().getBinForces();
-//    double tempbinwidth = impl.getControls().getBinWidth();
-//    OpenMM::Vec3& tempstartpoint = impl.getControls().getStartPoint();
-//    OpenMM::Vec3& tempunitvector = impl.getControls().getUnitVector();
-//    nBins_ = impl.getControls().getNBins();
-//    int numatoms = cl_.getNumAtoms();
-//
-//    //initialize global gpu arrays
-//    binForces_ = new OpenCLArray<mm_float4>(cl_,nBins_,"BinForces",true);
-//    startPoint_ = new OpenCLArray<mm_float4>(cl_,1,"StartPoint",true);
-//    unitVector_ = new OpenCLArray<mm_float4>(cl_,1,"UnitVector",true);
-//    //TODO: temp delete later
-//    temp_ = new OpenCLArray<mm_float4>(cl_,numatoms,"temp",true);
-//
-//    cl::Program program = cl_.createProgram(OpenCLKernelSources::binforces);
-//    kernel1_ = cl::Kernel(program,"binForcesKernel");
-//    kernel1_.setArg<cl::Buffer>(0,cl_.getPosq().getDeviceBuffer()); 
-//    kernel1_.setArg<cl::Buffer>(1,binForces_->getDeviceBuffer()); 
-//    kernel1_.setArg<cl::Buffer>(2,startPoint_->getDeviceBuffer()); 
-//    kernel1_.setArg<cl::Buffer>(3,unitVector_->getDeviceBuffer()); 
-//    kernel1_.setArg<cl::Buffer>(4,cl_.getForce().getDeviceBuffer()); 
-//    kernel1_.setArg<cl_int>(5,nBins_); 
-//    kernel1_.setArg<cl_int>(6,numatoms);
-//    
-//    (*startPoint_)[0] = mm_float4((float) tempstartpoint[0],
-//                                  (float) tempstartpoint[1],
-//                                  (float) tempstartpoint[2],
-//                                  0.0f);
-//    
-//    (*unitVector_)[0] = mm_float4((float) tempunitvector[0],
-//                                  (float) tempunitvector[1],
-//                                  (float) tempunitvector[2],
-//                                  (float) tempbinwidth);
-//    
-//    //for(int b=0;b<nBins_;b++){
-//        (*binForces_)[0] = mm_float4((float) temp[0][0],(float) temp[0][1],(float) temp[0][2],0.0f);
-//    //}
-//
-//    startPoint_->upload();
-//    unitVector_->upload();
-//    binForces_->upload();
+    nBins_ = impl.getControls().getBinForceNBins();
+    int numatoms = cl_.getNumAtoms();
+    Vec3* temp = impl.getControls().getBinForces();
+
+    //initialize global gpu arrays
+    binForces_ = new OpenCLArray<mm_float4>(cl_,nBins_,"BinForces",true);
+    cl::Program program = cl_.createProgram(OpenCLKernelSources::binforces);
+    kernel1_ = cl::Kernel(program,"externalForcesKernel");
+
+    kernel1_.setArg<cl::Buffer>(0,binForces_->getDeviceBuffer()); 
+    kernel1_.setArg<cl::Buffer>(1,cl_.getForce().getDeviceBuffer()); 
+    kernel1_.setArg<cl_int>(2,numatoms);
+
+    int b=0;
+    while(b<nBins_){
+    	(*binForces_)[0] = mm_float4((float) temp[b][0],(float) temp[b][1],(float) temp[b][2],0.0f);
+	b++;
+    }
+
+    binForces_->upload();
 }
 void OpenCLControlBinForcesKernel::controlBeforeForces(ContextImpl& impl){
-//    cl_.executeKernel(kernel1_,cl_.getNumAtoms());
+    cl_.executeKernel(kernel1_,cl_.getNumAtoms());
 }
 void OpenCLControlBinForcesKernel::controlAfterForces(ContextImpl& impl){
     
@@ -4749,7 +4726,7 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
     kernel1 = cl::Kernel(program,"binMomentum");
     kernel4 = cl::Kernel(program,"makeZeros");
     kernel2 = cl::Kernel(program,"calculatebinke");
-    //kernel3 = cl::Kernel(program,"updateVelocitiesInBins");    
+    kernel3 = cl::Kernel(program,"updateVelocitiesInBins");    
     unsigned int shmemsize = OpenCLContext::ThreadBlockSize*nBins_;
     
     kernel1.setArg<cl::Buffer>(0,cl_.getVelm().getDeviceBuffer());
@@ -4768,7 +4745,7 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
     kernel2.setArg<cl::Buffer>(3,unitVector_->getDeviceBuffer());
     kernel2.setArg<cl::Buffer>(4,glNewVelocity_->getDeviceBuffer());
     kernel2.setArg<cl::Buffer>(5,glMomentum_->getDeviceBuffer());
- /*   
+    
     //third kernel updatevelocitiesinbins
     kernel3.setArg<cl::Buffer>(0,cl_.getPosq().getDeviceBuffer());
     kernel3.setArg<cl::Buffer>(1,startPoint_->getDeviceBuffer());
@@ -4776,7 +4753,6 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
     kernel3.setArg<cl::Buffer>(3,glBinChi_->getDeviceBuffer());
     kernel3.setArg<cl::Buffer>(4,cl_.getVelm().getDeviceBuffer());
     
-    */
     (*startPoint_)[0] = mm_float4((float) tempstartpoint[0],
                                   (float) tempstartpoint[1],
                                   (float) tempstartpoint[2],
@@ -4786,6 +4762,7 @@ void OpenCLControlBerendsenInBinsKernel::initialize(ContextImpl& impl)
                                   (float) tempunitvector[1],
                                   (float) tempunitvector[2],
                                   (float) tempbinwidth);
+    
 
     startPoint_->upload();
     unitVector_->upload();
@@ -4809,14 +4786,10 @@ void OpenCLControlBerendsenInBinsKernel::controlAfterForces(ContextImpl& impl)
     {
         for(int j=0;j<nBins_;j++){
             mm_float4 t = glMomentum_->get(b*nBins_+j);
-		//printf("%d:%d => %3.10f\t%3.10f\t%3.10f\t%3.10f\n",
-		//	b,j,t.x,t.y,t.z,t.w);
             mom[j].x += t.x;
             mom[j].y += t.y;
             mom[j].z += t.z;
             mom[j].w += t.w;
-	//	printf("%3.10f\t%3.10f\t%3.10f\t%3.10f\n",
-	//		mom[j].x,mom[j].y,mom[j].z,mom[j].w);
 	
         }
     }
@@ -4867,10 +4840,9 @@ void OpenCLControlBerendsenInBinsKernel::controlAfterForces(ContextImpl& impl)
         printf("CHI %d => %3.8f\n",kk,(*glBinChi_)[kk]);
         kk++;
     }
-/*    
-    glMomentum_->upload(temp);
+    
     glBinChi_->upload();
-    cl_.executeKernel(kernel3,numAtoms_);*/
+    cl_.executeKernel(kernel3,numAtoms_);
 }
 
 //implementation for OpenCLMeasureBinVirialKernel

@@ -92,10 +92,12 @@ __kernel void updateVelocitiesInBins(__global const float4* restrict posq,
     {
         float4 velocity = velm[idx];
 	if(velocity.w!=0.0){
-		float4 rSI = posq[idx] - startPoint[0];
+                float4 sp = startPoint[0];
+                float4 uv = unitVector[0];
+		float4 rSI = posq[idx] - sp;
         	float rD =
-((rSI.x*unitVector[0].x)+(rSI.y*unitVector[0].y)+(rSI.z*unitVector[0].z));
-        	int bn = (int) rD/unitVector[0].w;
+((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
+        	int bn = (int) rD/uv.w;
 		int s = bn == nbins;
                 bn -= s;
 		velocity.x *= binChi[bn];

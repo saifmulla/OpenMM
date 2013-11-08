@@ -40,6 +40,7 @@ MeasurementTools::MeasurementTools(){
     binKE_ = NULL;
     binMom_ = NULL;
     virial_ = NULL;
+    extForces_ = NULL;
 }
 /**
  *  This overloaded constructor must be used while invoking measurement inside bins it 

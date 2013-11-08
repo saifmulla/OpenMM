@@ -205,7 +205,11 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
             compilationDefines["SUPPORTS_64_BIT_ATOMICS"] = "";
         if (supportsDoublePrecision)
             compilationDefines["SUPPORTS_DOUBLE_PRECISION"] = "";
+#ifdef USE_PROFILE
+        queue = cl::CommandQueue(context, device,CL_QUEUE_PROFILING_ENABLE);
+#else
         queue = cl::CommandQueue(context, device);
+#endif
         numAtoms = numParticles;
         paddedNumAtoms = TileSize*((numParticles+TileSize-1)/TileSize);
         numAtomBlocks = (paddedNumAtoms+(TileSize-1))/TileSize;
@@ -448,22 +452,40 @@ cl::Program OpenCLContext::createProgram(const string source, const map<string, 
 }
 
 void OpenCLContext::executeKernel(cl::Kernel& kernel, int workUnits, int blockSize) {
+
+    //get the cl::event objec
+    cl::Event& evt = this->getProfileEvent();
+    
     if (blockSize == -1)
         blockSize = ThreadBlockSize;
     int size = std::min((workUnits+blockSize-1)/blockSize, numThreadBlocks)*blockSize;
-//TODO:	printf("DEBUG: Block size %d and size %d\n",(workUnits+blockSize-1)/blockSize,size);
     try {
+#ifdef USE_PROFILE
+        queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(size), 
+                cl::NDRange(blockSize),NULL,&evt);
+#else
         queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(size), cl::NDRange(blockSize));
+#endif
     }
     catch (cl::Error err) {
         stringstream str;
         str<<"Error invoking kernel "<<kernel.getInfo<CL_KERNEL_FUNCTION_NAME>()<<": "<<err.what()<<" ("<<err.err()<<")";
         throw OpenMMException(str.str());
     }
+#ifdef USE_PROFILE
+    evt.wait();
+    cl_ulong start = evt.getProfilingInfo<CL_PROFILING_COMMAND_START>();
+    cl_ulong end = evt.getProfilingInfo<CL_PROFILING_COMMAND_END>();
+    double time = 1.e-9 * ( end - start );
+    std::cout << kernel.getInfo<CL_KERNEL_FUNCTION_NAME>() <<
+            " execution time " << time << std::endl;
+#endif
 }
 
 void OpenCLContext::executeKernel(cl::Kernel& kernel, int workUnits, cl::Event& evt, int blockSize){
-
+    
+        
+        
 }
 
 void OpenCLContext::clearBuffer(OpenCLArray<float>& array) {

@@ -36,7 +36,13 @@ private:
     OpenMM::Vec3 unitVector_;
     double binWidth_;
     double rSEMag_;
-    Vec3* binForces_;
+    OpenMM::Vec3* binForces_;
+    OpenMM::Vec3 binForceStartPoint_;
+    OpenMM::Vec3 binForceEndPoint_;
+    OpenMM::Vec3 binForceUnitVector_;
+    double binForceBinWidth_;
+    double binForcerSEMag_;
+    int binForceBins_;
     //debug variable
     Vec3* testVariable_;
 
@@ -54,7 +60,14 @@ public:
                  double tauT = 0.1,int nBins = 1,int writeInterval = 1);
     //- destructor
     ~ControlTools();
-    
+   
+    /**
+     * calculte points
+     * this function calculates information such as difference in start and end point
+     * unitVector, rSeMag and binWidth and assins it to respective variables
+     */
+     void calculatePoints(Vec3& startPoint, Vec3& endPoint, Vec3& uv,
+				double& rseMag, double& binWidth, int bins);  
     /*
      * accessor function for test variable
      * TODO: delete in production
@@ -66,9 +79,16 @@ public:
     int getNBins(){
         return nBins_;
     }
+    int getBinForceNBins(){
+        return binForceBins_;
+    }
     int getWriteInterval(){
         return writeInterval_;
     }
+     
+    void setBinForceBins(int bins){
+	binForceBins_ = bins;
+	}
     void setTemperature(double temp)
     {
         temperature = temp;
@@ -113,21 +133,42 @@ public:
     inline double getRSEMag(){
         return rSEMag_;
     }
+    inline double getBinForceRSEMag(){
+        return binForcerSEMag_;
+    }
     Vec3& getStartPoint(){
         return startPoint_;
     }
     OpenMM::Vec3& getUnitVector(){
         return unitVector_;
     }
+    OpenMM::Vec3& getBinForceUnitVector(){
+        return binForceUnitVector_;
+    }
     double getBinWidth(){
         return binWidth_;
+    }
+    double getBinForceBinWidth(){
+        return binForceBinWidth_;
     }
     Vec3* getBinForces(){
 	return binForces_;
     }
-    void setBinForces(Vec3* binForces){
+    void setBinForces(OpenMM::Vec3* binForces){
         binForces_ = binForces;
     }
+    void setBinForceStartPoint(OpenMM::Vec3& sp){
+	binForceStartPoint_ = sp;
+    }
+    OpenMM::Vec3& getBinForceStartPoint(){
+	return binForceStartPoint_;	
+	}
+    void setBinForceEndPoint(Vec3& ep){
+	binForceEndPoint_ = ep;
+	}
+    OpenMM::Vec3& getBinForceEndPoint(){
+	return binForceEndPoint_;	
+	}
     double mag(OpenMM::Vec3& point);
     std::vector<std::string> getKernelNames();
     void initialize(ContextImpl& impl);

@@ -27,18 +27,13 @@ ControlTools::ControlTools(std::vector<std::string> toolnames, double temperatur
 startPoint_(startPoint),endPoint_(endPoint),
 deltaT(deltaT),tauT(tauT),nBins_(nBins),writeInterval_(writeInterval)
 {
-	std::cout<<"DEBUG:controltools constructor"<<std::endl;
+    // make binforce bins defaults to 1
+    binForceBins_ = 1;
     binTemperature_ = new double[nBins_];
     //initializing debug variable
-    //TODO: delete alter in production
     testVariable_ = new Vec3[nBins_];
-    //calculate values for appropriate variables
-    Vec3 diff = endPoint_ - startPoint_;
-    double diffmag = mag(diff);
-    unitVector_ = OpenMM::Vec3(diff[0]/diffmag,diff[1]/diffmag,diff[2]/diffmag);
-    rSEMag_ = diffmag;
-    binWidth_ = diffmag/(double) nBins_;
-    
+   
+    calculatePoints(startPoint_,endPoint_,unitVector_,rSEMag_,binWidth_,nBins_); 
     for(int i=0;i<nBins_;i++)
         binTemperature_[i] = 0.0f;
 }
@@ -51,12 +46,25 @@ ControlTools::~ControlTools()
         delete binForces_;
     if(testVariable_!=NULL)
         delete testVariable_;
+    if(binForces_!=NULL)
+	delete binForces_;
     
 }
+
+void ControlTools::calculatePoints(Vec3& startPoint, Vec3& endPoint, Vec3& uv,
+				double& rseMag, double& binWidth, int bins){
+	Vec3 diff = endPoint - startPoint;
+	double diffmag = mag(diff);
+	uv = OpenMM::Vec3(diff[0]/diffmag,diff[1]/diffmag,diff[2]/diffmag);
+	rseMag = diffmag;
+	binWidth = diffmag/(double) bins;
+}
+
 std::vector<std::string> ControlTools::getKernelNames()
 {
 	return toolNames;
 }
+
 void ControlTools::initialize(ContextImpl& impl)
 {
 	for(int i=0;i<this->getToolSize();i++)

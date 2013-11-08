@@ -34,3 +34,26 @@ __kernel void binForcesKernel(
 		//forces[idx] = force;
 	}
 }
+
+/**
+ * externalForcekernel
+ * this kernel is used when external force is to be applied to whole
+ * domain
+ */
+
+__kernel void externalForcesKernel(
+			__global const float4* restrict binForces,
+			__global float4* restrict forces,
+			int numAtoms)
+{
+	int index = get_global_id(0);
+	
+	if(index<numAtoms){
+		float4 extforce = binForces[0];
+		float4 f = forces[index];
+		f.xyz += extforce.xyz;
+		forces[index] = f;
+	}
+	
+
+}
