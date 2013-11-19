@@ -9,33 +9,40 @@
 using namespace OpenMM;
 
 
-ControlTools::ControlTools(std::vector<std::string> tools,double temperature,double deltaT,
-		double tauT,int nBins,int writeInterval)
-:toolNames(tools),temperature(temperature),deltaT(deltaT),tauT(tauT),nBins_(nBins),writeInterval_(writeInterval)
-{
-	tempValue = 0.0;
-	binTemperature_ = NULL;
-	binForces_ = NULL;
-	//Todo:delete later
-	testVariable_ = NULL;
-}
+//ControlTools::ControlTools(std::vector<std::string> tools,double temperature,double deltaT,
+//		double tauT,int nBins,int writeInterval)
+//:toolNames(tools),temperature(temperature),
+// deltaT(deltaT),tauT(tauT),nBins_(nBins),
+// writeInterval_(writeInterval), binTemperature_(NULL),
+//        binForces_(NULL)
+//{
+//	
+//}
+//
+//ControlTools::ControlTools(std::vector<std::string> toolnames, double temperature,
+//                           double deltaT,Vec3 startPoint, Vec3 endPoint,
+//                           double tauT,int nBins,int writeInterval)
+//:toolNames(toolnames),temperature(temperature),
+//startPoint_(startPoint),endPoint_(endPoint),
+//deltaT(deltaT),tauT(tauT),nBins_(nBins),writeInterval_(writeInterval)
+//{
+//    binTemperature_ = new double[nBins_];
+//   
+//    calculatePoints(startPoint_,endPoint_,unitVector_,rSEMag_,binWidth_,nBins_); 
+//    for(int i=0;i<nBins_;i++)
+//        binTemperature_[i] = 0.0f;
+//}
 
-ControlTools::ControlTools(std::vector<std::string> toolnames, double temperature,
-                           double deltaT,Vec3 startPoint, Vec3 endPoint,
-                           double tauT,int nBins,int writeInterval)
-:toolNames(toolnames),temperature(temperature),
-startPoint_(startPoint),endPoint_(endPoint),
-deltaT(deltaT),tauT(tauT),nBins_(nBins),writeInterval_(writeInterval)
+
+/*
+ * This constructor is implemented to invoke single bin ControlBinForces
+ * its just a default constructor
+ */
+
+ControlTools::ControlTools(std::vector<std::string>& toolNames)
+:toolNames_(toolNames),binTemperature_(NULL), binForces_(NULL)
 {
-    // make binforce bins defaults to 1
-    binForceBins_ = 1;
-    binTemperature_ = new double[nBins_];
-    //initializing debug variable
-    testVariable_ = new Vec3[nBins_];
-   
-    calculatePoints(startPoint_,endPoint_,unitVector_,rSEMag_,binWidth_,nBins_); 
-    for(int i=0;i<nBins_;i++)
-        binTemperature_[i] = 0.0f;
+    
 }
 
 ControlTools::~ControlTools()
@@ -44,11 +51,6 @@ ControlTools::~ControlTools()
         delete binTemperature_;
     if(binForces_!=NULL)
         delete binForces_;
-    if(testVariable_!=NULL)
-        delete testVariable_;
-    if(binForces_!=NULL)
-	delete binForces_;
-    
 }
 
 void ControlTools::calculatePoints(Vec3& startPoint, Vec3& endPoint, Vec3& uv,
@@ -60,16 +62,16 @@ void ControlTools::calculatePoints(Vec3& startPoint, Vec3& endPoint, Vec3& uv,
 	binWidth = diffmag/(double) bins;
 }
 
-std::vector<std::string> ControlTools::getKernelNames()
+std::vector<std::string>& ControlTools::getKernelNames()
 {
-	return toolNames;
+	return toolNames_;
 }
 
 void ControlTools::initialize(ContextImpl& impl)
 {
 	for(int i=0;i<this->getToolSize();i++)
 	{
-		this->kernels.push_back(impl.getPlatform().createKernel(toolNames[i],impl));
+		this->kernels.push_back(impl.getPlatform().createKernel(toolNames_[i],impl));
 	}
 
 	//now initialize the kernels for the list of tool names whose kernels are created above

@@ -3780,23 +3780,7 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
         randomSeed->upload(seed);
 
         cl::Program randomProgram = cl.createProgram(OpenCLKernelSources::customIntegrator, defines);
-        //initialize external force
-        /*int nbins = context.getControls().getBinForceNBins();
-        Vec3* extforces = context.getControls().getBinForces();
-        extForce = new OpenCLArray<mm_float4>(cl,(int) nbins,"extForce",true);
-        int b = 0;
-        while(b<nbins){
-	       	(*extForce)[b] = mm_float4(extforces[b][0],extforces[b][1],extforces[b][2],0.0);
-        	b++;
-        }
-        extForce->upload();
-        //initialize external force in bins kernel
-        extForceKernel = cl::Kernel(randomProgram,"externalForceInBin");
-        extForceKernel.setArg<cl::Buffer>(0,cl.getPosq().getDeviceBuffer());
-        extForceKernel.setArg<cl::Buffer>(1,extForce->getDeviceBuffer());
-        extForceKernel.setArg<cl::Buffer>(2,cl.getForce().getDeviceBuffer());
-        extForceKernel.setArg<cl_int>(3,nbins);
-        extForceKernel.setArg<cl_int>(4,cl.getNumAtoms());*/
+        
         //random kernel
         randomKernel = cl::Kernel(randomProgram, "generateRandomNumbers");
         randomKernel.setArg<cl::Buffer>(0, uniformRandoms->getDeviceBuffer());
@@ -4100,7 +4084,6 @@ void OpenCLIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
             if (requiredUniform[i] > 0)
                 cl.executeKernel(randomKernel, numAtoms);
             if(i==2){
-			//	cl.executeKernel(extForceKernel,numAtoms);
 			// TODO: optimise the following code checks later
 			if(context.getControlSet()){
 				context.getControls().controlBeforeForces(context);
@@ -4528,10 +4511,12 @@ OpenCLControlBinForcesKernel::~OpenCLControlBinForcesKernel(){
         delete binForces_;
 }
 void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
+    
     nBins_ = impl.getControls().getBinForceNBins();
     int numatoms = cl_.getNumAtoms();
     Vec3* temp = impl.getControls().getBinForces();
 
+    
     //initialize global gpu arrays
     binForces_ = new OpenCLArray<mm_float4>(cl_,nBins_,"BinForces",true);
     cl::Program program = cl_.createProgram(OpenCLKernelSources::binforces);
@@ -4543,7 +4528,7 @@ void OpenCLControlBinForcesKernel::initialize(ContextImpl& impl){
 
     int b=0;
     while(b<nBins_){
-    	(*binForces_)[0] = mm_float4((float) temp[b][0],(float) temp[b][1],(float) temp[b][2],0.0f);
+    	(*binForces_)[b] = mm_float4(temp[b][0],temp[b][1],temp[b][2],0.0);
 	b++;
     }
 

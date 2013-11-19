@@ -1,58 +1,29 @@
-#ifdef SUPPORTS_64_BIT_ATOMICS
-#pragma OPENCL EXTENSION cl_khr_global_int32_base_atomics : enable
-#pragma OPENCL EXTENSION cl_khr_int64_base_atomics : enable
-#endif
-
-/**
- * bin forces kernel
- */
-
-__kernel void binForcesKernel(
-			__global const float4* restrict posq,
-			__global const float4* restrict binForces,
-			__global const float4* restrict startPoint,
-			__global const float4* restrict unitVector,
-			__global float4* restrict forces,
-			int nBins,
-			int numAtoms
-            )
-{
-	unsigned int idx = get_global_id(0);
-	float4 sp = startPoint[0];
-	float4 uv = unitVector[0];
-
-	if(idx<numAtoms)
-	{
-		float4 position = posq[idx];
-                float4 rSI = position - sp;
-                float rD = ((rSI.x*uv.x)+(rSI.y*uv.y)+(rSI.z*uv.z));
-                int bn = (int) rD/uv.w;
-                unsigned int s = bn == nBins;
-                bn -= s;
-		//float4 force = forces[idx];
-		//force.xyz += binForces[0].xyz;
-		//forces[idx] = force;
-	}
-}
-
 /**
  * externalForcekernel
  * this kernel is used when external force is to be applied to whole
  * domain
  */
+#ifdef SUPPORTS_DOUBLE_PRECISION
+#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+#endif
 
-__kernel void externalForcesKernel(
-			__global const float4* restrict binForces,
-			__global float4* restrict forces,
-			int numAtoms)
+__kernel void externalForcesKernel(__global const float4* restrict binForces,
+				__global float4* restrict forces,
+				int numAtoms)
 {
 	int index = get_global_id(0);
-	
-	if(index<numAtoms){
-		float4 extforce = binForces[0];
-		float4 f = forces[index];
-		f.xyz += extforce.xyz;
-		forces[index] = f;
+
+	while(index<numAtoms){
+		double4 extforce = convert_double4(binForces[0]);
+		double4 f = convert_double4(forces[index]);
+		double tx = f.x + extforce.x;
+		f.x = tx;
+		double ty = f.y + extforce.y;
+		f.y = ty;
+		double tz = f.z + extforce.z;
+		f.z = tz;
+		forces[index] = convert_float4(f);
+		index += get_global_size(0);
 	}
 	
 

@@ -25,8 +25,7 @@ private:
     double temperature;
     double tauT;
     double deltaT;
-    double tempValue;//this variable is used for testing
-    std::vector<std::string> toolNames;
+    std::vector<std::string> toolNames_;
     std::vector<Kernel> kernels;
     double* binTemperature_;
     int nBins_;
@@ -43,21 +42,23 @@ private:
     double binForceBinWidth_;
     double binForcerSEMag_;
     int binForceBins_;
-    //debug variable
-    Vec3* testVariable_;
+    
 
 protected:
     friend class ContextImpl;
 public:
-    ControlTools(std::vector<std::string> toolnames,double temperature=0.0,double deltaT = 0.0,
-		double tauT = 0.1,int nBins = 1, int writeInterval = 1);
-    /**
-     * overloaded constructor to accomodate 
-     * controltools under bins and setting appropriate values
-     */
-    ControlTools(std::vector<std::string> toolnames,double temperature, double deltaT,
-                 Vec3 startPoint, Vec3 endPoint,
-                 double tauT = 0.1,int nBins = 1,int writeInterval = 1);
+//    ControlTools(std::vector<std::string> toolnames,double temperature=0.0,double deltaT = 0.0,
+//		double tauT = 0.1,int nBins = 1, int writeInterval = 1);
+//    /**
+//     * overloaded constructor to accomodate 
+//     * controltools under bins and setting appropriate values
+//     */
+//    ControlTools(std::vector<std::string> toolnames,double temperature, double deltaT,
+//                 Vec3 startPoint, Vec3 endPoint,
+//                 double tauT = 0.1,int nBins = 1,int writeInterval = 1);
+    
+    //- Contructors
+    ControlTools(std::vector<std::string>& toolNames);
     //- destructor
     ~ControlTools();
    
@@ -68,14 +69,7 @@ public:
      */
      void calculatePoints(Vec3& startPoint, Vec3& endPoint, Vec3& uv,
 				double& rseMag, double& binWidth, int bins);  
-    /*
-     * accessor function for test variable
-     * TODO: delete in production
-     */
-    Vec3* getTestVariable(){
-        return testVariable_;
-    }
-    
+      
     int getNBins(){
         return nBins_;
     }
@@ -115,18 +109,13 @@ public:
     }
     int getToolSize()
     {
-        return toolNames.size();
+        return toolNames_.size();
     }
     int getKernelSize()
     {
         return kernels.size();
     }
-    void setTempValue(double val){
-        tempValue = val;
-    }
-    double getTempValue(){
-        return tempValue;
-    }
+    
     double* getBinTemperature(){
         return binTemperature_;
     }
@@ -170,7 +159,7 @@ public:
 	return binForceEndPoint_;	
 	}
     double mag(OpenMM::Vec3& point);
-    std::vector<std::string> getKernelNames();
+    std::vector<std::string>& getKernelNames();
     void initialize(ContextImpl& impl);
     void controlBeforeForces(ContextImpl& impl);
     void controlAfterForces(ContextImpl& impl);

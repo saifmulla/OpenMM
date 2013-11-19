@@ -101,7 +101,7 @@ ContextImpl::ContextImpl(Context& owner, System& system, Integrator& integrator,
 	//check if controlTools are set
 	if(controls){
 		if(controls->getToolSize()>0){
-			std::vector<std::string> controlKernels = controls->getKernelNames();
+			std::vector<std::string>& controlKernels = controls->getKernelNames();
 			if(!platform->supportsKernels(controlKernels))
 				throw OpenMMException("Not all control kernels are supported by "
 						+platform->getName()+" platform");
