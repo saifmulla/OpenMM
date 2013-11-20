@@ -73,6 +73,7 @@ private:
     ContextImpl* context;
     Context* owner;
     Kernel kernel;
+    bool firstTimeForce_;
 };
 
 } // namespace OpenMM

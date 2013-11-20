@@ -3272,7 +3272,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
     cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet);
     kernel1 = cl::Kernel(program, "velocityVerletPart1");
     kernel2 = cl::Kernel(program, "velocityVerletPart2");
-    kernel3 = cl::Kernel(program, "binForces");
+    
     numAtoms = cl.getNumAtoms();
     dt = integrator.getStepSize();
     deltaT = new OpenCLArray<cl_float>(cl,1,"deltaT",true);
@@ -3290,10 +3290,6 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
     kernel2.setArg<cl::Buffer>(1, deltaT->getDeviceBuffer());
     kernel2.setArg<cl::Buffer>(2, cl.getVelm().getDeviceBuffer());
     kernel2.setArg<cl::Buffer>(3, cl.getForce().getDeviceBuffer());
-    
-    //kernel3 initialisations
-    kernel3.setArg<cl_int>(0,numAtoms);
-    kernel3.setArg<cl::Buffer>(1,cl.getForce().getDeviceBuffer());
 
     deltaT->upload();
     
@@ -3305,7 +3301,6 @@ void OpenCLIntegrateVelocityVerletStepKernel::integrator1(ContextImpl& context) 
 
 void OpenCLIntegrateVelocityVerletStepKernel::integrator2(ContextImpl& context)
 {
-//    cl.executeKernelel(kernel3,numAtoms);
     cl.executeKernel(kernel2,numAtoms);
     // Update the time and step count.
     cl.setTime(cl.getTime()+dt);

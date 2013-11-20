@@ -40,7 +40,9 @@ using namespace OpenMM;
 using std::string;
 using std::vector;
 
-VelocityVerletIntegrator::VelocityVerletIntegrator(double stepSize) : owner(NULL) {
+VelocityVerletIntegrator::VelocityVerletIntegrator(double stepSize)
+: owner(NULL), firstTimeForce_(false)
+{
     setStepSize(stepSize);
     setConstraintTolerance(1e-4);
 //    stepCounter = 0;
@@ -64,26 +66,39 @@ vector<string> VelocityVerletIntegrator::getKernelNames() {
 void VelocityVerletIntegrator::step(int steps) {
 //    stepCounter = 0;
 	//check if controltools are set
-//	bool cs = context->getControlSet();
+	bool cs = context->getControlSet();
 	//check if measurement tools are set
 	bool ms = context->getMeasurementSet();
+        // specifically check if virial is set
 //	bool includeVirial = context->getVirialIncluded();
+    
+    if (!firstTimeForce_) {
+        context->calcForcesAndEnergy(true,false);
+        firstTimeForce_ = true;
+    }
 
     for (int i = 0; i < steps; ++i)
     {
 //        stepCounter = stepCounter + 1;
-//    	context->updateContextState();
-//    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator1(*context);
+    	context->updateContextState();
+    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator1(*context);
 
     	 /* the if condition below make a invocation considering virial includsion
     	 * however if in future there are more than one implementation of calculateAtBeginning
     	 * function then please invoke using
     	 */
-    //	if(includeVirial)
-//    		context->getMeasurements().measureAtBegin(*context);
-//    	context->calcForcesAndEnergy(true, false);
-//    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator2(*context);
-    	if(ms)
-    		context->getMeasurements().measureAtEnd(*context);
+//        if(includeVirial)
+//            context->getMeasurements().measureAtBegin(*context);
+        
+    	context->calcForcesAndEnergy(true, false);
+        
+        if (cs) {
+            context->getControls().controlBeforeForces(context);
+        }
+        
+    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator2(*context);
+
+        //    	if(ms)
+//    		context->getMeasurements().measureAtEnd(*context);
     }
 }
