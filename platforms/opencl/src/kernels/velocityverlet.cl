@@ -14,21 +14,22 @@ __kernel void velocityVerletPart1(int numAtoms,
                   ) {
     
     int index = get_global_id(0);
-    float dtPos = deltaT[0];
-    float dtVel = 0.5f*deltaT[0];
+    double dtPos = deltaT[0];
+    double dtVel = 0.5*dtPos;
     
     while(index < numAtoms)
     {
         //store the velocity locally
-        float4 velocity = velm[index];
+        double4 velocity = convert_double4(velm[index]);
         if(velocity.w != 0.0)
         {
-            float4 pos = posq[index];
-            float deltaMass = dtVel * velocity.w;
-            velocity.xyz += forces[index].xyz*deltaMass;
+            double4 pos = convert_double4(posq[index]);
+            double deltaMass = dtVel * velocity.w;
+            double4 f = convert_double4(forces[index]);
+            velocity.xyz += f.xyz*deltaMass;
             pos.xyz += velocity.xyz * dtPos;
-	        velm[index] = velocity;
-        	posq[index] = pos;
+	    velm[index] = convert_float4(velocity);
+       	    posq[index] = convert_float4(pos);
         }//end if
         
         index += get_global_size(0);
@@ -51,12 +52,13 @@ __kernel void velocityVerletPart2(int numAtoms,
     while(index < numAtoms)
     {
 	  //store the velocity locally
-	  float4 velocity = velm[index];
+	  double4 velocity = convert_double4(velm[index]);
 	  if(velocity.w != 0.0)
 	  {
-          float deltaMass = dtVel*velocity.w;
-          velocity.xyz += forces[index].xyz*deltaMass;
-          velm[index] = velocity;
+          	double deltaMass = dtVel*velocity.w;
+          	double4 f = convert_double4(forces[index]);
+          	velocity.xyz += f.xyz*deltaMass;
+          	velm[index] = convert_float4(velocity);
 	  }//end if
         
         index += get_global_size(0);
