@@ -3265,10 +3265,33 @@ void OpenCLIntegrateVerletStepKernel::execute(ContextImpl& context, const Verlet
 OpenCLIntegrateVelocityVerletStepKernel::~OpenCLIntegrateVelocityVerletStepKernel() {
     if(deltaT!=NULL)
         delete deltaT;
+    if(moleculeTau!=NULL)
+    	delete moleculeTau;
+    if(moleculePI!=NULL)
+    	delete moleculePI;
+    if(moleculeCentreMass!=NULL)
+    	delete moleculeCentreMass;
+    if(siteRefPos!=NULL)
+    	delete siteRefPos;
+    if(moleculeQ!=NULL)
+    	delete moleculeQ;
+    if(momentOfInertia!=NULL)
+    	delete momentOfInertia;
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, const VelocityVerletIntegrator& integrator) {
+	//initialise all member variable to NULL pointer
+	deltaT = NULL;
+	moleculeTau = NULL;
+	moleculePI = NULL;
+	moleculeCentreMass = NULL;
+	siteRefPos = NULL;
+	momentOfInertia = NULL;
+	moleculeQ = NULL;
+
     cl.getPlatformData().initializeContexts(system);
+    IsMolecular = integrator.getMolecular();
+
     cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet);
     kernel1 = cl::Kernel(program, "velocityVerletPart1");
     kernel2 = cl::Kernel(program, "velocityVerletPart2");

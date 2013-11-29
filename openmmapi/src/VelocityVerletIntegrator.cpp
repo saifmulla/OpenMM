@@ -41,7 +41,7 @@ using std::string;
 using std::vector;
 
 VelocityVerletIntegrator::VelocityVerletIntegrator(double stepSize)
-: owner(NULL), firstTimeForce_(false)
+: owner(NULL), firstTimeForce_(false), isMolecular(false)
 {
     setStepSize(stepSize);
     setConstraintTolerance(1e-4);
@@ -102,3 +102,12 @@ void VelocityVerletIntegrator::step(int steps) {
 //    		context->getMeasurements().measureAtEnd(*context);
     }
 }
+
+void VelocityVerletIntegrator::setMolecular(){
+	isMolecular = true;
+}
+
+bool VelocityVerletIntegrator::getMolecular() const {
+	return isMolecular;
+}
+
