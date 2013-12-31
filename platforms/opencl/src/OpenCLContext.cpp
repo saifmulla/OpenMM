@@ -683,7 +683,7 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
     numOfMolecules = numMolecules;
     
     //determine if the simulation is molecular
-    isMolecular = (bool) numAtoms == numMolecules;
+    isMolecular = (bool) numAtoms != numMolecules;
     
     moleculeSize = new OpenCLArray<cl_int>(*this,numOfMolecules,"moleculeSize",true);
     moleculeStartIndex = new OpenCLArray<cl_int>(*this,numOfMolecules,"moleculeStartIndex",true);
