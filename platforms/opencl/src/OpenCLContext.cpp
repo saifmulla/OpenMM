@@ -70,7 +70,7 @@ static void CL_CALLBACK errorCallback(const char* errinfo, const void* private_i
 OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceIndex, OpenCLPlatform::PlatformData& platformData) :
         time(0.0), platformData(platformData), stepCount(0), computeForceCount(0), atomsWereReordered(false), posq(NULL),
         velm(NULL), forceBuffers(NULL), longForceBuffer(NULL), energyBuffer(NULL), atomIndex(NULL), integration(NULL),
-        bonded(NULL), nonbonded(NULL), thread(NULL) {
+        bonded(NULL), nonbonded(NULL), thread(NULL), isMolecular(false) {
     try {
         contextIndex = platformData.contexts.size();
         std::vector<cl::Platform> platforms;
@@ -229,6 +229,10 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
          */
         atomInMolecule = NULL;
         moleculeAtoms = NULL;
+        moleculeSize = NULL;
+        moleculeStartIndex = NULL;
+        moleculeIndex = NULL;
+        
     }
     catch (cl::Error err) {
         std::stringstream str;
@@ -257,41 +261,8 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
  * (2) comment out the code below
  * In this case option (2) has been chosen.
  * @author: saifmulla
- * checked to see if git commit works
  *
  */
-
-/*
-    cl::Kernel accuracyKernel(utilities, "determineNativeAccuracy");
-    OpenCLArray<mm_float8> values(*this, 20, "values", true);
-    float nextValue = 1e-4f;
-    for (int i = 0; i < values.getSize(); ++i) {
-        values[i].s0 = nextValue;
-        nextValue *= (float) M_PI;
-    }
-    values.upload();
-    accuracyKernel.setArg<cl::Buffer>(0, values.getDeviceBuffer());
-    accuracyKernel.setArg<cl_int>(1, values.getSize());
-    executeKernel(accuracyKernel, values.getSize());
-    values.download();
-    double maxSqrtError = 0.0, maxRsqrtError = 0.0, maxRecipError = 0.0, maxExpError = 0.0, maxLogError = 0.0;
-    for (int i = 0; i < values.getSize(); ++i) {
-        double v = values[i].s0;
-        double correctSqrt = sqrt(v);
-        maxSqrtError = max(maxSqrtError, fabs(correctSqrt-values[i].s1)/correctSqrt);
-        maxRsqrtError = max(maxRsqrtError, fabs(1.0/correctSqrt-values[i].s2)*correctSqrt);
-        maxRecipError = max(maxRecipError, fabs(1.0/v-values[i].s3)/values[i].s3);
-        maxExpError = max(maxExpError, fabs(exp(v)-values[i].s4)/values[i].s4);
-        maxLogError = max(maxLogError, fabs(log(v)-values[i].s5)/values[i].s5);
-    }
-
-    compilationDefines["SQRT"] = (maxSqrtError < 1e-6) ? "native_sqrt" : "sqrt";
-    compilationDefines["RSQRT"] = (maxRsqrtError < 1e-6) ? "native_rsqrt" : "rsqrt";
-    compilationDefines["RECIP"] = (maxRecipError < 1e-6) ? "native_recip" : "1.0f/";
-    compilationDefines["EXP"] = (maxExpError < 1e-6) ? "native_exp" : "exp";
-    compilationDefines["LOG"] = (maxLogError < 1e-6) ? "native_log" : "log";
-*/
-
     compilationDefines["SQRT"] = "native_sqrt";
     compilationDefines["RSQRT"] = "native_rsqrt";
     compilationDefines["RECIP"] = "native_recip";
@@ -334,6 +305,10 @@ OpenCLContext::~OpenCLContext() {
         delete atomInMolecule;
     if (moleculeAtoms!=NULL)
         delete moleculeAtoms;
+    if (moleculeSize != NULL)
+        delete moleculeSize;
+    if (moleculeStartIndex != NULL)
+        delete moleculeStartIndex;
     
 }
 
@@ -706,6 +681,39 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
 
     //now assign the number of molecules to global variable
     numOfMolecules = numMolecules;
+    
+    //determine if the simulation is molecular
+    isMolecular = (bool) numAtoms == numMolecules;
+    
+    moleculeSize = new OpenCLArray<cl_int>(*this,numOfMolecules,"moleculeSize",true);
+    moleculeStartIndex = new OpenCLArray<cl_int>(*this,numOfMolecules,"moleculeStartIndex",true);
+    moleculeIndex = new OpenCLArray<cl_int>(*this, numAtoms, "moleculeIndex", true);
+    
+    int mm = 0;
+    int startIndex = 0;
+    
+    printf("Initializing molecular information...\n moleculesize array...\n moleculeIndex array ... \n moleculeStartIndex array...\n");
+    
+    /**
+     * over here we loop through each molecule to determine,
+     * the molecule index of each atom
+     * size of each molecule
+     * start index of each molecule
+     * this information is supplied to gpu integration 'velocity verlet'
+     * to determine if the integration is monotomic or polyatomic.
+     */
+    while (mm<numOfMolecules) {
+        int molsize = atomIndices[mm].size();
+        
+        for (int index = 0; index < molsize; ++index) {
+            moleculeIndex[startIndex+index] = mm;
+        }
+
+        moleculeSize[mm] = molsize;
+        moleculeStartIndex[mm] = startIndex;
+        startIndex += molsize;
+        mm++;
+    }
     
     /**
      * check if the virial calculation is to be included

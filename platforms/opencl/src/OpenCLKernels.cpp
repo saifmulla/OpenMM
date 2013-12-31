@@ -3269,14 +3269,25 @@ OpenCLIntegrateVelocityVerletStepKernel::~OpenCLIntegrateVelocityVerletStepKerne
     	delete moleculeTau;
     if(moleculePI!=NULL)
     	delete moleculePI;
-    if(moleculeCentreMass!=NULL)
-    	delete moleculeCentreMass;
     if(siteRefPos!=NULL)
     	delete siteRefPos;
-    if(moleculeQ!=NULL)
-    	delete moleculeQ;
+    if(moleculeQ1!=NULL)
+    	delete moleculeQ1;
+    if(moleculeQ2!=NULL)
+        delete moleculeQ2;
+    if(moleculeQ3!=NULL)
+        delete moleculeQ3;
     if(momentOfInertia!=NULL)
     	delete momentOfInertia;
+    if(moleculeStartIndex!=NULL)
+        delete moleculeStartIndex;
+    if(moleculeIndex!=NULL)
+        delete moleculeIndex;
+    if(moleculeSize!=NULL)
+        delete moleculeSize;
+    if(acceleration!=NULL)
+        delete acceleration;
+    
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, const VelocityVerletIntegrator& integrator) {
@@ -3284,36 +3295,106 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
 	deltaT = NULL;
 	moleculeTau = NULL;
 	moleculePI = NULL;
-	moleculeCentreMass = NULL;
 	siteRefPos = NULL;
 	momentOfInertia = NULL;
-	moleculeQ = NULL;
+	moleculeQ1 = NULL;
+    moleculeQ2 = NULL;
+    moleculeQ3 = NULL;
+    moleculeStartIndex = NULL;
+    moleculeIndex = NULL;
+    moleculeSize = NULL;
+    acceleration = NULL;
+    IsMolecular = false;
+    
+    numMolecules = cl.getNumOfMolecules();
+    numAtoms = cl.getNumAtoms();
 
     cl.getPlatformData().initializeContexts(system);
-    IsMolecular = integrator.getMolecular();
-
-    cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet);
-    kernel1 = cl::Kernel(program, "velocityVerletPart1");
-    kernel2 = cl::Kernel(program, "velocityVerletPart2");
+    IsMolecular = cl.getIsMolecular();
+    printf("is molecular %d\n",(int) IsMolecular);
+    map<string, string> defines;
+    defines["NUM_MOLECULES"] = intToString(numMolecules);
     
-    numAtoms = cl.getNumAtoms();
+    
+    if(IsMolecular){
+        defines["MOLECULAR_INTEGRATION"] = "1";
+    }
+
+    
+    cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet,defines,"");
+    kernel1 = cl::Kernel(program, "velocityVerletPart1");
+    /*
+    kernel2 = cl::Kernel(program, "velocityVerletPart2");
+    if(IsMolecular){
+        kernelcalculateAccelerationTau = cl::Kernel(program, "kernelGenerateAccTau");
+        kerneltaupi = cl::Kernel(program, "udpateTauPi");
+        kernelmoveupdate = cl::Kernel(program, "updateAfterMove");
+        kernelSetAtomPositions = cl::Kernel(program, "setAtomPositions");
+        momentOfInertia = new OpenCLArray<cl_float4>(cl,numOfMolecules,"momentOfInertia",false);
+        moleculePI = new OpenCLArray<cl_float4>(cl,numOfMolecules,"moleculePI",false);
+        moleculeTau = new OpenCLArray<cl_float4>(cl,numOfMolecules,"moleculeTau",false);
+        siteRefPos = new OpenCLArray<cl_float4>(cl,numMolecules,"siteRefPos",true);
+        moleculeQ1 = new OpenCLArray<cl_float4>(cl,numOfMolecules,"moleculeQ1",true);
+        moleculeQ2 = new OpenCLArray<cl_float4>(cl,numOfMolecules,"moleculeQ2",true);
+        moleculeQ3 = new OpenCLArray<cl_float>(cl,numOfMolecules,"moleculeQ3",true);
+    }
+    */
     dt = integrator.getStepSize();
     deltaT = new OpenCLArray<cl_float>(cl,1,"deltaT",true);
     (*deltaT)[0] = (float) dt;
+    
 
     //kernel1 initializations
-    kernel1.setArg<cl_int>(0, numAtoms);
+    kernel1.setArg<cl_int>(0, numMolecules);
     kernel1.setArg<cl::Buffer>(1, deltaT->getDeviceBuffer());
     kernel1.setArg<cl::Buffer>(2, cl.getPosq().getDeviceBuffer());
     kernel1.setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
     kernel1.setArg<cl::Buffer>(4, cl.getForce().getDeviceBuffer());
-
+    kernel1.setArg<cl::Buffer>(5, cl.getMoleculeSize().getDeviceBuffer());
+    kernel1.setArg<cl::Buffer>(6, cl.getMoleculeStartIndex().getDeviceBuffer());
+    
+    /*
     //kernel2 initializations
-    kernel2.setArg<cl_int>(0, numAtoms);
+    kernel2.setArg<cl_int>(0, numMolecules);
     kernel2.setArg<cl::Buffer>(1, deltaT->getDeviceBuffer());
     kernel2.setArg<cl::Buffer>(2, cl.getVelm().getDeviceBuffer());
     kernel2.setArg<cl::Buffer>(3, cl.getForce().getDeviceBuffer());
 
+    
+    if(IsMolecular){
+        //setting arguments for updateTauPi kernel
+        kerneltaupi.setArg<cl_int>(0,numMolecules);
+        kerneltaupi.setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
+        kerneltaupi.setArg<cl::Buffer>(2, moleculeTau->getDeviceBuffer());
+        kerneltaupi.setArg<cl::Buffer>(3, momentOfInertia->getDeviceBuffer());
+        kerneltaupi.setArg<cl::Buffer>(4, deltaT->getDeviceBuffer());
+        
+        //setting argument for updateAfterMove kernel
+        kernelmoveupdate.setArg<cl_int>(0,numMolecules);
+        kernelmoveupdate.setArg<cl::Buffer>(1, deltaT->getDeviceBuffer());
+        kernelmoveupdate.setArg<cl::Buffer>(2, moleculePI->getDeviceBuffer());
+        kernelmoveupdate.setArg<cl::Buffer>(3, momentOfInertia->getDeviceBuffer());
+        kernelmoveupdate.setArg<cl::Buffer>(4, moleculeQ1->getDeviceBuffer());
+        kernelmoveupdate.setArg<cl::Buffer>(5, moleculeQ2->getDeviceBuffer());
+        kernelmoveupdate.setArg<cl::Buffer>(6, moleculeQ3->getDeviceBuffer());
+        
+        kernelSetAtomPositions.setArg<cl_int>(0, numAtoms);
+        kernelSetAtomPositions.setArg<cl::Buffer>(1, cl.getMoleculeIndex()->getDeviceBuffer());
+        kernelSetAtomPositions.setArg<cl::Buffer>(2, cl.getPosq()->getDeviceBuffer());
+        kernelSetAtomPositions.setArg<cl::Buffer>(3, siteRefPos->getDeviceBuffer());
+        kernelSetAtomPositions.setArg<cl::Buffer>(4, moleculeQ1->getDeviceBuffer());
+        kernelSetAtomPositions.setArg<cl::Buffer>(5, moleculeQ2->getDeviceBuffer());
+        kernelSetAtomPositions.setArg<cl::Buffer>(6, moleculeQ3->getDeviceBuffer());
+        
+        kernel2.setArg<cl::Buffer>(5, moleculeTau->getDeviceBuffer());
+        kernel2.setArg<cl::Buffer>(6, moleculePI->getDeviceBuffer());
+        kernel2.setArg<cl::Buffer>(7, momentOfInertia->getDeviceBuffer());
+        kernel2.setArg<cl::Buffer>(8, siteRefPos->getDeviceBuffer());
+        kernel2.setArg<cl::Buffer>(9, moleculeQ1->getDeviceBuffer());
+        kernel2.setArg<cl::Buffer>(10, moleculeQ2->getDeviceBuffer());
+        kernel2.setArg<cl::Buffer>(11, moleculeQ3->getDeviceBuffer());
+    }
+*/
     deltaT->upload();
     
 }

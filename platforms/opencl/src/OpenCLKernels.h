@@ -823,17 +823,24 @@ private:
     OpenCLArray<cl_float>* deltaT;
     double dt;
     int numAtoms;
-    cl::Kernel kernel1, kernel2;
+    int numMolecules;
+    cl::Kernel kernel1, kernel2, kerneltaupi;
+    cl::Kernel kernelmoveupdate, kernelaccelerationupdate, kernelSetAtomPositions;
+    cl::Kernel kernelcalculateAccelerationTau;
     /*
      * the below variable would be initiliased only if molecular integration is requied
      */
     OpenCLArray<cl_float4>* moleculeTau;
     OpenCLArray<cl_float4>* moleculePI;
-    OpenCLArray<cl_float4>* moleculeCentreMass;
     OpenCLArray<cl_float4>* siteRefPos;
     OpenCLArray<cl_float4>* momentOfInertia;
-    // TODO: determine the size of Q which requires tensor
-    OpenCLArray<cl_float4>* moleculeQ;
+    OpenCLArray<cl_float4>* moleculeQ1;
+    OpenCLArray<cl_float4>* moleculeQ2;
+    OpenCLArray<cl_float>* moleculeQ3;
+    OpenCLArray<cl_float4>* acceleration;
+    OpenCLArray<cl_int>* moleculeIndex;
+    OpenCLArray<cl_int>* moleculeSize;
+    OpenCLArray<cl_int>* moleculeStartIndex;
     bool IsMolecular;
 };
 /**

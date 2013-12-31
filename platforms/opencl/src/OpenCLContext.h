@@ -515,6 +515,22 @@ public:
     bool getCalculateVirial(){
         return calculateVirial;
     }
+    
+    OpenCLArray<cl_int>& getMoleculeSize(){
+        return moleculeSize;
+    }
+    
+    OpenCLArray<cl_int>& getMoleculeStartIndex(){
+        return moleculeStartIndex;
+    }
+    
+    bool getIsMolecular(){
+        return isMolecular;
+    }
+    
+    OpenCLArray<cl_int>& getMoleculeIndex(){
+        return moleculeIndex;
+    }
 private:
     struct Molecule;
     struct MoleculeGroup;
@@ -577,6 +593,10 @@ private:
     OpenCLArray<cl_int>*  atomInMolecule; //atomInMolecule
     OpenCLArray<mm_int4>* moleculeAtoms; //moleculeAtoms
     bool calculateVirial; //check if virial calculation is to be included
+    OpenCLArray<cl_int>* moleculeSize;//get the size of each molecule
+    OpenCLArray<cl_int>* moleculeStartIndex;//make a starting index for that molecule
+    OpenCLArray<cl_int>* moleculeIndex;
+    bool isMolecular;
 };
 
 struct OpenCLContext::MoleculeGroup {
