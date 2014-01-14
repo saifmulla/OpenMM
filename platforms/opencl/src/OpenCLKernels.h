@@ -153,6 +153,18 @@ public:
      * @param c      the vector defining the third edge of the periodic box
      */
     void setPeriodicBoxVectors(ContextImpl& context, const Vec3& a, const Vec3& b, const Vec3& c) const;
+    /**
+     * set the moleculeQ vectors for the velocity verlet integrator
+     * @param impl	ContextImpl
+     * @param moleculeQ tensor type
+     */
+    void setMoleculeQ(ContextImpl& context, const std::vector<Tensor>& moleculeQ); 
+    /**
+     * set the site reference position vectors for the velocity verlet integrator
+     * @param impl	ContextImpl
+     * @param siteRefPos Vec3 type
+     */
+    void setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPos); 
 private:
     OpenCLContext& cl;
 };
@@ -817,6 +829,8 @@ public:
      */
     void integrator1(ContextImpl& impl);
     void integrator2(ContextImpl& impl);
+    void setMoleculeQ(const std::vector<Tensor>& moleculeQ);
+    void setSiteRefPositions(const std::vector<Vec3>& siteRefPositions);
 
 private:
     OpenCLContext& cl;
@@ -830,14 +844,14 @@ private:
     /*
      * the below variable would be initiliased only if molecular integration is requied
      */
-    OpenCLArray<cl_float4>* moleculeTau;
-    OpenCLArray<cl_float4>* moleculePI;
-    OpenCLArray<cl_float4>* siteRefPos;
-    OpenCLArray<cl_float4>* momentOfInertia;
-    OpenCLArray<cl_float4>* moleculeQ1;
-    OpenCLArray<cl_float4>* moleculeQ2;
+    OpenCLArray<mm_float4>* moleculeTau;
+    OpenCLArray<mm_float4>* moleculePI;
+    OpenCLArray<mm_float4>* siteRefPos;
+    OpenCLArray<mm_float4>* momentOfInertia;
+    OpenCLArray<mm_float4>* moleculeQ1;
+    OpenCLArray<mm_float4>* moleculeQ2;
     OpenCLArray<cl_float>* moleculeQ3;
-    OpenCLArray<cl_float4>* acceleration;
+    OpenCLArray<mm_float4>* acceleration;
     OpenCLArray<cl_int>* moleculeIndex;
     OpenCLArray<cl_int>* moleculeSize;
     OpenCLArray<cl_int>* moleculeStartIndex;

@@ -215,6 +215,11 @@ void ReferenceUpdateStateDataKernel::setVelocities(ContextImpl& context, const s
     }
 }
 
+void ReferenceUpdateStateDataKernel::setMoleculeQ(ContextImpl& context, const std::vector<Tensor>& moleculeQ){
+}
+
+void ReferenceUpdateStateDataKernel::setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions){
+}
 
 void ReferenceUpdateStateDataKernel::getForces(ContextImpl& context, std::vector<Vec3>& forces) {
     int numParticles = context.getSystem().getNumParticles();
@@ -1356,6 +1361,13 @@ void ReferenceIntegrateVelocityVerletStepKernel::integrator2(ContextImpl& contex
 {
 }
 
+/*void ReferenceIntegrateVelocityVerletStepKernel::setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeq){
+
+}
+
+void ReferenceIntegrateVelocityVerletStepKernel::setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions){
+
+}*/
 
 ReferenceIntegrateLangevinStepKernel::~ReferenceIntegrateLangevinStepKernel() {
     if (dynamics)

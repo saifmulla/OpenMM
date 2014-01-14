@@ -37,7 +37,8 @@
 
 using namespace OpenMM;
 
-System::System() {
+System::System()
+:numberOfIds(0), isMolecular(false){
     periodicBoxVectors[0] = Vec3(2, 0, 0);
     periodicBoxVectors[1] = Vec3(0, 2, 0);
     periodicBoxVectors[2] = Vec3(0, 0, 2);
@@ -48,6 +49,9 @@ System::~System() {
         delete forces[i];
     for (int i = 0; i < (int) virtualSites.size(); ++i)
         delete virtualSites[i];
+    //delete momentOfInertia
+//    if(momentOfInertia!=NULL)
+//	delete momentOfInertia;
 }
 
 double System::getParticleMass(int index) const {
@@ -124,3 +128,31 @@ double System::getBoxVolume(){
 	double t = (periodicBoxVectors[0][0]*periodicBoxVectors[1][1]*periodicBoxVectors[2][2]);
 	return t;
 }
+
+void System::setNumberofIds(int size){
+	numberOfIds = size;
+//	momentOfInertia = new Vec3[numberOfIds];
+}
+
+bool System::getIsMolecular() const {
+	return isMolecular;
+}
+
+int System::getNumberofIds() const {
+	return numberOfIds;
+}
+
+void System::addMomentofInertia(Vec3 value){
+	momentOfInertia.push_back(value);
+}
+
+Vec3 System::getMomentOfInertia(int index) const{
+	return momentOfInertia[index];
+}
+const Tensor& System::getMoleculeQ(int index) const{
+	return moleculeQ[index];
+}
+Vec3 System::getSiteRefPosition(int index) const{
+	return siteRefPosition[index];
+}
+

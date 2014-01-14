@@ -111,3 +111,13 @@ bool VelocityVerletIntegrator::getMolecular() const {
 	return isMolecular;
 }
 
+void VelocityVerletIntegrator::setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ){
+	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).setMoleculeQ(moleculeQ);
+}
+
+void VelocityVerletIntegrator::setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions){
+	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).setSiteRefPositions(siteRefPositions);
+}
+Kernel& VelocityVerletIntegrator::getKernel(){
+	return kernel;
+}

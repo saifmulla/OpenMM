@@ -186,6 +186,19 @@ public:
      * @param c      the vector defining the third edge of the periodic box
      */
     virtual void setPeriodicBoxVectors(ContextImpl& context, const Vec3& a, const Vec3& b, const Vec3& c) const = 0;
+
+    /**
+     * Set moleculeQ
+     * this kernel is only related with OpenFOAM acceleration
+     * @param impl
+     * @param Tensor MoleculeQ
+     */
+    virtual void setMoleculeQ(ContextImpl& context, const std::vector<Tensor>& moleculeQ) = 0;
+    /**
+     * set siteReferencePositions
+     * this kernel is only related with OpenFOAM acceleration
+     */
+    virtual void setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions) = 0;
 };
 
 /**
@@ -744,6 +757,14 @@ public:
      * @param called	  the boolean variable to enable execution of two different steps
      */
     virtual void integrator2(ContextImpl& context) = 0;
+
+    /**
+     * set MoleculeQ
+     *
+     */
+    virtual void setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeq) {};
+
+    virtual void setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions) {};
 };
     
 /**

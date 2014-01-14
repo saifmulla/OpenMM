@@ -40,6 +40,11 @@ public:
 		data[7] = s8;
 		data[8] = s9;
 	}
+	
+	double operator[](int index) const{
+		assert(index >=0 && index < 9);
+		return data[index];
+	}
 
 	/**
 	 * index access operator

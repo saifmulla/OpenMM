@@ -31,8 +31,10 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE  *
  * USE OR OTHER DEALINGS IN THE SOFTWARE.                                     *
  * -------------------------------------------------------------------------- */
-
+#include <stdlib.h>
+#include <iostream>
 #include "Vec3.h"
+#include "Tensor.h"
 #include <vector>
 #include "internal/windowsExport.h"
 
@@ -232,6 +234,48 @@ public:
      * @date: 9/7/2013
      */
     double getBoxVolume();
+    
+	/**
+ 	 * set the size of id which will be used to initialise the array for 
+ 	 * momentOfInertia
+ 	 */
+	void setNumberofIds(int size);
+	/**
+	 * get a pointer to moment of inertia
+	 * array
+	 */
+	Vec3 getMomentOfInertia(int index) const;
+
+	const Tensor& getMoleculeQ(int index) const;
+
+	Vec3 getSiteRefPosition(int index) const;
+	/**
+	 * set the value of isMolecular
+	 */
+	void setIsMolecular(bool value){
+		isMolecular = value;
+	}
+
+	void addMomentofInertia(Vec3 value);
+
+	bool getIsMolecular() const;
+
+	/**
+	 * get number of unique molecules in the system
+	 * from numberofIds variable
+	 */
+	int getNumberofIds() const;
+
+	/**
+	 * get size of momentOfInertia
+	 */
+	int getMomentofInertiaSize(){
+		return momentOfInertia.size();
+	}
+	
+	void addParticleQ(Tensor value);
+
+	void addSiteReferencePositions(Vec3 value);
 private:
     class ConstraintInfo;
     Vec3 periodicBoxVectors[3];
@@ -239,6 +283,15 @@ private:
     std::vector<ConstraintInfo> constraints;
     std::vector<Force*> forces;
     std::vector<VirtualSite*> virtualSites;
+	/**
+ 	 * momentOfInertia variable is used to assign the values for each type of molecule
+ 	 * therefore it is a dynamic
+ 	 */
+    std::vector<Vec3> momentOfInertia;
+    std::vector<Tensor> moleculeQ;
+    std::vector<Vec3> siteRefPosition;
+    int numberOfIds;//number of different molecule types
+    bool isMolecular;//determine if the simulation is molecular, default is false
 };
 
 /**

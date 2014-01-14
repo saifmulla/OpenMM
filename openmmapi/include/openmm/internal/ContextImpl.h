@@ -35,6 +35,7 @@
 #include "openmm/Kernel.h"
 #include "openmm/Platform.h"
 #include "openmm/Vec3.h"
+#include "openmm/Tensor.h"
 #include <map>
 #include <vector>
 
@@ -114,6 +115,10 @@ public:
      * @param velocities  a vector containg the particle velocities
      */
     void setVelocities(const std::vector<Vec3>& velocities);
+
+    void setMoleculeQ(const std::vector<Tensor>& moleculeQ);
+
+    void setSiteRefPositions(const std::vector<Vec3>& siteRefPositions);
     /**
      * Get the current forces on all particles.
      *

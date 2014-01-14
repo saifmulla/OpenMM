@@ -517,11 +517,11 @@ public:
     }
     
     OpenCLArray<cl_int>& getMoleculeSize(){
-        return moleculeSize;
+        return *moleculeSize;
     }
     
     OpenCLArray<cl_int>& getMoleculeStartIndex(){
-        return moleculeStartIndex;
+        return *moleculeStartIndex;
     }
     
     bool getIsMolecular(){
@@ -529,7 +529,7 @@ public:
     }
     
     OpenCLArray<cl_int>& getMoleculeIndex(){
-        return moleculeIndex;
+        return *moleculeIndex;
     }
 private:
     struct Molecule;

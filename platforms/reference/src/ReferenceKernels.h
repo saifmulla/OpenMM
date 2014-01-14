@@ -169,6 +169,8 @@ public:
      * @param c      the vector defining the third edge of the periodic box
      */
     void setPeriodicBoxVectors(ContextImpl& context, const Vec3& a, const Vec3& b, const Vec3& c) const;
+    void setMoleculeQ(ContextImpl& context, const std::vector<Tensor>& moleculeQ);
+    void setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions);
 private:
     ReferencePlatform::PlatformData& data;
 };
@@ -772,6 +774,9 @@ public:
      */
     void integrator1(ContextImpl& context);
     void integrator2(ContextImpl& context);
+//    void setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeq);
+//    void setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions);
+
 private:
     ReferencePlatform::PlatformData& data;
     ReferenceVelocityVerletDynamics* dynamics;

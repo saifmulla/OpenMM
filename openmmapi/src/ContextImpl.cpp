@@ -184,6 +184,14 @@ void ContextImpl::setPositions(const std::vector<Vec3>& positions) {
     }*/
 }
 
+void ContextImpl::setMoleculeQ(const std::vector<Tensor>& moleculeQ){
+	dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).setMoleculeQ(*this,moleculeQ);
+}
+
+void ContextImpl::setSiteRefPositions(const std::vector<Vec3>& siteRefPositions){
+	dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).setSiteRefPositions(*this,siteRefPositions);
+}
+
 void ContextImpl::getVelocities(std::vector<Vec3>& velocities) {
     dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).getVelocities(*this, velocities);
 }

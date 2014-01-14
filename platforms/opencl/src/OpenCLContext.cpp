@@ -706,11 +706,11 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
         int molsize = atomIndices[mm].size();
         
         for (int index = 0; index < molsize; ++index) {
-            moleculeIndex[startIndex+index] = mm;
+            (*moleculeIndex)[startIndex+index] = mm;
         }
 
-        moleculeSize[mm] = molsize;
-        moleculeStartIndex[mm] = startIndex;
+        (*moleculeSize)[mm] = molsize;
+        (*moleculeStartIndex)[mm] = startIndex;
         startIndex += molsize;
         mm++;
     }

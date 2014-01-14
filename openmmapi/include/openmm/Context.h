@@ -170,6 +170,20 @@ public:
      * contains the velocity of the i'th particle.
      */
     void setVelocities(const std::vector<Vec3>& velocities);
+
+    /**
+     * set the MoleculeQ of all molecules in the System (it has got standard measurement in SI)
+     *
+     * @param moleculeQ a vector of Tensor type equivalent to number of molecules
+     */
+    void setMoleculeQ(const std::vector<Tensor>& moleculeQ);
+    /**
+     * set the siteRefPosition of all molecules in the System (it has got standard measurement in SI)
+     *
+     * @param siteRefPosition a vector of Tensor type equivalent to number of molecules
+     */
+    void setSiteRefPositions(const std::vector<Vec3>& siteRefPositions);
+
     /**
      * Get the value of an adjustable parameter defined by a Force object in the System.
      * 

@@ -34,6 +34,7 @@
 
 #include "Integrator.h"
 #include "openmm/Kernel.h"
+#include "openmm/Tensor.h"
 #include "internal/windowsExport.h"
 
 namespace OpenMM {
@@ -63,6 +64,12 @@ public:
 	void setMolecular();
 	
 	bool getMolecular() const;
+	
+	Kernel& getKernel();
+	
+	void setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ);
+    
+    void setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions);
 protected:
     /**
      * This will be called by the Context when it is created.  It informs the Integrator
@@ -75,7 +82,6 @@ protected:
      */
     std::vector<std::string> getKernelNames();
     
-    
 private:
     ContextImpl* context;
     Context* owner;
@@ -85,7 +91,7 @@ private:
 	 * this variable here notifies if the simulation is molecular,
 	 * it pertains to OpenFOAM molecular function
 	 * it could only be set by explicitly invocation of the function.
-	 * more or less it will be used only with velocity verlet integrator
+	 * nevertheless it will be used only with velocity verlet integrator
 	 */
     bool isMolecular;
 };
