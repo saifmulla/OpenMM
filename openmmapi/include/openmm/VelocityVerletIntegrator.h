@@ -70,6 +70,9 @@ public:
 	void setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ);
     
     void setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions);
+
+    void setMoleculePositions(const std::vector<OpenMM::Vec3>& moleculePositions);
+
 protected:
     /**
      * This will be called by the Context when it is created.  It informs the Integrator

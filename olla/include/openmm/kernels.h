@@ -765,6 +765,8 @@ public:
     virtual void setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeq) {};
 
     virtual void setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions) {};
+  
+    virtual void setMoleculePositions(const std::vector<OpenMM::Vec3>& moleculePositions) {};
 };
     
 /**

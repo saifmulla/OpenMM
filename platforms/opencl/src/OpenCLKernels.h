@@ -165,6 +165,12 @@ public:
      * @param siteRefPos Vec3 type
      */
     void setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPos); 
+   /**
+    * set the moleculePositions vectors for velocity verlet integrator
+    * @param impl	ContextImpl
+    * @param moleculePositions
+    */
+    void setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions);
 private:
     OpenCLContext& cl;
 };
@@ -831,6 +837,7 @@ public:
     void integrator2(ContextImpl& impl);
     void setMoleculeQ(const std::vector<Tensor>& moleculeQ);
     void setSiteRefPositions(const std::vector<Vec3>& siteRefPositions);
+    void setMoleculePositions(const std::vector<Vec3>& moleculePositions);
 
 private:
     OpenCLContext& cl;
@@ -855,6 +862,7 @@ private:
     OpenCLArray<cl_int>* moleculeIndex;
     OpenCLArray<cl_int>* moleculeSize;
     OpenCLArray<cl_int>* moleculeStartIndex;
+    OpenCLArray<mm_float4>* moleculePositions;
     bool IsMolecular;
 };
 /**
