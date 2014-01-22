@@ -49,9 +49,6 @@ System::~System() {
         delete forces[i];
     for (int i = 0; i < (int) virtualSites.size(); ++i)
         delete virtualSites[i];
-    //delete momentOfInertia
-//    if(momentOfInertia!=NULL)
-//	delete momentOfInertia;
 }
 
 double System::getParticleMass(int index) const {
@@ -149,10 +146,5 @@ void System::addMomentofInertia(Vec3 value){
 Vec3 System::getMomentOfInertia(int index) const{
 	return momentOfInertia[index];
 }
-const Tensor& System::getMoleculeQ(int index) const{
-	return moleculeQ[index];
-}
-Vec3 System::getSiteRefPosition(int index) const{
-	return siteRefPosition[index];
-}
+
 

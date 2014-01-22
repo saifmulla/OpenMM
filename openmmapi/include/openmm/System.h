@@ -245,12 +245,12 @@ public:
 	 * array
 	 */
 	Vec3 getMomentOfInertia(int index) const;
-
-	const Tensor& getMoleculeQ(int index) const;
-
-	Vec3 getSiteRefPosition(int index) const;
 	/**
 	 * set the value of isMolecular
+	 * 
+	 * TODO: this must be set internally just a matter of user interaction suspicion,
+	 * it would be helpfull if this function is called privately or the variable is set
+	 * internally
 	 */
 	void setIsMolecular(bool value){
 		isMolecular = value;
@@ -273,9 +273,6 @@ public:
 		return momentOfInertia.size();
 	}
 	
-	void addParticleQ(Tensor value);
-
-	void addSiteReferencePositions(Vec3 value);
 private:
     class ConstraintInfo;
     Vec3 periodicBoxVectors[3];
@@ -288,8 +285,6 @@ private:
  	 * therefore it is a dynamic
  	 */
     std::vector<Vec3> momentOfInertia;
-    std::vector<Tensor> moleculeQ;
-    std::vector<Vec3> siteRefPosition;
     int numberOfIds;//number of different molecule types
     bool isMolecular;//determine if the simulation is molecular, default is false
 };

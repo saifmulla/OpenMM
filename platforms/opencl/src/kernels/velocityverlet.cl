@@ -49,7 +49,32 @@
  ******************************************************
 */
 
-
+__kernel void velocityPositionUpdate(__global const float* restrict deltaT,
+				__global const float4* restrict acceleration, 
+				__global float4* restrict moleculePos,
+				__global float4* restrict velocities)
+{
+	int index = get_global_id(0);
+	double dt = convert_double(deltaT[0]);
+	double deltatime = 0.5 * dt;
+	
+	while(index < NUM_MOLECULES)
+	{
+	    double4 velocity = convert_double4(velocities[index]);
+	    if(velocity.w!=0.0)
+	    {
+		double4 reusetemp = convert_double4(acceleration[index]);
+		velocity.xyz += reusetemp.xyz * deltatime;
+		reusetemp = convert_double4(moleculePos[index]);
+		reusetemp.xyz += velocity.xyz * dt;
+		velocities[index] = convert_float4(velocity);
+		moleculePos[index] = convert_float4(reusetemp);
+	    }//end if for non zero mass
+	    index += get_global_size(0);
+	}//end index while loop
+	
+}//end kernel velocityPositionUpdate
+				
 
 __kernel void velocityVerletPart1(int numMolecules,
 				   __global const float* restrict deltaT,
@@ -389,7 +414,91 @@ double4 innerproductTensortoVector(const double4 q1,
 //     return (double4) (x,y,z,0.0);
 // }
 
+/**
+ * generate inner product of tensor * vector to get a vector
+ * T.V=VT
+ * utility function for updateAcceleration kernel
+ */
+double4 innerProductVT(double4 q1, double4 q2, double q3, double4 f)
+{
+    double4 innerproduct = (double4) (0.0,0.0,0.0,0.0);
+    innerproduct.x = ((q1.x*f.x)+(q1.y*f.y)+(q1.z*f.z));
+    innerproduct.y = ((q1.w*f.x)+(q2.x*f.y)+(q2.y*f.z));
+    innerproduct.z = ((q2.z*f.x)+(q2.w*f.y)+(q3*f.z));
+    innerproduct.w = 0.0;
+    return innerproduct;
+}
 
+/**
+ * generate cross product between two vectors.
+ * it returns a vector
+ * V.V = VX
+ * utility function for update acceleration
+ */
+double4 crossproductVV(const double4 refpos, const double4 innerproduct){
+    double4 crossproduct = (double4) (0.0,0.0,0.0,0.0);
+    crossproduct.x = (refpos.y*innerproduct.x) - (refpos.z*innerproduct.y);
+    crossproduct.y = (refpos.z*innerproduct.x) - (refpos.x*innerproduct.z);
+    crossproduct.z = (refpos.x*innerproduct.y) - (refpos.y*innerproduct.x);
+    crossproduct.w = 0.0;
+    return crossproduct;
+}
+
+/**
+ * calculate acceleration
+ * this kernel calculates or updates acceleration and if molecular integration
+ * is enabled then it also updates tau
+ */
+
+__kernel void updateAcceleration(__global const float4* restrict forces,
+				 __global const float4* restrict velocities,
+				 __global const float4* restrict siteReferencePos,
+				 __global const float4* restrict moleculeQ1,
+				 __global const float4* restrict moleculeQ2,
+				 __global const float* restrict moleculeQ3,
+				 __global const int* restrict moleculeSize,
+				 __global const int* restrict atomStartIndex,
+				 __global float4* restrict acceleration,
+				 __global float4* restrict moleculeTau,
+				 int numMolecules)
+{
+    int index = get_global_id(0);
+    
+    while(index < numMolecules)
+    {
+        //store the velocity locally
+        float4 velocity = velocities[index];
+        int molsize = moleculeSize[index];
+        int startIndex = atomStartIndex[index];
+        double mass = convert_double(velocity.w);
+        
+	  if(mass != 0.0)
+	  {
+		//copy data locally
+		double4 acc = convert_double4(acceleration[index]);
+		double4 q1 = convert_double4(moleculeQ1[index]);
+		double4 q2 = convert_double4(moleculeQ2[index]);
+		double q3 = convert_double(moleculeQ3[index]);
+		double4 tau = convert_double4(moleculeTau[index]);
+		double4 tempf;
+		
+		int a = 0;
+		while(a<molsize){
+			tempf = convert_double4(forces[startIndex+a]);
+			acc.xyz += tempf.xyz*mass;
+			double4 innerproduct = innerProductVT(q1,q2,q3,tempf);
+			tempf = crossproductVV(convert_double4(siteReferencePos[a]),innerproduct);
+			tau.xyz += tempf.xyz;
+			a++;
+		}	
+		acceleration[index] = convert_float4(acc);
+		moleculeTau[index] = convert_float4(tau); 
+	      
+	  }//end if
+	index += get_global_size(0); 
+    }//end while
+    
+}//end of update acceleration kernel
 /**
  * update after move
  * TODO: also check for molecule which is frozen
@@ -497,7 +606,7 @@ __kernel void setAtomPositions(int numAtoms,
 {
     int index = get_global_id(0);
     int molIdx = moleculeIndex[index];
-    while(index < NUM_ATOMS)
+    while(index < numAtoms)
     {
         double4 pos = convert_double4(positions[index]);
         double4 refpos = convert_double4(referencePosition[molIdx]);

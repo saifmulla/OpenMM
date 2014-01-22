@@ -862,7 +862,7 @@ private:
     OpenCLArray<cl_int>* moleculeIndex;
     OpenCLArray<cl_int>* moleculeSize;
     OpenCLArray<cl_int>* moleculeStartIndex;
-    OpenCLArray<mm_float4>* moleculePositions;
+    OpenCLArray<mm_float4>* molPositions;
     bool IsMolecular;
 };
 /**

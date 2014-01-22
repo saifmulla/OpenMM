@@ -221,6 +221,9 @@ void ReferenceUpdateStateDataKernel::setMoleculeQ(ContextImpl& context, const st
 void ReferenceUpdateStateDataKernel::setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions){
 }
 
+void ReferenceUpdateStateDataKernel::setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions){
+
+}
 void ReferenceUpdateStateDataKernel::getForces(ContextImpl& context, std::vector<Vec3>& forces) {
     int numParticles = context.getSystem().getNumParticles();
     vector<RealVec>& forceData = extractForces(context);

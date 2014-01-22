@@ -171,6 +171,7 @@ public:
     void setPeriodicBoxVectors(ContextImpl& context, const Vec3& a, const Vec3& b, const Vec3& c) const;
     void setMoleculeQ(ContextImpl& context, const std::vector<Tensor>& moleculeQ);
     void setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions);
+    void setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions);
 private:
     ReferencePlatform::PlatformData& data;
 };

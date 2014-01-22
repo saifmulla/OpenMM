@@ -119,6 +119,9 @@ public:
     void setMoleculeQ(const std::vector<Tensor>& moleculeQ);
 
     void setSiteRefPositions(const std::vector<Vec3>& siteRefPositions);
+
+    void setMoleculePositions(const std::vector<Vec3>& moleculePositions);
+
     /**
      * Get the current forces on all particles.
      *

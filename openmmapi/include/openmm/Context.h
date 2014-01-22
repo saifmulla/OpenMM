@@ -176,7 +176,7 @@ public:
      *
      * @param moleculeQ a vector of Tensor type equivalent to number of molecules
      */
-    void setMoleculeQ(const std::vector<Tensor>& moleculeQ);
+    void setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ);
     /**
      * set the siteRefPosition of all molecules in the System (it has got standard measurement in SI)
      *
@@ -184,6 +184,12 @@ public:
      */
     void setSiteRefPositions(const std::vector<Vec3>& siteRefPositions);
 
+    /**
+     * set Molecule Positions of all molecules in the system
+     *
+     * @param moleculePositions
+     */
+    void setMoleculePositions(const std::vector<Vec3>& moleculePositions);
     /**
      * Get the value of an adjustable parameter defined by a Force object in the System.
      * 

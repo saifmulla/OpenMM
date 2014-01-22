@@ -199,6 +199,9 @@ public:
      * this kernel is only related with OpenFOAM acceleration
      */
     virtual void setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions) = 0;
+
+    virtual void setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions) = 0;
+
 };
 
 /**

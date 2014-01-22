@@ -181,7 +181,7 @@ void Context::setVelocities(const vector<Vec3>& velocities) {
     impl->setVelocities(velocities);
 }
 
-void Context::setMoleculeQ(const vector<Tensor>& moleculeQ) {
+void Context::setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ) {
     //TODO: do a check on size of array supplied this would require an implementation
     //inside System class
     impl->setMoleculeQ(moleculeQ);
@@ -191,6 +191,10 @@ void Context::setSiteRefPositions(const vector<Vec3>& siteRefPositions) {
     //TODO: do a check on size of array supplied this would require an implementation
     //inside System class
     impl->setSiteRefPositions(siteRefPositions);
+}
+
+void Context::setMoleculePositions(const vector<Vec3>& moleculePositions){
+    impl->setMoleculePositions(moleculePositions);
 }
 double Context::getParameter(const string& name) {
     return impl->getParameter(name);
