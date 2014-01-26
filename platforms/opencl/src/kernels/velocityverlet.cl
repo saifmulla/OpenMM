@@ -139,7 +139,6 @@ double4 rotationTensorX(double piX, double inertiaX, double dtTime)
     double phi = dtTime * phin;
     double cosp = cos(phi);
     double sinp = sin(phi);
-    //rotationTensorX[0] = (double4) (cosp,-sinp,sinp,cosp);
     double4 temp = (double4) (cosp,-sinp,sinp,cosp);
     return temp;
 }
@@ -469,58 +468,54 @@ __kernel void updateAfterMove(__global const float* restrict deltaT,
 	// check if the molecule is not point in molecule
 	while(index < NUM_MOLECULES)
 	{
-        	float4 inertia = momentOfInertia[0];
+        	double4 inertia = convert_double4(momentOfInertia[0]);
 		
+		double4 q1[1];
+                double4 q2[1];
+                double q3[1];
+                q1[0] = convert_double4(moleculeQ1[index]);
+                q2[0] = convert_double4(moleculeQ2[index]);
+                q3[0] = convert_double(moleculeQ3[index]);
+                double4 pi = convert_double4(moleculePI[index]);
+		double4 R;
+
 		if(inertia.z > 0.0)
 		{
-			double4 pi = convert_double4(moleculePI[index]);
-            		__private double4* q1;
-			__private double4* q2;
-			__private double* q3;
-			q1[0] = convert_double4(moleculeQ1[index]);
-            		q2[0] = convert_double4(moleculeQ2[index]);
-            		q3[0] = convert_double(moleculeQ3[index]);
-            
-			double4 R = (double4) (0.0,0.0,0.0,0.0);
+			if(inertia.x < 0.0 && inertia.y > 0.0)
+			{
+				R = rotationTensorX(pi.x,inertia.x,deltaTime);	
+				pi = innerProductVtoT(pi,R);
+				//calculate inner product between two tensors
+                                innerProductTtoTforX(q1,q2,q3,R);	
+			}//end of x & y check
+			
+			//rotate tensor y
+                	R = rotationTensorY(pi.y,inertia.y,deltaTime);
+                	pi = innerProductVtoTY(pi,R);
+                	innerProductTtoTforY(q1,q2,q3,R);
+
+			//rotate tensor Z
+                	R = rotationTensorZ(pi.z,inertia.z,dt);
+                	pi = innerProductVtoTZ(pi,R);
+                	innerProductTtoTforZ(q1,q2,q3,R);	
+		
+			//rotate tensor y
+	                R = rotationTensorY(pi.y,inertia.y,dt);
+        	        pi = innerProductVtoTY(pi,R);
+                	innerProductTtoTforY(q1,q2,q3,R);
+	
+				
 			if(inertia.x < 0.0 && inertia.y > 0.0)
 			{
 				//perform rotation X of tensor
-				R = rotationTensorX(pi.x,inertia.x,deltaTime);
-				
-				pi = innerProductVtoT(pi,R);
-				//calculate inner product between two tensors
-				innerProductTtoTforX(q1,q2,q3,R);
-			}//end check linear molecule
-            
-		//rotate tensor y
-		R = rotationTensorY(pi.y,inertia.y,deltaTime);
-		pi = innerProductVtoTY(pi,R);
-		innerProductTtoTforY(q1,q2,q3,R);
-		
-		//rotate tensor Z
-		R = rotationTensorZ(pi.z,inertia.z,dt);
-		pi = innerProductVtoTZ(pi,R);
-		innerProductTtoTforZ(q1,q2,q3,R);
-		
-		//rotate tensor y
-		R = rotationTensorY(pi.y,inertia.y,dt);
-		pi = innerProductVtoTY(pi,R);
-		innerProductTtoTforY(q1,q2,q3,R);
-		
-		if(inertia.x < 0.0 && inertia.y > 0.0)
-		{
-		    //perform rotation X of tensor
-		    R = rotationTensorX(pi.x,inertia.x,deltaTime);
-				    
-		    pi = innerProductVtoT(pi,R);
-		    //calculate inner product between two tensors
-		    innerProductTtoTforX(q1,q2,q3,R);
-		}//end check linear molecule
-            
-		moleculePI[index] = convert_float4(pi);
-		
-		}//end of point in molecule check condition if
-        
+                    		R = rotationTensorX(pi.x,inertia.x,deltaTime);
+
+                    		pi = innerProductVtoT(pi,R);
+                    		//calculate inner product between two tensors
+                    		innerProductTtoTforX(q1,q2,q3,R);	
+			}//end of x && y check II
+			moleculePI[index] = convert_float4(pi);
+		}//end third dimension check	
 		index += get_global_size(0);
 	}//end while
 	
