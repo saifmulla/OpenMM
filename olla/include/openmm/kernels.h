@@ -201,6 +201,12 @@ public:
     virtual void setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions) = 0;
 
     virtual void setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions) = 0;
+    
+    /**
+     * set moleculePI
+     * for molecular integration
+     */
+    virtual void setMoleculePI(ContextImpl& context, const std::vector<Vec3>& moleculePI) = 0;
 
 };
 
@@ -770,6 +776,8 @@ public:
     virtual void setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions) {};
   
     virtual void setMoleculePositions(const std::vector<OpenMM::Vec3>& moleculePositions) {};
+    
+    virtual void setMoleculePI(const std::vector<OpenMM::Vec3>& moleculePI) {};
 };
     
 /**

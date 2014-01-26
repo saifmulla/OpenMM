@@ -194,7 +194,15 @@ void Context::setSiteRefPositions(const vector<Vec3>& siteRefPositions) {
 }
 
 void Context::setMoleculePositions(const vector<Vec3>& moleculePositions){
+    //TODO: SET MOLECULE POSITIONS do a check on size of array supplied this would require an implementation
+    //inside System class
     impl->setMoleculePositions(moleculePositions);
+}
+
+void Context::setMoleculePI(const vector<Vec3>& moleculePI){
+    //TODO: SET MOLECULEPI do a check on size of array supplied this would require an implementation
+    //inside System class
+    impl->setMoleculePI(moleculePI);
 }
 double Context::getParameter(const string& name) {
     return impl->getParameter(name);

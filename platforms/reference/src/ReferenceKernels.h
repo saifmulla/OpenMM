@@ -172,6 +172,7 @@ public:
     void setMoleculeQ(ContextImpl& context, const std::vector<Tensor>& moleculeQ);
     void setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions);
     void setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions);
+    void setMoleculePI(ContextImpl& context, const std::vector<Vec3>& moleculePI);
 private:
     ReferencePlatform::PlatformData& data;
 };

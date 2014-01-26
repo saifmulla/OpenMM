@@ -171,6 +171,12 @@ public:
     * @param moleculePositions
     */
     void setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions);
+    /**
+     * set the molecule pi vector of vec3 for velocity verlet integration
+     * @param impl ContextImpl
+     * @param moleculePI std::vector<Vec3>
+     */
+    void setMoleculePI(ContextImpl& context, const std::vector<Vec3>& moleculePI);
 private:
     OpenCLContext& cl;
 };
@@ -838,6 +844,7 @@ public:
     void setMoleculeQ(const std::vector<Tensor>& moleculeQ);
     void setSiteRefPositions(const std::vector<Vec3>& siteRefPositions);
     void setMoleculePositions(const std::vector<Vec3>& moleculePositions);
+    void setMoleculePI(const std::vector<Vec3>& moleculePI);
 
 private:
     OpenCLContext& cl;
@@ -864,6 +871,7 @@ private:
     OpenCLArray<cl_int>* moleculeStartIndex;
     OpenCLArray<mm_float4>* molPositions;
     bool IsMolecular;
+    bool isInitialised_;
 };
 /**
  * This kernel is invoked by LangevinIntegrator to take one time step.

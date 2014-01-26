@@ -190,6 +190,12 @@ public:
      * @param moleculePositions
      */
     void setMoleculePositions(const std::vector<Vec3>& moleculePositions);
+    
+    /**
+     * set PI values of each molecule of type Vec3 each
+     * @param moleculePI vector of Vec3 type
+     */
+    void setMoleculePI(const std::vector<Vec3>& moleculePI);
     /**
      * Get the value of an adjustable parameter defined by a Force object in the System.
      * 

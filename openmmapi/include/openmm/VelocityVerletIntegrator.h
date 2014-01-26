@@ -61,17 +61,19 @@ public:
 	 * this function sets the molecular variable of integration
 	 * it just set the variable as true no moving back!!!
 	 */
-	void setMolecular();
+    void setMolecular();
 	
-	bool getMolecular() const;
+    bool getMolecular() const;
 	
-	Kernel& getKernel();
+    Kernel& getKernel();
 	
-	void setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ);
+    void setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ);
     
     void setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions);
 
     void setMoleculePositions(const std::vector<OpenMM::Vec3>& moleculePositions);
+    
+    void setMoleculePI(const std::vector<OpenMM::Vec3>& moleculePI);
 
 protected:
     /**

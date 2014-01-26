@@ -121,6 +121,8 @@ public:
     void setSiteRefPositions(const std::vector<Vec3>& siteRefPositions);
 
     void setMoleculePositions(const std::vector<Vec3>& moleculePositions);
+    
+    void setMoleculePI(const std::vector<Vec3>& moleculePI);
 
     /**
      * Get the current forces on all particles.

@@ -199,6 +199,10 @@ void ContextImpl::getVelocities(std::vector<Vec3>& velocities) {
     dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).getVelocities(*this, velocities);
 }
 
+void ContextImpl::setMoleculePI(const std::vector<Vec3>& moleculePI){    
+    dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).setMoleculePI(*this,moleculePI);
+}
+
 void ContextImpl::setVelocities(const std::vector<Vec3>& velocities) {
     dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).setVelocities(*this, velocities);
     integrator.stateChanged(State::Velocities);

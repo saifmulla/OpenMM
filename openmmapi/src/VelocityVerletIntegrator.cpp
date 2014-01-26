@@ -74,6 +74,7 @@ void VelocityVerletIntegrator::step(int steps) {
     
     if (!firstTimeForce_) {
         context->calcForcesAndEnergy(true,false);
+    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).initialize(owner->getSystem(), *this);
         firstTimeForce_ = true;
     }
 
@@ -121,6 +122,10 @@ void VelocityVerletIntegrator::setSiteRefPositions(const std::vector<OpenMM::Vec
 
 void VelocityVerletIntegrator::setMoleculePositions(const std::vector<OpenMM::Vec3>& moleculePositions){
 	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).setMoleculePositions(moleculePositions);
+}
+
+void VelocityVerletIntegrator::setMoleculePI(const std::vector<OpenMM::Vec3>& moleculePI){
+      dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).setMoleculePI(moleculePI);
 }
 Kernel& VelocityVerletIntegrator::getKernel(){
 	return kernel;

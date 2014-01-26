@@ -76,59 +76,13 @@ __kernel void velocityPositionUpdate(__global const float* restrict deltaT,
 }//end kernel velocityPositionUpdate
 				
 
-__kernel void velocityVerletPart1(int numMolecules,
-				   __global const float* restrict deltaT,
-				   __global float4* restrict posq,
-				   __global float4* restrict velm,
-				   __global const float4* restrict forces,
-				   __global const int* restrict moleculeSize,
-                		   __global const int* restrict moleculeStartIndex)
-{
-    
-    int index = get_global_id(0);
-    double dtPos = deltaT[0];
-    double dtVel = 0.5*dtPos;
-    unsigned int a = 0;
-    
-    while(index < NUM_MOLECULES)
-    {
-        //store the velocity locally
-        double4 velocity = convert_double4(velm[index]);
-        double4 pos = (double4) (0.0,0.0,0.0,0.0);
-        double4 f = (double4) (0.0,0.0,0.0,0.0);
-        if(velocity.w != 0.0)//check if mass is zero or frozen
-        {
-	    int molsize = moleculeSize[index];
-	    int startIndex = moleculeStartIndex[index];	
-            double deltaMass = dtVel * velocity.w;
-	    double4 pos = (double4) (0.0,0.0,0.0,0.0);
-	    
-	    a = 0;
-	    while(a<molsize){	
-            	pos = convert_double4(posq[startIndex+a]);
-            	f = convert_double4(forces[startIndex+a]);
-		//update velocity
-            	velocity.xyz += f.xyz*deltaMass;
-            	pos.xyz += velocity.xyz * dtPos;
-            	//com_position += velocity.xyz * dtPos;
-       	    	posq[startIndex+a] = convert_float4(pos);
-		a++;
-	    }
-            velm[index] = convert_float4(velocity);
-        }//end if
-        
-        index += get_global_size(0);
-    }//end while
-}
-
 /**
  * updateTauPi
  * update PI and TAU for molecular integration
  */
 
 
-__kernel void updateTauPi(int numMolecules,
-                          __global float4* restrict moleculePI,
+__kernel void updateTauPi(__global float4* restrict moleculePI,
                           __global float4* restrict moleculeTau,
                           __global const float4* restrict momentOfInertia,
 			  __global const float4* restrict velm,
@@ -139,13 +93,12 @@ __kernel void updateTauPi(int numMolecules,
     
     while(index<NUM_MOLECULES)
     {
-	float4 velocity = velm[index];
+	float4 inertia = momentOfInertia[0];
 	
-	if(velocity.w!=0.0f)
+	if(velm[index].w!=0.0)
 	{
 	    double4 pi = convert_double4(moleculePI[index]);
 	    double4 tau = convert_double4(moleculeTau[index]);
-	    float4 inertia = momentOfInertia[0];
 	  
 	    //update pi
 	    pi.xyz += tau.xyz * deltaTime;
@@ -459,12 +412,11 @@ __kernel void updateAcceleration(__global const float4* restrict forces,
 				 __global const int* restrict moleculeSize,
 				 __global const int* restrict atomStartIndex,
 				 __global float4* restrict acceleration,
-				 __global float4* restrict moleculeTau,
-				 int numMolecules)
+				 __global float4* restrict moleculeTau)
 {
     int index = get_global_id(0);
     
-    while(index < numMolecules)
+    while(index < NUM_MOLECULES)
     {
         //store the velocity locally
         float4 velocity = velocities[index];
@@ -504,8 +456,7 @@ __kernel void updateAcceleration(__global const float4* restrict forces,
  * TODO: also check for molecule which is frozen
  */
 
-__kernel void updateAfterMove(int numMolecules,
-                              __global const float* restrict deltaT,
+__kernel void updateAfterMove(__global const float* restrict deltaT,
                               __global float4* restrict moleculePI,
                               __global const float4* restrict momentOfInertia,
                               __global const float4* restrict moleculeQ1,
@@ -516,13 +467,13 @@ __kernel void updateAfterMove(int numMolecules,
     double dt = deltaT[0];
     double deltaTime = dt * 0.5;
 	// check if the molecule is not point in molecule
-	while(index<NUM_MOLECULES)
+	while(index < NUM_MOLECULES)
 	{
-        	float4 inertia = momentOfInertia[index];
+        	float4 inertia = momentOfInertia[0];
 		
 		if(inertia.z > 0.0)
 		{
-            		double4 pi = convert_double4(moleculePI[index]);
+			double4 pi = convert_double4(moleculePI[index]);
             		__private double4* q1;
 			__private double4* q2;
 			__private double* q3;
@@ -531,57 +482,43 @@ __kernel void updateAfterMove(int numMolecules,
             		q3[0] = convert_double(moleculeQ3[index]);
             
 			double4 R = (double4) (0.0,0.0,0.0,0.0);
-			if(inertia.x < 0.0 && inertia.y > 0.0){
+			if(inertia.x < 0.0 && inertia.y > 0.0)
+			{
 				//perform rotation X of tensor
 				R = rotationTensorX(pi.x,inertia.x,deltaTime);
 				
-				/**
-				 * inner product of vector and tensor (V.T = VT)
-				 * essentially the tensor is transposed and multiplied by each
-				 * component of supplied vector corrensponding to a vector
-				 * below an imaginative tensor represented in double4 form
-				 * is multiplied by vector
-				 */
-                pi = innerProductVtoT(pi,R);
-                //calculate inner product between two tensors
-                innerProductTtoTforX(q1,q2,q3,R);
-                
-				
-				
+				pi = innerProductVtoT(pi,R);
+				//calculate inner product between two tensors
+				innerProductTtoTforX(q1,q2,q3,R);
 			}//end check linear molecule
             
-            //rotate tensor y
-            R = rotationTensorY(pi.y,inertia.y,deltaTime);
-            pi = innerProductVtoTY(pi,R);
-            innerProductTtoTforY(q1,q2,q3,R);
-            
-            //rotate tensor Z
-            R = rotationTensorZ(pi.z,inertia.z,dt);
-            pi = innerProductVtoTZ(pi,R);
-            innerProductTtoTforZ(q1,q2,q3,R);
-            
-            //rotate tensor y
-            R = rotationTensorY(pi.y,inertia.y,dt);
-            pi = innerProductVtoTY(pi,R);
-            innerProductTtoTforY(q1,q2,q3,R);
-            
-            if(inertia.x < 0.0 && inertia.y > 0.0){
-		//perform rotation X of tensor
-		R = rotationTensorX(pi.x,inertia.x,deltaTime);
-				
-				/**
-				 * inner product of vector and tensor (V.T = VT)
-				 * essentially the tensor is transposed and multiplied by each
-				 * component of supplied vector corrensponding to a vector
-				 * below an imaginative tensor represented in double4 form
-				 * is multiplied by vector
-				 */
-                pi = innerProductVtoT(pi,R);
-                //calculate inner product between two tensors
-                innerProductTtoTforX(q1,q2,q3,R);
+		//rotate tensor y
+		R = rotationTensorY(pi.y,inertia.y,deltaTime);
+		pi = innerProductVtoTY(pi,R);
+		innerProductTtoTforY(q1,q2,q3,R);
+		
+		//rotate tensor Z
+		R = rotationTensorZ(pi.z,inertia.z,dt);
+		pi = innerProductVtoTZ(pi,R);
+		innerProductTtoTforZ(q1,q2,q3,R);
+		
+		//rotate tensor y
+		R = rotationTensorY(pi.y,inertia.y,dt);
+		pi = innerProductVtoTY(pi,R);
+		innerProductTtoTforY(q1,q2,q3,R);
+		
+		if(inertia.x < 0.0 && inertia.y > 0.0)
+		{
+		    //perform rotation X of tensor
+		    R = rotationTensorX(pi.x,inertia.x,deltaTime);
+				    
+		    pi = innerProductVtoT(pi,R);
+		    //calculate inner product between two tensors
+		    innerProductTtoTforX(q1,q2,q3,R);
 		}//end check linear molecule
             
-            
+		moleculePI[index] = convert_float4(pi);
+		
 		}//end of point in molecule check condition if
         
 		index += get_global_size(0);
@@ -595,44 +532,99 @@ __kernel void updateAfterMove(int numMolecules,
  * update positions for each atom with the newly calculated Q
  */
 
-__kernel void setAtomPositions(int numAtoms,
-                          __global const int* restrict moleculeIndex,
-                          __global float4* restrict positions,
+__kernel void setAtomPositions(__global const float4* restrict velocities,
+			  __global const float4* restrict positions,
                           __global const float4* restrict referencePosition,
                           __global const float4* restrict moleculeQ1,
                           __global const float4* restrict moleculeQ2,
-                          __global const float* restrict moleculeQ3
+                          __global const float* restrict moleculeQ3,
+			  __global float4* restrict atomPositions,
+			  __global const int* restrict moleculeSize,
+			  __global const int* restrict atomStartIndex
                           )
 {
     int index = get_global_id(0);
-    int molIdx = moleculeIndex[index];
-    while(index < numAtoms)
+    while(index < NUM_MOLECULES)
     {
-        double4 pos = convert_double4(positions[index]);
-        double4 refpos = convert_double4(referencePosition[molIdx]);
-        double4 q1 = convert_double4(moleculeQ1[molIdx]);
-        double4 q2 = convert_double4(moleculeQ2[molIdx]);
-        double q3 = convert_double(moleculeQ3[molIdx]);
-        
-        //generate inner product of tensor * vector (T.V=VT)
-        double4 innerproduct = innerproductTensortoVector(q1,q2,q3,refpos);
-        //update the positions
-        pos.xyz += innerproduct.xyz;
-        positions[index] = convert_float4(pos);
+	if(velocities[index].w != 0.0)
+	{
+	    double4 pos = convert_double4(positions[index]);
+	    double4 q1 = convert_double4(moleculeQ1[index]);
+	    double4 q2 = convert_double4(moleculeQ2[index]);
+	    double q3 = convert_double(moleculeQ3[index]);
+	    int molsize = moleculeSize[index];
+	    int startindex = atomStartIndex[index];
+	    double4 tempd4,apos;
+	    
+	    int a = 0;
+	    while(a<molsize)
+	    {
+		//generate inner product of tensor * vector (T.V=VT)
+		tempd4 = innerproductTensortoVector(q1,q2,q3,convert_double4(referencePosition[a]));
+		tempd4 += pos;
+		//update atom positions
+		apos = convert_double4(atomPositions[startindex+a]);
+		apos.xyz = tempd4.xyz;
+		atomPositions[startindex+a] = convert_float4(apos);
+		a++;
+	    }
+	}//end if
         index += get_global_size(0);
-    }
-}
+    }//end while
+    
+}//end setAtomPositions
 
-                            
+
+__kernel void finalHalfVelocityUpdate(
+				__global float4* restrict velocities,
+				__global float4* restrict moleculePI,
+				__global float4* restrict moleculeTau,
+				__global const float4* restrict acceleration,
+				__global const float4* restrict momentOfInertia,
+           			__global const float* restrict deltaT){
+	int index = get_global_id(0);
+	double delta = 0.5 * convert_double(deltaT[0]);
+	
+	while(index < NUM_MOLECULES)
+	{
+		double4 velocity = convert_double4(velocities[index]);
+		double4 temp4;
+		if(velocity.w!=0.0)
+		{
+			//using temp4 for acceleration local store
+			temp4 = convert_double4(acceleration[index])*delta;
+			double4 tau = convert_double4(moleculeTau[index]);
+			double4 pi = convert_double4(moleculePI[index]);
+			velocity.xyz += temp4.xyz;
+			//using temp4 for tau local store
+			temp4 = tau * delta;
+			pi.xyz += temp4.xyz;
+			temp4 = convert_double4(momentOfInertia[index]);
+	    		if(temp4.z < 0.0){ 
+				tau.xyz = 0.0;
+				pi.xyz = 0.0;
+	    		}
+	    		if(temp4.x < 0.0 && temp4.y > 0.0){
+				tau.x = 0.0;
+				pi.x = 0.0;
+	    		}
+			
+			velocities[index] = convert_float4(velocity);
+			moleculePI[index] = convert_float4(pi);
+			moleculeTau[index] = convert_float4(tau);
+			
+		}//end if mass check
+		index += get_global_size(0);
+	}//end while 
+}//end final half velocity kernel 
 /**
  * Perform the second step of velocity verlet integration.
  */
 
 
-__kernel void velocityVerletPart2(int numMolecules,
-				   __global const float* restrict deltaT,
-				   __global float4* restrict velm,
-				   __global const float4* restrict forces,
+__kernel void velocityVerletPart2(__global const float* restrict deltaT,
+				__global float4* restrict velm,
+				__global const float4* restrict forces,
 				__global float4* restrict moleculeTau,
 				__global float4* restrict moleculePI,
 				__global const float* restrict momentOfInertia,
@@ -662,6 +654,7 @@ __kernel void velocityVerletPart2(int numMolecules,
 	      double4 q1 = convert_double4(moleculeQ1[index]);
 	      double4 q2 = convert_double4(moleculeQ2[index]);
 	      double q3 = convert_double(moleculeQ3[index]);
+              float4 inertia = momentOfInertia[0];
           //traverse over the atoms of the molecule
 	      for(int a = 0; a<molsize; ++a){
 		double4 f = convert_double4(forces[startIndex+a]);
@@ -687,7 +680,6 @@ __kernel void velocityVerletPart2(int numMolecules,
 	      }
 		
 	    double4 pi = convert_double4(moleculePI[index]);
-	    double4 inertia = convert_double4(momentOfInertia[index]);
 	  
 	    //update pi
 	    pi.xyz += tau.xyz * dtVel;
