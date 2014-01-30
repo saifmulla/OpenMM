@@ -64,6 +64,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <../cuda-5.0/include/CL/cl_platform.h>
 
 namespace OpenMM {
 
@@ -169,6 +170,13 @@ public:
      *
      * @param forces  on exit, this contains the forces
      */
+    /**
+     * get the molecular positions in the system
+     * 
+     * @param moleculePositions a vector of type vec3
+     */
+    virtual void getMoleculePositions(ContextImpl& context, std::vector<Vec3>& moleculePositions) = 0;
+    
     virtual void getForces(ContextImpl& context, std::vector<Vec3>& forces) = 0;
     /**
      * Get the current periodic box vectors.
@@ -207,6 +215,17 @@ public:
      * for molecular integration
      */
     virtual void setMoleculePI(ContextImpl& context, const std::vector<Vec3>& moleculePI) = 0;
+    
+    /**
+     * setMomentOfInertia
+     * set the moment of Innertia values based
+     * 
+     * @param context type contextImpl
+     * @param momentOfInertia type Vector<Vector<vec3>> 
+     * 		the type is two dimensional vector to represent momentofInertia for 
+     * 		each molecule type
+     */
+    virtual void setMomentOfInertia(ContextImpl& context, const std::vector<std::vector<Vec3> >& momentOfInertia) = 0;
 
 };
 
@@ -778,6 +797,10 @@ public:
     virtual void setMoleculePositions(const std::vector<OpenMM::Vec3>& moleculePositions) {};
     
     virtual void setMoleculePI(const std::vector<OpenMM::Vec3>& moleculePI) {};
+    
+    virtual void setMomentOfInertia(const std::vector<std::vector<Vec3> >& momentOfInertia) {};
+    
+    virtual void getMoleculePositions(std::vector<Vec3>& moleculePositions) {};
 };
     
 /**

@@ -685,14 +685,18 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
     //determine if the simulation is molecular
     isMolecular = (bool) numAtoms != numMolecules;
     
+#ifdef DEBUG
+    printf("Number of Molecules %d and atoms %d",numOfMolecules,numAtoms);
+    printf("Initializing molecular information...\n moleculesize" \
+    "array...\n moleculeIndex array ... \n moleculeStartIndex array...\n");
+#endif
+    
     moleculeSize = new OpenCLArray<cl_int>(*this,numOfMolecules,"moleculeSize",true);
     moleculeStartIndex = new OpenCLArray<cl_int>(*this,numOfMolecules,"moleculeStartIndex",true);
     moleculeIndex = new OpenCLArray<cl_int>(*this, numAtoms, "moleculeIndex", true);
     
     int mm = 0;
     int startIndex = 0;
-    
-    printf("Initializing molecular information...\n moleculesize array...\n moleculeIndex array ... \n moleculeStartIndex array...\n");
     
     /**
      * over here we loop through each molecule to determine,

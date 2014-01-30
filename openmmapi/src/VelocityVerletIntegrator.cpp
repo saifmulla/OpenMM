@@ -127,6 +127,7 @@ void VelocityVerletIntegrator::setMoleculePositions(const std::vector<OpenMM::Ve
 void VelocityVerletIntegrator::setMoleculePI(const std::vector<OpenMM::Vec3>& moleculePI){
       dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).setMoleculePI(moleculePI);
 }
-Kernel& VelocityVerletIntegrator::getKernel(){
-	return kernel;
+
+Kernel& VelocityVerletIntegrator::getBaseKernel(){
+    return kernel;
 }

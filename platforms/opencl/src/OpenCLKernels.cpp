@@ -226,6 +226,16 @@ void OpenCLUpdateStateDataKernel::setMoleculePI(ContextImpl& context, const vect
     
 }
 
+void OpenCLUpdateStateDataKernel::setMomentOfInertia(ContextImpl& context, const vector< vector< Vec3 > >& momentOfInertia)
+{
+
+}
+
+void OpenCLUpdateStateDataKernel::getMoleculePositions(ContextImpl& context, vector< Vec3 >& moleculePositions)
+{
+}
+
+
 void OpenCLUpdateStateDataKernel::getForces(ContextImpl& context, std::vector<Vec3>& forces) {
     OpenCLArray<mm_float4>& force = cl.getForce();
     force.download();
@@ -3375,6 +3385,24 @@ void OpenCLIntegrateVelocityVerletStepKernel::setMoleculePI(const vector<Vec3>& 
 	}
 	moleculePI->upload();
 }
+
+void OpenCLIntegrateVelocityVerletStepKernel::getMoleculePositions(vector< Vec3 >& moleculePositions)
+{
+    molPositions->download();
+    int numMolecules = cl.getNumOfMolecules();
+    moleculePositions.resize(numMolecules);
+    mm_float4 periodicBoxSize = cl.getPeriodicBoxSize();
+    
+    for (int i = 0; i < numMolecules; ++i) {
+        mm_float4& pos = (*molPositions)[i];
+        mm_int4 offset = cl.getPosCellOffsets()[i];
+	moleculePositions[i] = Vec3(pos.x,pos.y,pos.z);
+//         moleculePositions[i] = Vec3(pos.x-offset.x*periodicBoxSize.x, 
+// 				    pos.y-offset.y*periodicBoxSize.y, 
+// 				    pos.z-offset.z*periodicBoxSize.z);
+    }
+}
+
 
 void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, const VelocityVerletIntegrator& integrator) {
 

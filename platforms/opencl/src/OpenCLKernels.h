@@ -126,6 +126,12 @@ public:
      */
     void getVelocities(ContextImpl& context, std::vector<Vec3>& velocities);
     /**
+     * get the molecular positions in the sytem
+     * 
+     * @param moleculePositions
+     */
+    void getMoleculePositions(ContextImpl& context, std::vector<Vec3>& moleculePositions);
+    /**
      * Set the velocities of all particles.
      *
      * @param velocities  a vector containg the particle velocities
@@ -177,6 +183,12 @@ public:
      * @param moleculePI std::vector<Vec3>
      */
     void setMoleculePI(ContextImpl& context, const std::vector<Vec3>& moleculePI);
+    /**
+     * setMomentOfInertia
+     * @param context
+     * @param momentOfInertia of type vector<vector<vec3> >
+     */
+    void setMomentOfInertia(ContextImpl& context, const std::vector<std::vector<Vec3> >& momentOfInertia);
 private:
     OpenCLContext& cl;
 };
@@ -845,6 +857,8 @@ public:
     void setSiteRefPositions(const std::vector<Vec3>& siteRefPositions);
     void setMoleculePositions(const std::vector<Vec3>& moleculePositions);
     void setMoleculePI(const std::vector<Vec3>& moleculePI);
+    void getMoleculePositions(std::vector<Vec3>& moleculePositions);
+    
 
 private:
     OpenCLContext& cl;

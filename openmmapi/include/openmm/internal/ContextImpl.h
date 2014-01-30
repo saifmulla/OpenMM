@@ -110,6 +110,11 @@ public:
      */
     void getVelocities(std::vector<Vec3>& velocities);
     /**
+     * Get the all the Molecule Positions in the system
+     * molecule positions are esentially molecule centre of mass
+     */
+    void getMoleculePositions(std::vector<Vec3>& moleculePositions);
+    /**
      * Set the velocities of all particles.
      *
      * @param velocities  a vector containg the particle velocities
@@ -267,7 +272,8 @@ private:
     bool hasInitializedForces;
     int lastForceGroups;
     Platform* platform;
-    Kernel initializeForcesKernel, kineticEnergyKernel, updateStateDataKernel, applyConstraintsKernel, virtualSitesKernel;
+    Kernel initializeForcesKernel, kineticEnergyKernel, 
+	updateStateDataKernel, applyConstraintsKernel, virtualSitesKernel;
     void* platformData;
     ControlTools* controls;
     MeasurementTools* measurements; 

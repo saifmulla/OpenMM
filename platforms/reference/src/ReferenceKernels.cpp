@@ -229,6 +229,17 @@ void ReferenceUpdateStateDataKernel::setMoleculePI(ContextImpl& context, const v
 
 }
 
+void ReferenceUpdateStateDataKernel::setMomentOfInertia(ContextImpl& context, const vector< vector< Vec3 > >& momentOfInertia )
+{
+
+}
+
+void ReferenceUpdateStateDataKernel::getMoleculePositions(ContextImpl& context, vector< Vec3 >& moleculePositions)
+{
+
+}
+
+
 void ReferenceUpdateStateDataKernel::getForces(ContextImpl& context, std::vector<Vec3>& forces) {
     int numParticles = context.getSystem().getNumParticles();
     vector<RealVec>& forceData = extractForces(context);

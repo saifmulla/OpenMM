@@ -36,6 +36,7 @@
 #include "Vec3.h"
 #include <map>
 #include <vector>
+#include "openmm/Kernel.h"
 #include "internal/windowsExport.h"
 
 namespace OpenMM {
@@ -127,6 +128,11 @@ protected:
      * this helps to pass the values along with the class to required classes
      */
 //    int stepCounter;
+
+    /**
+     * get the object of Kernel class invoked in the child class
+     */
+    virtual Kernel& getBaseKernel() {};
 private:
     double stepSize, constraintTol;
 };

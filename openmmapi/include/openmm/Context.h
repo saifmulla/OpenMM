@@ -32,6 +32,9 @@
  * USE OR OTHER DEALINGS IN THE SOFTWARE.                                     *
  * -------------------------------------------------------------------------- */
 
+#ifdef DEBUG
+#include<stdio.h>
+#endif
 #include "Integrator.h"
 #include "State.h"
 #include "System.h"
@@ -177,6 +180,7 @@ public:
      * @param moleculeQ a vector of Tensor type equivalent to number of molecules
      */
     void setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ);
+    
     /**
      * set the siteRefPosition of all molecules in the System (it has got standard measurement in SI)
      *

@@ -426,11 +426,11 @@ __kernel void updateAcceleration(__global const float4* restrict forces,
 	  if(mass != 0.0)
 	  {
 		//copy data locally
-		double4 acc = convert_double4(acceleration[index]);
+		double4 acc = (double4) (0.0,0.0,0.0,0.0);//convert_double4(acceleration[index]);
 		double4 q1 = convert_double4(moleculeQ1[index]);
 		double4 q2 = convert_double4(moleculeQ2[index]);
 		double q3 = convert_double(moleculeQ3[index]);
-		double4 tau = convert_double4(moleculeTau[index]);
+		double4 tau = (double4) (0.0,0.0,0.0,0.0);//convert_double4(moleculeTau[index]);
 		double4 tempf;
 		
 		int a = 0;

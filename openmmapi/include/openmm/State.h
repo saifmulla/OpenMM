@@ -56,7 +56,7 @@ public:
      * This is an enumeration of the types of data which may be stored in a State.  When you create
      * a State, use these values to specify which data types it should contain.
      */
-    enum DataType {Positions=1, Velocities=2, Forces=4, Energy=8, Parameters=16};
+    enum DataType {Positions=1, Velocities=2, Forces=4, Energy=8, Parameters=16, MoleculePos = 32};
     /**
      * Construct an empty State containing no data.  This exists so State objects can be used in STL containers.
      */
@@ -77,6 +77,10 @@ public:
      * Get the force acting on each particle.  If this State does not contain forces, this will throw an exception.
      */
     const std::vector<Vec3>& getForces() const;
+    /**
+     * Get the molecular positions. If the state does not contain moleculePos, this will throw an exception.
+     */
+    const std::vector<Vec3>& getMoleculePos() const;
 
     /**
      * Get the total kinetic energy of the system.  If this State does not contain energies, this will throw an exception.
@@ -111,6 +115,10 @@ public:
 private:
     friend class Context;
     State(double time, int numParticles, int types);
+    /**
+     * reloaded privete constructor for accomodating num of molecules
+     */
+    State(double time, int numParticles, int types, int numMolecules);
     std::vector<Vec3>& updPositions();
     std::vector<Vec3>& updVelocities();
     std::vector<Vec3>& updForces();
@@ -124,6 +132,12 @@ private:
     std::vector<Vec3> forces;
     Vec3 periodicBoxVectors[3];
     std::map<std::string, double> parameters;
+    /**
+     * moleculePos
+     * new member variable introduced for molecule positions
+     */
+    std::vector<Vec3> moleculePos;
+    std::vector<Vec3>& updMoleculePos();
 };
 
 } // namespace OpenMM

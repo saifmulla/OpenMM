@@ -173,6 +173,8 @@ public:
     void setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions);
     void setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions);
     void setMoleculePI(ContextImpl& context, const std::vector<Vec3>& moleculePI);
+    void setMomentOfInertia(ContextImpl& context, const std::vector<std::vector<Vec3> >& momentOfInertia);
+    void getMoleculePositions(ContextImpl& context, std::vector<Vec3>& moleculePositions);
 private:
     ReferencePlatform::PlatformData& data;
 };

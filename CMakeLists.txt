@@ -14,8 +14,6 @@
 #   libOpenMM_static[_d].a
 #----------------------------------------------------
 
-add_definitions(-DUSE_PROFILE)
-
 # Don't create a new project name if this is part of a mega-build from the
 # parent directory
 IF( NOT PROJECT_NAME )
@@ -26,6 +24,16 @@ ENDIF( NOT PROJECT_NAME )
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
+IF(${CMAKE_PROFILE} MATCHES "1")
+    ADD_DEFINITIONS(-DUSE_PROFILE)
+    MESSAGE("Compiling to prof OpenCL code...")
+ENDIF(${CMAKE_PROFILE} MATCHES "1")
+
+IF(${CMAKE_BUILD_TYPE} MATCHES "Debug")
+    ADD_DEFINITIONS(-DUSE_PROFILE)
+    ADD_DEFINITIONS(-DDEBUG)
+    MESSAGE("USE_PROFILE and DEBUG preprocessors set")
+ENDIF(${CMAKE_BUILD_TYPE} MATCHES "Debug")
 #SET(CMAKE_VERBOSE_MAKEFILE 1)
 
 # CMake 2.4 on dart server only needs to know about Dart

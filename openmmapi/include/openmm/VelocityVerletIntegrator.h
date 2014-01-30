@@ -65,8 +65,6 @@ public:
 	
     bool getMolecular() const;
 	
-    Kernel& getKernel();
-	
     void setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ);
     
     void setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions);
@@ -87,6 +85,12 @@ protected:
      */
     std::vector<std::string> getKernelNames();
     
+    /**
+     * implementing the virtual function getBaseKernel from the 
+     * abstract clas Integrator
+     */
+    Kernel& getBaseKernel();
+    
 private:
     ContextImpl* context;
     Context* owner;
@@ -98,7 +102,9 @@ private:
 	 * it could only be set by explicitly invocation of the function.
 	 * nevertheless it will be used only with velocity verlet integrator
 	 */
+    //TODO: remove this variable and related functions if not required
     bool isMolecular;
+
 };
 
 } // namespace OpenMM

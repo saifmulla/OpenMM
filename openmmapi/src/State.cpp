@@ -54,6 +54,12 @@ const vector<Vec3>& State::getForces() const {
         throw OpenMMException("Invoked getForces() on a State which does not contain forces.");
     return forces;
 }
+
+const vector<Vec3>& State::getMoleculePos() const {
+    if ((types&MoleculePos) == 0)
+	throw OpenMMException("Invoked getMoleculePos() on a State which does not contain MoleculePos.");
+    return moleculePos;
+}
 double State::getKineticEnergy() const {
     if ((types&Energy) == 0)
         throw OpenMMException("Invoked getKineticEnergy() on a State which does not contain energies.");
@@ -64,6 +70,8 @@ double State::getPotentialEnergy() const {
         throw OpenMMException("Invoked getPotentialEnergy() on a State which does not contain energies.");
     return pe;
 }
+
+
 void State::getPeriodicBoxVectors(Vec3& a, Vec3& b, Vec3& c) const {
     a = periodicBoxVectors[0];
     b = periodicBoxVectors[1];
@@ -76,9 +84,16 @@ const map<string, double>& State::getParameters() const {
 }
 State::State(double time, int numParticles, int types) : types(types), time(time), ke(0), pe(0),
         positions( (types & Positions) == 0 ? 0 : numParticles), velocities( (types & Velocities) == 0 ? 0 : numParticles),
-        forces( (types & Forces) == 0 ? 0 : numParticles) {
+        forces( (types & Forces) == 0 ? 0 : numParticles), moleculePos((types & MoleculePos) == 0 ? 0 : numParticles) {
 }
-State::State() : types(0), time(0.0), ke(0), pe(0), positions(0), velocities(0), forces(0) {
+
+State::State() : types(0), time(0.0), ke(0), pe(0), positions(0), velocities(0), forces(0), moleculePos(0) {
+}
+
+
+State::State(double time, int numParticles, int types, int numMolecules) : types(types), time(time), ke(0), pe(0),
+        positions( (types & Positions) == 0 ? 0 : numParticles), velocities( (types & Velocities) == 0 ? 0 : numParticles),
+        forces( (types & Forces) == 0 ? 0 : numParticles), moleculePos((types & MoleculePos) == 0 ? 0 : numMolecules) {
 }
 vector<Vec3>& State::updPositions() {
     return positions;
@@ -114,5 +129,9 @@ double State::getNumberDensity() const
 	double volume = (periodicBoxVectors[0][0]*periodicBoxVectors[1][1]*periodicBoxVectors[2][2]);
 	double v = nm/volume;
 	return v;
+}
+
+vector<Vec3>& State::updMoleculePos(){
+    return moleculePos;
 }
 
