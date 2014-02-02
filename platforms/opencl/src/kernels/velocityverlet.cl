@@ -458,9 +458,9 @@ __kernel void updateAcceleration(__global const float4* restrict forces,
 __kernel void updateAfterMove(__global const float* restrict deltaT,
                               __global float4* restrict moleculePI,
                               __global const float4* restrict momentOfInertia,
-                              __global const float4* restrict moleculeQ1,
-                              __global const float4* restrict moleculeQ2,
-                              __global const float* restrict moleculeQ3)
+                              __global float4* restrict moleculeQ1,
+                              __global float4* restrict moleculeQ2,
+                              __global float* restrict moleculeQ3)
 {
     int index = get_global_id(0);
     double dt = deltaT[0];
