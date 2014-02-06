@@ -858,17 +858,29 @@ public:
     void setMoleculePositions(const std::vector<Vec3>& moleculePositions);
     void setMoleculePI(const std::vector<Vec3>& moleculePI);
     void getMoleculePositions(std::vector<Vec3>& moleculePositions);
+    void getMoleculeQ(std::vector<Tensor>& moleculeQ);
     
 
 private:
     OpenCLContext& cl;
     OpenCLArray<cl_float>* deltaT;
+    OpenCLArray<cl_float>* variableDelta;
     double dt;
     int numAtoms;
     int numMolecules;
-    cl::Kernel kernel1, kernel2, kerneltaupi;
-    cl::Kernel kernelmoveupdate, kernelaccelerationupdate, kernelSetAtomPositions;
-    cl::Kernel kernelcalculateAccelerationTau;
+    /**
+     * array of kernels in ascending order
+     * 0 => 	velocityPositionUpdate
+     * 1 => 	updateAcceleration
+     * 2 =>	updateTauPI
+     * 3 =>	move1
+     * 4 =>	move2
+     * 5 =>	move3
+     * 6 =>	setAtomPositions
+     * 7 => 	finalHalfvelocitiesUpdate
+     */
+    cl::Kernel integration[8];
+    
     /*
      * the below variable would be initiliased only if molecular integration is requied
      */

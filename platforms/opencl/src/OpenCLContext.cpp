@@ -706,19 +706,26 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
      * this information is supplied to gpu integration 'velocity verlet'
      * to determine if the integration is monotomic or polyatomic.
      */
+//TODO: add molecular check in this section of code     
     while (mm<numOfMolecules) {
         int molsize = atomIndices[mm].size();
-        
+   	    
+	double sumMass = 0.0; 
         for (int index = 0; index < molsize; ++index) {
             (*moleculeIndex)[startIndex+index] = mm;
+	    const double mass = system.getParticleMass(startIndex+index);
+	    sumMass += mass;
         }
+	(*velm)[mm].w = (float) (sumMass == 0.0 ? 0.0 : 1.0/sumMass);
 
         (*moleculeSize)[mm] = molsize;
         (*moleculeStartIndex)[mm] = startIndex;
         startIndex += molsize;
         mm++;
     }
-    
+
+    //upload molecule mass
+    velm->upload();    
     /**
      * check if the virial calculation is to be included
      * by checking the calculatevirial variable
