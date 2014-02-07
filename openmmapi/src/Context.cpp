@@ -171,9 +171,6 @@ State Context::getState(int types, bool enforcePeriodicBox, int groups) const {
      */
     if (types&State::MoleculePos)
     {
-#ifdef DEBUG
-	std::cout << "Context State MoleculePos " << std::endl;
-#endif
 	impl->getMoleculePositions(state.updMoleculePos());
 	vector<Vec3>& moleculepos = state.updMoleculePos();
 	int m = 0;

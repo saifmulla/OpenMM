@@ -859,6 +859,8 @@ public:
     void setMoleculePI(const std::vector<Vec3>& moleculePI);
     void getMoleculePositions(std::vector<Vec3>& moleculePositions);
     void getMoleculeQ(std::vector<Tensor>& moleculeQ);
+    void setMomentOfInertia(std::vector<std::vector<Vec3> >& momentOfInertia);
+    void setMoleculeState(std::vector<std::vector<int> >& moleculeStatus);
     
 
 private:
@@ -872,14 +874,13 @@ private:
      * array of kernels in ascending order
      * 0 => 	velocityPositionUpdate
      * 1 => 	updateAcceleration
-     * 2 =>	updateTauPI
-     * 3 =>	move1
-     * 4 =>	move2
-     * 5 =>	move3
-     * 6 =>	setAtomPositions
-     * 7 => 	finalHalfvelocitiesUpdate
+     * 2 =>	move1
+     * 3 =>	move2
+     * 4 =>	move3
+     * 5 =>	setAtomPositions
+     * 6 => 	finalHalfvelocitiesUpdate
      */
-    cl::Kernel integration[8];
+    cl::Kernel integration[7];
     
     /*
      * the below variable would be initiliased only if molecular integration is requied
@@ -896,8 +897,11 @@ private:
     OpenCLArray<cl_int>* moleculeSize;
     OpenCLArray<cl_int>* moleculeStartIndex;
     OpenCLArray<mm_float4>* molPositions;
+    OpenCLArray<cl_ushort>* moleculeStatus;
     bool IsMolecular;
     bool isInitialised_;
+    //TODO: delete this variable in production
+    OpenCLArray<mm_float4>* testarray;
 };
 /**
  * This kernel is invoked by LangevinIntegrator to take one time step.

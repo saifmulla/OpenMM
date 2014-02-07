@@ -3328,6 +3328,10 @@ OpenCLIntegrateVelocityVerletStepKernel::~OpenCLIntegrateVelocityVerletStepKerne
 	delete molPositions;
     if(variableDelta!=NULL)
 	delete variableDelta;
+    if(moleculeStatus!=NULL)
+	delete moleculeStatus;
+    if(testarray != NULL)
+	delete testarray;
     
 }
 
@@ -3388,6 +3392,13 @@ void OpenCLIntegrateVelocityVerletStepKernel::setMoleculePI(const vector<Vec3>& 
 	moleculePI->upload();
 }
 
+void OpenCLIntegrateVelocityVerletStepKernel::setMomentOfInertia(std::vector<std::vector<Vec3> >& momentOfInertia){
+	
+}
+
+void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeState(std::vector<std::vector<int> >& moleculeState){
+	
+}
 void OpenCLIntegrateVelocityVerletStepKernel::getMoleculePositions(vector< Vec3 >& moleculePositions)
 {
     molPositions->download();
@@ -3451,6 +3462,8 @@ if(!isInitialised_)
     molPositions = NULL;
     IsMolecular = false;
     isInitialised_ = true;
+    moleculeStatus = NULL;
+    testarray = NULL;
     
     numMolecules = cl.getNumOfMolecules();
     numAtoms = cl.getNumAtoms();
@@ -3475,13 +3488,11 @@ if(!isInitialised_)
     //kernel2 = cl::Kernel(program, "velocityVerletPart2");
     if(IsMolecular){
         integration[1] = cl::Kernel(program, "updateAcceleration");
-        integration[2] = cl::Kernel(program, "updateTauPi");
-	integration[3] = cl::Kernel(program, "updateAfterMove1");
-	integration[4] = cl::Kernel(program, "updateAfterMove2");
-	integration[5] = cl::Kernel(program, "updateAfterMove3");
-//         kernelmoveupdate = cl::Kernel(program, "updateAfterMove");
-        integration[6] = cl::Kernel(program, "setAtomPositions");
-	integration[7] = cl::Kernel(program, "finalHalfVelocityUpdate");
+	integration[2] = cl::Kernel(program, "updateAfterMove1");
+	integration[3] = cl::Kernel(program, "updateAfterMove2");
+	integration[4] = cl::Kernel(program, "updateAfterMove3");
+        integration[5] = cl::Kernel(program, "setAtomPositions");
+	integration[6] = cl::Kernel(program, "finalHalfVelocityUpdate");
 	
         momentOfInertia = new OpenCLArray<mm_float4>(cl,1,"momentOfInertia",true);
         moleculePI = new OpenCLArray<mm_float4>(cl, cl.getNumOfMolecules(),"moleculePI",true);
@@ -3493,6 +3504,7 @@ if(!isInitialised_)
         moleculeQ2 = new OpenCLArray<mm_float4>(cl,cl.getNumOfMolecules(),"moleculeQ2",true);
         moleculeQ3 = new OpenCLArray<cl_float>(cl,cl.getNumOfMolecules(),"moleculeQ3",true);
 	molPositions = new OpenCLArray<mm_float4>(cl,cl.getNumOfMolecules(),"molPositions",true);
+	testarray = new OpenCLArray<mm_float4>(cl,cl.getNumAtoms(),"testarray",true);
 
         // assign relevant values to respective arrays
 
@@ -3540,21 +3552,16 @@ if(!isInitialised_)
 	integration[1].setArg<cl::Buffer>(8,acceleration->getDeviceBuffer());
 	integration[1].setArg<cl::Buffer>(9,moleculeTau->getDeviceBuffer());
 
-        //setting arguments for updateTauPi kernel
-        integration[2].setArg<cl::Buffer>(0, moleculePI->getDeviceBuffer());
-        integration[2].setArg<cl::Buffer>(1, moleculeTau->getDeviceBuffer());
-        integration[2].setArg<cl::Buffer>(2, momentOfInertia->getDeviceBuffer());
-        integration[2].setArg<cl::Buffer>(3, cl.getVelm().getDeviceBuffer());
-        integration[2].setArg<cl::Buffer>(4, deltaT->getDeviceBuffer());
-
-        //setting argument for updateAfterMove kernel
-//         kernelmoveupdate.setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
-//         kernelmoveupdate.setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
-//         kernelmoveupdate.setArg<cl::Buffer>(2, momentOfInertia->getDeviceBuffer());
-//         kernelmoveupdate.setArg<cl::Buffer>(3, moleculeQ1->getDeviceBuffer());
-//         kernelmoveupdate.setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
-//         kernelmoveupdate.setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
 	//setting arguments for move1
+	integration[2].setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
+        integration[2].setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
+        integration[2].setArg<cl::Buffer>(2, momentOfInertia->getDeviceBuffer());
+        integration[2].setArg<cl::Buffer>(3, moleculeQ1->getDeviceBuffer());
+        integration[2].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
+        integration[2].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
+	integration[2].setArg<cl::Buffer>(6, cl.getVelm().getDeviceBuffer());
+
+	//setting arguments for move part 2
 	integration[3].setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
         integration[3].setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
         integration[3].setArg<cl::Buffer>(2, momentOfInertia->getDeviceBuffer());
@@ -3562,8 +3569,8 @@ if(!isInitialised_)
         integration[3].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
         integration[3].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
 	integration[3].setArg<cl::Buffer>(6, cl.getVelm().getDeviceBuffer());
-
-	//setting arguments for move part 2
+	
+	//setting arguments for move part 3
 	integration[4].setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
         integration[4].setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
         integration[4].setArg<cl::Buffer>(2, momentOfInertia->getDeviceBuffer());
@@ -3571,33 +3578,25 @@ if(!isInitialised_)
         integration[4].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
         integration[4].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
 	integration[4].setArg<cl::Buffer>(6, cl.getVelm().getDeviceBuffer());
-	
-	//setting arguments for move part 3
-	integration[5].setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
-        integration[5].setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
-        integration[5].setArg<cl::Buffer>(2, momentOfInertia->getDeviceBuffer());
+	 // kernel set atom positions
+	integration[5].setArg<cl::Buffer>(0, cl.getVelm().getDeviceBuffer());
+	integration[5].setArg<cl::Buffer>(1, molPositions->getDeviceBuffer());
+	integration[5].setArg<cl::Buffer>(2, siteRefPos->getDeviceBuffer());       
         integration[5].setArg<cl::Buffer>(3, moleculeQ1->getDeviceBuffer());
         integration[5].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
         integration[5].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
-	integration[5].setArg<cl::Buffer>(6, cl.getVelm().getDeviceBuffer());
-	 // kernel set atom positions
-	integration[6].setArg<cl::Buffer>(0, cl.getVelm().getDeviceBuffer());
-	integration[6].setArg<cl::Buffer>(1, molPositions->getDeviceBuffer());
-	integration[6].setArg<cl::Buffer>(2, siteRefPos->getDeviceBuffer());       
-        integration[6].setArg<cl::Buffer>(3, moleculeQ1->getDeviceBuffer());
-        integration[6].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
-        integration[6].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
-	integration[6].setArg<cl::Buffer>(6, cl.getPosq().getDeviceBuffer());
-	integration[6].setArg<cl::Buffer>(7, cl.getMoleculeSize().getDeviceBuffer());
-	integration[6].setArg<cl::Buffer>(8, cl.getMoleculeStartIndex().getDeviceBuffer());
+	integration[5].setArg<cl::Buffer>(6, cl.getPosq().getDeviceBuffer());
+	integration[5].setArg<cl::Buffer>(7, cl.getMoleculeSize().getDeviceBuffer());
+	integration[5].setArg<cl::Buffer>(8, cl.getMoleculeStartIndex().getDeviceBuffer());
+	integration[5].setArg<cl::Buffer>(9, testarray->getDeviceBuffer());
 	
         
-	integration[7].setArg<cl::Buffer>(0, cl.getVelm().getDeviceBuffer());
-        integration[7].setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
-	integration[7].setArg<cl::Buffer>(2, moleculeTau->getDeviceBuffer());
-	integration[7].setArg<cl::Buffer>(3, acceleration->getDeviceBuffer());
-        integration[7].setArg<cl::Buffer>(4, momentOfInertia->getDeviceBuffer());
-        integration[7].setArg<cl::Buffer>(5, deltaT->getDeviceBuffer());
+	integration[6].setArg<cl::Buffer>(0, cl.getVelm().getDeviceBuffer());
+        integration[6].setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
+	integration[6].setArg<cl::Buffer>(2, moleculeTau->getDeviceBuffer());
+	integration[6].setArg<cl::Buffer>(3, acceleration->getDeviceBuffer());
+        integration[6].setArg<cl::Buffer>(4, momentOfInertia->getDeviceBuffer());
+        integration[6].setArg<cl::Buffer>(5, deltaT->getDeviceBuffer());
 	
     }
 
@@ -3617,52 +3616,58 @@ else{
 
 void OpenCLIntegrateVelocityVerletStepKernel::integrator1(ContextImpl& context) {
       cl.executeKernel(integration[0],cl.getNumOfMolecules());
-//       cl.executeKernel(integration[2],cl.getNumOfMolecules());
+      cl.executeKernel(integration[2],cl.getNumOfMolecules());
       cl.executeKernel(integration[3],cl.getNumOfMolecules());
       cl.executeKernel(integration[4],cl.getNumOfMolecules());
+      cl.executeKernel(integration[3],cl.getNumOfMolecules());
+      cl.executeKernel(integration[2],cl.getNumOfMolecules());
       cl.executeKernel(integration[5],cl.getNumOfMolecules());
-      cl.executeKernel(integration[4],cl.getNumOfMolecules());
-      cl.executeKernel(integration[3],cl.getNumOfMolecules());
-      cl.executeKernel(integration[6],cl.getNumOfMolecules());
+      
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::integrator2(ContextImpl& context)
 {
     cl.executeKernel(integration[1],cl.getNumOfMolecules());
-    cl.executeKernel(integration[7],cl.getNumOfMolecules());
+    cl.executeKernel(integration[6],cl.getNumOfMolecules());
     
-    acceleration->download();
-    moleculePI->download();
-    OpenCLArray<mm_float4>& forces = cl.getForce();
-    forces.download();
-    OpenCLArray<mm_float4>& velm = cl.getVelm();
-    velm.download();
+//     testarray->download();
+//     for(int j=0;j<cl.getNumAtoms();++j){
+// 	mm_float4& t = (*testarray)[j];
+// 	printf("%d => %3.8f,%3.8f,%3.8f,%3.8f\n",j,t.x,t.y,t.z,t.w);
+//     }
     
-    int i = 0;
-    int mol = 0;
-    while(i<cl.getNumOfMolecules()){
-	mm_float4 pi = (*moleculePI)[i];
-	mm_float4 acc = (*acceleration)[i];
-	mm_float4 v = velm[i];
-	
-	printf("PI => %3.8f\t%3.8f\t%3.8f\n",pi.x,pi.y,pi.z);
-	printf("ACC => %3.8f\t%3.8f\t%3.8f\n",acc.x,acc.y,acc.z);
-	printf("Vel => %3.8f\t%3.8f\t%3.8f\t%3.8f\n",v.x,v.y,v.z,v.w);
-
-	mm_float4 sumforce = mm_float4(0.0f,0.0f,0.0f,0.0f);
-	for(int k = 0;k<4;k++){
-	    mm_float4& f = forces[mol+k];
-	    sumforce.x += f.x;
-	    sumforce.y += f.y;
-	    sumforce.z += f.z;
-	    printf("SiteForce %d-%d=> %3.8f\t%3.8f\t%3.8f\n",
-			i,k,f.x,f.y,f.z);
-	}
-	printf("Force %d=> %3.8f\t%3.8f\t%3.8f\n",
-			i,sumforce.x,sumforce.y,sumforce.z);
-	mol+=4;
-	i++;
-    }
+//     acceleration->download();
+//     moleculePI->download();
+//     OpenCLArray<mm_float4>& forces = cl.getForce();
+//     forces.download();
+//     OpenCLArray<mm_float4>& velm = cl.getVelm();
+//     velm.download();
+//     
+//     int i = 0;
+//     int mol = 0;
+//     while(i<cl.getNumOfMolecules()){
+// 	mm_float4 pi = (*moleculePI)[i];
+// 	mm_float4 acc = (*acceleration)[i];
+// 	mm_float4 v = velm[i];
+// 	
+// 	printf("PI => %3.8f\t%3.8f\t%3.8f\n",pi.x,pi.y,pi.z);
+// 	printf("ACC => %3.8f\t%3.8f\t%3.8f\n",acc.x,acc.y,acc.z);
+// 	printf("Vel => %3.8f\t%3.8f\t%3.8f\t%3.8f\n",v.x,v.y,v.z,v.w);
+// 
+// 	mm_float4 sumforce = mm_float4(0.0f,0.0f,0.0f,0.0f);
+// 	for(int k = 0;k<4;k++){
+// 	    mm_float4& f = forces[mol+k];
+// 	    sumforce.x += f.x;
+// 	    sumforce.y += f.y;
+// 	    sumforce.z += f.z;
+// 	    printf("SiteForce %d-%d=> %3.8f\t%3.8f\t%3.8f\n",
+// 			i,k,f.x,f.y,f.z);
+// 	}
+// 	printf("Force %d=> %3.8f\t%3.8f\t%3.8f\n",
+// 			i,sumforce.x,sumforce.y,sumforce.z);
+// 	mol+=4;
+// 	i++;
+//     }
     // Update the time and step count.
     cl.setTime(cl.getTime()+dt);
     cl.setStepCount(cl.getStepCount()+1);
