@@ -3392,12 +3392,24 @@ void OpenCLIntegrateVelocityVerletStepKernel::setMoleculePI(const vector<Vec3>& 
 	moleculePI->upload();
 }
 
-void OpenCLIntegrateVelocityVerletStepKernel::setMomentOfInertia(std::vector<std::vector<Vec3> >& momentOfInertia){
-	
+void OpenCLIntegrateVelocityVerletStepKernel::setMomentOfInertia(const std::vector<Vec3>& inertia){
+    for(int i = 0;i < inertia.size();++i){
+          const Vec3& temp = inertia[i];
+          (*momentOfInertia)[i] = mm_float4(temp[0],temp[1],temp[2],0.0);
+      }
+      momentOfInertia->upload();
 }
 
-void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeState(std::vector<std::vector<int> >& moleculeState){
-	
+void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeState(const std::vector<std::vector<unsigned int> >& moleculeState){
+    for(int i = 0; i< moleculeState.size();++i){
+	const vector<unsigned int>& tempvec = moleculeState[i];
+        (*moleculeStatus)[i] = mm_ushort4((cl_ushort) moleculeState[i][0],
+					  (cl_ushort) moleculeState[i][1],
+					  (cl_ushort) moleculeState[i][2],
+					  (cl_ushort) moleculeState[i][3]);
+    }
+    
+    moleculeStatus->upload();
 }
 void OpenCLIntegrateVelocityVerletStepKernel::getMoleculePositions(vector< Vec3 >& moleculePositions)
 {
@@ -3505,15 +3517,6 @@ if(!isInitialised_)
         moleculeQ3 = new OpenCLArray<cl_float>(cl,cl.getNumOfMolecules(),"moleculeQ3",true);
 	molPositions = new OpenCLArray<mm_float4>(cl,cl.getNumOfMolecules(),"molPositions",true);
 	testarray = new OpenCLArray<mm_float4>(cl,cl.getNumAtoms(),"testarray",true);
-
-        // assign relevant values to respective arrays
-
-        int ii = 0;
-        while(ii<totalUniqueMolecules){
-        	Vec3 temp = system.getMomentOfInertia(ii);
-        	(*momentOfInertia)[ii] = mm_float4(temp[0],temp[1],temp[2],0.0);
-        	ii++;
-        }
     }
 
     dt = integrator.getStepSize();
@@ -3602,7 +3605,7 @@ if(!isInitialised_)
 
     deltaT->upload();
     variableDelta->upload();
-    momentOfInertia->upload();
+//     momentOfInertia->upload();
     cl.getMoleculeSize().upload();
     cl.getMoleculeStartIndex().upload();
     

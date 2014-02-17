@@ -95,6 +95,16 @@ struct mm_ushort2 {
     mm_ushort2(cl_ushort x, cl_ushort y) : x(x), y(y) {
     }
 };
+
+struct mm_ushort4{
+    cl_ushort x, y, z, w;
+    mm_ushort4(){
+    }
+    mm_ushort4(cl_ushort x, cl_ushort y, cl_ushort z, cl_ushort w) : x(x), y(y), z(z), w(w){
+    }
+};
+
+
 struct mm_int2 {
     cl_int x, y;
     mm_int2() {

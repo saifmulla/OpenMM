@@ -189,7 +189,11 @@ void ContextImpl::setMoleculeQ(const std::vector<Tensor>& moleculeQ){
 }
 
 void ContextImpl::setSiteRefPositions(const std::vector<Vec3>& siteRefPositions){
-    dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).setSiteRefPositions(*this,siteRefPositions);
+    Kernel& verletkernel = this->getIntegrator().getBaseKernel();
+    if(verletkernel.getName()!="IntegrateVelocityVerletStep")
+      throw OpenMMException("Called setMoleculeStatus on Integrator which is not of VelocityVerlet type!!!");
+    
+    dynamic_cast<IntegrateVelocityVerletStepKernel&>(verletkernel.getImpl()).setSiteRefPositions(siteRefPositions);
 }
 
 void ContextImpl::setMoleculePositions(const std::vector<Vec3>& moleculePositions){
@@ -216,6 +220,21 @@ void ContextImpl::getForces(std::vector<Vec3>& forces) {
     dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).getForces(*this, forces);
 }
 
+void ContextImpl::setMoleculeStatus(const std::vector<std::vector<unsigned int> >& moleculeStatus){
+    Kernel& verletkernel = this->getIntegrator().getBaseKernel();
+    if(verletkernel.getName()!="IntegrateVelocityVerletStep")
+      throw OpenMMException("Called setMoleculeStatus on Integrator which is not of VelocityVerlet type!!!");
+    
+    dynamic_cast<IntegrateVelocityVerletStepKernel&>(verletkernel.getImpl()).setMoleculeStatus(moleculeStatus);
+}
+
+void ContextImpl::setMomentOfInertia(const std::vector<Vec3>& momentOfInertia){
+    Kernel& verletkernel = this->getIntegrator().getBaseKernel();
+    if(verletkernel.getName()!="IntegrateVelocityVerletStep")
+      throw OpenMMException("Called setMomentOfInertia on Integrator which is not of VelocityVerlet type!!!");
+    
+    dynamic_cast<IntegrateVelocityVerletStepKernel&>(verletkernel.getImpl()).setMomentOfInertia(momentOfInertia);
+}
 const std::map<std::string, double>& ContextImpl::getParameters() const {
     return parameters;
 }

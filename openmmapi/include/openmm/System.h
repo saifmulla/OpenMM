@@ -235,43 +235,31 @@ public:
      */
     double getBoxVolume();
     
-	/**
- 	 * set the size of id which will be used to initialise the array for 
- 	 * momentOfInertia
- 	 */
-	void setNumberofIds(int size);
-	/**
-	 * get a pointer to moment of inertia
-	 * array
-	 */
-	Vec3 getMomentOfInertia(int index) const;
-	/**
-	 * set the value of isMolecular
-	 * 
-	 * TODO: this must be set internally just a matter of user interaction suspicion,
-	 * it would be helpfull if this function is called privately or the variable is set
-	 * internally
-	 */
-	void setIsMolecular(bool value){
-		isMolecular = value;
-	}
+    /**
+      * set the size of id which will be used to initialise the array for 
+      * momentOfInertia
+      */
+    void setNumberofIds(int size);
+    
+    /**
+      * set the value of isMolecular
+      * 
+      * TODO: this must be set internally just a matter of user interaction suspicion,
+      * it would be helpfull if this function is called privately or the variable is set
+      * internally
+      */
+    void setIsMolecular(bool value){
+	    isMolecular = value;
+    }
 
-	void addMomentofInertia(Vec3 value);
+    bool getIsMolecular() const;
 
-	bool getIsMolecular() const;
+    /**
+      * get number of unique molecules in the system
+      * from numberofIds variable
+      */
+    int getNumberofIds() const;
 
-	/**
-	 * get number of unique molecules in the system
-	 * from numberofIds variable
-	 */
-	int getNumberofIds() const;
-
-	/**
-	 * get size of momentOfInertia
-	 */
-	int getMomentofInertiaSize(){
-		return momentOfInertia.size();
-	}
 	
 private:
     class ConstraintInfo;
@@ -280,11 +268,6 @@ private:
     std::vector<ConstraintInfo> constraints;
     std::vector<Force*> forces;
     std::vector<VirtualSite*> virtualSites;
-	/**
- 	 * momentOfInertia variable is used to assign the values for each type of molecule
- 	 * therefore it is a dynamic
- 	 */
-    std::vector<Vec3> momentOfInertia;
     int numberOfIds;//number of different molecule types
     bool isMolecular;//determine if the simulation is molecular, default is false
 };

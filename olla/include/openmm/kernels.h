@@ -798,9 +798,12 @@ public:
     
     virtual void setMoleculePI(const std::vector<OpenMM::Vec3>& moleculePI) {};
     
-    virtual void setMomentOfInertia(const std::vector<std::vector<Vec3> >& momentOfInertia) {};
+    virtual void setMomentOfInertia(const std::vector<Vec3>& momentOfInertia) {};
     
     virtual void getMoleculePositions(std::vector<Vec3>& moleculePositions) {};
+    
+    virtual void setMoleculeStatus(const std::vector<std::vector<unsigned int> >& moleculeStatus) {};
+
 };
     
 /**

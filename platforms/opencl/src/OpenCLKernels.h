@@ -859,8 +859,8 @@ public:
     void setMoleculePI(const std::vector<Vec3>& moleculePI);
     void getMoleculePositions(std::vector<Vec3>& moleculePositions);
     void getMoleculeQ(std::vector<Tensor>& moleculeQ);
-    void setMomentOfInertia(std::vector<std::vector<Vec3> >& momentOfInertia);
-    void setMoleculeState(std::vector<std::vector<int> >& moleculeStatus);
+    void setMomentOfInertia(const std::vector<Vec3>& momentOfInertia);
+    void setMoleculeState(const std::vector<std::vector<unsigned int> >& moleculeStatus);
     
 
 private:
@@ -897,7 +897,7 @@ private:
     OpenCLArray<cl_int>* moleculeSize;
     OpenCLArray<cl_int>* moleculeStartIndex;
     OpenCLArray<mm_float4>* molPositions;
-    OpenCLArray<cl_ushort>* moleculeStatus;
+    OpenCLArray<mm_ushort4>* moleculeStatus;
     bool IsMolecular;
     bool isInitialised_;
     //TODO: delete this variable in production

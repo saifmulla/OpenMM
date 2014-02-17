@@ -128,7 +128,6 @@ double System::getBoxVolume(){
 
 void System::setNumberofIds(int size){
 	numberOfIds = size;
-//	momentOfInertia = new Vec3[numberOfIds];
 }
 
 bool System::getIsMolecular() const {
@@ -139,12 +138,5 @@ int System::getNumberofIds() const {
 	return numberOfIds;
 }
 
-void System::addMomentofInertia(Vec3 value){
-	momentOfInertia.push_back(value);
-}
-
-Vec3 System::getMomentOfInertia(int index) const{
-	return momentOfInertia[index];
-}
 
 
