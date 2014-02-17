@@ -206,9 +206,6 @@ void OpenCLUpdateStateDataKernel::setMoleculeQ(ContextImpl& context, const std::
 }
 
 void OpenCLUpdateStateDataKernel::setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions){
-	VelocityVerletIntegrator& integrator =
-					static_cast<VelocityVerletIntegrator&>(context.getIntegrator());
-	integrator.setSiteRefPositions(siteRefPositions);
 }
 
 void OpenCLUpdateStateDataKernel::setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions){

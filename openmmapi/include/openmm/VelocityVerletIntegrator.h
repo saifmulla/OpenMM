@@ -57,18 +57,9 @@ public:
      * @param steps   the number of time steps to take
      */
     void step(int steps);
-    /**
-	 * this function sets the molecular variable of integration
-	 * it just set the variable as true no moving back!!!
-	 */
-    void setMolecular();
-	
-    bool getMolecular() const;
 	
     void setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ);
     
-    void setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions);
-
     void setMoleculePositions(const std::vector<OpenMM::Vec3>& moleculePositions);
     
     void setMoleculePI(const std::vector<OpenMM::Vec3>& moleculePI);
@@ -96,15 +87,6 @@ private:
     Context* owner;
     Kernel kernel;
     bool firstTimeForce_;
-    /**
-	 * this variable here notifies if the simulation is molecular,
-	 * it pertains to OpenFOAM molecular function
-	 * it could only be set by explicitly invocation of the function.
-	 * nevertheless it will be used only with velocity verlet integrator
-	 */
-    //TODO: remove this variable and related functions if not required
-    bool isMolecular;
-
 };
 
 } // namespace OpenMM

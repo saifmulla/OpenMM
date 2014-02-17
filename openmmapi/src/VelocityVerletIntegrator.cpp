@@ -41,7 +41,7 @@ using std::string;
 using std::vector;
 
 VelocityVerletIntegrator::VelocityVerletIntegrator(double stepSize)
-: owner(NULL), firstTimeForce_(false), isMolecular(false)
+: owner(NULL), firstTimeForce_(false)
 {
     setStepSize(stepSize);
     setConstraintTolerance(1e-4);
@@ -104,20 +104,8 @@ void VelocityVerletIntegrator::step(int steps) {
     }
 }
 
-void VelocityVerletIntegrator::setMolecular(){
-	isMolecular = true;
-}
-
-bool VelocityVerletIntegrator::getMolecular() const {
-	return isMolecular;
-}
-
 void VelocityVerletIntegrator::setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ){
 	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).setMoleculeQ(moleculeQ);
-}
-
-void VelocityVerletIntegrator::setSiteRefPositions(const std::vector<OpenMM::Vec3>& siteRefPositions){
-	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).setSiteRefPositions(siteRefPositions);
 }
 
 void VelocityVerletIntegrator::setMoleculePositions(const std::vector<OpenMM::Vec3>& moleculePositions){

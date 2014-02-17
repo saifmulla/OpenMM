@@ -64,7 +64,6 @@
 #include <set>
 #include <string>
 #include <vector>
-#include <../cuda-5.0/include/CL/cl_platform.h>
 
 namespace OpenMM {
 
