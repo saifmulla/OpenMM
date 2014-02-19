@@ -200,6 +200,12 @@ public:
      * @param moleculePI vector of Vec3 type
      */
     void setMoleculePI(const std::vector<Vec3>& moleculePI);
+    
+    /**
+     * set MomentOfInertia of each molecule of type Vec3
+     * @param momentOfInertia vector<Vec3>
+     */
+     void setMomentOfInertia(const std::vector<Vec3>& momentOfInertia);
     /**
      * Get the value of an adjustable parameter defined by a Force object in the System.
      * 

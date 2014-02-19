@@ -234,6 +234,11 @@ void Context::setMoleculePI(const vector<Vec3>& moleculePI){
     //inside System class
     impl->setMoleculePI(moleculePI);
 }
+
+void Context::setMomentOfInertia(const std::vector<Vec3>& momentOfInertia){
+    impl->setMomentOfInertia(momentOfInertia);
+}
+
 double Context::getParameter(const string& name) {
     return impl->getParameter(name);
 }
