@@ -2,7 +2,12 @@
 #pragma OPENCL EXTENSION cl_khr_fp64 : enable
 #endif
 /**
- * Perform the first step of velocity verlet integration.
+ * velocity verlet 
+ * this code solves velocity verlet equation for multiscale methods
+ * it is an attempt to keep code generic for N size of molecules
+ * the previous version of code was implemented for monotomic molecules
+ * with single atom and accordingly optimisations were made however this
+ * code attempts to accept N atoms on each molecules
  */
  
 /**
@@ -46,9 +51,27 @@
  	------------------------------------------
  	double4	=> cos(phi), -sin(phi), sin(phi), cos(phi)
  	double => 1
+* similarly the other rotation tensors Y & Z are represennted
+*
+*
+**
+* moleculeQ is a actually a tensor however in this context
+* it is represented as two float4 or double4 vectors and 1 float/double
+*
+* subsequently they are represented as
+* q0,q1,q2,q3 => q1.x,q1.y,q1.z,q1.w
+* q4,q5,q6,q7 => q2.x,q2.y,q2.z,q2.w
+* q8 => q3
+*
  ******************************************************
 */
 
+/**
+ * update the first half of velocity which essentially solves the first
+ * part of velocity verlet equation
+ * this requires tau and acceleration calculated before hand in first step 
+ * of simulation and certainly in all steps when new forces are calculated
+ */
 __kernel void velocityPositionUpdate(__global const float* restrict deltaT,
 				__global const float4* restrict acceleration, 
 				__global float4* restrict moleculePos,
@@ -95,13 +118,12 @@ __kernel void velocityPositionUpdate(__global const float* restrict deltaT,
 	
 }//end kernel velocityPositionUpdate
 				
- /* velocity verlet utility functions */
-
 
 /**
  * calculate acceleration
- * this kernel calculates or updates acceleration and if molecular integration
- * is enabled then it also updates tau
+ * this kernel calculates in molecular integration, generally this is calculated 
+ * when new forces are caculated
+ * TODO: enable checks in case of simple monotomic simulation which would not require TAU
  */
 
 __kernel void updateAcceleration(__global const float4* restrict forces,
@@ -177,13 +199,10 @@ __kernel void updateAcceleration(__global const float4* restrict forces,
     
 }//end of update acceleration kernel
 
-/**
- * linear molecule check
- */
 
 /**
  * update after move
- * TODO: also check for molecule which is frozen
+ * this functionality is invoked in three phases, due to elongated kernels,
  */
 
 __kernel void updateAfterMove1(__global const float* restrict deltaT,
@@ -210,9 +229,11 @@ __kernel void updateAfterMove1(__global const float* restrict deltaT,
 	  double4 pi = convert_double4(moleculePI[index]);
 	  double4 Rx = (double4) (0.0,0.0,0.0,0.0);
 
+	//calculating rotationTensorX
 	  double phi = (deltaTime * pi.x)/inertia.x;
 	  Rx = (double4) (cos(phi),-(sin(phi)),sin(phi),cos(phi)); 
 
+	//inner prodcut of tensor and vector but in this case tensor is represented as vector
 	  double rx = pi.x*1.0;
 	  double ry = pi.y*Rx.x;
 	  ry += pi.z*Rx.y;
@@ -220,6 +241,7 @@ __kernel void updateAfterMove1(__global const float* restrict deltaT,
 	  rz += pi.z*Rx.w;
 	  //assign new pi value
 	  pi = (double4) (rx,ry,rz,0.0);
+
 	  //inner product vector . tensor
 	  //first xyz vector of tensor
 	  double xx = q1.x*1.0;
@@ -462,7 +484,10 @@ __kernel void setAtomPositions(__global const float4* restrict velocities,
     
 }//end setAtomPositions
 
-
+/**
+ * final step of molecular integration where velocities are updated
+ * this essentially solves the second half of velocity verlet equation
+*/
 __kernel void finalHalfVelocityUpdate(
 				__global float4* restrict velocities,
 				__global float4* restrict moleculePI,
@@ -505,16 +530,4 @@ __kernel void finalHalfVelocityUpdate(
 		index += get_global_size(0);
 	}//end while 
 }//end final half velocity kernel 
-/**
- * Perform the second step of velocity verlet integration.
- */
-
-
-
-
-
-
-
-
-
 	

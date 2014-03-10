@@ -3,7 +3,10 @@
 #endif
 /**
  * binProperties
- * this file consists of kernel code for binproperties kernel 
+ * this kernel implements calculating thermodynamic properties of simulation
+ * inside bins, the values calculated are momentum, kinetic energy and number of molecules
+ * momentum and kinetic energy are stored inside float4 array with first three components 
+ * for mommentum and fourth for KE 
  */
 
 __kernel void binproperties(int numAtoms,

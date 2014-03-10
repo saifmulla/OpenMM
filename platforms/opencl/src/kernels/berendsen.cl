@@ -1,7 +1,14 @@
 
 /**
- * @todo: replace the preprocessor with dynamic values
- * using compiler prefix inside opencl
+ * Implementation of Berendsen thermostat on GPU
+ * it is implemented considering monotomic simulations
+ * where size of molecule is single atom.
+ * This file contains two different implementation 
+ * of berendsen thermostat firsly it is simple berendsen
+ * thermostat in whole zone and secondly thermostating
+ * in bins of domain which accepts N bins.
+ * TODO: replace preprocessor with dynamic values
+ * using compiler flags inside opencl
  */
 #pragma OPENCL EXTENSION cl_khr_fp64 : enable
 
@@ -15,7 +22,11 @@ __kernel void makeZeros(__global float4* restrict glMomentum,int N)
 		gid += get_global_size(0);
 	}
 }
-				
+		
+/**
+ * calculating momentum in bins
+ */
+
 __kernel void binMomentum(
                           __global const float4* restrict velm,
                           __global const float4* restrict posq,
@@ -46,6 +57,10 @@ __kernel void binMomentum(
 		gid += get_global_size(0);
 	}			
 }
+
+/**
+ * calculating kinetic energy in bins using momentum in bins
+ */
 
 __kernel void calculatebinke(__global const float4* restrict velm,
                              __global const float4* restrict posq,
@@ -110,8 +125,15 @@ __kernel void updateVelocitiesInBins(__global const float4* restrict posq,
 
 /**
  * berendsen thermostat kernel
- * this file implements the OpenCL-gpu version
- * of the berendsen thermostat
+ * this file implements gpu version
+ * of berendsen thermostat
+ * 1. kernel berendsen1 caclulates momentum of simulation for 
+ * full domain
+ *
+ * 2. kernel calculateKEDOF calculates kinetic energy of full domain.
+ *
+ * 3. kernel updateVelocities updates velocities for each molecule in the 
+ * system. 
  */
 
 __kernel void berendsen1(int numAtoms,

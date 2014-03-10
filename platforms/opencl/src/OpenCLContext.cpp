@@ -232,7 +232,8 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
         moleculeSize = NULL;
         moleculeStartIndex = NULL;
         moleculeIndex = NULL;
-        
+        molNewIndex = NULL;
+	molOldIndex = NULL;
     }
     catch (cl::Error err) {
         std::stringstream str;
@@ -309,6 +310,10 @@ OpenCLContext::~OpenCLContext() {
         delete moleculeSize;
     if (moleculeStartIndex != NULL)
         delete moleculeStartIndex;
+    if (molNewIndex != NULL)
+	delete molNewIndex;
+    if (molOldIndex != NULL)
+	delete molOldIndex;
     
 }
 
@@ -992,7 +997,14 @@ void OpenCLContext::reorderAtoms() {
 
         // Reorder the atoms.
 
+	/**
+ 	 * resize the newindex and oldindex arrays by number of molecules
+ 	 * essentially these arrays will be used to reorder the index of 
+ 	 * velocities, moleculePositions, pi and Q for molecular Integration
+ 	 * on Velocity Verlet Integrator
+ 	 */
         for (int i = 0; i < numMolecules; i++) {
+	    
             for (int j = 0; j < (int)atoms.size(); j++) {
                 int oldIndex = mol.instances[molBins[i].second]+atoms[j];
                 int newIndex = mol.instances[i]+atoms[j];
