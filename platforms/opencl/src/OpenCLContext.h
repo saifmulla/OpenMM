@@ -549,7 +549,7 @@ public:
     std::vector<int>& getMolNewIndex(){
 	return molNewIndex;
     }
-    
+
 private:
     struct Molecule;
     struct MoleculeGroup;
