@@ -337,6 +337,7 @@ void OpenCLContext::initialize(const System& system) {
     energyBuffer = new OpenCLArray<cl_float>(*this, max(numThreadBlocks*ThreadBlockSize, nonbonded->getNumEnergyBuffers()), "energyBuffer", true);
     addAutoclearBuffer(energyBuffer->getDeviceBuffer(), energyBuffer->getSize());
     atomIndex = new OpenCLArray<cl_int>(*this, paddedNumAtoms, "atomIndex", true);
+    
     for (int i = 0; i < paddedNumAtoms; ++i)
         (*atomIndex)[i] = i;
     atomIndex->upload();
@@ -684,6 +685,15 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
     
     //determine if the simulation is molecular
     isMolecular = (bool) numAtoms != numMolecules;
+    /**
+     * assign size equal to number of molecules to the oldIndex and new index arrays
+     * so that that could be used to reorder variables in molecular integration
+     */
+#ifdef DEBUG
+  printf("Is molecular %d and number of molecules %d\n",isMolecular,numMolecules);
+#endif
+    molOldIndex.resize(numMolecules);
+    molNewIndex.resize(numMolecules);
     
 #ifdef DEBUG
     printf("Number of Molecules %d and atoms %d",numOfMolecules,numAtoms);
@@ -699,6 +709,7 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
     int startIndex = 0;
     
     /**
+     * @author: Saif Mulla
      * over here we loop through each molecule to determine,
      * the molecule index of each atom
      * size of each molecule
@@ -993,6 +1004,8 @@ void OpenCLContext::reorderAtoms() {
         // Reorder the atoms.
 
         for (int i = 0; i < numMolecules; i++) {
+	    molOldIndex[i] = mol.instances[molBins[i].second] / (int) atoms.size();
+	    molNewIndex[i] = mol.instances[i] / (int) atoms.size();
             for (int j = 0; j < (int)atoms.size(); j++) {
                 int oldIndex = mol.instances[molBins[i].second]+atoms[j];
                 int newIndex = mol.instances[i]+atoms[j];
@@ -1002,6 +1015,7 @@ void OpenCLContext::reorderAtoms() {
                 newCellOffsets[newIndex] = posCellOffsets[oldIndex];
             }
         }
+        
     }
 
     // Update the streams.
@@ -1015,6 +1029,7 @@ void OpenCLContext::reorderAtoms() {
     posq->upload();
     velm->upload();
     atomIndex->upload();
+    
     for (int i = 0; i < (int) reorderListeners.size(); i++)
         reorderListeners[i]->execute();
 }

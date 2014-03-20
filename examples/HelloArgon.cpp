@@ -10,7 +10,7 @@
 // A multi-frame PDB file is written to stdout which  can be read by VMD or 
 // other visualization tool to produce an animation of the resulting trajectory.
 // -----------------------------------------------------------------------------
-
+#include<iostream>
 #include "OpenMM.h"
 #include <cstdio>
 
@@ -21,8 +21,17 @@ void writePdbFrame(int frameNum, const OpenMM::State&);
 void simulateArgon()
 {
     // Load any shared libraries containing GPU implementations.
-    OpenMM::Platform::loadPluginsFromDirectory(
-        OpenMM::Platform::getDefaultPluginsDirectory());
+    OpenMM::Platform::loadPluginsFromDirectory(Platform::getDefaultPluginsDirectory());
+    int numPlatforms = Platform::getNumPlatforms();
+    std::cout<<numPlatforms<<" OMM platforms found on this system"<<std::endl;
+    for(int i=0;i<numPlatforms;i++)
+    {	
+	Platform& tempPlatform = OpenMM::Platform::getPlatform(i);
+	std::string tempPlatformName = tempPlatform.getName();
+	std::cout << "Platform " << i << 
+	" is " << tempPlatformName.c_str() << std::endl;
+    }
+    std::cout<<"==================================\n"<<std::endl;
 
     // Create a system with nonbonded forces.
     OpenMM::System system;

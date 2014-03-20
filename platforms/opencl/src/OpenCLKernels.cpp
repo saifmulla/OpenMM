@@ -3296,6 +3296,46 @@ void OpenCLIntegrateVerletStepKernel::execute(ContextImpl& context, const Verlet
  * on 6th Nov 2012
  */
 
+/**
+ * reorder listener for velocity verlet integrator
+ * this order lister is implemented to handle reorder event when atoms are reordered inside OpenCLContext
+ * on execute MoleculePositions, molecule Velocities, moleculePI, moleculeQ is reordered using the 
+ * molNewIndex and molOldIndex array
+ */
+
+class OpenCLIntegrateVelocityVerletStepKernel::ReorderListener : public OpenCLContext::ReorderListener {
+public:
+    ReorderListener(OpenCLContext& cl,OpenCLIntegrateVelocityVerletStepKernel& velverlet,int nummolecules)
+    :cl_(cl),velVerlet_(velverlet),numMolecules_(nummolecules),firstTime_(true){
+	numMolecules_ = cl.getNumOfMolecules();
+	std::cout << "Reorderlistener Velocity verlet "<<numMolecules_<<std::endl;
+    }
+    
+    /**
+     * execute is the implementation of abstract virtual function of reorderListener
+     */
+    void execute()
+    {
+	std::vector<int>& newIndex = cl_.getMolNewIndex();
+	std::vector<int>& oldIndex = cl_.getMolOldIndex();
+	
+	/**
+	 * check if reorder is called at the beginning of the simulation
+	 * if it does then download isn't required or else it is after
+	 * that, therefore check if first time is done.
+	 */
+	if(firstTime_){
+	    velVerlet_.reorderMoleculePI(newIndex,oldIndex,numMolecules_,firstTime_);
+	}
+    }//end execute
+    
+private:
+    OpenCLContext& cl_;
+    OpenCLIntegrateVelocityVerletStepKernel& velVerlet_;
+    bool firstTime_;
+    int numMolecules_;
+};
+
 OpenCLIntegrateVelocityVerletStepKernel::~OpenCLIntegrateVelocityVerletStepKernel() {
     if(deltaT!=NULL)
         delete deltaT;
@@ -3330,6 +3370,29 @@ OpenCLIntegrateVelocityVerletStepKernel::~OpenCLIntegrateVelocityVerletStepKerne
     if(testarray != NULL)
 	delete testarray;
     
+}
+
+void OpenCLIntegrateVelocityVerletStepKernel::reorderMoleculePI(const vector< int >& newIndex, 
+							    const vector< int >& oldIndex,
+							    int numMolecules,
+							    bool isFirstTime
+ 							      )
+{
+    std::vector<mm_float4> tempmolpi(numMolecules);
+    printf("reorder listner velocities verlet\n");
+    /**
+     * download the array if reordering is already done or else
+     * if its at the beginning of simualation then simply use the CPU copy
+     */
+//     if(!isFirstTime)
+// 	moleculePI->download();
+//     
+//     for(int i = 0; i< numMolecules; ++i){
+// 	const mm_float4& temp = (*moleculePI)[oldIndex[i]];
+// 	tempmolpi[i] = temp;
+//     }
+//     
+//     moleculePI->upload(tempmolpi);
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeQ(const std::vector<Tensor>& moleculeQ){
@@ -3491,6 +3554,9 @@ if(!isInitialised_)
     }
 
 
+    //add reorder listener to the class
+//     cl.addReorderListener(new ReorderListener(cl,*this,numMolecules));
+    
     cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet,defines,"");
     integration[0] = cl::Kernel(program, "velocityPositionUpdate");
 

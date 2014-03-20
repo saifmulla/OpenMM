@@ -541,6 +541,15 @@ public:
     OpenCLArray<cl_int>& getMoleculeIndex(){
         return *moleculeIndex;
     }
+    
+    std::vector<int>& getMolOldIndex(){
+	return molOldIndex;
+    }
+    
+    std::vector<int>& getMolNewIndex(){
+	return molNewIndex;
+    }
+    
 private:
     struct Molecule;
     struct MoleculeGroup;
@@ -607,6 +616,8 @@ private:
     OpenCLArray<cl_int>* moleculeStartIndex;//make a starting index for that molecule
     OpenCLArray<cl_int>* moleculeIndex;
     bool isMolecular;
+    std::vector<int> molOldIndex;
+    std::vector<int> molNewIndex;
 };
 
 struct OpenCLContext::MoleculeGroup {

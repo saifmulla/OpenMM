@@ -864,6 +864,8 @@ public:
     
 
 private:
+    class ReorderListener;
+    friend class ReorderListener;
     OpenCLContext& cl;
     OpenCLArray<cl_float>* deltaT;
     OpenCLArray<cl_float>* variableDelta;
@@ -902,6 +904,13 @@ private:
     bool isInitialised_;
     //TODO: delete this variable in production
     OpenCLArray<mm_float4>* testarray;
+    
+   // private functions for reordering
+    void reorderMoleculePI(const std::vector<int>& newIndex, 
+			   const std::vector<int>& oldIndex,
+			   int numMolecules,
+			   bool isFirstTime
+			  );
 };
 /**
  * This kernel is invoked by LangevinIntegrator to take one time step.
