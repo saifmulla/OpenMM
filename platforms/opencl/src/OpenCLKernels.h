@@ -861,7 +861,10 @@ public:
     void getMoleculeQ(std::vector<Tensor>& moleculeQ);
     void setMomentOfInertia(const std::vector<Vec3>& momentOfInertia);
     void setMoleculeState(const std::vector<std::vector<unsigned int> >& moleculeStatus);
-    
+    /**
+     * virtual implementation from the kernels class
+     */
+    void initialStep(const ContextImpl& impl);
 
 private:
     class ReorderListener;
@@ -901,7 +904,6 @@ private:
     OpenCLArray<mm_float4>* molPositions;
     OpenCLArray<mm_ushort4>* moleculeStatus;
     bool IsMolecular;
-    bool isInitialised_;
     //TODO: delete this variable in production
     OpenCLArray<mm_float4>* testarray;
     

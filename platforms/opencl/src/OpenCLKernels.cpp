@@ -3507,17 +3507,14 @@ void OpenCLIntegrateVelocityVerletStepKernel::getMoleculeQ(std::vector<Tensor>& 
    }
 }
 
+void OpenCLIntegrateVelocityVerletStepKernel::initialStep(const ContextImpl& impl)
+{
+    cl.executeKernel(integration[1],cl.getNumOfMolecules());
+}
+
 void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, const VelocityVerletIntegrator& integrator) {
 
-/**
- * check if isInitialised set
- * if not set for the first time do all initialisation part
- * further if this function called the if part isn't called
- */
-
-if(!isInitialised_)
-{
-	//initialise all member variable to NULL pointer
+//initialise all member variable to NULL pointer
     deltaT = NULL;
     variableDelta = NULL;
     moleculeTau = NULL;
@@ -3533,7 +3530,6 @@ if(!isInitialised_)
     acceleration = NULL;
     molPositions = NULL;
     IsMolecular = false;
-    isInitialised_ = true;
     moleculeStatus = NULL;
     testarray = NULL;
     
@@ -3555,7 +3551,7 @@ if(!isInitialised_)
 
 
     //add reorder listener to the class
-//     cl.addReorderListener(new ReorderListener(cl,*this,numMolecules));
+    cl.addReorderListener(new ReorderListener(cl,*this,numMolecules));
     
     cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet,defines,"");
     integration[0] = cl::Kernel(program, "velocityPositionUpdate");
@@ -3664,36 +3660,39 @@ if(!isInitialised_)
         integration[6].setArg<cl::Buffer>(4, momentOfInertia->getDeviceBuffer());
         integration[6].setArg<cl::Buffer>(5, deltaT->getDeviceBuffer());
 	
-    }
+    }//end ismolecular check
 
     deltaT->upload();
     variableDelta->upload();
 //     momentOfInertia->upload();
     cl.getMoleculeSize().upload();
     cl.getMoleculeStartIndex().upload();
-    
-}
-else{
-	cl.executeKernel(integration[1],cl.getNumOfMolecules());
-}//end else for isInitialised
-
-
+   
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::integrator1(ContextImpl& context) {
+      //invoke velocityPositionUpdate
       cl.executeKernel(integration[0],cl.getNumOfMolecules());
+      //invoke move1
       cl.executeKernel(integration[2],cl.getNumOfMolecules());
+      //invoke move2 
       cl.executeKernel(integration[3],cl.getNumOfMolecules());
+      //invoke move3
       cl.executeKernel(integration[4],cl.getNumOfMolecules());
+      //invoke move2
       cl.executeKernel(integration[3],cl.getNumOfMolecules());
+      //invoke move1
       cl.executeKernel(integration[2],cl.getNumOfMolecules());
+      //invoke setAtomPositions
       cl.executeKernel(integration[5],cl.getNumOfMolecules());
       
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::integrator2(ContextImpl& context)
 {
+    //invoke updateAcceleration
     cl.executeKernel(integration[1],cl.getNumOfMolecules());
+    //invoke finalHalfVelocityUpdate
     cl.executeKernel(integration[6],cl.getNumOfMolecules());
     
 //     testarray->download();

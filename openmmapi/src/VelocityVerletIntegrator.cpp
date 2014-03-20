@@ -74,7 +74,7 @@ void VelocityVerletIntegrator::step(int steps) {
     
     if (!firstTimeForce_) {
         context->calcForcesAndEnergy(true,false);
-    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).initialize(owner->getSystem(), *this);
+	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).initialStep(*context);
         firstTimeForce_ = true;
     }
 

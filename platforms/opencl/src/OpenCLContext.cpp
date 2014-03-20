@@ -232,8 +232,8 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
         moleculeSize = NULL;
         moleculeStartIndex = NULL;
         moleculeIndex = NULL;
-        molNewIndex = NULL;
-	molOldIndex = NULL;
+//         molNewIndex = NULL;
+// 	molOldIndex = NULL;
     }
     catch (cl::Error err) {
         std::stringstream str;
@@ -310,10 +310,10 @@ OpenCLContext::~OpenCLContext() {
         delete moleculeSize;
     if (moleculeStartIndex != NULL)
         delete moleculeStartIndex;
-    if (molNewIndex != NULL)
-	delete molNewIndex;
-    if (molOldIndex != NULL)
-	delete molOldIndex;
+//     if (molNewIndex != NULL)
+// 	delete molNewIndex;
+//     if (molOldIndex != NULL)
+// 	delete molOldIndex;
     
 }
 

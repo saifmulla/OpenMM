@@ -802,6 +802,14 @@ public:
     virtual void getMoleculePositions(std::vector<Vec3>& moleculePositions) {};
     
     virtual void setMoleculeStatus(const std::vector<std::vector<unsigned int> >& moleculeStatus) {};
+    
+    /**
+     * an virtual function to accomodate invocation of all the functions to be 
+     * invoked as part of initial configuration of integration
+     * these are functionality which could not be accomodated inside initialize 
+     * function due to avoiding runtime errors
+     */
+    virtual void initialStep(const ContextImpl& context) {};
 
 };
     
