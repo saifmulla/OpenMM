@@ -3324,9 +3324,10 @@ public:
 	 * if it does then download isn't required or else it is after
 	 * that, therefore check if first time is done.
 	 */
-	if(firstTime_){
-	    velVerlet_.reorderMoleculePI(newIndex,oldIndex,numMolecules_,firstTime_);
-	}
+// 	if(firstTime_){
+	velVerlet_.reorderMolecularData(newIndex,oldIndex,numMolecules_,firstTime_);
+	firstTime_ = false;
+// 	}
     }//end execute
     
 private:
@@ -3372,27 +3373,50 @@ OpenCLIntegrateVelocityVerletStepKernel::~OpenCLIntegrateVelocityVerletStepKerne
     
 }
 
-void OpenCLIntegrateVelocityVerletStepKernel::reorderMoleculePI(const vector< int >& newIndex, 
+void OpenCLIntegrateVelocityVerletStepKernel::reorderMolecularData(const vector< int >& newIndex, 
 							    const vector< int >& oldIndex,
 							    int numMolecules,
 							    bool isFirstTime
  							      )
 {
     std::vector<mm_float4> tempmolpi(numMolecules);
-    printf("reorder listner velocities verlet\n");
+    std::vector<mm_float4> q1(numMolecules);
+    std::vector<mm_float4> q2(numMolecules);
+    std::vector<cl_float> q3(numMolecules);
+    std::vector<mm_float4> molpos(numMolecules);
+    OpenCLArray<mm_float4>& velm = cl.getVelm();
+    velm.download();
     /**
      * download the array if reordering is already done or else
      * if its at the beginning of simualation then simply use the CPU copy
      */
-//     if(!isFirstTime)
-// 	moleculePI->download();
-//     
-//     for(int i = 0; i< numMolecules; ++i){
-// 	const mm_float4& temp = (*moleculePI)[oldIndex[i]];
-// 	tempmolpi[i] = temp;
-//     }
-//     
-//     moleculePI->upload(tempmolpi);
+    if(!isFirstTime){
+	moleculePI->download();
+	moleculeQ1->download();
+	moleculeQ2->download();
+	moleculeQ3->download();
+	molPositions->download();
+    }
+    
+    for(int i = 0; i< numMolecules; ++i){
+	mm_float4& temp = (*moleculePI)[oldIndex[i]];
+	tempmolpi[i] = temp;
+	temp = (*moleculeQ1)[oldIndex[i]];
+	q1[i] = temp;
+	temp = (*moleculeQ2)[oldIndex[i]];
+	q2[i] = temp;
+	const cl_float temp2 = (*moleculeQ3)[oldIndex[i]];
+	q3[i] = temp2;
+	temp = (*molPositions)[oldIndex[i]];
+	molpos[i] = temp;
+	temp = velm[i];
+    }
+    
+    moleculePI->upload(tempmolpi);
+    moleculeQ1->upload(q1);
+    moleculeQ2->upload(q2);
+    moleculeQ3->upload(q3);
+    molPositions->upload(molpos);
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeQ(const std::vector<Tensor>& moleculeQ){

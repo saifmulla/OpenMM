@@ -908,7 +908,7 @@ private:
     OpenCLArray<mm_float4>* testarray;
     
    // private functions for reordering
-    void reorderMoleculePI(const std::vector<int>& newIndex, 
+    void reorderMolecularData(const std::vector<int>& newIndex, 
 			   const std::vector<int>& oldIndex,
 			   int numMolecules,
 			   bool isFirstTime

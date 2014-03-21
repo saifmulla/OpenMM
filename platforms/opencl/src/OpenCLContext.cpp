@@ -691,12 +691,10 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
     //determine if the simulation is molecular
     isMolecular = (bool) numAtoms != numMolecules;
     /**
-     * assign size equal to number of molecules to the oldIndex and new index arrays
-     * so that that could be used to reorder variables in molecular integration
+     * assign size equal to number of molecules to the oldIndex and newIndex arrays
+     * so that they could be used to reorder arrays in molecular integration
      */
-#ifdef DEBUG
-  printf("Is molecular %d and number of molecules %d\n",isMolecular,numMolecules);
-#endif
+
     molOldIndex.resize(numMolecules);
     molNewIndex.resize(numMolecules);
     
@@ -1017,13 +1015,13 @@ void OpenCLContext::reorderAtoms() {
         for (int i = 0; i < numMolecules; i++) {
 	    molOldIndex[i] = mol.instances[molBins[i].second] / (int) atoms.size();
 	    molNewIndex[i] = mol.instances[i] / (int) atoms.size();
-
+	    newVelm[molNewIndex[i]] = velm->get(molOldIndex[i]);
             for (int j = 0; j < (int)atoms.size(); j++) {
                 int oldIndex = mol.instances[molBins[i].second]+atoms[j];
                 int newIndex = mol.instances[i]+atoms[j];
                 originalIndex[newIndex] = atomIndex->get(oldIndex);
                 newPosq[newIndex] = posq->get(oldIndex);
-                newVelm[newIndex] = velm->get(oldIndex);
+//                 newVelm[newIndex] = velm->get(oldIndex);
                 newCellOffsets[newIndex] = posCellOffsets[oldIndex];
             }
         }
