@@ -259,6 +259,13 @@ public:
     std::vector<mm_int4>& getPosCellOffsets() {
         return posCellOffsets;
     }
+    
+    /**
+     * Get the number of cells by which the molecular positions are offset
+     */
+    std::vector<mm_int4>& getMolPosCellOffSets(){
+	return molPosCellOffSets;
+    }
     /**
      * Load OpenCL source code from a file in the kernels directory.
      */
@@ -618,6 +625,7 @@ private:
     bool isMolecular;
     std::vector<int> molOldIndex;
     std::vector<int> molNewIndex;
+    std::vector<mm_int4> molPosCellOffSets;
 };
 
 struct OpenCLContext::MoleculeGroup {

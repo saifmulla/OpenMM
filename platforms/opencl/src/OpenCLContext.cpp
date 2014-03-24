@@ -219,6 +219,7 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
         posq = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "posq", true);
         velm = new OpenCLArray<mm_float4>(*this, paddedNumAtoms, "velm", true);
         posCellOffsets.resize(paddedNumAtoms, mm_int4(0, 0, 0, 0));
+	
         /*
          * initially set virial related arrays to NULL
          * this will help to avoid segfalt at runtime garbage
@@ -310,11 +311,6 @@ OpenCLContext::~OpenCLContext() {
         delete moleculeSize;
     if (moleculeStartIndex != NULL)
         delete moleculeStartIndex;
-//     if (molNewIndex != NULL)
-// 	delete molNewIndex;
-//     if (molOldIndex != NULL)
-// 	delete molOldIndex;
-    
 }
 
 void OpenCLContext::initialize(const System& system) {
@@ -691,12 +687,17 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
     //determine if the simulation is molecular
     isMolecular = (bool) numAtoms != numMolecules;
     /**
+	 * if the system is set molecular then also initialise
+	 * molecular cell offsets
+	 */
+    molPosCellOffSets.resize(numOfMolecules,mm_int4(0,0,0,0));
+    /**
      * assign size equal to number of molecules to the oldIndex and newIndex arrays
      * so that they could be used to reorder arrays in molecular integration
      */
 
-    molOldIndex.resize(numMolecules);
-    molNewIndex.resize(numMolecules);
+    molOldIndex.resize(numMolecules,-1);
+    molNewIndex.resize(numMolecules,-1);
     
 #ifdef DEBUG
     printf("Number of Molecules %d and atoms %d",numOfMolecules,numAtoms);
@@ -723,10 +724,10 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
 //TODO: add molecular check in this section of code     
     while (mm<numOfMolecules) {
         int molsize = atomIndices[mm].size();
-   	    
+   	(*moleculeIndex)[mm] = mm;    
 	double sumMass = 0.0; 
         for (int index = 0; index < molsize; ++index) {
-            (*moleculeIndex)[startIndex+index] = mm;
+//             (*moleculeIndex)[startIndex+index] = mm;
 	    const double mass = system.getParticleMass(startIndex+index);
 	    sumMass += mass;
         }
@@ -1012,9 +1013,13 @@ void OpenCLContext::reorderAtoms() {
  	 * velocities, moleculePositions, pi and Q for molecular Integration
  	 * on Velocity Verlet Integrator
  	 */
+	std::vector<int> tempMoleculeIndex(numMolecules);
+	
         for (int i = 0; i < numMolecules; i++) {
 	    molOldIndex[i] = mol.instances[molBins[i].second] / (int) atoms.size();
 	    molNewIndex[i] = mol.instances[i] / (int) atoms.size();
+	    tempMoleculeIndex[molNewIndex[i]] = moleculeIndex->get(molOldIndex[i]);
+	    //TODO: make provisions for non verlet integration 
 	    newVelm[molNewIndex[i]] = velm->get(molOldIndex[i]);
             for (int j = 0; j < (int)atoms.size(); j++) {
                 int oldIndex = mol.instances[molBins[i].second]+atoms[j];
@@ -1035,6 +1040,10 @@ void OpenCLContext::reorderAtoms() {
         velm->set(i, newVelm[i]);
         atomIndex->set(i, originalIndex[i]);
         posCellOffsets[i] = newCellOffsets[i];
+    }
+    
+    for(int k = 0; k < numMolecules; ++k){
+      moleculeIndex-set(k,tempMoleculeIndex[k]);
     }
     posq->upload();
     velm->upload();

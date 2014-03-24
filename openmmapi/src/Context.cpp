@@ -206,8 +206,10 @@ void Context::setPositions(const vector<Vec3>& positions) {
 }
 
 void Context::setVelocities(const vector<Vec3>& velocities) {
-    if ((int) velocities.size() != impl->getSystem().getNumParticles())
-        throw OpenMMException("Called setVelocities() on a Context with the wrong number of velocities");
+  //TODO: make a check if simulation is molecular if it is then check for number of molecules not particles
+  
+//     if ((int) velocities.size() != impl->getSystem().getNumParticles())
+//         throw OpenMMException("Called setVelocities() on a Context with the wrong number of velocities");
     impl->setVelocities(velocities);
 }
 
