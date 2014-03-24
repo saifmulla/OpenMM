@@ -92,7 +92,7 @@ __kernel void velocityPositionUpdate(__global const float* restrict deltaT,
 		double4 reusetemp = convert_double4(acceleration[index]);
 		double4 pi = convert_double4(moleculePI[index]);
 		double4 tau = convert_double4(moleculeTau[index]);
-		float4 inertia = momentOfInertia[0];
+// 		float4 inertia = momentOfInertia[0];
 	  
 		//updating velocities
 		velocity.xyz += reusetemp.xyz * deltatime;
@@ -155,9 +155,9 @@ __kernel void updateAcceleration(__global const float4* restrict forces,
 		int molsize = moleculeSize[index];
 		int startIndex = atomStartIndex[index];
 		
-		double4 tau = (double4) (0.0,0.0,0.0,0.0);//convert_double4(moleculeTau[index]);
+		double4 tau = (double4) (0.0,0.0,0.0,0.0);
 		double4 tempf = (double4) (0.0,0.0,0.0,0.0);
-		double4 sumF = (double4) (0.0,0.0,0.0,0.0);//convert_double4(acceleration[index]);
+		double4 sumF = (double4) (0.0,0.0,0.0,0.0);
 		
 		int a = 0;
 		while(a<molsize){

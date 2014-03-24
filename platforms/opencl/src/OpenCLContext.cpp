@@ -1039,6 +1039,9 @@ void OpenCLContext::reorderAtoms() {
     posq->upload();
     velm->upload();
     atomIndex->upload();
+#ifdef DEBUG
+    printf("Positions and velocities uploaded: reorder listeners are %d\n",(int) reorderListeners.size());
+#endif
     
     for (int i = 0; i < (int) reorderListeners.size(); i++)
         reorderListeners[i]->execute();

@@ -172,24 +172,24 @@ State Context::getState(int types, bool enforcePeriodicBox, int groups) const {
     if (types&State::MoleculePos)
     {
 	impl->getMoleculePositions(state.updMoleculePos());
-	vector<Vec3>& moleculepos = state.updMoleculePos();
-	int m = 0;
-	while(m<moleculepos.size()){
-	    Vec3& p = moleculepos[m];
-	    
-	    int xcell = (int) floor(p[0]/periodicBoxSize[0][0]);
-	    int ycell = (int) floor(p[1]/periodicBoxSize[1][1]);
-	    int zcell = (int) floor(p[2]/periodicBoxSize[2][2]);
-	    
-	    double dx = xcell*periodicBoxSize[0][0];
-	    double dy = ycell*periodicBoxSize[1][1];
-	    double dz = zcell*periodicBoxSize[2][2];
-	    
-	    p[0] -= dx;
-	    p[1] -= dy;
-	    p[2] -= dz;
-	    m++;
-	}
+// 	vector<Vec3>& moleculepos = state.updMoleculePos();
+// 	int m = 0;
+// 	while(m<moleculepos.size()){
+// 	    Vec3& p = moleculepos[m];
+// 	    
+// 	    int xcell = (int) floor(p[0]/periodicBoxSize[0][0]);
+// 	    int ycell = (int) floor(p[1]/periodicBoxSize[1][1]);
+// 	    int zcell = (int) floor(p[2]/periodicBoxSize[2][2]);
+// 	    
+// 	    double dx = xcell*periodicBoxSize[0][0];
+// 	    double dy = ycell*periodicBoxSize[1][1];
+// 	    double dz = zcell*periodicBoxSize[2][2];
+// 	    
+// 	    p[0] -= dx;
+// 	    p[1] -= dy;
+// 	    p[2] -= dz;
+// 	    m++;
+// 	}
     }
     
     return state;

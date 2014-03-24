@@ -863,12 +863,17 @@ public:
     void setMoleculeState(const std::vector<std::vector<unsigned int> >& moleculeStatus);
     /**
      * virtual implementation from the kernels class
+     * this function work on the initial calculation part, precisely
+     * it is called once at beginning of simulation. Essentially it 
+     * calculates acceleration, tau and molecular positions correspondingly 
+     * after first time force calculation.
      */
     void initialStep(const ContextImpl& impl);
 
 private:
     class ReorderListener;
-    friend class ReorderListener;
+    friend class ReorderListener;//make reorderListener class friend 
+				 // to access private objects of *this class
     OpenCLContext& cl;
     OpenCLArray<cl_float>* deltaT;
     OpenCLArray<cl_float>* variableDelta;
@@ -884,8 +889,9 @@ private:
      * 4 =>	move3
      * 5 =>	setAtomPositions
      * 6 => 	finalHalfvelocitiesUpdate
+     * 7 => 	calculateMolecularPositions
      */
-    cl::Kernel integration[7];
+    cl::Kernel integration[8];
     
     /*
      * the below variable would be initiliased only if molecular integration is requied
@@ -903,6 +909,7 @@ private:
     OpenCLArray<cl_int>* moleculeStartIndex;
     OpenCLArray<mm_float4>* molPositions;
     OpenCLArray<mm_ushort4>* moleculeStatus;
+    OpenCLArray<cl_float>* atomMasses;
     bool IsMolecular;
     //TODO: delete this variable in production
     OpenCLArray<mm_float4>* testarray;
@@ -913,6 +920,8 @@ private:
 			   int numMolecules,
 			   bool isFirstTime
 			  );
+    void setAtomMasses(const System& system);
+    void calculateMolecularPositions();
 };
 /**
  * This kernel is invoked by LangevinIntegrator to take one time step.
