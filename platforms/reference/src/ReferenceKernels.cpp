@@ -218,9 +218,6 @@ void ReferenceUpdateStateDataKernel::setVelocities(ContextImpl& context, const s
 void ReferenceUpdateStateDataKernel::setMoleculeQ(ContextImpl& context, const std::vector<Tensor>& moleculeQ){
 }
 
-void ReferenceUpdateStateDataKernel::setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions){
-}
-
 void ReferenceUpdateStateDataKernel::setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions){
 
 }
@@ -228,18 +225,6 @@ void ReferenceUpdateStateDataKernel::setMoleculePI(ContextImpl& context, const v
 {
 
 }
-
-void ReferenceUpdateStateDataKernel::setMomentOfInertia(ContextImpl& context, const vector< vector< Vec3 > >& momentOfInertia )
-{
-
-}
-
-void ReferenceUpdateStateDataKernel::getMoleculePositions(ContextImpl& context, vector< Vec3 >& moleculePositions)
-{
-
-}
-
-
 void ReferenceUpdateStateDataKernel::getForces(ContextImpl& context, std::vector<Vec3>& forces) {
     int numParticles = context.getSystem().getNumParticles();
     vector<RealVec>& forceData = extractForces(context);

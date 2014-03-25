@@ -173,6 +173,14 @@ public:
      * contains the velocity of the i'th particle.
      */
     void setVelocities(const std::vector<Vec3>& velocities);
+    
+    /**
+     * set the velocities for each molecule in the system
+     * this is equal to number of molecules in the system, essentially
+     * this function is more explicitly and specifically used 
+     * in multi scale molecular simulations
+     */
+    void setMoleculeVelocities(const std::vector<Vec3>& moleculeVelocities);
 
     /**
      * set the MoleculeQ of all molecules in the System (it has got standard measurement in SI)

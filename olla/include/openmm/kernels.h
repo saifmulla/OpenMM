@@ -65,6 +65,7 @@
 #include <string>
 #include <vector>
 
+
 namespace OpenMM {
 
 /**
@@ -169,14 +170,7 @@ public:
      *
      * @param forces  on exit, this contains the forces
      */
-    /**
-     * get the molecular positions in the system
-     * 
-     * @param moleculePositions a vector of type vec3
-     */
-    virtual void getMoleculePositions(ContextImpl& context, std::vector<Vec3>& moleculePositions) = 0;
-    
-    virtual void getForces(ContextImpl& context, std::vector<Vec3>& forces) = 0;
+     virtual void getForces(ContextImpl& context, std::vector<Vec3>& forces) = 0;
     /**
      * Get the current periodic box vectors.
      *
@@ -201,11 +195,6 @@ public:
      * @param Tensor MoleculeQ
      */
     virtual void setMoleculeQ(ContextImpl& context, const std::vector<Tensor>& moleculeQ) = 0;
-    /**
-     * set siteReferencePositions
-     * this kernel is only related with OpenFOAM acceleration
-     */
-    virtual void setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions) = 0;
 
     virtual void setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions) = 0;
     
@@ -214,18 +203,6 @@ public:
      * for molecular integration
      */
     virtual void setMoleculePI(ContextImpl& context, const std::vector<Vec3>& moleculePI) = 0;
-    
-    /**
-     * setMomentOfInertia
-     * set the moment of Innertia values based
-     * 
-     * @param context type contextImpl
-     * @param momentOfInertia type Vector<Vector<vec3>> 
-     * 		the type is two dimensional vector to represent momentofInertia for 
-     * 		each molecule type
-     */
-    virtual void setMomentOfInertia(ContextImpl& context, const std::vector<std::vector<Vec3> >& momentOfInertia) = 0;
-
 };
 
 /**
@@ -810,6 +787,18 @@ public:
      * function due to avoiding runtime errors
      */
     virtual void initialStep(const ContextImpl& context) {};
+    /**
+     * setMoleculeVelocities
+     * set molecular velocities on each molecule in the system, these will
+     * be equal to number of molecules in the system.
+     */
+    virtual void setMoleculeVelocities(const std::vector<Vec3>& moleculeVelocities) {};
+    /**
+     * getMoleculeVelocities
+     * set molecular velocities on each molecule in the system, these will
+     * be equal to number of molecules in the system.
+     */
+    virtual void getMoleculeVelocities(std::vector<Vec3>& moleculeVelocities) {};
 
 };
     

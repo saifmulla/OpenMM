@@ -205,9 +205,6 @@ void OpenCLUpdateStateDataKernel::setMoleculeQ(ContextImpl& context, const std::
 	integrator.setMoleculeQ(moleculeQ);
 }
 
-void OpenCLUpdateStateDataKernel::setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPositions){
-}
-
 void OpenCLUpdateStateDataKernel::setMoleculePositions(ContextImpl& context, const std::vector<Vec3>& moleculePositions){
 	VelocityVerletIntegrator& integrator =
 					static_cast<VelocityVerletIntegrator&>(context.getIntegrator());
@@ -222,16 +219,6 @@ void OpenCLUpdateStateDataKernel::setMoleculePI(ContextImpl& context, const vect
 	integrator.setMoleculePI(moleculePI);
     
 }
-
-void OpenCLUpdateStateDataKernel::setMomentOfInertia(ContextImpl& context, const vector< vector< Vec3 > >& momentOfInertia)
-{
-
-}
-
-void OpenCLUpdateStateDataKernel::getMoleculePositions(ContextImpl& context, vector< Vec3 >& moleculePositions)
-{
-}
-
 
 void OpenCLUpdateStateDataKernel::getForces(ContextImpl& context, std::vector<Vec3>& forces) {
     OpenCLArray<mm_float4>& force = cl.getForce();
@@ -3431,9 +3418,6 @@ void OpenCLIntegrateVelocityVerletStepKernel::calculateMolecularPositions()
 {
     //invoke calculateMolecularPositions
     cl.executeKernel(integration[7],cl.getNumOfMolecules());
-#ifdef DEBUG
-  printf("CalculateMolecularPositions inside function call\n");
-#endif
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeQ(const std::vector<Tensor>& moleculeQ){
@@ -3529,6 +3513,42 @@ void OpenCLIntegrateVelocityVerletStepKernel::getMoleculePositions(vector< Vec3 
 //  				    pos.z-offset.z*periodicBoxSize.z);
     }
 }
+
+void OpenCLIntegrateVelocityVerletStepKernel::getMoleculeVelocities(std::vector<Vec3>& molVelocities)
+{
+    OpenCLArray<mm_float4>& velm = cl.getVelm();
+    velm.download();
+    OpenCLArray<cl_int>& order = cl.getMoleculeIndex();
+    int numMolecules = cl.getNumOfMolecules();
+    
+    molVelocities.resize(numMolecules);
+    
+    for (int i = 0; i < numMolecules; ++i) {
+        mm_float4 vel = velm[i];
+        molVelocities[order[i]] = Vec3(vel.x, vel.y, vel.z);
+    }
+}
+
+void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeVelocities(const std::vector<Vec3>& molVelocities)
+{
+    OpenCLArray<mm_float4>& velm = cl.getVelm();
+    OpenCLArray<cl_int>& order = cl.getMoleculeIndex();
+    int numMolecules = cl.getNumOfMolecules();
+    
+    for (int i = 0; i < numMolecules; ++i) {
+        mm_float4& vel = velm[i];
+        const Vec3& p = molVelocities[order[i]];
+        vel.x = static_cast<cl_float>(p[0]);
+        vel.y = static_cast<cl_float>(p[1]);
+        vel.z = static_cast<cl_float>(p[2]);
+    }
+    
+    for (int i = numMolecules; i < cl.getPaddedNumAtoms(); i++)
+        velm[i] = mm_float4(0.0f, 0.0f, 0.0f, 0.0f);
+    
+    velm.upload();
+}
+
 
 void OpenCLIntegrateVelocityVerletStepKernel::getMoleculeQ(std::vector<Tensor>& moleculeQ)
 {

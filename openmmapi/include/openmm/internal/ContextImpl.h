@@ -132,6 +132,10 @@ public:
     void setMoleculeStatus(const std::vector<std::vector<unsigned int> >& moleculeStatus);
     
     void setMomentOfInertia(const std::vector<Vec3>& momentOfInertia);
+    
+    void setMoleculeVelocities(const std::vector<Vec3>& moleculeVelocities);
+    
+    void getMoleculeVelocities(std::vector<Vec3>& moleculeVelocities);
 
     /**
      * Get the current forces on all particles.

@@ -87,7 +87,9 @@ private:
  */
 class OpenCLUpdateStateDataKernel : public UpdateStateDataKernel {
 public:
-    OpenCLUpdateStateDataKernel(std::string name, const Platform& platform, OpenCLContext& cl) : UpdateStateDataKernel(name, platform), cl(cl) {
+    OpenCLUpdateStateDataKernel(std::string name, const Platform& platform, 
+				OpenCLContext& cl) 
+    : UpdateStateDataKernel(name, platform), cl(cl){
     }
     /**
      * Initialize the kernel.
@@ -126,17 +128,12 @@ public:
      */
     void getVelocities(ContextImpl& context, std::vector<Vec3>& velocities);
     /**
-     * get the molecular positions in the sytem
-     * 
-     * @param moleculePositions
-     */
-    void getMoleculePositions(ContextImpl& context, std::vector<Vec3>& moleculePositions);
-    /**
      * Set the velocities of all particles.
      *
      * @param velocities  a vector containg the particle velocities
      */
     void setVelocities(ContextImpl& context, const std::vector<Vec3>& velocities);
+     
     /**
      * Get the current forces on all particles.
      *
@@ -164,13 +161,7 @@ public:
      * @param impl	ContextImpl
      * @param moleculeQ tensor type
      */
-    void setMoleculeQ(ContextImpl& context, const std::vector<Tensor>& moleculeQ); 
-    /**
-     * set the site reference position vectors for the velocity verlet integrator
-     * @param impl	ContextImpl
-     * @param siteRefPos Vec3 type
-     */
-    void setSiteRefPositions(ContextImpl& context, const std::vector<Vec3>& siteRefPos); 
+    void setMoleculeQ(ContextImpl& context, const std::vector<Tensor>& moleculeQ);  
    /**
     * set the moleculePositions vectors for velocity verlet integrator
     * @param impl	ContextImpl
@@ -183,12 +174,6 @@ public:
      * @param moleculePI std::vector<Vec3>
      */
     void setMoleculePI(ContextImpl& context, const std::vector<Vec3>& moleculePI);
-    /**
-     * setMomentOfInertia
-     * @param context
-     * @param momentOfInertia of type vector<vector<vec3> >
-     */
-    void setMomentOfInertia(ContextImpl& context, const std::vector<std::vector<Vec3> >& momentOfInertia);
 private:
     OpenCLContext& cl;
 };
@@ -861,6 +846,8 @@ public:
     void getMoleculeQ(std::vector<Tensor>& moleculeQ);
     void setMomentOfInertia(const std::vector<Vec3>& momentOfInertia);
     void setMoleculeState(const std::vector<std::vector<unsigned int> >& moleculeStatus);
+    void setMoleculeVelocities(const std::vector<Vec3>& molVelocities);
+    void getMoleculeVelocities(std::vector<Vec3>& molVelocities);
     /**
      * virtual implementation from the kernels class
      * this function work on the initial calculation part, precisely
@@ -874,6 +861,7 @@ private:
     class ReorderListener;
     friend class ReorderListener;//make reorderListener class friend 
 				 // to access private objects of *this class
+    friend class OpenCLUpdateStateDataKernel;
     OpenCLContext& cl;
     OpenCLArray<cl_float>* deltaT;
     OpenCLArray<cl_float>* variableDelta;

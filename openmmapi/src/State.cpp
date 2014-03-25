@@ -60,6 +60,13 @@ const vector<Vec3>& State::getMoleculePos() const {
 	throw OpenMMException("Invoked getMoleculePos() on a State which does not contain MoleculePos.");
     return moleculePos;
 }
+
+const vector<Vec3>& State::getMoleculeVel() const {
+    if ((types&MoleculeVel) == 0)
+	throw OpenMMException("Invoked getMoleculeVel() on a State which does not contain MoleculeVel.");
+    return moleculeVel;
+}
+
 double State::getKineticEnergy() const {
     if ((types&Energy) == 0)
         throw OpenMMException("Invoked getKineticEnergy() on a State which does not contain energies.");
@@ -84,17 +91,20 @@ const map<string, double>& State::getParameters() const {
 }
 State::State(double time, int numParticles, int types) : types(types), time(time), ke(0), pe(0),
         positions( (types & Positions) == 0 ? 0 : numParticles), velocities( (types & Velocities) == 0 ? 0 : numParticles),
-        forces( (types & Forces) == 0 ? 0 : numParticles), moleculePos((types & MoleculePos) == 0 ? 0 : numParticles) {
+        forces( (types & Forces) == 0 ? 0 : numParticles), moleculePos((types & MoleculePos) == 0 ? 0 : numParticles),
+	moleculeVel((types & MoleculeVel) == 0 ? 0 : numParticles){
 }
 
-State::State() : types(0), time(0.0), ke(0), pe(0), positions(0), velocities(0), forces(0), moleculePos(0) {
+State::State() : types(0), time(0.0), ke(0), pe(0), positions(0), velocities(0), forces(0), moleculePos(0), moleculeVel(0) {
 }
 
 
 State::State(double time, int numParticles, int types, int numMolecules) : types(types), time(time), ke(0), pe(0),
         positions( (types & Positions) == 0 ? 0 : numParticles), velocities( (types & Velocities) == 0 ? 0 : numParticles),
-        forces( (types & Forces) == 0 ? 0 : numParticles), moleculePos((types & MoleculePos) == 0 ? 0 : numMolecules) {
+        forces( (types & Forces) == 0 ? 0 : numParticles), moleculePos((types & MoleculePos) == 0 ? 0 : numMolecules),
+	moleculeVel((types & MoleculeVel) == 0 ? 0 : numMolecules){
 }
+
 vector<Vec3>& State::updPositions() {
     return positions;
 }
@@ -135,3 +145,6 @@ vector<Vec3>& State::updMoleculePos(){
     return moleculePos;
 }
 
+vector<Vec3>& State::updMoleculeVel(){
+    return moleculeVel;
+}

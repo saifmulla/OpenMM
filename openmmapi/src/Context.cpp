@@ -192,6 +192,12 @@ State Context::getState(int types, bool enforcePeriodicBox, int groups) const {
 // 	}
     }
     
+    /**
+     * get molecular velocities
+     */
+    if (types&State::MoleculeVel)
+	impl->getMoleculeVelocities(state.updMoleculeVel());
+    
     return state;
 }
 
@@ -206,13 +212,16 @@ void Context::setPositions(const vector<Vec3>& positions) {
 }
 
 void Context::setVelocities(const vector<Vec3>& velocities) {
-  //TODO: make a check if simulation is molecular if it is then check for number of molecules not particles
-  
-//     if ((int) velocities.size() != impl->getSystem().getNumParticles())
-//         throw OpenMMException("Called setVelocities() on a Context with the wrong number of velocities");
+    if ((int) velocities.size() != impl->getSystem().getNumParticles())
+        throw OpenMMException("Called setVelocities() on a Context with the wrong number of velocities");
     impl->setVelocities(velocities);
 }
 
+void Context::setMoleculeVelocities(const std::vector<Vec3>& moleculeVelocities)
+{
+    impl->setMoleculeVelocities(moleculeVelocities);
+}
+ 
 void Context::setMoleculeQ(const std::vector<OpenMM::Tensor>& moleculeQ) {
     //TODO: do a check on size of array supplied this would require an implementation
     //inside System class

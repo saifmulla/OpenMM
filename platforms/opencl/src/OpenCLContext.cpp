@@ -916,6 +916,7 @@ void OpenCLContext::reorderAtoms() {
     vector<int> originalIndex(numAtoms);
     vector<mm_float4> newPosq(numAtoms);
     vector<mm_float4> newVelm(numAtoms);
+    std::vector<int> tempMoleculeIndex(numOfMolecules);
 
     vector<mm_int4> newCellOffsets(numAtoms);
     for (int group = 0; group < (int) moleculeGroups.size(); group++) {
@@ -1013,7 +1014,7 @@ void OpenCLContext::reorderAtoms() {
  	 * velocities, moleculePositions, pi and Q for molecular Integration
  	 * on Velocity Verlet Integrator
  	 */
-	std::vector<int> tempMoleculeIndex(numMolecules);
+	
 	
         for (int i = 0; i < numMolecules; i++) {
 	    molOldIndex[i] = mol.instances[molBins[i].second] / (int) atoms.size();
@@ -1042,8 +1043,8 @@ void OpenCLContext::reorderAtoms() {
         posCellOffsets[i] = newCellOffsets[i];
     }
     
-    for(int k = 0; k < numMolecules; ++k){
-      moleculeIndex-set(k,tempMoleculeIndex[k]);
+    for(int k = 0; k<numOfMolecules; ++k){
+      moleculeIndex->set(k,tempMoleculeIndex[k]);
     }
     posq->upload();
     velm->upload();
