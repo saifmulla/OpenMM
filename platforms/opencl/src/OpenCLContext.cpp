@@ -233,8 +233,7 @@ OpenCLContext::OpenCLContext(int numParticles, int platformIndex, int deviceInde
         moleculeSize = NULL;
         moleculeStartIndex = NULL;
         moleculeIndex = NULL;
-//         molNewIndex = NULL;
-// 	molOldIndex = NULL;
+
     }
     catch (cl::Error err) {
         std::stringstream str;
@@ -707,7 +706,7 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
     
     moleculeSize = new OpenCLArray<cl_int>(*this,numOfMolecules,"moleculeSize",true);
     moleculeStartIndex = new OpenCLArray<cl_int>(*this,numOfMolecules,"moleculeStartIndex",true);
-    moleculeIndex = new OpenCLArray<cl_int>(*this, numAtoms, "moleculeIndex", true);
+    moleculeIndex = new OpenCLArray<cl_int>(*this, numOfMolecules, "moleculeIndex", true);
     
     int mm = 0;
     int startIndex = 0;
@@ -720,6 +719,10 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
      * start index of each molecule
      * this information is supplied to gpu integration 'velocity verlet'
      * to determine if the integration is monotomic or polyatomic.
+     * NOTE: molecule index stores the molecular index which would be used to
+     * reorder or index molecular information. Initially simple form a molecule
+     * index in ascending order. **NOTE
+     * 
      */
 //TODO: add molecular check in this section of code     
     while (mm<numOfMolecules) {
@@ -729,14 +732,23 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
         for (int index = 0; index < molsize; ++index) {
 //             (*moleculeIndex)[startIndex+index] = mm;
 	    const double mass = system.getParticleMass(startIndex+index);
+	    //calculate total mass for each molecule
 	    sumMass += mass;
         }
+        // assign the calculate molecular mass to 'w' component of velocities array
+        // equal to index of number of molecules
 	(*velm)[mm].w = (float) (sumMass == 0.0 ? 0.0 : 1.0/sumMass);
-
         (*moleculeSize)[mm] = molsize;
         (*moleculeStartIndex)[mm] = startIndex;
         startIndex += molsize;
         mm++;
+    }
+    /**
+     * make all the remaining indexs of velm.w 'zero' which are more than
+     * the size of number of molecules
+     */
+    for(int k = numMolecules; k < paddedNumAtoms; ++k){
+	(*velm)[k].w = 0.0;
     }
 
     //upload molecule mass
@@ -1013,12 +1025,16 @@ void OpenCLContext::reorderAtoms() {
  	 * essentially these arrays will be used to reorder the index of 
  	 * velocities, moleculePositions, pi and Q for molecular Integration
  	 * on Velocity Verlet Integrator
+	 * molecule index is also reordered based on atomIndex so that 
+	 * molecular information requiring indexing can use its own molecular
+	 * index
  	 */
 	
 	
         for (int i = 0; i < numMolecules; i++) {
 	    molOldIndex[i] = mol.instances[molBins[i].second] / (int) atoms.size();
 	    molNewIndex[i] = mol.instances[i] / (int) atoms.size();
+	    //reorder molecule index
 	    tempMoleculeIndex[molNewIndex[i]] = moleculeIndex->get(molOldIndex[i]);
 	    //TODO: make provisions for non verlet integration 
 	    newVelm[molNewIndex[i]] = velm->get(molOldIndex[i]);

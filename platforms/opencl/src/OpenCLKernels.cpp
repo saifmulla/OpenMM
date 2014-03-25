@@ -3423,22 +3423,25 @@ void OpenCLIntegrateVelocityVerletStepKernel::calculateMolecularPositions()
 void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeQ(const std::vector<Tensor>& moleculeQ){
 	//loop through number of molecules in system and assing the values to opencl equivalent array
 	// of moleculeQ
+    OpenCLArray<cl_int>& order = cl.getMoleculeIndex();
+    int numMolecules = cl.getNumOfMolecules();
+    
+    if(moleculeQ.size()==0 || moleculeQ.size() < cl.getNumOfMolecules())
+	    throw OpenMMException("Size of MoleculeQ array must be equal to \
+			    number of Molecules in system, current size found is "+moleculeQ.size());
 
-	if(moleculeQ.size()==0 || moleculeQ.size() < cl.getNumOfMolecules())
-		throw OpenMMException("Size of MoleculeQ array must be equal to \
-				number of Molecules in system, current size found is "+moleculeQ.size());
-
-	for(int i = 0; i<cl.getNumOfMolecules();i++){
-		const OpenMM::Tensor& molq = moleculeQ[i];
-		(*moleculeQ1)[i] = mm_float4(molq[0],molq[1],molq[2],molq[3]);
-		(*moleculeQ2)[i] = mm_float4(molq[4],molq[5],molq[6],molq[7]);
-		(*moleculeQ3)[i] = molq[8];
-	}
-	
-	//upload moleculeQ*
-	moleculeQ1->upload();
-	moleculeQ2->upload();
-	moleculeQ3->upload();
+    for(int i = 0; i<numMolecules;i++){
+	    const OpenMM::Tensor& molq = moleculeQ[order[i]];
+	    (*moleculeQ1)[i] = mm_float4(molq[0],molq[1],molq[2],molq[3]);
+	    (*moleculeQ2)[i] = mm_float4(molq[4],molq[5],molq[6],molq[7]);
+	    (*moleculeQ3)[i] = molq[8];
+    }
+    
+    //upload moleculeQ*
+    moleculeQ1->upload();
+    moleculeQ2->upload();
+    moleculeQ3->upload();
+    
 }
 void OpenCLIntegrateVelocityVerletStepKernel::setSiteRefPositions(const std::vector<Vec3>& siteRefPositions){
 	//TODO: add check and exception for size of siterefpositions equivalent to system
@@ -3452,30 +3455,32 @@ void OpenCLIntegrateVelocityVerletStepKernel::setSiteRefPositions(const std::vec
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::setMoleculePositions(const std::vector<Vec3>& moleculePositions){
-	if(moleculePositions.size()==0 || moleculePositions.size() < cl.getNumOfMolecules())
-		throw OpenMMException("Size of MoleculePositions array must be equal to\
-				number of Molecules in system, current size found is "+moleculePositions.size());
+    if(moleculePositions.size()==0 || moleculePositions.size() < cl.getNumOfMolecules())
+	    throw OpenMMException("Size of MoleculePositions array must be equal to\
+			    number of Molecules in system, current size found is "+moleculePositions.size());
 
 // 	printf("Set MoleculePositions\n");
-	for(int i = 0;i < cl.getNumOfMolecules();i++){
-		const OpenMM::Vec3& mpos = moleculePositions[i];
+    for(int i = 0;i < cl.getNumOfMolecules();i++){
+	    const OpenMM::Vec3& mpos = moleculePositions[i];
 // 		printf("%d => %3.10f\t%3.10f\t%3.10f\n",i,mpos[0],mpos[1],mpos[2]);
-		(*molPositions)[i] = mm_float4(mpos[0],mpos[1],mpos[2],0.0f);
-	}
-	//upload molecule positions
-	molPositions->upload();
+	    (*molPositions)[i] = mm_float4(mpos[0],mpos[1],mpos[2],0.0f);
+    }
+    //upload molecule positions
+    molPositions->upload();
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::setMoleculePI(const vector<Vec3>& molPI)
 {
-	if(molPI.size()==0 || molPI.size() != cl.getNumOfMolecules())
-		throw OpenMMException("Size of MoleculePI array must be equal to\
-					number of Molecules in system. Current size is " + molPI.size()); 
-	for(int i = 0;i < cl.getNumOfMolecules();i++){
-		const OpenMM::Vec3& molpi = molPI[i];
-		(*moleculePI)[i] = mm_float4(molpi[0],molpi[1],molpi[2],0.0f);
-	}
-	moleculePI->upload();
+    OpenCLArray<cl_int>& order = cl.getMoleculeIndex();
+    int numMolecules = cl.getNumOfMolecules();
+    if(molPI.size()==0 || molPI.size() != cl.getNumOfMolecules())
+	    throw OpenMMException("Size of MoleculePI array must be equal to\
+				    number of Molecules in system. Current size is " + molPI.size()); 
+    for(int i = 0;i < cl.getNumOfMolecules();i++){
+	    const OpenMM::Vec3& molpi = molPI[order[i]];
+	    (*moleculePI)[i] = mm_float4(molpi[0],molpi[1],molpi[2],0.0f);
+    }
+    moleculePI->upload();
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::setMomentOfInertia(const std::vector<Vec3>& inertia){
@@ -3500,6 +3505,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeState(const std::vector
 void OpenCLIntegrateVelocityVerletStepKernel::getMoleculePositions(vector< Vec3 >& moleculePositions)
 {
     molPositions->download();
+    OpenCLArray<cl_int>& order = cl.getMoleculeIndex();
     int numMolecules = cl.getNumOfMolecules();
     moleculePositions.resize(numMolecules);
     mm_float4 periodicBoxSize = cl.getPeriodicBoxSize();
@@ -3507,11 +3513,12 @@ void OpenCLIntegrateVelocityVerletStepKernel::getMoleculePositions(vector< Vec3 
     for (int i = 0; i < numMolecules; ++i) {
         mm_float4& pos = (*molPositions)[i];
         mm_int4 offset = cl.getPosCellOffsets()[i];
-	moleculePositions[i] = Vec3(pos.x,pos.y,pos.z);
-//         moleculePositions[i] = Vec3(pos.x-offset.x*periodicBoxSize.x, 
-//  				    pos.y-offset.y*periodicBoxSize.y, 
-//  				    pos.z-offset.z*periodicBoxSize.z);
+// 	moleculePositions[order[i]] = Vec3(pos.x,pos.y,pos.z);
+        moleculePositions[order[i]] = Vec3(pos.x-offset.x*periodicBoxSize.x, 
+ 				    pos.y-offset.y*periodicBoxSize.y, 
+ 				    pos.z-offset.z*periodicBoxSize.z);
     }
+    
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::getMoleculeVelocities(std::vector<Vec3>& molVelocities)
@@ -3525,6 +3532,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::getMoleculeVelocities(std::vector<
     
     for (int i = 0; i < numMolecules; ++i) {
         mm_float4 vel = velm[i];
+// 	printf("%d => %3.8f\t%3.8f\t%3.8f\t%3.8f\n",i,vel.x,vel.y,vel.z,vel.w);
         molVelocities[order[i]] = Vec3(vel.x, vel.y, vel.z);
     }
 }
