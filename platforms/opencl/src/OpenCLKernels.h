@@ -898,6 +898,7 @@ private:
     OpenCLArray<mm_float4>* molPositions;
     OpenCLArray<mm_ushort4>* moleculeStatus;
     OpenCLArray<cl_float>* atomMasses;
+    OpenCLArray<mm_float4>* molVelocities;
     bool IsMolecular;
     //TODO: delete this variable in production
     OpenCLArray<mm_float4>* testarray;

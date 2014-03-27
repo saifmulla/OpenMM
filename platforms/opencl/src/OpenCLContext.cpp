@@ -724,35 +724,28 @@ void OpenCLContext::findMoleculeGroups(const System& system) {
      * index in ascending order. **NOTE
      * 
      */
-//TODO: add molecular check in this section of code     
-    while (mm<numOfMolecules) {
-        int molsize = atomIndices[mm].size();
-   	(*moleculeIndex)[mm] = mm;    
-	double sumMass = 0.0; 
-        for (int index = 0; index < molsize; ++index) {
-//             (*moleculeIndex)[startIndex+index] = mm;
-	    const double mass = system.getParticleMass(startIndex+index);
-	    //calculate total mass for each molecule
-	    sumMass += mass;
-        }
-        // assign the calculate molecular mass to 'w' component of velocities array
-        // equal to index of number of molecules
-	(*velm)[mm].w = (float) (sumMass == 0.0 ? 0.0 : 1.0/sumMass);
-        (*moleculeSize)[mm] = molsize;
-        (*moleculeStartIndex)[mm] = startIndex;
-        startIndex += molsize;
-        mm++;
-    }
-    /**
-     * make all the remaining indexs of velm.w 'zero' which are more than
-     * the size of number of molecules
-     */
-    for(int k = numMolecules; k < paddedNumAtoms; ++k){
-	(*velm)[k].w = 0.0;
-    }
+    if(isMolecular)
+    {
+	while (mm<numOfMolecules) {
+	    int molsize = atomIndices[mm].size();
+	    (*moleculeIndex)[mm] = mm;    
+// 	    double sumMass = 0.0; 
+// 	    for (int index = 0; index < molsize; ++index) {
+    //             (*moleculeIndex)[startIndex+index] = mm;
+// 		const double mass = system.getParticleMass(startIndex+index);
+		//calculate total mass for each molecule
+// 		sumMass += mass;
+// 	    }
+	    // assign the calculate molecular mass to 'w' component of velocities array
+	    // equal to index of number of molecules
+// 	    (*velm)[mm].w = (float) (sumMass == 0.0 ? 0.0 : 1.0/sumMass);
+	    (*moleculeSize)[mm] = molsize;
+	    (*moleculeStartIndex)[mm] = startIndex;
+	    startIndex += molsize;
+	    mm++;
+	}
 
-    //upload molecule mass
-    velm->upload();    
+    }    
     /**
      * check if the virial calculation is to be included
      * by checking the calculatevirial variable
@@ -899,7 +892,8 @@ void OpenCLContext::reorderAtoms() {
     // Find the range of positions and the number of bins along each axis.
 
     posq->download();
-    velm->download();
+    if(!isMolecular)
+      velm->download();
     
 
     float minx = posq->get(0).x, maxx = posq->get(0).x;
@@ -1036,25 +1030,28 @@ void OpenCLContext::reorderAtoms() {
 	    molNewIndex[i] = mol.instances[i] / (int) atoms.size();
 	    //reorder molecule index
 	    tempMoleculeIndex[molNewIndex[i]] = moleculeIndex->get(molOldIndex[i]);
-	    //TODO: make provisions for non verlet integration 
-	    newVelm[molNewIndex[i]] = velm->get(molOldIndex[i]);
             for (int j = 0; j < (int)atoms.size(); j++) {
                 int oldIndex = mol.instances[molBins[i].second]+atoms[j];
                 int newIndex = mol.instances[i]+atoms[j];
                 originalIndex[newIndex] = atomIndex->get(oldIndex);
                 newPosq[newIndex] = posq->get(oldIndex);
-//                 newVelm[newIndex] = velm->get(oldIndex);
+		if(!isMolecular)
+		  newVelm[newIndex] = velm->get(oldIndex);
                 newCellOffsets[newIndex] = posCellOffsets[oldIndex];
             }
         }
         
     }
+    
+    if(!isMolecular)
+      printf("WARNING: Can't reorder atom velocities\n");
 
     // Update the streams.
 
     for (int i = 0; i < numAtoms; i++) {
         posq->set(i, newPosq[i]);
-        velm->set(i, newVelm[i]);
+	if(!isMolecular)
+	  velm->set(i, newVelm[i]);
         atomIndex->set(i, originalIndex[i]);
         posCellOffsets[i] = newCellOffsets[i];
     }
@@ -1063,7 +1060,8 @@ void OpenCLContext::reorderAtoms() {
       moleculeIndex->set(k,tempMoleculeIndex[k]);
     }
     posq->upload();
-    velm->upload();
+    if(!isMolecular)
+      velm->upload();
     atomIndex->upload();
 #ifdef DEBUG
     printf("Positions and velocities uploaded: reorder listeners are %d\n",(int) reorderListeners.size());

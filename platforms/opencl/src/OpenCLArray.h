@@ -81,6 +81,15 @@ public:
         if (ownsBuffer)
             delete buffer;
     }
+    
+    /**
+     * explicitly release buffer
+     */
+    
+    void releaseBuffer(){
+	delete this->buffer;
+    }
+    
     const T& operator[](int index) const {
         return local[index];
     }

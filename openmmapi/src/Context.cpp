@@ -172,6 +172,7 @@ State Context::getState(int types, bool enforcePeriodicBox, int groups) const {
     if (types&State::MoleculePos)
     {
 	impl->getMoleculePositions(state.updMoleculePos());
+	
 	if(enforcePeriodicBox){
 	  vector<Vec3>& moleculepos = state.updMoleculePos();
 	  int m = 0;
@@ -192,6 +193,7 @@ State Context::getState(int types, bool enforcePeriodicBox, int groups) const {
 	      m++;
 	  }//end while
 	}//end if enforcePeriodicBox
+	
     }
     
     /**
