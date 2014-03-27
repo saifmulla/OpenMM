@@ -214,6 +214,16 @@ public:
      * @param momentOfInertia vector<Vec3>
      */
      void setMomentOfInertia(const std::vector<Vec3>& momentOfInertia);
+     /**
+      * set moleculeStatus
+      * essentially the array contains the inertia status of each type
+      * of molecule. It's obtained to determine 
+      * linear molecule
+      * not linear molecule
+      * point molecule
+      * not point molecule
+      */
+     void setMoleculeStatus(const std::vector<std::vector<unsigned int> >& moleculeStatus);
     /**
      * Get the value of an adjustable parameter defined by a Force object in the System.
      * 

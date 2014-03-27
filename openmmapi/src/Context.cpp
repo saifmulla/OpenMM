@@ -254,6 +254,10 @@ void Context::setMomentOfInertia(const std::vector<Vec3>& momentOfInertia){
     impl->setMomentOfInertia(momentOfInertia);
 }
 
+void Context::setMoleculeStatus(const std::vector<std::vector<unsigned int> >& moleculeStatus){
+    impl->setMoleculeStatus(moleculeStatus);
+}
+
 double Context::getParameter(const string& name) {
     return impl->getParameter(name);
 }

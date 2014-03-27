@@ -3498,7 +3498,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::setMomentOfInertia(const std::vect
       momentOfInertia->upload();
 }
 
-void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeState(const std::vector<std::vector<unsigned int> >& moleculeState){
+void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeStatus(const std::vector<std::vector<unsigned int> >& moleculeState){
     for(int i = 0; i< moleculeState.size();++i){
 	const vector<unsigned int>& tempvec = moleculeState[i];
         (*moleculeStatus)[i] = mm_ushort4(static_cast<cl_ushort>(moleculeState[i][0]),
@@ -3506,7 +3506,6 @@ void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeState(const std::vector
 					  static_cast<cl_ushort>(moleculeState[i][2]),
 					  static_cast<cl_ushort>(moleculeState[i][3]));
     }
-    
     moleculeStatus->upload();
 }
 void OpenCLIntegrateVelocityVerletStepKernel::getMoleculePositions(vector< Vec3 >& moleculePositions)
@@ -3657,6 +3656,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
 	integration[7] = cl::Kernel(program2, "calculateMolecularPositions");
 	
         momentOfInertia = new OpenCLArray<mm_float4>(cl,1,"momentOfInertia",true);
+	moleculeStatus = new OpenCLArray<mm_ushort4>(cl,1,"moleculeStatus",true);
         moleculePI = new OpenCLArray<mm_float4>(cl, cl.getNumOfMolecules(),"moleculePI",true);
         moleculeTau = new OpenCLArray<mm_float4>(cl,cl.getNumOfMolecules(),"moleculeTau",false);
 	acceleration = new OpenCLArray<mm_float4>(cl,cl.getNumOfMolecules(),"acceleration",true);
@@ -3686,7 +3686,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
     integration[0].setArg<cl::Buffer>(3, molVelocities->getDeviceBuffer());
     integration[0].setArg<cl::Buffer>(4, moleculePI->getDeviceBuffer());
     integration[0].setArg<cl::Buffer>(5, moleculeTau->getDeviceBuffer());
-    integration[0].setArg<cl::Buffer>(6, momentOfInertia->getDeviceBuffer());
+    integration[0].setArg<cl::Buffer>(6, moleculeStatus->getDeviceBuffer());
     
 
     //kernel2 initializations
@@ -3716,6 +3716,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
         integration[2].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
         integration[2].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
 	integration[2].setArg<cl::Buffer>(6, molVelocities->getDeviceBuffer());
+	integration[2].setArg<cl::Buffer>(7, moleculeStatus->getDeviceBuffer());
 
 	//setting arguments for move part 2
 	integration[3].setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
@@ -3725,6 +3726,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
         integration[3].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
         integration[3].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
 	integration[3].setArg<cl::Buffer>(6, molVelocities->getDeviceBuffer());
+	integration[3].setArg<cl::Buffer>(7, moleculeStatus->getDeviceBuffer());
 	
 	//setting arguments for move part 3
 	integration[4].setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
@@ -3734,6 +3736,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
         integration[4].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
         integration[4].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
 	integration[4].setArg<cl::Buffer>(6, molVelocities->getDeviceBuffer());
+	integration[4].setArg<cl::Buffer>(7, moleculeStatus->getDeviceBuffer());
 	 // kernel set atom positions
 	integration[5].setArg<cl::Buffer>(0, molVelocities->getDeviceBuffer());
 	integration[5].setArg<cl::Buffer>(1, molPositions->getDeviceBuffer());
@@ -3751,7 +3754,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
         integration[6].setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
 	integration[6].setArg<cl::Buffer>(2, moleculeTau->getDeviceBuffer());
 	integration[6].setArg<cl::Buffer>(3, acceleration->getDeviceBuffer());
-        integration[6].setArg<cl::Buffer>(4, momentOfInertia->getDeviceBuffer());
+        integration[6].setArg<cl::Buffer>(4, moleculeStatus->getDeviceBuffer());
         integration[6].setArg<cl::Buffer>(5, deltaT->getDeviceBuffer());
 	
 	integration[7].setArg<cl::Buffer>(0, cl.getPosq().getDeviceBuffer());

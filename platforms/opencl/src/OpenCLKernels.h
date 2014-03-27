@@ -845,7 +845,14 @@ public:
     void getMoleculePositions(std::vector<Vec3>& moleculePositions);
     void getMoleculeQ(std::vector<Tensor>& moleculeQ);
     void setMomentOfInertia(const std::vector<Vec3>& momentOfInertia);
-    void setMoleculeState(const std::vector<std::vector<unsigned int> >& moleculeStatus);
+    /**
+     * molecule status simple signifies the linear information of molecule
+     * index 0 - islinearmolecule
+     * index 1 - isPointMolecule
+     * index 2 - not linear molecule
+     * index 3 - not point molecule
+     */
+    void setMoleculeStatus(const std::vector<std::vector<unsigned int> >& moleculeStatus);
     void setMoleculeVelocities(const std::vector<Vec3>& molVelocities);
     void getMoleculeVelocities(std::vector<Vec3>& molVelocities);
     /**
