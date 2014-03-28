@@ -3588,13 +3588,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialStep(const ContextImpl& imp
 {
     cl.executeKernel(integration[1],cl.getNumOfMolecules());
 //     calculateMolecularPositions();
-    /*
-    molPositions->download();
-    
-    for(int j=0;j<cl.getNumOfMolecules();++j){
-	mm_float4& t = (*molPositions)[j];
-	printf("%d => %3.8f,%3.8f,%3.8f,%3.8f\n",j,t.x,t.y,t.z,t.w);
-    }*/
+
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, const VelocityVerletIntegrator& integrator) {
@@ -3642,15 +3636,16 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
     
     cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet,defines,"");
     cl::Program program2 = cl.createProgram(OpenCLKernelSources::verlet_util,defines,"");
+    cl::Program program3 = cl.createProgram(OpenCLKernelSources::updateaftermove,defines,"");
     
     integration[0] = cl::Kernel(program, "velocityPositionUpdate");
 
     //kernel2 = cl::Kernel(program, "velocityVerletPart2");
     if(IsMolecular){
         integration[1] = cl::Kernel(program, "updateAcceleration");
-	integration[2] = cl::Kernel(program, "updateAfterMove1");
-	integration[3] = cl::Kernel(program, "updateAfterMove2");
-	integration[4] = cl::Kernel(program, "updateAfterMove3");
+	integration[2] = cl::Kernel(program3, "updateAfterMove1");
+	integration[3] = cl::Kernel(program3, "updateAfterMove2");
+	integration[4] = cl::Kernel(program3, "updateAfterMove3");
         integration[5] = cl::Kernel(program, "setAtomPositions");
 	integration[6] = cl::Kernel(program, "finalHalfVelocityUpdate");
 	integration[7] = cl::Kernel(program2, "calculateMolecularPositions");
@@ -3688,13 +3683,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
     integration[0].setArg<cl::Buffer>(5, moleculeTau->getDeviceBuffer());
     integration[0].setArg<cl::Buffer>(6, moleculeStatus->getDeviceBuffer());
     
-
-    //kernel2 initializations
     
-    /*kernel2.setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
-    kernel2.setArg<cl::Buffer>(1, cl.getVelm().getDeviceBuffer());
-    kernel2.setArg<cl::Buffer>(2, cl.getForce().getDeviceBuffer());
-    */
     if(IsMolecular){
 	
 	integration[1].setArg<cl::Buffer>(0,cl.getForce().getDeviceBuffer());
@@ -3805,7 +3794,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::integrator1(ContextImpl& context) 
       cl.executeKernel(integration[3],cl.getNumOfMolecules());
       //invoke move1
       cl.executeKernel(integration[2],cl.getNumOfMolecules());
-      //invoke setAtomPositions
+//       invoke setAtomPositions
       cl.executeKernel(integration[5],cl.getNumOfMolecules());
       
 }
@@ -3816,39 +3805,6 @@ void OpenCLIntegrateVelocityVerletStepKernel::integrator2(ContextImpl& context)
     cl.executeKernel(integration[1],cl.getNumOfMolecules());
     //invoke finalHalfVelocityUpdate
     cl.executeKernel(integration[6],cl.getNumOfMolecules());
-    
-//     acceleration->download();
-//     moleculePI->download();
-//     OpenCLArray<mm_float4>& forces = cl.getForce();
-//     forces.download();
-//     OpenCLArray<mm_float4>& velm = cl.getVelm();
-//     velm.download();
-//     
-//     int i = 0;
-//     int mol = 0;
-//     while(i<cl.getNumOfMolecules()){
-// 	mm_float4 pi = (*moleculePI)[i];
-// 	mm_float4 acc = (*acceleration)[i];
-// 	mm_float4 v = velm[i];
-// 	
-// 	printf("PI => %3.8f\t%3.8f\t%3.8f\n",pi.x,pi.y,pi.z);
-// 	printf("ACC => %3.8f\t%3.8f\t%3.8f\n",acc.x,acc.y,acc.z);
-// 	printf("Vel => %3.8f\t%3.8f\t%3.8f\t%3.8f\n",v.x,v.y,v.z,v.w);
-// 
-// 	mm_float4 sumforce = mm_float4(0.0f,0.0f,0.0f,0.0f);
-// 	for(int k = 0;k<4;k++){
-// 	    mm_float4& f = forces[mol+k];
-// 	    sumforce.x += f.x;
-// 	    sumforce.y += f.y;
-// 	    sumforce.z += f.z;
-// 	    printf("SiteForce %d-%d=> %3.8f\t%3.8f\t%3.8f\n",
-// 			i,k,f.x,f.y,f.z);
-// 	}
-// 	printf("Force %d=> %3.8f\t%3.8f\t%3.8f\n",
-// 			i,sumforce.x,sumforce.y,sumforce.z);
-// 	mol+=4;
-// 	i++;
-//     }
     // Update the time and step count.
     cl.setTime(cl.getTime()+dt);
     cl.setStepCount(cl.getStepCount()+1);
