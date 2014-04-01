@@ -108,6 +108,8 @@ __kernel void velocityPositionUpdate(__global const float* restrict deltaT,
 		    tau.x = 0.0;
 		    pi.x = 0.0;
 		}
+		
+		//equivalent to move function in OF
 		reusetemp = convert_double4(moleculePos[index]);
 		reusetemp.xyz += velocity.xyz * dt;
 		//check for point molecule
@@ -129,6 +131,18 @@ __kernel void velocityPositionUpdate(__global const float* restrict deltaT,
 }//end kernel velocityPositionUpdate
 				
 
+
+__kernel void makeZero(__global float4* restrict tau,
+		       __global float4* restrict acceleration)
+{
+    int index = get_global_id(0);
+    while(index<NUM_MOLECULES){
+	tau[index] = (float4) (0.0f,0.0f,0.0f,0.0f);
+	acceleration[index] = (float4) (0.0f,0.0f,0.0f,0.0f);
+	index += get_global_size(0);
+    }
+}
+		       
 /**
  * calculate acceleration
  * this kernel calculates in molecular integration, generally this is calculated 

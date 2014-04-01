@@ -37,7 +37,7 @@ __kernel void updateAfterMove1(__global const float* restrict deltaT,
 
 	    //calculating rotationTensorX
 	      double phi = (deltaTime * pi.x)/inertia.x;
-	      Rx = (double4) (cos(phi),-(sin(phi)),sin(phi),cos(phi)); 
+	      Rx = (double4) (cos(phi),-sin(phi),sin(phi),cos(phi)); 
 
 	    //inner prodcut of tensor and vector but in this case tensor is represented as vector
 	      double rx = pi.x*1.0;
@@ -119,7 +119,7 @@ __kernel void updateAfterMove2(__global const float* restrict deltaT,
 
 	      
 	      double phi = (deltaTime * pi.y)/inertia.y;
-	      double4 Ry = (double4) (cos(phi),sin(phi),-(sin(phi)),cos(phi)); 
+	      double4 Ry = (double4) (cos(phi),sin(phi),-sin(phi),cos(phi)); 
 	      
 	      double rx = (pi.x*Ry.x) + (pi.z*Ry.z);
 	      double ry = pi.y*1.0;
@@ -174,7 +174,8 @@ __kernel void updateAfterMove3(__global const float* restrict deltaT,
                               __global float4* restrict moleculeQ2,
                               __global float* restrict moleculeQ3,
 			      __global const float4* restrict velocities,
-			      __global const ushort4* restrict moleculeStatus
+			      __global const ushort4* restrict moleculeStatus,
+			      __global float4* restrict testArray
 			      )
 {
     int index = get_global_id(0);
@@ -194,8 +195,8 @@ __kernel void updateAfterMove3(__global const float* restrict deltaT,
 		double4 pi = convert_double4(moleculePI[index]);
 		
 		double phi = (pi.z * dt)/inertia.z;
-		double4 Rz = (double4) (cos(phi),-(sin(phi)),sin(phi),cos(phi)); 
-		
+		double4 Rz = (double4) (cos(phi),-sin(phi),sin(phi),cos(phi)); 
+
 		double xx = pi.x*Rz.x;
 		xx += pi.y*Rz.z;
 		double xy = pi.x*Rz.y;

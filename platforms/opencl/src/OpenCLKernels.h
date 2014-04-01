@@ -885,8 +885,9 @@ private:
      * 5 =>	setAtomPositions
      * 6 => 	finalHalfvelocitiesUpdate
      * 7 => 	calculateMolecularPositions
+     * 8 => 	makezero
      */
-    cl::Kernel integration[8];
+    cl::Kernel integration[9];
     
     /*
      * the below variable would be initiliased only if molecular integration is requied
