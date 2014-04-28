@@ -3581,8 +3581,8 @@ void OpenCLIntegrateVelocityVerletStepKernel::getMoleculeQ(std::vector<Tensor>& 
 
 void OpenCLIntegrateVelocityVerletStepKernel::initialStep(const ContextImpl& impl)
 {
-    cl.executeKernel(integration[8],cl.getNumOfMolecules());
-//     cl.executeKernel(integration[1],cl.getNumOfMolecules());
+//     cl.executeKernel(integration[8],cl.getNumOfMolecules());
+    cl.executeKernel(integration[1],cl.getNumOfMolecules());
 //     calculateMolecularPositions();
 
 }
