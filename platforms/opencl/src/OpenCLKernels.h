@@ -870,8 +870,8 @@ private:
 				 // to access private objects of *this class
     friend class OpenCLUpdateStateDataKernel;
     OpenCLContext& cl;
-    OpenCLArray<cl_float>* deltaT;
-    OpenCLArray<cl_float>* variableDelta;
+    OpenCLArray<cl_double>* deltaT;
+    OpenCLArray<cl_double>* variableDelta;
     double dt;
     int numAtoms;
     int numMolecules;
@@ -899,17 +899,18 @@ private:
     OpenCLArray<mm_float4>* moleculeQ1;
     OpenCLArray<mm_float4>* moleculeQ2;
     OpenCLArray<cl_float>* moleculeQ3;
-    OpenCLArray<mm_float4>* acceleration;
+    OpenCLArray<cl_double>* acceleration;
     OpenCLArray<cl_int>* moleculeIndex;
     OpenCLArray<cl_int>* moleculeSize;
     OpenCLArray<cl_int>* moleculeStartIndex;
     OpenCLArray<mm_float4>* molPositions;
     OpenCLArray<mm_ushort4>* moleculeStatus;
-    OpenCLArray<cl_float>* atomMasses;
-    OpenCLArray<mm_float4>* molVelocities;
+    OpenCLArray<cl_double>* atomMasses;
+    OpenCLArray<cl_double>* molVelocities;
+    OpenCLArray<cl_double>* moleculeMass;
     bool IsMolecular;
     //TODO: delete this variable in production
-    OpenCLArray<mm_float4>* testarray;
+    OpenCLArray<mm_int4>* testarray;
     
    // private functions for reordering
     void reorderMolecularData(const std::vector<int>& newIndex, 

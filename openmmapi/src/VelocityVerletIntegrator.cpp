@@ -73,7 +73,7 @@ void VelocityVerletIntegrator::step(int steps) {
 //	bool includeVirial = context->getVirialIncluded();
     
     if (!firstTimeForce_) {
-        context->calcForcesAndEnergy(true,false);
+//         context->calcForcesAndEnergy(true,false);
 	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).initialStep(*context);
         firstTimeForce_ = true;
     }
@@ -91,13 +91,13 @@ void VelocityVerletIntegrator::step(int steps) {
 //        if(includeVirial)
 //            context->getMeasurements().measureAtBegin(*context);
         
-    	context->calcForcesAndEnergy(true, false);
+//     	context->calcForcesAndEnergy(true, false);
         
         if (cs) {
             context->getControls().controlBeforeForces(*context);
         }
         
-    	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator2(*context);
+//     	dynamic_cast<IntegrateVelocityVerletStepKernel&>(kernel.getImpl()).integrator2(*context);
 
         //    	if(ms)
 //    		context->getMeasurements().measureAtEnd(*context);

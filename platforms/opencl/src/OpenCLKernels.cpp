@@ -3361,6 +3361,8 @@ OpenCLIntegrateVelocityVerletStepKernel::~OpenCLIntegrateVelocityVerletStepKerne
 	delete atomMasses;
     if(molVelocities!=NULL)
 	delete molVelocities;
+    if(moleculeMass!=NULL)
+        delete moleculeMass;
     
 }
 
@@ -3370,56 +3372,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::reorderMolecularData(const vector<
 							    bool isFirstTime
  							      )
 {
-    std::vector<mm_float4> tempmolpi(numMolecules);
-    std::vector<mm_float4> q1(numMolecules);
-    std::vector<mm_float4> q2(numMolecules);
-    std::vector<cl_float> q3(numMolecules);
-    std::vector<mm_float4> molvel(numMolecules);
-    std::vector<mm_float4> molpos(numMolecules);
-
-    /**
-     * download the array if reordering is already done or else
-     * if its at the beginning of simualation then simply use the CPU copy
-     */
-#ifdef DEBUG
-    printf("ReorderMolecularData called\n");
-#endif
-//     if(!isFirstTime){
-#ifdef DEBUG
-	printf("First time reorder\n");
-#endif
-	moleculePI->download();
-	moleculeQ1->download();
-	moleculeQ2->download();
-	moleculeQ3->download();
-	molVelocities->download();
-	molPositions->download();
-//     }
     
-    for(int i = 0; i< numMolecules; ++i){
-	int oldIdx = oldIndex[i];
-	int newIdx = newIndex[i];
-// 	printf("Idx-%d => O-%d\t N-%d\n",i,oldIdx,newIdx);
-	mm_float4& temp = (*moleculePI)[oldIdx];
-	tempmolpi[newIdx] = temp;
-	temp = (*moleculeQ1)[oldIdx];
-	q1[newIdx] = temp;
-	temp = (*moleculeQ2)[oldIdx];
-	q2[newIdx] = temp;
-	const cl_float temp2 = (*moleculeQ3)[oldIdx];
-	q3[newIdx] = temp2;
-	temp = (*molVelocities)[oldIdx];
-	molvel[newIdx] = temp;
-	temp = (*molPositions)[oldIdx];
-	molpos[newIdx] = temp;
-    }
-    
-    moleculePI->upload(tempmolpi);
-    moleculeQ1->upload(q1);
-    moleculeQ2->upload(q2);
-    moleculeQ3->upload(q3);
-    molVelocities->upload(molvel);
-    molPositions->upload(molpos);
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::calculateMolecularPositions()
@@ -3466,14 +3419,14 @@ void OpenCLIntegrateVelocityVerletStepKernel::setMoleculePositions(const std::ve
     if(moleculePositions.size()==0 || moleculePositions.size() < cl.getNumOfMolecules())
 	    throw OpenMMException("Size of MoleculePositions array must be equal to\
 			    number of Molecules in system, current size found is "+moleculePositions.size());
-    OpenCLArray<cl_int>& order = cl.getMoleculeIndex();
-    for(int i = 0;i < cl.getNumOfMolecules();i++){
-	    const OpenMM::Vec3& mpos = moleculePositions[order[i]];
-// 		printf("%d => %3.10f\t%3.10f\t%3.10f\n",i,mpos[0],mpos[1],mpos[2]);
-	    (*molPositions)[i] = mm_float4(mpos[0],mpos[1],mpos[2],0.0f);
-    }
-    //upload molecule positions
-    molPositions->upload();
+//     OpenCLArray<cl_int>& order = cl.getMoleculeIndex();
+//     for(int i = 0;i < cl.getNumOfMolecules();i++){
+// 	    const OpenMM::Vec3& mpos = moleculePositions[order[i]];
+// // 		printf("%d => %3.10f\t%3.10f\t%3.10f\n",i,mpos[0],mpos[1],mpos[2]);
+// 	    (*molPositions)[i] = mm_float4(mpos[0],mpos[1],mpos[2],0.0f);
+//     }
+//     //upload molecule positions
+//     molPositions->upload();
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::setMoleculePI(const vector<Vec3>& molPI)
@@ -3535,10 +3488,16 @@ void OpenCLIntegrateVelocityVerletStepKernel::getMoleculeVelocities(std::vector<
     OpenCLArray<cl_int>& order = cl.getMoleculeIndex();
     int numMolecules = cl.getNumOfMolecules();
     molVel.resize(numMolecules);
+    int counter = 0;
     
     for (int i = 0; i < numMolecules; ++i) {
-        mm_float4& vel = (*molVelocities)[i];
-        molVel[order[i]] = OpenMM::Vec3(vel.x, vel.y, vel.z);
+        int iter = i*counter;
+        molVel[order[i]] = OpenMM::Vec3(
+	    (*molVelocities)[iter],
+	    (*molVelocities)[iter+1],
+	    (*molVelocities)[iter+2]
+	);
+	counter+=3;
     }
 }
 
@@ -3547,15 +3506,15 @@ void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeVelocities(const std::v
     molVelocities->download();
     OpenCLArray<cl_int>& order = cl.getMoleculeIndex();
     int numMolecules = cl.getNumOfMolecules();
-    
+    int counter = 0;
     for (int i = 0; i < numMolecules; ++i) {
-        mm_float4& vel = (*molVelocities)[i];
         const Vec3& p = molVel[order[i]];
-        vel.x = static_cast<cl_float>(p[0]);
-        vel.y = static_cast<cl_float>(p[1]);
-        vel.z = static_cast<cl_float>(p[2]);
+	int iter = i*counter;
+	(*molVelocities)[iter] = p[0];
+	(*molVelocities)[iter+1] = p[1];
+	(*molVelocities)[iter+2] = p[2];
+	counter+=3;
     }
-    
     molVelocities->upload();
 }
 
@@ -3582,7 +3541,7 @@ void OpenCLIntegrateVelocityVerletStepKernel::getMoleculeQ(std::vector<Tensor>& 
 void OpenCLIntegrateVelocityVerletStepKernel::initialStep(const ContextImpl& impl)
 {
 //     cl.executeKernel(integration[8],cl.getNumOfMolecules());
-    cl.executeKernel(integration[1],cl.getNumOfMolecules());
+//     cl.executeKernel(integration[1],cl.getNumOfMolecules());
 //     calculateMolecularPositions();
 
 }
@@ -3609,162 +3568,61 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
     moleculeStatus = NULL;
     testarray = NULL;
     molVelocities = NULL;
+    moleculeMass = NULL;
     
     numMolecules = cl.getNumOfMolecules();
     numAtoms = cl.getNumAtoms();
     int totalUniqueMolecules = system.getNumberofIds();
 
     cl.getPlatformData().initializeContexts(system);
-    IsMolecular = cl.getIsMolecular();
+    IsMolecular = cl.getIsMolecular();//set molecular status
+    //define variable strings to be passed as preprocessor variables to clbuild
     map<string, string> defines;
     defines["NUM_MOLECULES"] = intToString(cl.getNumOfMolecules());
     defines["NUM_ATOMS"] = intToString(numAtoms);
     defines["MOLECULAR_INTEGRATION"] = "0";
-    
-    
+    defines["CONFIG_USE_DOUBLE"] = "1";
+
     if(IsMolecular){
         defines["MOLECULAR_INTEGRATION"] = "1";
     }
-
-
+    
+    printf("Is Molecular %d\n",IsMolecular);
     //add reorder listener to the class
     cl.addReorderListener(new ReorderListener(cl,*this,numMolecules));
     
     cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet,defines,"");
-    cl::Program program2 = cl.createProgram(OpenCLKernelSources::verlet_util,defines,"");
-    cl::Program program3 = cl.createProgram(OpenCLKernelSources::updateaftermove,defines,"");
+//     cl::Program program2 = cl.createProgram(OpenCLKernelSources::verlet_util,defines,"");
+//     cl::Program program3 = cl.createProgram(OpenCLKernelSources::updateaftermove,defines,"");
     
     integration[0] = cl::Kernel(program, "velocityPositionUpdate");
-
-    //kernel2 = cl::Kernel(program, "velocityVerletPart2");
-    if(IsMolecular){
-        integration[1] = cl::Kernel(program, "updateAcceleration");
-	integration[2] = cl::Kernel(program3, "updateAfterMove1");
-	integration[3] = cl::Kernel(program3, "updateAfterMove2");
-	integration[4] = cl::Kernel(program3, "updateAfterMove3");
-        integration[5] = cl::Kernel(program, "setAtomPositions");
-	integration[6] = cl::Kernel(program, "finalHalfVelocityUpdate");
-	integration[7] = cl::Kernel(program2, "calculateMolecularPositions");
-	integration[8] = cl::Kernel(program, "makeZero");
-	
-        momentOfInertia = new OpenCLArray<mm_float4>(cl,1,"momentOfInertia",true);
-	moleculeStatus = new OpenCLArray<mm_ushort4>(cl,1,"moleculeStatus",true);
-        moleculePI = new OpenCLArray<mm_float4>(cl, cl.getNumOfMolecules(),"moleculePI",true);
-        moleculeTau = new OpenCLArray<mm_float4>(cl,cl.getNumOfMolecules(),"moleculeTau",true);
-	acceleration = new OpenCLArray<mm_float4>(cl,cl.getNumOfMolecules(),"acceleration",true);
-	//TODO: set the size of siteRefPos equal to number of unique species * type of molecule
-        siteRefPos = new OpenCLArray<mm_float4>(cl,4,"siteRefPos",true);
-        moleculeQ1 = new OpenCLArray<mm_float4>(cl,cl.getNumOfMolecules(),"moleculeQ1",true);
-        moleculeQ2 = new OpenCLArray<mm_float4>(cl,cl.getNumOfMolecules(),"moleculeQ2",true);
-        moleculeQ3 = new OpenCLArray<cl_float>(cl,cl.getNumOfMolecules(),"moleculeQ3",true);
-	molPositions = new OpenCLArray<mm_float4>(cl,cl.getNumOfMolecules(),"molPositions",true);
-	//TODO: set the size based on type of molecules * each molecule size
-	atomMasses = new OpenCLArray<cl_float>(cl,4,"atomMasses",true);
-	molVelocities = new OpenCLArray<mm_float4>(cl,cl.getNumOfMolecules(),"molVelocities",true);
-	testarray = new OpenCLArray<mm_float4>(cl,cl.getNumAtoms(),"testarray",true);
-    }
-
     dt = integrator.getStepSize();
-    deltaT = new OpenCLArray<cl_float>(cl,1,"deltaT",true);
-    variableDelta = new OpenCLArray<cl_float>(cl,1,"variableDelta",true);
-    (*deltaT)[0] = (float) dt;
-    (*variableDelta)[0] = (float) dt * 0.5f;
-    
-
-    //kernel1 initializations
-    integration[0].setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
-    integration[0].setArg<cl::Buffer>(1, acceleration->getDeviceBuffer());
-    integration[0].setArg<cl::Buffer>(2, molPositions->getDeviceBuffer());
-    integration[0].setArg<cl::Buffer>(3, molVelocities->getDeviceBuffer());
-    integration[0].setArg<cl::Buffer>(4, moleculePI->getDeviceBuffer());
-    integration[0].setArg<cl::Buffer>(5, moleculeTau->getDeviceBuffer());
-    integration[0].setArg<cl::Buffer>(6, moleculeStatus->getDeviceBuffer());
-    
-    
-    if(IsMolecular){
-	
-	integration[1].setArg<cl::Buffer>(0,cl.getForce().getDeviceBuffer());
-	integration[1].setArg<cl::Buffer>(1,molVelocities->getDeviceBuffer());
-	integration[1].setArg<cl::Buffer>(2,siteRefPos->getDeviceBuffer());
-	integration[1].setArg<cl::Buffer>(3,moleculeQ1->getDeviceBuffer());
-	integration[1].setArg<cl::Buffer>(4,moleculeQ1->getDeviceBuffer());
-	integration[1].setArg<cl::Buffer>(5,moleculeQ1->getDeviceBuffer());
-	integration[1].setArg<cl::Buffer>(6,cl.getMoleculeSize().getDeviceBuffer());
-	integration[1].setArg<cl::Buffer>(7,cl.getMoleculeStartIndex().getDeviceBuffer());
-	integration[1].setArg<cl::Buffer>(8,acceleration->getDeviceBuffer());
-	integration[1].setArg<cl::Buffer>(9,moleculeTau->getDeviceBuffer());
-
-	//setting arguments for move1
-	integration[2].setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
-        integration[2].setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
-        integration[2].setArg<cl::Buffer>(2, momentOfInertia->getDeviceBuffer());
-        integration[2].setArg<cl::Buffer>(3, moleculeQ1->getDeviceBuffer());
-        integration[2].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
-        integration[2].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
-	integration[2].setArg<cl::Buffer>(6, molVelocities->getDeviceBuffer());
-	integration[2].setArg<cl::Buffer>(7, moleculeStatus->getDeviceBuffer());
-
-	//setting arguments for move part 2
-	integration[3].setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
-        integration[3].setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
-        integration[3].setArg<cl::Buffer>(2, momentOfInertia->getDeviceBuffer());
-        integration[3].setArg<cl::Buffer>(3, moleculeQ1->getDeviceBuffer());
-        integration[3].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
-        integration[3].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
-	integration[3].setArg<cl::Buffer>(6, molVelocities->getDeviceBuffer());
-	integration[3].setArg<cl::Buffer>(7, moleculeStatus->getDeviceBuffer());
-	
-	//setting arguments for move part 3
-	integration[4].setArg<cl::Buffer>(0, deltaT->getDeviceBuffer());
-        integration[4].setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
-        integration[4].setArg<cl::Buffer>(2, momentOfInertia->getDeviceBuffer());
-        integration[4].setArg<cl::Buffer>(3, moleculeQ1->getDeviceBuffer());
-        integration[4].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
-        integration[4].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
-	integration[4].setArg<cl::Buffer>(6, molVelocities->getDeviceBuffer());
-	integration[4].setArg<cl::Buffer>(7, moleculeStatus->getDeviceBuffer());
-	integration[4].setArg<cl::Buffer>(8, testarray->getDeviceBuffer());
-	
-	 // kernel set atom positions
-	integration[5].setArg<cl::Buffer>(0, molVelocities->getDeviceBuffer());
-	integration[5].setArg<cl::Buffer>(1, molPositions->getDeviceBuffer());
-	integration[5].setArg<cl::Buffer>(2, siteRefPos->getDeviceBuffer());       
-        integration[5].setArg<cl::Buffer>(3, moleculeQ1->getDeviceBuffer());
-        integration[5].setArg<cl::Buffer>(4, moleculeQ2->getDeviceBuffer());
-        integration[5].setArg<cl::Buffer>(5, moleculeQ3->getDeviceBuffer());
-	integration[5].setArg<cl::Buffer>(6, cl.getPosq().getDeviceBuffer());
-	integration[5].setArg<cl::Buffer>(7, cl.getMoleculeSize().getDeviceBuffer());
-	integration[5].setArg<cl::Buffer>(8, cl.getMoleculeStartIndex().getDeviceBuffer());
-	integration[5].setArg<cl::Buffer>(9, testarray->getDeviceBuffer());
-	
-        
-	integration[6].setArg<cl::Buffer>(0, molVelocities->getDeviceBuffer());
-        integration[6].setArg<cl::Buffer>(1, moleculePI->getDeviceBuffer());
-	integration[6].setArg<cl::Buffer>(2, moleculeTau->getDeviceBuffer());
-	integration[6].setArg<cl::Buffer>(3, acceleration->getDeviceBuffer());
-        integration[6].setArg<cl::Buffer>(4, moleculeStatus->getDeviceBuffer());
-        integration[6].setArg<cl::Buffer>(5, deltaT->getDeviceBuffer());
-	
-	integration[7].setArg<cl::Buffer>(0, cl.getPosq().getDeviceBuffer());
-	integration[7].setArg<cl::Buffer>(1, molVelocities->getDeviceBuffer());
-	integration[7].setArg<cl::Buffer>(2, molPositions->getDeviceBuffer());
-	integration[7].setArg<cl::Buffer>(3, atomMasses->getDeviceBuffer());
-	integration[7].setArg<cl::Buffer>(4, cl.getMoleculeStartIndex().getDeviceBuffer());
-	integration[7].setArg<cl::Buffer>(5, cl.getMoleculeSize().getDeviceBuffer());
-	
-	//make zeros
-	integration[8].setArg<cl::Buffer>(0, moleculeTau->getDeviceBuffer());
-	integration[8].setArg<cl::Buffer>(1, acceleration->getDeviceBuffer());
-	
-    }//end ismolecular check
-
-    setAtomMasses(system);
+    deltaT = new OpenCLArray<cl_double>(cl,1,"deltaT",true);
+    variableDelta = new OpenCLArray<cl_double>(cl,1,"variableDelta",true);
+    (*deltaT)[0] = dt;
+    (*variableDelta)[0] = dt * 0.5f;
     deltaT->upload();
-
     variableDelta->upload();
     cl.getMoleculeSize().upload();
     cl.getMoleculeStartIndex().upload();
-   
+    //kernel2 = cl::Kernel(program, "velocityVerletPart2");
+    if(IsMolecular){
+	acceleration = new OpenCLArray<cl_double>(cl,cl.getNumOfMolecules()*3,"acceleration",false);
+	//TODO: set the size based on type of molecules * each molecule size
+	atomMasses = new OpenCLArray<cl_double>(cl,4,"atomMasses",true);
+	molVelocities = new OpenCLArray<cl_double>(cl,(cl.getNumOfMolecules()*3),"molVelocities",true);
+	moleculeMass = new OpenCLArray<cl_double>(cl,1,"moleculeMass",true);
+	testarray = new OpenCLArray<mm_int4>(cl,cl.getNumOfMolecules(),"testarray",true);
+    }
+
+    integration[0].setArg<cl::Buffer>(0,deltaT->getDeviceBuffer());
+    integration[0].setArg<cl::Buffer>(1,cl.getForce().getDeviceBuffer());
+    integration[0].setArg<cl::Buffer>(2,moleculeMass->getDeviceBuffer());
+    integration[0].setArg<cl::Buffer>(3,molVelocities->getDeviceBuffer());
+    integration[0].setArg<cl::Buffer>(4,cl.getMoleculeSize().getDeviceBuffer());
+    integration[0].setArg<cl::Buffer>(5,cl.getMoleculeStartIndex().getDeviceBuffer());
+    integration[0].setArg<cl::Buffer>(6,testarray->getDeviceBuffer());
+    
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::setAtomMasses(const System& system)
@@ -3773,42 +3631,22 @@ void OpenCLIntegrateVelocityVerletStepKernel::setAtomMasses(const System& system
     for(int i = 0;i<4;++i){
 	const double mass = system.getParticleMass(i);
 	sumMass += mass;
-	(*atomMasses)[i] = static_cast<cl_float>(mass);
+	(*atomMasses)[i] = mass;
     }
-    float molMass = static_cast<float>(sumMass == 0.0 ? 0.0 : 1.0/sumMass);
-    
-    for(int m=0;m<cl.getNumOfMolecules();++m){
-	(*molVelocities)[m].w =  molMass;
-    }
+    //calculate inverse molecular mass
+    double molInvMass = (sumMass == 0.0 ? 0.0 : 1.0/sumMass);
+    (*moleculeMass)[0] = molInvMass;
     atomMasses->upload();
-    molVelocities->upload();
+    moleculeMass->upload();
 }
 
 
-void OpenCLIntegrateVelocityVerletStepKernel::integrator1(ContextImpl& context) {
-      //invoke velocityPositionUpdate
-      cl.executeKernel(integration[0],cl.getNumOfMolecules());
-      //invoke move1
-      cl.executeKernel(integration[2],cl.getNumOfMolecules());
-      //invoke move2 
-      cl.executeKernel(integration[3],cl.getNumOfMolecules());
-      //invoke move3
-      cl.executeKernel(integration[4],cl.getNumOfMolecules());
-      //invoke move2
-      cl.executeKernel(integration[3],cl.getNumOfMolecules());
-      //invoke move1
-      cl.executeKernel(integration[2],cl.getNumOfMolecules());
-//       invoke setAtomPositions
-      cl.executeKernel(integration[5],cl.getNumOfMolecules());
-      
+void OpenCLIntegrateVelocityVerletStepKernel::integrator1(ContextImpl& context) {      
+    cl.executeKernel(integration[0],cl.getNumOfMolecules());
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::integrator2(ContextImpl& context)
 {
-    //invoke updateAcceleration
-    cl.executeKernel(integration[1],cl.getNumOfMolecules());
-    //invoke finalHalfVelocityUpdate
-    cl.executeKernel(integration[6],cl.getNumOfMolecules());
     // Update the time and step count.
     cl.setTime(cl.getTime()+dt);
     cl.setStepCount(cl.getStepCount()+1);

@@ -1,6 +1,33 @@
 #ifdef SUPPORTS_DOUBLE_PRECISION
 #pragma OPENCL EXTENSION cl_khr_fp64 : enable
+#define DOUBLE_SUPPORT_AVAILABLE
+#endif //supports_double_precision
+
+#if defined(DOUBLE_SUPPORT_AVAILABLE)
+
+// double
+typedef double real_t;
+typedef double2 real2_t;
+typedef double3 real3_t;
+typedef double4 real4_t;
+typedef double8 real8_t;
+typedef double16 real16_t;
+#define PI 3.14159265358979323846
+#define PRE 2
+
+#else
+
+// float
+typedef float real_t;
+typedef float2 real2_t;
+typedef float3 real3_t;
+typedef float4 real4_t;
+typedef float8 real8_t;
+typedef float16 real16_t;
+#define PI 3.14159265359f
+#define PRE 1
 #endif
+
 /**
  * velocity verlet 
  * this code solves velocity verlet equation for multiscale methods
@@ -72,62 +99,49 @@
  * this requires tau and acceleration calculated before hand in first step 
  * of simulation and certainly in all steps when new forces are calculated
  */
-__kernel void velocityPositionUpdate(__global const float* restrict deltaT,
-				__global const float4* restrict acceleration, 
-				__global float4* restrict moleculePos,
-				__global float4* restrict velocities,
-				__global float4* restrict moleculePI,
-				__global float4* restrict moleculeTau,
-				__global const ushort4* restrict moleculeStatus)
+__kernel void velocityPositionUpdate(__global const real_t* restrict deltaT,
+        __global const float4* restrict forces,
+        __global const real_t* restrict moleculeMasses,
+        __global real_t* restrict velocities,
+        __global const int* restrict moleculeSize,
+	__global const int* restrict atomStartIndex,
+        __global int4* restrict testarray
+        )
 {
-	int index = get_global_id(0);
-	double dt = convert_double(deltaT[0]);
-	double deltatime = 0.5 * dt;
+#if defined(DOUBLE_SUPPORT_AVAILABLE)
+    real_t deltatime = 0.5 * deltaT[0];
+#else
+    real_t deltatime = 0.5f * deltaT[0];
+#endif
+
+    int gid = get_global_id(0);//actual thread index
+    int index = gid * 3;//used for traversing across 3'components of each particle.
+    int molsize = moleculeSize[gid];
+    int startIndex = atomStartIndex[gid];
+    
+    while(gid<NUM_MOLECULES){
+	real_t mass = moleculeMasses[0];
+	unsigned int a = 0;
+	real3_t acceleration = (real3_t) (0.0,0.0,0.0);
 	
-	while(index < NUM_MOLECULES)
+	while(a<molsize)//later make it generic with molsize
 	{
-	    double4 velocity = convert_double4(velocities[index]);
-	    ushort4 status = moleculeStatus[0];
-	    if(velocity.w!=0.0)
-	    {
-		double4 reusetemp = convert_double4(acceleration[index]);
-		double4 pi = convert_double4(moleculePI[index]);
-		double4 tau = convert_double4(moleculeTau[index]);
-	  
-		//updating velocities
-		velocity.xyz += reusetemp.xyz * deltatime;
-		//updating pi
-		pi.xyz += tau.xyz * deltatime;
-		//check for point molecule
-		if(status.x==1){
-		    tau = (double4) (0.0,0.0,0.0,0.0);
-		    pi = (double4) (0.0,0.0,0.0,0.0);
-		}
-		//check for linear molecule
-		if(status.y==1){
-		    tau.x = 0.0;
-		    pi.x = 0.0;
-		}
-		
-		//equivalent to move function in OF
-		reusetemp = convert_double4(moleculePos[index]);
-		reusetemp.xyz += velocity.xyz * dt;
-		//check for point molecule
-		//update make tau and pi zero
-		//check for linear molecule
-		//make tau and pi X component zero
-		
-		//update global memory arrays
-		velocities[index] = convert_float4(velocity);
-		moleculePos[index] = convert_float4(reusetemp);
-		moleculePI[index] = convert_float4(pi);
-		moleculeTau[index] = convert_float4(tau);
-		
-	    }//end if for non zero mass
-	    
-	    index += get_global_size(0);
-	}//end index while loop
+	    double4 f = convert_double4(forces[startIndex+a]);
+	    acceleration.xyz += f.xyz*mass;
+	    a++;
+	}
+	real_t v1 = velocities[index];
+	v1 += acceleration.x * deltatime;
+	real_t v2 = velocities[index+1];
+	v2 += acceleration.y * deltatime;
+	real_t v3 = velocities[index+2];
+	v3 += acceleration.z * deltatime;
 	
+	velocities[index] = v1;
+	velocities[index+1] = v2;
+	velocities[index+2] = v3;
+        gid+=get_global_size(0);
+    }	
 }//end kernel velocityPositionUpdate
 				
 
