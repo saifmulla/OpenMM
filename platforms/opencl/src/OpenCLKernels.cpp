@@ -3491,13 +3491,12 @@ void OpenCLIntegrateVelocityVerletStepKernel::getMoleculeVelocities(std::vector<
     int counter = 0;
     
     for (int i = 0; i < numMolecules; ++i) {
-        int iter = i*counter;
+        int iter = i*3;
         molVel[order[i]] = OpenMM::Vec3(
 	    (*molVelocities)[iter],
 	    (*molVelocities)[iter+1],
 	    (*molVelocities)[iter+2]
 	);
-	counter+=3;
     }
 }
 
@@ -3509,11 +3508,10 @@ void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeVelocities(const std::v
     int counter = 0;
     for (int i = 0; i < numMolecules; ++i) {
         const Vec3& p = molVel[order[i]];
-	int iter = i*counter;
+	int iter = i*3;
 	(*molVelocities)[iter] = p[0];
 	(*molVelocities)[iter+1] = p[1];
 	(*molVelocities)[iter+2] = p[2];
-	counter+=3;
     }
     molVelocities->upload();
 }
