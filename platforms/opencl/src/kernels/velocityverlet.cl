@@ -94,6 +94,91 @@ typedef float16 real16_t;
 */
 
 /**
+ * calculate acceleration
+ * this kernel calculates in molecular integration, generally this is calculated 
+ * when new forces are caculated
+ * TODO: enable checks in case of simple monotomic simulation which would not require TAU
+ */
+
+__kernel void updateAcceleration(__global const float4* restrict forces,
+				 __global const real_t* restrict velocities,
+				 __global const real_t* restrict siteReferencePos,
+				 __global const real_t* restrict moleculeQ,
+				 __global const real_t* restrict moleculeMasses,
+				 __global const int* restrict moleculeSize,
+				 __global const int* restrict atomStartIndex,
+				 __global real_t* restrict acceleration,
+				 __global real_t* restrict moleculeTau
+				)
+{
+    int index = get_global_id(0);
+    
+    while(index < NUM_MOLECULES)
+    {
+        real_t mass = moleculeMasses[0];
+	unsigned int veliter = index * 3;
+	unsigned int qiter = index * 9;
+	int molsize = moleculeSize[index];
+	int startIndex = atomStartIndex[index];
+    }//end while
+    
+    while(index < NUM_MOLECULES)
+    {
+        //store the velocity locally
+        float4 velocity = velocities[index];
+        double mass = convert_double(velocity.w);
+        
+	  if(mass != 0.0)
+	  {
+		//copy data locally
+		double4 q1 = convert_double4(moleculeQ1[index]);
+		double4 q2 = convert_double4(moleculeQ2[index]);
+		double q3 = convert_double(moleculeQ3[index]);
+		int molsize = moleculeSize[index];
+		int startIndex = atomStartIndex[index];
+		
+		double4 tau = (double4) (0.0,0.0,0.0,0.0);
+		double4 tempf = (double4) (0.0,0.0,0.0,0.0);
+		double4 sumF = (double4) (0.0,0.0,0.0,0.0);
+		
+		int a = 0;
+		while(a<molsize){
+			tempf = convert_double4(forces[startIndex+a]);
+			sumF.xyz += tempf.xyz*mass;
+			
+			//calculating inner product of Q & f
+			double x = q1.x * tempf.x;
+			x += q1.w * tempf.y;
+			x += q2.z * tempf.z;
+			double y = q1.y * tempf.x;
+			y += q2.x * tempf.y;
+			y += q2.w * tempf.z;
+			double z = q1.z * tempf.x;
+			z += q2.y * tempf.y;
+			z += q3 * tempf.z;
+			
+			//calculating cross product of innerproduct and siteReferencePos
+			tempf = convert_double4(siteReferencePos[a]);
+			double crossx = tempf.y * z;
+			crossx -= tempf.z * y;
+			double crossy = tempf.z * x;
+			crossy -= tempf.x * z;
+			double crossz = tempf.x * y;
+			crossz -= tempf.y * x;
+			//add the cross product to sum tau
+			tau.x += crossx;
+			tau.y += crossy;
+			tau.z += crossz;
+			a++;
+		}
+
+		acceleration[index] = convert_float4(sumF);
+		moleculeTau[index] = convert_float4(tau); 
+	      
+	  }//end if
+	index += get_global_size(0); 
+    }//end while
+/**
  * update the first half of velocity which essentially solves the first
  * part of velocity verlet equation
  * this requires tau and acceleration calculated before hand in first step 
@@ -157,83 +242,7 @@ __kernel void makeZero(__global float4* restrict tau,
     }
 }
 		       
-/**
- * calculate acceleration
- * this kernel calculates in molecular integration, generally this is calculated 
- * when new forces are caculated
- * TODO: enable checks in case of simple monotomic simulation which would not require TAU
- */
 
-__kernel void updateAcceleration(__global const float4* restrict forces,
-				 __global const float4* restrict velocities,
-				 __global const float4* restrict siteReferencePos,
-				 __global const float4* restrict moleculeQ1,
-				 __global const float4* restrict moleculeQ2,
-				 __global const float* restrict moleculeQ3,
-				 __global const int* restrict moleculeSize,
-				 __global const int* restrict atomStartIndex,
-				 __global float4* restrict acceleration,
-				 __global float4* restrict moleculeTau
-				)
-{
-    int index = get_global_id(0);
-    
-    while(index < NUM_MOLECULES)
-    {
-        //store the velocity locally
-        float4 velocity = velocities[index];
-        double mass = convert_double(velocity.w);
-        
-	  if(mass != 0.0)
-	  {
-		//copy data locally
-		double4 q1 = convert_double4(moleculeQ1[index]);
-		double4 q2 = convert_double4(moleculeQ2[index]);
-		double q3 = convert_double(moleculeQ3[index]);
-		int molsize = moleculeSize[index];
-		int startIndex = atomStartIndex[index];
-		
-		double4 tau = (double4) (0.0,0.0,0.0,0.0);
-		double4 tempf = (double4) (0.0,0.0,0.0,0.0);
-		double4 sumF = (double4) (0.0,0.0,0.0,0.0);
-		
-		int a = 0;
-		while(a<molsize){
-			tempf = convert_double4(forces[startIndex+a]);
-			sumF.xyz += tempf.xyz*mass;
-			
-			//calculating inner product of Q & f
-			double x = q1.x * tempf.x;
-			x += q1.w * tempf.y;
-			x += q2.z * tempf.z;
-			double y = q1.y * tempf.x;
-			y += q2.x * tempf.y;
-			y += q2.w * tempf.z;
-			double z = q1.z * tempf.x;
-			z += q2.y * tempf.y;
-			z += q3 * tempf.z;
-			
-			//calculating cross product of innerproduct and siteReferencePos
-			tempf = convert_double4(siteReferencePos[a]);
-			double crossx = tempf.y * z;
-			crossx -= tempf.z * y;
-			double crossy = tempf.z * x;
-			crossy -= tempf.x * z;
-			double crossz = tempf.x * y;
-			crossz -= tempf.y * x;
-			//add the cross product to sum tau
-			tau.x += crossx;
-			tau.y += crossy;
-			tau.z += crossz;
-			a++;
-		}
-
-		acceleration[index] = convert_float4(sumF);
-		moleculeTau[index] = convert_float4(tau); 
-	      
-	  }//end if
-	index += get_global_size(0); 
-    }//end while
     
 }//end of update acceleration kernel
 
