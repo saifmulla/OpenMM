@@ -101,7 +101,6 @@ typedef float16 real16_t;
  */
 
 __kernel void updateAcceleration(__global const float4* restrict forces,
-				 __global const real_t* restrict velocities,
 				 __global const real_t* restrict siteReferencePos,
 				 __global const real_t* restrict moleculeQ,
 				 __global const real_t* restrict moleculeMasses,
@@ -120,64 +119,71 @@ __kernel void updateAcceleration(__global const float4* restrict forces,
 	unsigned int qiter = index * 9;
 	int molsize = moleculeSize[index];
 	int startIndex = atomStartIndex[index];
-    }//end while
-    
-    while(index < NUM_MOLECULES)
-    {
-        //store the velocity locally
-        float4 velocity = velocities[index];
-        double mass = convert_double(velocity.w);
-        
-	  if(mass != 0.0)
-	  {
-		//copy data locally
-		double4 q1 = convert_double4(moleculeQ1[index]);
-		double4 q2 = convert_double4(moleculeQ2[index]);
-		double q3 = convert_double(moleculeQ3[index]);
-		int molsize = moleculeSize[index];
-		int startIndex = atomStartIndex[index];
-		
-		double4 tau = (double4) (0.0,0.0,0.0,0.0);
-		double4 tempf = (double4) (0.0,0.0,0.0,0.0);
-		double4 sumF = (double4) (0.0,0.0,0.0,0.0);
-		
-		int a = 0;
-		while(a<molsize){
-			tempf = convert_double4(forces[startIndex+a]);
-			sumF.xyz += tempf.xyz*mass;
-			
-			//calculating inner product of Q & f
-			double x = q1.x * tempf.x;
-			x += q1.w * tempf.y;
-			x += q2.z * tempf.z;
-			double y = q1.y * tempf.x;
-			y += q2.x * tempf.y;
-			y += q2.w * tempf.z;
-			double z = q1.z * tempf.x;
-			z += q2.y * tempf.y;
-			z += q3 * tempf.z;
-			
-			//calculating cross product of innerproduct and siteReferencePos
-			tempf = convert_double4(siteReferencePos[a]);
-			double crossx = tempf.y * z;
-			crossx -= tempf.z * y;
-			double crossy = tempf.z * x;
-			crossy -= tempf.x * z;
-			double crossz = tempf.x * y;
-			crossz -= tempf.y * x;
-			//add the cross product to sum tau
-			tau.x += crossx;
-			tau.y += crossy;
-			tau.z += crossz;
-			a++;
-		}
-
-		acceleration[index] = convert_float4(sumF);
-		moleculeTau[index] = convert_float4(tau); 
-	      
-	  }//end if
-	index += get_global_size(0); 
-    }//end while
+	real3_t acc = (real3_t) (0.0,0.0,0.0);
+	real3_t tau = (real3_t) (0.0,0.0,0.0);
+	//copy each index of Q from global memory
+	real_t xx = moleculeQ[qiter];
+	real_t xy = moleculeQ[qiter+1];
+	real_t xz = moleculeQ[qiter+2];
+	real_t yx = moleculeQ[qiter+3];
+	real_t yy = moleculeQ[qiter+4];
+	real_t yz = moleculeQ[qiter+5];
+	real_t zx = moleculeQ[qiter+6];
+	real_t zy = moleculeQ[qiter+7];
+	real_t zz = moleculeQ[qiter+8];
+	//calculate acceleration
+	int a = 0;
+	while(a<molsize){
+	    double4 f = convert_double4(forces[startIndex+a]);
+	    acc.xyz += f.xyz*mass;
+	    //calculating inner product between Q&F
+	    //calculate X component of vector
+	    real_t x = xx * f.x;
+	    x += yx * f.y;
+	    x += zx * f.z;
+	    //calculating Y component of vector
+	    real_t y = xy * f.x;
+	    y += yy * f.y;
+	    y += zy * f.z;
+	    //calculating Z component of vector
+	    real_t z = xz * f.x;
+	    z += yz * f.y;
+	    z += zz * f.z;
+	    
+	    //calculating cross product of innerproduct and sitereferencepos
+	    real_t tempz = siteReferencePos[a*3+2];
+	    real_t tempy = siteReferencePos[a*3+1];
+	    real_t tempx = siteReferencePos[a*3];
+	    
+	    //calculate x component of cross product
+	    real_t cross = tempy * z;
+	    cross -= tempz * y;
+	    tau.x += cross;
+	    //calculate y component of cross product
+	    cross = tempz * x;
+	    cross -= tempx * z;
+	    tau.y += cross;
+	    //calculate z component of cross product
+	    cross = tempx * y;
+	    cross -= tempy * x;
+	    tau.z += cross;
+	    a++;//increment a
+	}//end inner while
+	
+	//assign calculated acceleration to global address
+	acceleration[veliter] = acc.x;
+	acceleration[veliter+1] = acc.y;
+	acceleration[veliter+2] = acc.z;
+	
+	moleculeTau[veliter+2] = tau.z;
+	moleculeTau[veliter+1] = tau.y;
+	moleculeTau[veliter] = tau.x;
+	
+	index += get_global_size(0);//increment index
+    }
+    //end while
+}
+//end updateacceleration
 /**
  * update the first half of velocity which essentially solves the first
  * part of velocity verlet equation
@@ -185,11 +191,11 @@ __kernel void updateAcceleration(__global const float4* restrict forces,
  * of simulation and certainly in all steps when new forces are calculated
  */
 __kernel void velocityPositionUpdate(__global const real_t* restrict deltaT,
-        __global const float4* restrict forces,
         __global const real_t* restrict moleculeMasses,
+        __global const real_t* restrict acceleration,
+        __global const real_t* restrict tau,
         __global real_t* restrict velocities,
-        __global const int* restrict moleculeSize,
-	__global const int* restrict atomStartIndex,
+        __global real_t* restrict moleculePi,
         __global int4* restrict testarray
         )
 {
@@ -201,52 +207,32 @@ __kernel void velocityPositionUpdate(__global const real_t* restrict deltaT,
 
     int gid = get_global_id(0);//actual thread index
     int index = gid * 3;//used for traversing across 3'components of each particle.
-    int molsize = moleculeSize[gid];
-    int startIndex = atomStartIndex[gid];
     
     while(gid<NUM_MOLECULES){
-	real_t mass = moleculeMasses[0];
-	unsigned int a = 0;
-	real3_t acceleration = (real3_t) (0.0,0.0,0.0);
-	
-	while(a<molsize)//later make it generic with molsize
-	{
-	    double4 f = convert_double4(forces[startIndex+a]);
-	    acceleration.xyz += f.xyz*mass;
-	    a++;
-	}
+	//update velocities
 	real_t v1 = velocities[index];
-	v1 += acceleration.x * deltatime;
+	v1 += acceleration[index] * deltatime;
 	real_t v2 = velocities[index+1];
-	v2 += acceleration.y * deltatime;
+	v2 += acceleration[index+1] * deltatime;
 	real_t v3 = velocities[index+2];
-	v3 += acceleration.z * deltatime;
-	
+	v3 += acceleration[index+2] * deltatime;
+	//update velocities in global address
 	velocities[index] = v1;
 	velocities[index+1] = v2;
 	velocities[index+2] = v3;
+	
+	//update PI
+	v1 = tau[index]*deltatime;
+	v2 = tau[index+1]*deltatime;
+	v3 = tau[index+2]*deltatime;
+	moleculePi[index] += v1;
+	moleculePi[index+1] += v2;
+	moleculePi[index+2] += v3;
+	
         gid+=get_global_size(0);
     }	
 }//end kernel velocityPositionUpdate
-				
-
-
-__kernel void makeZero(__global float4* restrict tau,
-		       __global float4* restrict acceleration)
-{
-    int index = get_global_id(0);
-    while(index<NUM_MOLECULES){
-	tau[index] = (float4) (0.0f,0.0f,0.0f,0.0f);
-	acceleration[index] = (float4) (0.0f,0.0f,0.0f,0.0f);
-	index += get_global_size(0);
-    }
-}
-		       
-
-    
-}//end of update acceleration kernel
-
-			
+					
 /**
  * update positions for each atom with the newly calculated Q
  */

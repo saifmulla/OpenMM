@@ -799,6 +799,11 @@ public:
      * be equal to number of molecules in the system.
      */
     virtual void getMoleculeVelocities(std::vector<Vec3>& moleculeVelocities) {};
+    /**
+     * getMOleculePI
+     * TODO: delete this function later
+     */
+    virtual void getMoleculePI(std::vector<Vec3>& moleculePI) {};
 
 };
     

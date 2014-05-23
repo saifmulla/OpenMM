@@ -202,6 +202,9 @@ State Context::getState(int types, bool enforcePeriodicBox, int groups) const {
     if (types&State::MoleculeVel)
 	impl->getMoleculeVelocities(state.updMoleculeVel());
     
+    if (types&State::MoleculePI)
+        impl->getMoleculePI(state.updMoleculePI());
+        
     return state;
 }
 

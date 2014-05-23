@@ -57,7 +57,7 @@ public:
      * a State, use these values to specify which data types it should contain.
      */
     enum DataType {Positions=1, Velocities=2, Forces=4, Energy=8, 
-	Parameters=16, MoleculePos = 32, MoleculeVel = 64};
+	Parameters=16, MoleculePos = 32, MoleculeVel = 64, MoleculePI=128};
     /**
      * Construct an empty State containing no data.  This exists so State objects can be used in STL containers.
      */
@@ -86,6 +86,8 @@ public:
      * Get the molecular velocities. If the state does not contain moleculeVel, this will throw an exception
      */
     const std::vector<Vec3>& getMoleculeVel() const;
+    //temporary TODO: remove this functions later
+    const std::vector<Vec3>& getMoleculePI() const;
     /**
      * Get the total kinetic energy of the system.  If this State does not contain energies, this will throw an exception.
      */
@@ -144,6 +146,8 @@ private:
     std::vector<Vec3>& updMoleculePos();
     std::vector<Vec3> moleculeVel;
     std::vector<Vec3>& updMoleculeVel();
+    std::vector<Vec3> moleculePI;
+    std::vector<Vec3>& updMoleculePI();
 };
 
 } // namespace OpenMM

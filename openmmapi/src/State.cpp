@@ -67,6 +67,11 @@ const vector<Vec3>& State::getMoleculeVel() const {
     return moleculeVel;
 }
 
+const vector<Vec3>& State::getMoleculePI() const {
+    if ((types&MoleculePI) == 0)
+        throw OpenMMException("Invoked getMoleculePI() on a State which does not contain MoleculePI");
+    return moleculePI;
+}
 double State::getKineticEnergy() const {
     if ((types&Energy) == 0)
         throw OpenMMException("Invoked getKineticEnergy() on a State which does not contain energies.");
@@ -92,17 +97,20 @@ const map<string, double>& State::getParameters() const {
 State::State(double time, int numParticles, int types) : types(types), time(time), ke(0), pe(0),
         positions( (types & Positions) == 0 ? 0 : numParticles), velocities( (types & Velocities) == 0 ? 0 : numParticles),
         forces( (types & Forces) == 0 ? 0 : numParticles), moleculePos((types & MoleculePos) == 0 ? 0 : numParticles),
-	moleculeVel((types & MoleculeVel) == 0 ? 0 : numParticles){
+	moleculeVel((types & MoleculeVel) == 0 ? 0 : numParticles),
+	moleculePI((types & MoleculePI) == 0 ? 0 : numParticles){
 }
 
-State::State() : types(0), time(0.0), ke(0), pe(0), positions(0), velocities(0), forces(0), moleculePos(0), moleculeVel(0) {
+State::State() : types(0), time(0.0), ke(0), pe(0), positions(0), velocities(0), forces(0), moleculePos(0), 
+			      moleculeVel(0), moleculePI(0) {
 }
 
 
 State::State(double time, int numParticles, int types, int numMolecules) : types(types), time(time), ke(0), pe(0),
         positions( (types & Positions) == 0 ? 0 : numParticles), velocities( (types & Velocities) == 0 ? 0 : numParticles),
         forces( (types & Forces) == 0 ? 0 : numParticles), moleculePos((types & MoleculePos) == 0 ? 0 : numMolecules),
-	moleculeVel((types & MoleculeVel) == 0 ? 0 : numMolecules){
+	moleculeVel((types & MoleculeVel) == 0 ? 0 : numMolecules),
+	moleculePI((types & MoleculePI) == 0 ? 0 : numParticles){
 }
 
 vector<Vec3>& State::updPositions() {
@@ -147,4 +155,8 @@ vector<Vec3>& State::updMoleculePos(){
 
 vector<Vec3>& State::updMoleculeVel(){
     return moleculeVel;
+}
+
+vector<Vec3>& State::updMoleculePI(){
+    return moleculePI;
 }

@@ -236,6 +236,14 @@ void OpenMM::ContextImpl::setMoleculeVelocities(const std::vector<Vec3>& molecul
     .setMoleculeVelocities(moleculeVelocities);
 }
 
+void ContextImpl::getMoleculePI(std::vector<Vec3>& moleculePI){
+    Kernel& verletkernel = this->getIntegrator().getBaseKernel();
+    if(verletkernel.getName()!="IntegrateVelocityVerletStep")
+      throw OpenMMException("Called getMoleculeVelocities on Integrator which is not of VelocityVerlet type!!!");
+    
+    dynamic_cast<IntegrateVelocityVerletStepKernel&>(verletkernel.getImpl())
+    .getMoleculePI(moleculePI);
+}
 
 void ContextImpl::getForces(std::vector<Vec3>& forces) {
     dynamic_cast<UpdateStateDataKernel&>(updateStateDataKernel.getImpl()).getForces(*this, forces);

@@ -842,6 +842,7 @@ public:
     void setSiteRefPositions(const std::vector<Vec3>& siteRefPositions);
     void setMoleculePositions(const std::vector<Vec3>& moleculePositions);
     void setMoleculePI(const std::vector<Vec3>& moleculePI);
+    void getMoleculePI(std::vector<Vec3>& PI);
     void getMoleculePositions(std::vector<Vec3>& moleculePositions);
     void getMoleculeQ(std::vector<Tensor>& moleculeQ);
     void setMomentOfInertia(const std::vector<Vec3>& momentOfInertia);
@@ -892,13 +893,14 @@ private:
     /*
      * the below variable would be initiliased only if molecular integration is requied
      */
-    OpenCLArray<mm_float4>* moleculeTau;
-    OpenCLArray<mm_float4>* moleculePI;
-    OpenCLArray<mm_float4>* siteRefPos;
+    OpenCLArray<cl_double>* moleculeTau;
+    OpenCLArray<cl_double>* moleculePI;
+    OpenCLArray<cl_double>* siteRefPos;
     OpenCLArray<mm_float4>* momentOfInertia;
     OpenCLArray<mm_float4>* moleculeQ1;
     OpenCLArray<mm_float4>* moleculeQ2;
     OpenCLArray<cl_float>* moleculeQ3;
+    OpenCLArray<cl_double>* moleculeTensorQ;
     OpenCLArray<cl_double>* acceleration;
     OpenCLArray<cl_int>* moleculeIndex;
     OpenCLArray<cl_int>* moleculeSize;

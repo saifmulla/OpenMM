@@ -136,6 +136,8 @@ public:
     void setMoleculeVelocities(const std::vector<Vec3>& moleculeVelocities);
     
     void getMoleculeVelocities(std::vector<Vec3>& moleculeVelocities);
+    
+    void getMoleculePI(std::vector<Vec3>& moleculePI);
 
     /**
      * Get the current forces on all particles.
