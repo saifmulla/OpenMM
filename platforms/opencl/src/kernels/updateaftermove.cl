@@ -1,5 +1,29 @@
 #ifdef SUPPORTS_DOUBLE_PRECISION
 #pragma OPENCL EXTENSION cl_khr_fp64 : enable
+#define DOUBLE_SUPPORT_AVAILABLE
+#endif //supports_double_precision
+
+#if defined(DOUBLE_SUPPORT_AVAILABLE)
+
+// double
+typedef double real_t;
+typedef double2 real2_t;
+typedef double3 real3_t;
+typedef double4 real4_t;
+typedef double8 real8_t;
+#define PI 3.14159265358979323846
+#define PRE 2
+
+#else
+
+// float
+typedef float real_t;
+typedef float2 real2_t;
+typedef float3 real3_t;
+typedef float4 real4_t;
+typedef float8 real8_t;
+typedef float16 real16_t;
+#define PI 3.14159265359f
 #endif
 
 /**
@@ -7,237 +31,308 @@
  * this functionality is invoked in three phases, due to elongated kernels,
  */
 
-__kernel void updateAfterMove1(__global const float* restrict deltaT,
-                           __global float4* restrict moleculePI,
-			   __global const float4* restrict momentOfInertia,
-                           __global float4* restrict moleculeQ1,
-                           __global float4* restrict moleculeQ2,
-                           __global float* restrict moleculeQ3,
-			   __global const float4* restrict velocities,
+__kernel void updateAfterMove1(__global const real_t* restrict deltaT,
+                           __global real_t* restrict moleculePI,
+			   __global const real_t* restrict momentOfInertia,
+                           __global real_t* restrict moleculeQ,
+			   __global const real_t* restrict velocities,
 			   __global const ushort4* restrict moleculeStatus
 			      )
 {
     int index = get_global_id(0);
-    double dt = convert_double(deltaT[0]);
-    double deltaTime = dt * 0.5;
+    real_t dt = deltaT[0];
+#if define(DOUBLE_SUPPORT_AVAILABLE)
+    real_t deltaTime = dt * 0.5;
+#else
+    real_t deltaTime = dt * 0.5f;
+#endif
     
     while(index < NUM_MOLECULES)
     {
-	float4 velocity = velocities[index];
 	ushort4 status = moleculeStatus[0];
-	if(velocity.w != 0.0f)
-	{
-	  if(status.z == 1 && status.w == 1){
-	      double4 inertia = convert_double4(momentOfInertia[0]);
-	      double4 q1 = convert_double4(moleculeQ1[index]);
-	      double4 q2 = convert_double4(moleculeQ2[index]);
-	      double q3 = convert_double(moleculeQ3[index]);
-	      double4 pi = convert_double4(moleculePI[index]);
-	      double4 Rx = (double4) (0.0,0.0,0.0,0.0);
-
+	int tIter = index * 9;
+	int vIter = index * 3;
+	
+	if(status.z == 1 && status.w == 1){
+	    //obtain momentOfInertia
+	    real_t momx = momentOfInertia[0];
+	    real_t momy = momentOfInertia[1];
+	    real_t momz = momentOfInertia[2];
+	    //copy each index of Q from global memory
+	    real_t xx = moleculeQ[tIter];
+	    real_t xy = moleculeQ[titer+1];
+	    real_t xz = moleculeQ[tIter+2];
+	    real_t yx = moleculeQ[tIter+3];
+	    real_t yy = moleculeQ[tIter+4];
+	    real_t yz = moleculeQ[tIter+5];
+	    real_t zx = moleculeQ[tIter+6];
+	    real_t zy = moleculeQ[tIter+7];
+	    real_t zz = moleculeQ[tIter+8];
+	    //copy pi
+	    real_t pix = moleculePI[vIter];
+	    real_t piy = moleculePI[vIter+1];
+	    real_t piz = moleculePI[vIter+2];
+	    
 	    //calculating rotationTensorX
-	      double phi = (deltaTime * pi.x)/inertia.x;
-	      Rx = (double4) (cos(phi),-(sin(phi)),sin(phi),cos(phi)); 
-
+	    real_t phi = (deltaTime * pix)/momx;
+	    momx = cos(phi);//momx represent x,w component of rotationTensorX
+	    //this can also be used as negetive value
+	    momy = sin(phi));//momy represents y,z component of rotationTensorX
 	    //inner prodcut of tensor and vector but in this case tensor is represented as vector
-	      double rx = pi.x*1.0;
-	      double ry = pi.y*Rx.x;
-	      ry += pi.z*Rx.y;
-	      double rz = pi.y*Rx.z;
-	      rz += pi.z*Rx.w;
-	      //assign new pi value
-	      pi = (double4) (rx,ry,rz,0.0);
+	    real_t rx = pix*1.0;
+	    real_t ry = piy*momx;
+	    ry += piz*-(momy);
+	    real_t rz = piy*momy;
+	    rz += piz*momx;
+	    //assign new pi value
+	    pix = rx;
+	    piy = ry;
+	    piz = rz;
 
-	      //inner product vector . tensor
-	      //first xyz vector of tensor
-	      double xx = q1.x*1.0;
-	      double xy = q1.y*Rx.x;
-	      xy += q1.z*Rx.z;
-	      double xz = q1.y*Rx.y;
-	      xz += q1.z*Rx.w;
-	      //storing calculated values to relevant memory location of q tensors
-	      q1.x = xx;
-	      q1.y = xy;
-	      q1.z = xz;
-	      //second xyz vector of tensor
-	      xx = q1.w * 1.0;
-	      xy = q2.x * Rx.x;
-	      xy += q2.y * Rx.z;
-	      xz = q2.x * Rx.y;
-	      xz += q2.y * Rx.w;
-	      q1.w = xx;
-	      q2.x = xy;
-	      q2.y = xz;
-	      
-	      xx = q2.z * 1.0;
-	      xy = q2.w * Rx.x;
-	      xy += q3 * Rx.z;
-	      xz = q2.w * Rx.y;
-	      xz += q3 * Rx.w;
-	      q2.z = xx;
-	      q2.w = xy;
-	      q3 = xz;
-	      
-	      moleculeQ1[index] = convert_float4(q1);
-	      moleculeQ2[index] = convert_float4(q2);
-	      moleculeQ3[index] = convert_float(q3);
-	      moleculePI[index] = convert_float4(pi);
-	      
-	  }//end not point and linear molecule check
-	}
+	    //inner product vector . tensor
+	    //first xyz vector of tensor
+	    xx = xx * 1.0;
+	    momz = xy;
+	    xy = xy * momx;
+	    xy += xz * momy;
+	    phi = xz;
+	    xz = momz * -(momy);
+	    xz += phi * momx;
+	    //second xyz vector of tensor
+	    yx = yx * 1.0;
+	    momz = yy;
+	    yy = yy * momx;
+	    yy += yz * momy;
+	    phi = yz;
+	    yz = momz * -(momy);
+	    yz += phi * momx;
+	    //third xyz vector of tensor
+	    zx = zx * 1.0;
+	    momz = zy;
+	    zy = zy * momx;
+	    zy += zz * momy;
+	    phi = zz;
+	    zz = zz * -(momy);
+	    zz += phi * momx;
+	    //load local values to global memory
+	    //moleculeQ
+	    moleculeQ[tIter] = xx;
+	    moleculeQ[tIter+1] = xy;
+	    moleculeQ[tIter+2] = xz;
+	    moleculeQ[tIter+3] = yx;
+	    moleculeQ[tIter+4] = yy;
+	    moleculeQ[tIter+5] = yz;
+	    moleculeQ[tIter+6] = zx;
+	    moleculeQ[tIter+7] = zy;
+	    moleculeQ[tIter+8] = zz;
+	    //moleculePI
+	    moleculePI[vIter] = pix;
+	    moleculePI[vIter+1] = piy;
+	    moleculePI[vIter+2] = piz;
+	    
+	}//end not point and linear molecule check
 	index += get_global_size(0);
     }//loop ends
 }
 
-__kernel void updateAfterMove2(__global const float* restrict deltaT,
-                              __global float4* restrict moleculePI,
-			      __global const float4* restrict momentOfInertia,
-                              __global float4* restrict moleculeQ1,
-                              __global float4* restrict moleculeQ2,
-                              __global float* restrict moleculeQ3,
-			      __global const float4* restrict velocities,
-			      __global const ushort4* restrict moleculeStatus
-			      )
+__kernel void updateAfterMove2(__global const real_t* restrict deltaT,
+                           __global real_t* restrict moleculePI,
+			   __global const real_t* restrict momentOfInertia,
+                           __global real_t* restrict moleculeQ,
+			   __global const real_t* restrict velocities,
+			   __global const ushort4* restrict moleculeStatus)
 {
     int index = get_global_id(0);
-    double dt = convert_double(deltaT[0]);
-    double deltaTime = dt * 0.5;
+    real_t dt = deltaT[0];
+#if define(DOUBLE_SUPPORT_AVAILABLE)
+    real_t deltaTime = dt * 0.5;
+#else
+    real_t deltaTime = dt * 0.5f;
+#endif
     
     while(index < NUM_MOLECULES)
     {
 	ushort4 status = moleculeStatus[0];
-	float4 velocity = velocities[index];
-	if(velocity.w != 0.0f)
-	{
-	    if(status.z == 1)
-	    {
-	      double4 inertia = convert_double4(momentOfInertia[0]);
-	      double4 q1 = convert_double4(moleculeQ1[index]);
-	      double4 q2 = convert_double4(moleculeQ2[index]);
-	      double q3 = convert_double(moleculeQ3[index]);
-	      double4 pi = convert_double4(moleculePI[index]);
+	int tIter = index * 9;
+	int vIter = index * 3;
+	
+	if(status.z == 1 && status.w == 1){
+	    //obtain momentOfInertia
+	    real_t momx = momentOfInertia[0];
+	    real_t momy = momentOfInertia[1];
+	    real_t momz = momentOfInertia[2];
+	    //copy each index of Q from global memory
+	    real_t xx = moleculeQ[tIter];
+	    real_t xy = moleculeQ[titer+1];
+	    real_t xz = moleculeQ[tIter+2];
+	    real_t yx = moleculeQ[tIter+3];
+	    real_t yy = moleculeQ[tIter+4];
+	    real_t yz = moleculeQ[tIter+5];
+	    real_t zx = moleculeQ[tIter+6];
+	    real_t zy = moleculeQ[tIter+7];
+	    real_t zz = moleculeQ[tIter+8];
+	    //copy pi
+	    real_t pix = moleculePI[vIter];
+	    real_t piy = moleculePI[vIter+1];
+	    real_t piz = moleculePI[vIter+2];
 
-	      
-	      double phi = (deltaTime * pi.y)/inertia.y;
-	      double4 Ry = (double4) (cos(phi),sin(phi),-(sin(phi)),cos(phi)); 
-	      
-	      double rx = (pi.x*Ry.x) + (pi.z*Ry.z);
-	      double ry = pi.y*1.0;
-	      double rz = (pi.x*Ry.y)+(pi.z*Ry.w);
-	      //assign new pi value
-	      pi = (double4) (rx,ry,rz,0.0);
-	      
-	      //inner product T.T
-	      double xx = q1.x * Ry.x;
-	      xx += q1.z * Ry.z;
-	      double xy = q1.y * 1.0;
-	      double xz = q1.x * Ry.y;
-	      xz += q1.z * Ry.w;
-	      q1.x = xx;
-	      q1.y = xy;
-	      q1.z = xz;
-	      
-	      xx = q1.w * Ry.x;
-	      xx += q2.y * Ry.z;
-	      xy = q2.x * 1.0;
-	      xz = q1.w * Ry.y;
-	      xz += q2.y * Ry.w;
-	      q1.w = xx;
-	      q2.x = xy;
-	      q2.y = xz;
-	      
-	      xx = q2.z * Ry.x;
-	      xx += q3 * Ry.z;
-	      xy = q2.w * 1.0;
-	      xz = q2.z * Ry.y;
-	      xz += q3 * Ry.w;
-	      q2.z = xx;
-	      q2.w = xy;
-	      q3 = xz;
-	      
-	      //load local values to global memory
-	      moleculeQ1[index] = convert_float4(q1);
-	      moleculeQ2[index] = convert_float4(q2);
-	      moleculeQ3[index] = convert_float(q3);
-	      moleculePI[index] = convert_float4(pi);
-	    }//end linear molecule check
-	}  
+	    real_t phi = (deltaTime * piy)/momy;
+	    momx = cos(phi);//momx represent x,w component of rotationTensorX
+	    //this can also be used as negetive value
+	    momy = sin(phi));//momy represents y,z component of rotationTensorX
+	    //double4 Ry = (double4) (cos(phi),sin(phi),-(sin(phi)),cos(phi)); 
+	    real_t rx = pix*momx;
+	    rx += piz*-(momy);
+	    real_t ry = piy*1.0;
+	    real_t rz = pix*momy;
+	    rz += piz*momx;
+	    //assign new pi value
+	    pix = rx;
+	    piy = ry;
+	    piz = rz;
+	    //inner product T.T
+	    //first vector xyz component
+	    rx = xx * momx;
+	    rx += xz * -(momy);
+	    ry = xy * 1.0;
+	    rz = xx * momy;
+	    xz += xz * momx;
+	    xx = rx;
+	    xy = ry;
+	    xz = rz;
+	    //second vector xyz component
+	    rx = yx * momx;
+	    rx += yz * -(momy);
+	    ry = yy * 1.0;
+	    rz = yx * momy;
+	    rz += yz * momx;
+	    yx = rx;
+	    yy = ry;
+	    yz = rz;
+	    //third vector xyz component
+	    rx = zx * momx;
+	    rx += zz * momx;
+	    ry = zy * 1.0;
+	    rz = zx * -(momy);
+	    rz += zz * momx;
+	    zx = rx;
+	    zy = ry;
+	    zz = rz;
+	    
+	    //load local values to global memory
+	    //moleculeQ
+	    moleculeQ[tIter] = xx;
+	    moleculeQ[tIter+1] = xy;
+	    moleculeQ[tIter+2] = xz;
+	    moleculeQ[tIter+3] = yx;
+	    moleculeQ[tIter+4] = yy;
+	    moleculeQ[tIter+5] = yz;
+	    moleculeQ[tIter+6] = zx;
+	    moleculeQ[tIter+7] = zy;
+	    moleculeQ[tIter+8] = zz;
+	    //moleculePI
+	    moleculePI[vIter] = pix;
+	    moleculePI[vIter+1] = piy;
+	    moleculePI[vIter+2] = piz;
+
+	}//end linear molecule check
 	index += get_global_size(0);
     }
 }
 
 
-__kernel void updateAfterMove3(__global const float* restrict deltaT,
-                              __global float4* restrict moleculePI,
-                              __global const float4* restrict momentOfInertia,
-                              __global float4* restrict moleculeQ1,
-                              __global float4* restrict moleculeQ2,
-                              __global float* restrict moleculeQ3,
-			      __global const float4* restrict velocities,
-			      __global const ushort4* restrict moleculeStatus,
-			      __global float4* restrict testArray
-			      )
+__kernel void updateAfterMove3(__global const real_t* restrict deltaT,
+                           __global real_t* restrict moleculePI,
+			   __global const real_t* restrict momentOfInertia,
+                           __global real_t* restrict moleculeQ,
+			   __global const real_t* restrict velocities,
+			   __global const ushort4* restrict moleculeStatus)
 {
     int index = get_global_id(0);
-    double dt = convert_double(deltaT[0]);
+    real_t dt = deltaT[0];
     
     while(index < NUM_MOLECULES)
     {
-	float4 velocity = velocities[index];
 	ushort4 status = moleculeStatus[0];
-	if(velocity.w != 0.0f)
-	{
-	    if(status.z == 1){
-		double4 inertia = convert_double4(momentOfInertia[0]);
-		double4 q1 = convert_double4(moleculeQ1[index]);
-		double4 q2 = convert_double4(moleculeQ2[index]);
-		double q3 = convert_double(moleculeQ3[index]);
-		double4 pi = convert_double4(moleculePI[index]);
-		
-		double phi = (pi.z * dt)/inertia.z;
-		double4 Rz = (double4) (cos(phi),-(sin(phi)),sin(phi),cos(phi)); 
-
-		double xx = pi.x*Rz.x;
-		xx += pi.y*Rz.z;
-		double xy = pi.x*Rz.y;
-		xy += pi.y*Rz.w;
-		double xz = pi.z * 1.0;
-		pi = (double4) (xx,xy,xz,0.0);
-		
-		xx = q1.x * Rz.x;
-		xx += q1.y * Rz.z;
-		xy = q1.x * Rz.y;
-		xy += q1.y * Rz.w;
-		xz = q1.z * 1.0;
-		q1.x = xx;
-		q1.y = xy;
-		q1.z = xz;
-		
-		xx = q1.w * Rz.x;
-		xx += q2.x * Rz.z;
-		xy = q1.w * Rz.y;
-		xy += q2.x * Rz.w;
-		xz = q2.y * 1.0;
-		q1.w = xx;
-		q2.x = xy;
-		q2.y = xz;
-		
-		xx = q2.z * Rz.x;
-		xx += q2.w * Rz.z;
-		xy = q2.z * Rz.y;
-		xy += q2.w * Rz.w;
-		xz = q3 * 1.0;
-		q2.z = xx;
-		q2.w = xy;
-		q3 = xz;
-		
-		
-		moleculeQ1[index] = convert_float4(q1);
-		moleculeQ2[index] = convert_float4(q2);
-		moleculeQ3[index] = convert_float(q3);
-		moleculePI[index] = convert_float4(pi);
-	    }//end point molecule check
-	}
+	if(status.z == 1){
+	    //obtain momentOfInertia
+	    real_t momx = momentOfInertia[0];
+	    real_t momy = momentOfInertia[1];
+	    real_t momz = momentOfInertia[2];
+	    //copy each index of Q from global memory
+	    real_t xx = moleculeQ[tIter];
+	    real_t xy = moleculeQ[titer+1];
+	    real_t xz = moleculeQ[tIter+2];
+	    real_t yx = moleculeQ[tIter+3];
+	    real_t yy = moleculeQ[tIter+4];
+	    real_t yz = moleculeQ[tIter+5];
+	    real_t zx = moleculeQ[tIter+6];
+	    real_t zy = moleculeQ[tIter+7];
+	    real_t zz = moleculeQ[tIter+8];
+	    //copy pi
+	    real_t pix = moleculePI[vIter];
+	    real_t piy = moleculePI[vIter+1];
+	    real_t piz = moleculePI[vIter+2];
+	    
+	    real_t phi = (piz * dt)/momz;
+// 	    double4 Rz = (double4) (cos(phi),-(sin(phi)),sin(phi),cos(phi)); 
+	    //calculate rotationTensorY
+	    momx = cos(phi);
+	    momy = sin(phi);
+	    //obtain cross product to update value of pi
+	    real_t rx = pix * momx;
+	    rx += piy * momy;
+	    ry = pix * -(momy);
+	    ry += piy * momx;
+	    rz = piz * 1.0;
+	    pix = rx;
+	    piy = ry;
+	    piz = rz;
+	    //inner product between two tensors
+	    // Q . RotationTensorZ
+	    rx = xx * momx;
+	    rx += xy * momy;
+	    ry = xx * -(momy);
+	    ry += xy * momx;
+	    rz = xz * 1.0;
+	    xx = rx;
+	    xy = ry;
+	    xz = rz;
+	    //second xyz component vector
+	    rx = yx * momx;
+	    rx += yy * momy;
+	    ry = yx * -(momy);
+	    ry += yy * momx;
+	    rz = yz * 1.0;
+	    yx = rx;
+	    yy = ry;
+	    yz = rz;
+	    //third xyz component vector
+	    rx = zx * momx;
+	    rx += zy * momy;
+	    ry = zx * -(momy);
+	    ry += zy * momx;
+	    rz = zz * 1.0;
+	    zx = rx;
+	    zy = ry;
+	    zz = rz;
+	    
+	    //load local values to global memory
+	    //moleculeQ
+	    moleculeQ[tIter] = xx;
+	    moleculeQ[tIter+1] = xy;
+	    moleculeQ[tIter+2] = xz;
+	    moleculeQ[tIter+3] = yx;
+	    moleculeQ[tIter+4] = yy;
+	    moleculeQ[tIter+5] = yz;
+	    moleculeQ[tIter+6] = zx;
+	    moleculeQ[tIter+7] = zy;
+	    moleculeQ[tIter+8] = zz;
+	    //moleculePI
+	    moleculePI[vIter] = pix;
+	    moleculePI[vIter+1] = piy;
+	    moleculePI[vIter+2] = piz;
+	}//end point molecule check
 	index += get_global_size(0);
     }//loop ends
 }

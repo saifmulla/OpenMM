@@ -36,63 +36,6 @@ typedef float16 real16_t;
  * with single atom and accordingly optimisations were made however this
  * code attempts to accept N atoms on each molecules
  */
- 
-/**
- *****************************************************
- *
- *
- * 	==========Tensor representation==========    *
- * A tensor in this application context is           * 
- * represented as two float/double fours             *
- * and a single double/float the representation is   *
- * explained below                                   *
- * 
- * T =  xx		xy		xz
-	yx		yy		yz
-	zx		zy		zz
-			||
-			||
-	(xx,xy,xz,yx) = double/float4(x,y,z,w)
-	(yy,yz,zx,zy) = double/float4(x,y,z,w)
-	zz	=	double/float1
-	 
- * 
- * the rotateTensorX is reduced to double4
- * format considering confined memory of gpu to enable 
- * efficient memory utilisation. Therefore the actual tensor
- * for rotationX is
-	------------------------------------------
- 	1		0		0
- 	0		cos(phi)	-sin(phi)
- 	0		sin(phi)	cos(phi)
- 	------------------------------------------
- 			||
- 			||
- 	------------------------------------------
- 	q1.x		q1.y		q1.z	
- 	q1.w		q2.x		q2.y
- 	q2.z		q2.w		q3
- 	------------------------------------------
- 			||
- 			||
- 	------------------------------------------
- 	double4	=> cos(phi), -sin(phi), sin(phi), cos(phi)
- 	double => 1
-* similarly the other rotation tensors Y & Z are represennted
-*
-*
-**
-* moleculeQ is a actually a tensor however in this context
-* it is represented as two float4 or double4 vectors and 1 float/double
-*
-* subsequently they are represented as
-* q0,q1,q2,q3 => q1.x,q1.y,q1.z,q1.w
-* q4,q5,q6,q7 => q2.x,q2.y,q2.z,q2.w
-* q8 => q3
-*
- ******************************************************
-*/
-
 /**
  * calculate acceleration
  * this kernel calculates in molecular integration, generally this is calculated 
@@ -254,7 +197,7 @@ __kernel void updateMolecularPositions(__global const real_t* restrict deltaT,
  * update positions for each atom with the newly calculated Q
  */
 
-__kernel void setAtomPositions(__global const real_t* restrict positions,
+__kernel void setAtomPositions(__global const real_t* restrict molPositions,
                           __global const real_t* restrict referencePosition,
                           __global const real_t* restrict moleculeQ,
 			  __global float4* restrict atomPositions,
@@ -270,50 +213,63 @@ __kernel void setAtomPositions(__global const real_t* restrict positions,
 	int molsize = moleculeSize[index];
 	int startIndex = atomStartIndex[index];
 	//copy each index of Q from global memory
-	real_t xx = moleculeQ[qiter];
-	real_t xy = moleculeQ[qiter+1];
-	real_t xz = moleculeQ[qiter+2];
-	real_t yx = moleculeQ[qiter+3];
-	real_t yy = moleculeQ[qiter+4];
-	real_t yz = moleculeQ[qiter+5];
-	real_t zx = moleculeQ[qiter+6];
-	real_t zy = moleculeQ[qiter+7];
-	real_t zz = moleculeQ[qiter+8];
+	real_t xx = moleculeQ[tIter];
+	real_t xy = moleculeQ[titer+1];
+	real_t xz = moleculeQ[tIter+2];
+	real_t yx = moleculeQ[tIter+3];
+	real_t yy = moleculeQ[tIter+4];
+	real_t yz = moleculeQ[tIter+5];
+	real_t zx = moleculeQ[tIter+6];
+	real_t zy = moleculeQ[tIter+7];
+	real_t zz = moleculeQ[tIter+8];
 	
-    double4 pos = convert_double4(positions[index]);
-    double4 q1 = convert_double4(moleculeQ1[index]);
-    double4 q2 = convert_double4(moleculeQ2[index]);
-    double q3 = convert_double(moleculeQ3[index]);
-    int molsize = moleculeSize[index];
-    int startindex = atomStartIndex[index];
-    double4 tempd4,apos;
+	//copy molecule positions from global memory
+	real_t px = molPositions[vIter];
+	real_t py = molPositions[vIter+1];
+	real_t pz = molPositions[vIter+2];
+	
+	real_t tempx,tempy,tempz;
     
-    int a = 0;
-    while(a<molsize)
-    {
-	tempd4 = convert_double4(referencePosition[a]);//copying siteReferencePos locally
-	//generate inner product of tensor * vector (T.V=VT)
-	double ipx = q1.x * tempd4.x;
-	ipx += q1.y * tempd4.y;
-	ipx += q1.z * tempd4.z;
-	double ipy = q1.w * tempd4.x;
-	ipy += q2.x * tempd4.y;
-	ipy += q2.y * tempd4.z;
-	double ipz = q2.z * tempd4.x;
-	ipz += q2.w * tempd4.y;
-	ipz += q3 * tempd4.z;
+        int a = 0;
+        while(a<molsize)
+        {
+	    //copying siteReferencePos locally
+	    tempz = siteReferencePos[a*3+2];
+	    tempy = siteReferencePos[a*3+1];
+	    tempx = siteReferencePos[a*3];
+	    //generate inner product of tensor * vector (T.V=VT)
+	    real_t ipx = xx * tempx;
+	    ipx += xy * tempy;
+	    ipx += xz * tempz;
+	    real_t ipy = yx * tempx;
+	    ipy += yy * tempy;
+	    ipy += yz * tempz;
+	    real_t ipz = zx * tempx;
+	    ipz += zy * tempy;
+	    ipz += zz * tempz;
 	
-	//add the inner product with molecule positions
-	tempd4.x = pos.x + ipx;
-	tempd4.y = pos.y + ipy;
-	tempd4.z = pos.z + ipz;
-	//update atom positions
-	apos = convert_double4(atomPositions[startindex+a]);
-	apos.xyz = tempd4.xyz;
-	atomPositions[startindex+a] = convert_float4(apos);
-	a++;
-    }
-        index += get_global_size(0);
+	    //add the inner product with molecule positions
+	    tempx = px + ipx;
+	    tempy = py + ipy;
+	    tempz = pz + ipz;
+	    //update atom positions
+#if defined(DOUBLE_SUPPORT_AVAILABLE)
+	    real4_t apos = convert_double4(atomPositions[startindex+a]);
+#else
+            real_t apos = atomPositions[startIndex+a];
+#endif
+	    apos.x = tempx;
+	    apos.y = tempy;
+	    apos.z = tempz;
+#if defined(DOUBLE_SUPPORT_AVAILABLE)
+	    atomPositions[startIndex+a] = convert_float4(apos);
+#else
+            atomPositions[startIndex+a] = apos;
+#endif
+	    ++a;
+       }//end inner loop for molsize
+       
+       index += get_global_size(0);
     }//end while
     
 }//end setAtomPositions
