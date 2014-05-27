@@ -884,9 +884,9 @@ private:
      * 3 =>	move2
      * 4 =>	move3
      * 5 =>	setAtomPositions
-     * 6 => 	finalHalfvelocitiesUpdate
+     * 6 => 	updateMolecularPositions
      * 7 => 	calculateMolecularPositions
-     * 8 => 	makezero
+     * 8 => 	
      */
     cl::Kernel integration[9];
     
@@ -905,7 +905,7 @@ private:
     OpenCLArray<cl_int>* moleculeIndex;
     OpenCLArray<cl_int>* moleculeSize;
     OpenCLArray<cl_int>* moleculeStartIndex;
-    OpenCLArray<mm_float4>* molPositions;
+    OpenCLArray<cl_double>* molPositions;
     OpenCLArray<mm_ushort4>* moleculeStatus;
     OpenCLArray<cl_double>* atomMasses;
     OpenCLArray<cl_double>* molVelocities;
