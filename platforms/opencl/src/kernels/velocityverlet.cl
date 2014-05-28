@@ -136,11 +136,10 @@ __kernel void updateAcceleration(__global const float4* restrict forces,
 __kernel void velocityPositionUpdate(__global const real_t* restrict deltaT,
         __global const real_t* restrict moleculeMasses,
         __global const real_t* restrict acceleration,
-        __global const real_t* restrict tau,
+        __global real_t* restrict tau,
         __global real_t* restrict velocities,
         __global real_t* restrict moleculePi,
-        __global int4* restrict testarray
-        )
+	__global const ushort4* restrict moleculeStatus)
 {
 #if defined(DOUBLE_SUPPORT_AVAILABLE)
     real_t deltatime = 0.5 * deltaT[0];
@@ -150,7 +149,7 @@ __kernel void velocityPositionUpdate(__global const real_t* restrict deltaT,
 
     int gid = get_global_id(0);//actual thread index
     int index = gid * 3;//used for traversing across 3'components of each particle.
-    
+    ushort4 status = moleculeStatus[0];
     while(gid<NUM_MOLECULES){
 	//update velocities
 	real_t v1 = velocities[index];
@@ -165,13 +164,28 @@ __kernel void velocityPositionUpdate(__global const real_t* restrict deltaT,
 	velocities[index+2] = v3;
 	
 	//update PI
+	
 	v1 = tau[index]*deltatime;
 	v2 = tau[index+1]*deltatime;
 	v3 = tau[index+2]*deltatime;
+	
 	moleculePi[index] += v1;
 	moleculePi[index+1] += v2;
 	moleculePi[index+2] += v3;
 	
+	if(status.x==1){
+	    moleculePi[index] = 0.0;
+	    moleculePi[index+1] = 0.0;
+	    moleculePi[index+2] = 0.0;
+	    tau[index] = 0.0;
+	    tau[index+1] = 0.0;
+	    tau[index+2] = 0.0;
+	}
+	//check for linear molecule
+	if(status.y==1){
+	    moleculePi[index] = 0.0;
+	    tau[index] = 0.0;
+	}
         gid+=get_global_size(0);
     }	
 }//end kernel velocityPositionUpdate
@@ -198,7 +212,7 @@ __kernel void updateMolecularPositions(__global const real_t* restrict deltaT,
  */
 
 __kernel void setAtomPositions(__global const real_t* restrict molPositions,
-                          __global const real_t* restrict referencePosition,
+                          __global const real_t* restrict siteReferencePos,
                           __global const real_t* restrict moleculeQ,
 			  __global float4* restrict atomPositions,
 			  __global const int* restrict moleculeSize,
@@ -208,20 +222,20 @@ __kernel void setAtomPositions(__global const real_t* restrict molPositions,
     int index = get_global_id(0);
     while(index < NUM_MOLECULES)
     {
-        int tIter = index * 9;
+        int qIter = index * 9;
 	int vIter = index * 3;
 	int molsize = moleculeSize[index];
 	int startIndex = atomStartIndex[index];
 	//copy each index of Q from global memory
-	real_t xx = moleculeQ[tIter];
-	real_t xy = moleculeQ[titer+1];
-	real_t xz = moleculeQ[tIter+2];
-	real_t yx = moleculeQ[tIter+3];
-	real_t yy = moleculeQ[tIter+4];
-	real_t yz = moleculeQ[tIter+5];
-	real_t zx = moleculeQ[tIter+6];
-	real_t zy = moleculeQ[tIter+7];
-	real_t zz = moleculeQ[tIter+8];
+	real_t xx = moleculeQ[qIter];
+	real_t xy = moleculeQ[qIter+1];
+	real_t xz = moleculeQ[qIter+2];
+	real_t yx = moleculeQ[qIter+3];
+	real_t yy = moleculeQ[qIter+4];
+	real_t yz = moleculeQ[qIter+5];
+	real_t zx = moleculeQ[qIter+6];
+	real_t zy = moleculeQ[qIter+7];
+	real_t zz = moleculeQ[qIter+8];
 	
 	//copy molecule positions from global memory
 	real_t px = molPositions[vIter];
@@ -234,9 +248,9 @@ __kernel void setAtomPositions(__global const real_t* restrict molPositions,
         while(a<molsize)
         {
 	    //copying siteReferencePos locally
-	    tempz = siteReferencePos[a*3+2];
-	    tempy = siteReferencePos[a*3+1];
 	    tempx = siteReferencePos[a*3];
+	    tempy = siteReferencePos[a*3+1];
+	    tempz = siteReferencePos[a*3+2];
 	    //generate inner product of tensor * vector (T.V=VT)
 	    real_t ipx = xx * tempx;
 	    ipx += xy * tempy;
@@ -253,19 +267,11 @@ __kernel void setAtomPositions(__global const real_t* restrict molPositions,
 	    tempy = py + ipy;
 	    tempz = pz + ipz;
 	    //update atom positions
-#if defined(DOUBLE_SUPPORT_AVAILABLE)
-	    real4_t apos = convert_double4(atomPositions[startindex+a]);
-#else
-            real_t apos = atomPositions[startIndex+a];
-#endif
+	    real4_t apos = convert_double4(atomPositions[startIndex+a]);
 	    apos.x = tempx;
 	    apos.y = tempy;
 	    apos.z = tempz;
-#if defined(DOUBLE_SUPPORT_AVAILABLE)
 	    atomPositions[startIndex+a] = convert_float4(apos);
-#else
-            atomPositions[startIndex+a] = apos;
-#endif
 	    ++a;
        }//end inner loop for molsize
        

@@ -41,18 +41,16 @@ __kernel void updateAfterMove1(__global const real_t* restrict deltaT,
 {
     int index = get_global_id(0);
     real_t dt = deltaT[0];
-#if define(DOUBLE_SUPPORT_AVAILABLE)
+#if defined(DOUBLE_SUPPORT_AVAILABLE)
     real_t deltaTime = dt * 0.5;
 #else
     real_t deltaTime = dt * 0.5f;
 #endif
-    
     while(index < NUM_MOLECULES)
     {
+        int tIter = index * 9;
+        int vIter = index * 3;
 	ushort4 status = moleculeStatus[0];
-	int tIter = index * 9;
-	int vIter = index * 3;
-	
 	if(status.z == 1 && status.w == 1){
 	    //obtain momentOfInertia
 	    real_t momx = momentOfInertia[0];
@@ -60,7 +58,7 @@ __kernel void updateAfterMove1(__global const real_t* restrict deltaT,
 	    real_t momz = momentOfInertia[2];
 	    //copy each index of Q from global memory
 	    real_t xx = moleculeQ[tIter];
-	    real_t xy = moleculeQ[titer+1];
+	    real_t xy = moleculeQ[tIter+1];
 	    real_t xz = moleculeQ[tIter+2];
 	    real_t yx = moleculeQ[tIter+3];
 	    real_t yy = moleculeQ[tIter+4];
@@ -77,12 +75,14 @@ __kernel void updateAfterMove1(__global const real_t* restrict deltaT,
 	    real_t phi = (deltaTime * pix)/momx;
 	    momx = cos(phi);//momx represent x,w component of rotationTensorX
 	    //this can also be used as negetive value
-	    momy = sin(phi));//momy represents y,z component of rotationTensorX
+	    momz = sin(phi);//momy represents y,z component of rotationTensorX
+            momy = -1.0 * momz;
+
 	    //inner prodcut of tensor and vector but in this case tensor is represented as vector
 	    real_t rx = pix*1.0;
 	    real_t ry = piy*momx;
-	    ry += piz*-(momy);
-	    real_t rz = piy*momy;
+	    ry += piz*momy;
+	    real_t rz = piy*momz;
 	    rz += piz*momx;
 	    //assign new pi value
 	    pix = rx;
@@ -91,29 +91,32 @@ __kernel void updateAfterMove1(__global const real_t* restrict deltaT,
 
 	    //inner product vector . tensor
 	    //first xyz vector of tensor
-	    xx = xx * 1.0;
-	    momz = xy;
-	    xy = xy * momx;
-	    xy += xz * momy;
-	    phi = xz;
-	    xz = momz * -(momy);
-	    xz += phi * momx;
+	    rx = xx * 1.0;
+            ry = xy * momx;
+            ry += xz * momz;
+            rz = xy * momy;
+            rz += xz * momx;
+            xx = rx;
+            xy = ry;
+            xz = rz;
 	    //second xyz vector of tensor
-	    yx = yx * 1.0;
-	    momz = yy;
-	    yy = yy * momx;
-	    yy += yz * momy;
-	    phi = yz;
-	    yz = momz * -(momy);
-	    yz += phi * momx;
+            rx = yx * 1.0;
+            ry = yy * momx;
+            ry += yz * momz;
+            rz = yy * momy;
+            rz += yz * momx;
+            yx = rx;
+            yy = ry;
+            yz = rz;
 	    //third xyz vector of tensor
-	    zx = zx * 1.0;
-	    momz = zy;
-	    zy = zy * momx;
-	    zy += zz * momy;
-	    phi = zz;
-	    zz = zz * -(momy);
-	    zz += phi * momx;
+	    rx = zx * 1.0;
+            ry = zy * momx;
+            ry += zz * momz;
+            rz = zy * momy;
+            rz += zz * momx;
+            zx = rx;
+            zy = ry;
+            zz = rz;
 	    //load local values to global memory
 	    //moleculeQ
 	    moleculeQ[tIter] = xx;
@@ -144,18 +147,16 @@ __kernel void updateAfterMove2(__global const real_t* restrict deltaT,
 {
     int index = get_global_id(0);
     real_t dt = deltaT[0];
-#if define(DOUBLE_SUPPORT_AVAILABLE)
+#if defined(DOUBLE_SUPPORT_AVAILABLE)
     real_t deltaTime = dt * 0.5;
 #else
     real_t deltaTime = dt * 0.5f;
 #endif
-    
+    int tIter = index * 9;
+    int vIter = index * 3;
     while(index < NUM_MOLECULES)
     {
 	ushort4 status = moleculeStatus[0];
-	int tIter = index * 9;
-	int vIter = index * 3;
-	
 	if(status.z == 1 && status.w == 1){
 	    //obtain momentOfInertia
 	    real_t momx = momentOfInertia[0];
@@ -163,7 +164,7 @@ __kernel void updateAfterMove2(__global const real_t* restrict deltaT,
 	    real_t momz = momentOfInertia[2];
 	    //copy each index of Q from global memory
 	    real_t xx = moleculeQ[tIter];
-	    real_t xy = moleculeQ[titer+1];
+	    real_t xy = moleculeQ[tIter+1];
 	    real_t xz = moleculeQ[tIter+2];
 	    real_t yx = moleculeQ[tIter+3];
 	    real_t yy = moleculeQ[tIter+4];
@@ -179,7 +180,7 @@ __kernel void updateAfterMove2(__global const real_t* restrict deltaT,
 	    real_t phi = (deltaTime * piy)/momy;
 	    momx = cos(phi);//momx represent x,w component of rotationTensorX
 	    //this can also be used as negetive value
-	    momy = sin(phi));//momy represents y,z component of rotationTensorX
+	    momy = sin(phi);//momy represents y,z component of rotationTensorX
 	    //double4 Ry = (double4) (cos(phi),sin(phi),-(sin(phi)),cos(phi)); 
 	    real_t rx = pix*momx;
 	    rx += piz*-(momy);
@@ -250,7 +251,8 @@ __kernel void updateAfterMove3(__global const real_t* restrict deltaT,
 {
     int index = get_global_id(0);
     real_t dt = deltaT[0];
-    
+    int tIter = index * 9;
+    int vIter = index * 3;
     while(index < NUM_MOLECULES)
     {
 	ushort4 status = moleculeStatus[0];
@@ -261,7 +263,7 @@ __kernel void updateAfterMove3(__global const real_t* restrict deltaT,
 	    real_t momz = momentOfInertia[2];
 	    //copy each index of Q from global memory
 	    real_t xx = moleculeQ[tIter];
-	    real_t xy = moleculeQ[titer+1];
+	    real_t xy = moleculeQ[tIter+1];
 	    real_t xz = moleculeQ[tIter+2];
 	    real_t yx = moleculeQ[tIter+3];
 	    real_t yy = moleculeQ[tIter+4];
@@ -282,9 +284,9 @@ __kernel void updateAfterMove3(__global const real_t* restrict deltaT,
 	    //obtain cross product to update value of pi
 	    real_t rx = pix * momx;
 	    rx += piy * momy;
-	    ry = pix * -(momy);
+	    real_t ry = pix * -(momy);
 	    ry += piy * momx;
-	    rz = piz * 1.0;
+	    real_t rz = piz * 1.0;
 	    pix = rx;
 	    piy = ry;
 	    piz = rz;
