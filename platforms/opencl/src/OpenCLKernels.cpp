@@ -3459,8 +3459,9 @@ void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeQ(const std::vector<Ten
 
     for(int i = 0; i<numMolecules;i++){
 	    const OpenMM::Tensor& molq = moleculeQ[order[i]];
-	    for(int j = 0; j<9;++j)
+	    for(int j = 0; j<9;++j){
 	        (*moleculeTensorQ)[i*9+j] = molq[j];
+	    }
     }
     
     //upload moleculeQ*
@@ -3564,9 +3565,9 @@ void OpenCLIntegrateVelocityVerletStepKernel::getMoleculePositions(vector< Vec3 
 	moleculePositions[order[i]] = Vec3((*molPositions)[moliter],
 					   (*molPositions)[moliter+1],
 					   (*molPositions)[moliter+2]);
-//         moleculePositions[order[i]] = Vec3(pos.x-offset.x*periodicBoxSize.x, 
-//  				    pos.y-offset.y*periodicBoxSize.y, 
-//  				    pos.z-offset.z*periodicBoxSize.z);
+//         moleculePositions[order[i]] = Vec3((*molPositions)[moliter]-offset.x*periodicBoxSize.x, 
+//  				    (*molPositions)[moliter+1]*periodicBoxSize.y, 
+//  				    (*molPositions)[moliter+2]-offset.z*periodicBoxSize.z);
     }
 }
 
@@ -3606,22 +3607,24 @@ void OpenCLIntegrateVelocityVerletStepKernel::setMoleculeVelocities(const std::v
 
 
 void OpenCLIntegrateVelocityVerletStepKernel::getMoleculeQ(std::vector<Tensor>& moleculeQ)
-{/*
-   moleculeQ1->download();
-   moleculeQ2->download();
-   moleculeQ3->download();
-
+{
+   moleculeTensorQ->download();
    int nummolecules = cl.getNumOfMolecules();
+   OpenCLArray<cl_int>& order = cl.getMoleculeIndex();
    moleculeQ.resize(nummolecules);
 
    for(int i = 0; i < nummolecules; ++i){
-   	mm_float4& q1 = (*moleculeQ1)[i];
-	mm_float4& q2 = (*moleculeQ2)[i];
-	cl_float& q3 = (*moleculeQ3)[i];
-	moleculeQ[i] = Tensor((double) q1.x,(double) q1.y,(double) q1.z,
-			(double) q1.w,(double) q2.x,(double) q2.y,
-			(double) q2.z,(double) q2.w,(double) q3);
-   }*/
+       moleculeQ[order[i]] = Tensor(
+	 (*moleculeTensorQ)[i*9+0],
+	 (*moleculeTensorQ)[i*9+1],
+	 (*moleculeTensorQ)[i*9+2],
+	 (*moleculeTensorQ)[i*9+3],
+	 (*moleculeTensorQ)[i*9+4],
+	 (*moleculeTensorQ)[i*9+5],
+	 (*moleculeTensorQ)[i*9+6],
+	 (*moleculeTensorQ)[i*9+7],
+	 (*moleculeTensorQ)[i*9+8]);
+   }
 }
 
 void OpenCLIntegrateVelocityVerletStepKernel::initialStep(const ContextImpl& impl)
@@ -3671,24 +3674,27 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
         defines["MOLECULAR_INTEGRATION"] = "1";
     }
     
-    printf("Is Molecular %d\n",IsMolecular);
     //add reorder listener to the class
     cl.addReorderListener(new ReorderListener(cl,*this,numMolecules));
     
     cl::Program program = cl.createProgram(OpenCLKernelSources::velocityverlet,defines,"");
     cl::Program program2 = cl.createProgram(OpenCLKernelSources::updateaftermove,defines,"");
     
-    integration[0] = cl::Kernel(program, "velocityPositionUpdate");
+    integration[0] = cl::Kernel(program, "velocityUpdate");
     dt = integrator.getStepSize();
     deltaT = new OpenCLArray<cl_double>(cl,1,"deltaT",true);
     variableDelta = new OpenCLArray<cl_double>(cl,1,"variableDelta",true);
+    //TODO: set the size based on type of molecules * each molecule size
+    atomMasses = new OpenCLArray<cl_double>(cl,4,"atomMasses",true);
+    moleculeMass = new OpenCLArray<cl_double>(cl,1,"moleculeMass",true);
+    setAtomMasses(system);
     (*deltaT)[0] = dt;
     (*variableDelta)[0] = dt * 0.5f;
     deltaT->upload();
     variableDelta->upload();
     cl.getMoleculeSize().upload();
     cl.getMoleculeStartIndex().upload();
-    //kernel2 = cl::Kernel(program, "velocityVerletPart2");
+    
     if(IsMolecular){
         integration[1] = cl::Kernel(program, "updateAcceleration");
 	integration[2] = cl::Kernel(program, "updateMolecularPositions");
@@ -3697,15 +3703,12 @@ void OpenCLIntegrateVelocityVerletStepKernel::initialize(const System& system, c
 	integration[5] = cl::Kernel(program2,"updateAfterMove3");
 	integration[6] = cl::Kernel(program, "setAtomPositions");
 	
-	acceleration = new OpenCLArray<cl_double>(cl,cl.getNumOfMolecules()*3,"acceleration",false);
-	moleculeTau = new OpenCLArray<cl_double>(cl,cl.getNumOfMolecules()*3,"moleculeTau",false);
+	acceleration = new OpenCLArray<cl_double>(cl,cl.getNumOfMolecules()*3,"acceleration",true);
+	moleculeTau = new OpenCLArray<cl_double>(cl,cl.getNumOfMolecules()*3,"moleculeTau",true);
 	moleculePI = new OpenCLArray<cl_double>(cl,cl.getNumOfMolecules()*3,"moleculePI",true);
 	moleculeTensorQ = new OpenCLArray<cl_double>(cl,cl.getNumOfMolecules()*9,"moleculeTensorQ",true);
-	siteRefPos = new OpenCLArray<cl_double>(cl,4*3,"siteRefPos",true);
-	//TODO: set the size based on type of molecules * each molecule size
-	atomMasses = new OpenCLArray<cl_double>(cl,4,"atomMasses",true);
 	molVelocities = new OpenCLArray<cl_double>(cl,(cl.getNumOfMolecules()*3),"molVelocities",true);
-	moleculeMass = new OpenCLArray<cl_double>(cl,1,"moleculeMass",true);
+	siteRefPos = new OpenCLArray<cl_double>(cl,4*3,"siteRefPos",true);
 	testarray = new OpenCLArray<mm_int4>(cl,cl.getNumOfMolecules(),"testarray",true);
 	molPositions = new OpenCLArray<cl_double>(cl,cl.getNumOfMolecules()*3,"molPositions",true);
 	momentOfInertia = new OpenCLArray<cl_double>(cl,3*1,"momentOfInertia",true);

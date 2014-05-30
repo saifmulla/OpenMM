@@ -3,7 +3,7 @@
 #define DOUBLE_SUPPORT_AVAILABLE
 #endif //supports_double_precision
 
-#if defined(DOUBLE_SUPPORT_AVAILABLE)
+// #if defined(DOUBLE_SUPPORT_AVAILABLE)
 
 // double
 typedef double real_t;
@@ -13,20 +13,20 @@ typedef double4 real4_t;
 typedef double8 real8_t;
 typedef double16 real16_t;
 #define PI 3.14159265358979323846
-#define PRE 2
-
-#else
-
-// float
-typedef float real_t;
-typedef float2 real2_t;
-typedef float3 real3_t;
-typedef float4 real4_t;
-typedef float8 real8_t;
-typedef float16 real16_t;
-#define PI 3.14159265359f
-#define PRE 1
-#endif
+// #define PRE 2
+// 
+// #else
+// 
+// // float
+// typedef float real_t;
+// typedef float2 real2_t;
+// typedef float3 real3_t;
+// typedef float4 real4_t;
+// typedef float8 real8_t;
+// typedef float16 real16_t;
+// #define PI 3.14159265359f
+// #define PRE 1
+// #endif
 
 /**
  * velocity verlet 
@@ -133,7 +133,7 @@ __kernel void updateAcceleration(__global const float4* restrict forces,
  * this requires tau and acceleration calculated before hand in first step 
  * of simulation and certainly in all steps when new forces are calculated
  */
-__kernel void velocityPositionUpdate(__global const real_t* restrict deltaT,
+__kernel void velocityUpdate(__global const real_t* restrict deltaT,
         __global const real_t* restrict moleculeMasses,
         __global const real_t* restrict acceleration,
         __global real_t* restrict tau,
@@ -201,9 +201,12 @@ __kernel void updateMolecularPositions(__global const real_t* restrict deltaT,
     unsigned int mid = index * 3;
     while(index<NUM_MOLECULES){
         real_t deltat = deltaT[0];
-	molPositions[mid] = molPositions[mid] + velocities[mid] * deltat;
-	molPositions[mid+1] = molPositions[mid+1] + velocities[mid+1] * deltat;
-	molPositions[mid+2] = molPositions[mid+2] + velocities[mid+2] * deltat;
+        real_t vel1 = velocities[mid] * deltat;
+        real_t vel2 = velocities[mid+1] * deltat;
+        real_t vel3 = velocities[mid+2] * deltat;
+	molPositions[mid] += vel1; 
+	molPositions[mid+1] += vel2;
+	molPositions[mid+2] += vel3;
         index += get_global_size(0);
     }//end while
 }//update molecularPositions

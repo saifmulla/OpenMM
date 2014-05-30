@@ -3,7 +3,7 @@
 #define DOUBLE_SUPPORT_AVAILABLE
 #endif //supports_double_precision
 
-#if defined(DOUBLE_SUPPORT_AVAILABLE)
+// #if defined(DOUBLE_SUPPORT_AVAILABLE)
 
 // double
 typedef double real_t;
@@ -13,7 +13,7 @@ typedef double4 real4_t;
 typedef double8 real8_t;
 #define PI 3.14159265358979323846
 #define PRE 2
-
+/*
 #else
 
 // float
@@ -24,7 +24,7 @@ typedef float4 real4_t;
 typedef float8 real8_t;
 typedef float16 real16_t;
 #define PI 3.14159265359f
-#endif
+#endif*/
 
 /**
  * update after move
@@ -152,11 +152,11 @@ __kernel void updateAfterMove2(__global const real_t* restrict deltaT,
 #else
     real_t deltaTime = dt * 0.5f;
 #endif
-    int tIter = index * 9;
-    int vIter = index * 3;
     while(index < NUM_MOLECULES)
     {
 	ushort4 status = moleculeStatus[0];
+        int tIter = index * 9;
+        int vIter = index * 3;
 	if(status.z == 1 && status.w == 1){
 	    //obtain momentOfInertia
 	    real_t momx = momentOfInertia[0];
@@ -181,9 +181,10 @@ __kernel void updateAfterMove2(__global const real_t* restrict deltaT,
 	    momx = cos(phi);//momx represent x,w component of rotationTensorX
 	    //this can also be used as negetive value
 	    momy = sin(phi);//momy represents y,z component of rotationTensorX
+            momz = -1.0*momy;
 	    //double4 Ry = (double4) (cos(phi),sin(phi),-(sin(phi)),cos(phi)); 
 	    real_t rx = pix*momx;
-	    rx += piz*-(momy);
+	    rx += piz*momz;
 	    real_t ry = piy*1.0;
 	    real_t rz = pix*momy;
 	    rz += piz*momx;
@@ -194,7 +195,7 @@ __kernel void updateAfterMove2(__global const real_t* restrict deltaT,
 	    //inner product T.T
 	    //first vector xyz component
 	    rx = xx * momx;
-	    rx += xz * -(momy);
+	    rx += xz * momz;
 	    ry = xy * 1.0;
 	    rz = xx * momy;
 	    xz += xz * momx;
@@ -203,7 +204,7 @@ __kernel void updateAfterMove2(__global const real_t* restrict deltaT,
 	    xz = rz;
 	    //second vector xyz component
 	    rx = yx * momx;
-	    rx += yz * -(momy);
+	    rx += yz * momz;
 	    ry = yy * 1.0;
 	    rz = yx * momy;
 	    rz += yz * momx;
@@ -212,9 +213,9 @@ __kernel void updateAfterMove2(__global const real_t* restrict deltaT,
 	    yz = rz;
 	    //third vector xyz component
 	    rx = zx * momx;
-	    rx += zz * momx;
+	    rx += zz * momz;
 	    ry = zy * 1.0;
-	    rz = zx * -(momy);
+	    rz = zx * momy;
 	    rz += zz * momx;
 	    zx = rx;
 	    zy = ry;
@@ -250,7 +251,6 @@ __kernel void updateAfterMove3(__global const real_t* restrict deltaT,
 			   __global const ushort4* restrict moleculeStatus)
 {
     int index = get_global_id(0);
-    real_t dt = deltaT[0];
     int tIter = index * 9;
     int vIter = index * 3;
     while(index < NUM_MOLECULES)
@@ -276,15 +276,16 @@ __kernel void updateAfterMove3(__global const real_t* restrict deltaT,
 	    real_t piy = moleculePI[vIter+1];
 	    real_t piz = moleculePI[vIter+2];
 	    
-	    real_t phi = (piz * dt)/momz;
+	    real_t phi = (piz * deltaT[0])/momz;
 // 	    double4 Rz = (double4) (cos(phi),-(sin(phi)),sin(phi),cos(phi)); 
 	    //calculate rotationTensorY
 	    momx = cos(phi);
-	    momy = sin(phi);
+	    momz = sin(phi);
+            momy = -1.0 * momz;
 	    //obtain cross product to update value of pi
 	    real_t rx = pix * momx;
-	    rx += piy * momy;
-	    real_t ry = pix * -(momy);
+	    rx += piy * momz;
+	    real_t ry = pix * momy;
 	    ry += piy * momx;
 	    real_t rz = piz * 1.0;
 	    pix = rx;
@@ -293,8 +294,8 @@ __kernel void updateAfterMove3(__global const real_t* restrict deltaT,
 	    //inner product between two tensors
 	    // Q . RotationTensorZ
 	    rx = xx * momx;
-	    rx += xy * momy;
-	    ry = xx * -(momy);
+	    rx += xy * momz;
+	    ry = xx * momy;
 	    ry += xy * momx;
 	    rz = xz * 1.0;
 	    xx = rx;
@@ -302,8 +303,8 @@ __kernel void updateAfterMove3(__global const real_t* restrict deltaT,
 	    xz = rz;
 	    //second xyz component vector
 	    rx = yx * momx;
-	    rx += yy * momy;
-	    ry = yx * -(momy);
+	    rx += yy * momz;
+	    ry = yx * momy;
 	    ry += yy * momx;
 	    rz = yz * 1.0;
 	    yx = rx;
@@ -311,8 +312,8 @@ __kernel void updateAfterMove3(__global const real_t* restrict deltaT,
 	    yz = rz;
 	    //third xyz component vector
 	    rx = zx * momx;
-	    rx += zy * momy;
-	    ry = zx * -(momy);
+	    rx += zy * momz;
+	    ry = zx * momy;
 	    ry += zy * momx;
 	    rz = zz * 1.0;
 	    zx = rx;
