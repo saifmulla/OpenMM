@@ -14,8 +14,6 @@
 #   libOpenMM_static[_d].a
 #----------------------------------------------------
 
-add_definitions(-DUSE_PROFILE)
-
 # Don't create a new project name if this is part of a mega-build from the
 # parent directory
 IF( NOT PROJECT_NAME )
@@ -26,6 +24,16 @@ ENDIF( NOT PROJECT_NAME )
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
+IF(${CMAKE_PROFILE} MATCHES "1")
+    ADD_DEFINITIONS(-DUSE_PROFILE)
+    MESSAGE("Compiling to prof OpenCL code...")
+ENDIF(${CMAKE_PROFILE} MATCHES "1")
+
+IF(${CMAKE_BUILD_TYPE} MATCHES "Debug")
+    ADD_DEFINITIONS(-DUSE_PROFILE)
+    ADD_DEFINITIONS(-DDEBUG)
+    MESSAGE("USE_PROFILE and DEBUG preprocessors set")
+ENDIF(${CMAKE_BUILD_TYPE} MATCHES "Debug")
 #SET(CMAKE_VERBOSE_MAKEFILE 1)
 
 # CMake 2.4 on dart server only needs to know about Dart
@@ -286,7 +294,7 @@ FIND_PROGRAM(GCCXML_PATH gccxml PATH
     "C:/Program Files/gccxml 0.9/bin"
 )
 IF(GCCXML_PATH)
-    SET(OPENMM_BUILD_C_AND_FORTRAN_WRAPPERS ON CACHE BOOL "Build wrappers for C and Fortran")
+    SET(OPENMM_BUILD_C_AND_FORTRAN_WRAPPERS OFF CACHE BOOL "Build wrappers for C and Fortran")
 ELSE(GCCXML_PATH)
     SET(OPENMM_BUILD_C_AND_FORTRAN_WRAPPERS OFF CACHE BOOL "Build wrappers for C and Fortran")
 ENDIF(GCCXML_PATH)
@@ -333,59 +341,7 @@ ADD_SUBDIRECTORY(platforms/reference/tests)
 # Which hardware platforms to build
 
 # A bit of tedium because we are using custom FindCUDA files that happen to work...
-SET(FINDCUDA_DIR "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/FindCUDA")
-SET(CUDA_BUILD_CUBIN OFF)
-FIND_PACKAGE(CUDA QUIET)
-IF(CUDA_FOUND)
-    IF(NOT CUDA_NVCC_FLAGS)
-        SET(FLAGS "")
-        # Note that cmake will insert semicolons between these item automatically...
-        SET(FLAGS ${FLAGS} -gencode arch=compute_11,code=sm_11)
-        SET(FLAGS ${FLAGS} -gencode arch=compute_12,code=sm_12)
-        SET(FLAGS ${FLAGS} -gencode arch=compute_13,code=sm_13)
-        SET(FLAGS ${FLAGS} -gencode arch=compute_20,code=sm_20)
-        SET(FLAGS ${FLAGS} -use_fast_math)
-        IF(MSVC)
-            # Unfortunately the variables CUDA_NVCC_FLAGS_RELEASE and CUDA_NVCC_FLAGS_DEBUG
-            # appear to be unused, at least in CMake 2.6
-            # Release /MD linkage
-            set(FLAGS ${FLAGS} "-Xcompiler \"/MD\" -DOPENMMCUDA_BUILDING_SHARED_LIBRARY")
-        ENDIF(MSVC)
-        SET(CUDA_NVCC_FLAGS  "${FLAGS}"
-            CACHE STRING "Semicolon delimit multiple arguments")
-    ENDIF(NOT CUDA_NVCC_FLAGS)
-    SET(OPENMM_BUILD_CUDA_LIB ON CACHE BOOL "Build OpenMMCuda library for Nvidia GPUs")
 
-    # I wish I was not hardcoding /MD here
-    # Avoid strange windows link error with cuda free energy 
-    # plugin by specifying /MD to CUDA_NVCC_FLAGS
-    MARK_AS_ADVANCED(CLEAR CUDA_NVCC_FLAGS)
-    IF(MSVC)
-        # Unfortunately the variables CUDA_NVCC_FLAGS_RELEASE and CUDA_NVCC_FLAGS_DEBUG
-        # appear to be unused, at least in CMake 2.6
-        # Release /MD linkage
-        SET(HAS_NVCC_FLAG FALSE)
-        IF(CUDA_NVCC_FLAGS MATCHES "-Xcompiler")
-            SET(HAS_NVCC_FLAG TRUE)
-        ENDIF(CUDA_NVCC_FLAGS MATCHES "-Xcompiler")
-        IF(NOT HAS_NVCC_FLAG)
-            set(new_flags "-Xcompiler \"/MD\" -DOPENMMCUDA_BUILDING_SHARED_LIBRARY")
-            if(CUDA_NVCC_FLAGS)
-                set(new_flags "${CUDA_NVCC_FLAGS};${new_flags}")
-            endif(CUDA_NVCC_FLAGS)
-            SET(CUDA_NVCC_FLAGS "${new_flags}" 
-                CACHE STRING "Semicolon delimit multiple arguments" FORCE)
-        ENDIF(NOT HAS_NVCC_FLAG)
-    ENDIF(MSVC)
-ELSE(CUDA_FOUND)
-    SET(OPENMM_BUILD_CUDA_LIB OFF CACHE BOOL "Build OpenMMCuda library for Nvidia GPUs")
-ENDIF(CUDA_FOUND)
-IF(OPENMM_BUILD_CUDA_LIB)
-    ADD_SUBDIRECTORY(platforms/cuda)
-ENDIF(OPENMM_BUILD_CUDA_LIB)
-MARK_AS_ADVANCED(CUDA_VERBOSE_BUILD)
-MARK_AS_ADVANCED(CUDA_BUILD_CUBIN)
-MARK_AS_ADVANCED(CUDA_BUILD_EMULATION)
 
 FIND_PACKAGE(OpenCL QUIET)
 # Plus the tesla/linux is taking too long on the tests
@@ -400,7 +356,7 @@ ENDIF(OPENMM_BUILD_OPENCL_LIB)
 
 # FreeEnergy plugin
 
-SET(OPENMM_BUILD_FREE_ENERGY_PLUGIN ON CACHE BOOL "Build FreeEnergy plugin")
+SET(OPENMM_BUILD_FREE_ENERGY_PLUGIN OFF CACHE BOOL "Build FreeEnergy plugin")
 SET(OPENMM_BUILD_FREE_ENERGY_PATH)
 IF(OPENMM_BUILD_FREE_ENERGY_PLUGIN)
    SET(OPENMM_BUILD_FREE_ENERGY_PATH ${CMAKE_CURRENT_SOURCE_DIR}/plugins/freeEnergy)
@@ -410,7 +366,7 @@ ENDIF(OPENMM_BUILD_FREE_ENERGY_PLUGIN)
 
 # Amoeba plugin
 
-SET(OPENMM_BUILD_AMOEBA_PLUGIN ON CACHE BOOL "Build Amoeba plugin")
+SET(OPENMM_BUILD_AMOEBA_PLUGIN OFF CACHE BOOL "Build Amoeba plugin")
 SET(OPENMM_BUILD_AMOEBA_PATH)
 IF(OPENMM_BUILD_AMOEBA_PLUGIN)
    SET(OPENMM_BUILD_AMOEBA_PATH ${CMAKE_CURRENT_SOURCE_DIR}/plugins/amoeba)
@@ -439,14 +395,14 @@ INSTALL_FILES(/include/openmm/internal FILES ${INTERNAL_HEADERS})
 
 # Serialization support
 
-SET(OPENMM_BUILD_SERIALIZATION_SUPPORT ON CACHE BOOL "Whether to build the serialization support library")
+SET(OPENMM_BUILD_SERIALIZATION_SUPPORT OFF CACHE BOOL "Whether to build the serialization support library")
 IF (OPENMM_BUILD_SERIALIZATION_SUPPORT)
     ADD_SUBDIRECTORY(serialization)
 ENDIF (OPENMM_BUILD_SERIALIZATION_SUPPORT)
 
 # Python wrappers
 
-SET(OPENMM_BUILD_PYTHON_WRAPPERS ON CACHE BOOL "Build wrappers for Python")
+SET(OPENMM_BUILD_PYTHON_WRAPPERS OFF CACHE BOOL "Build wrappers for Python")
 IF(OPENMM_BUILD_PYTHON_WRAPPERS)
     IF(NOT OPENMM_BUILD_SERIALIZATION_SUPPORT)
         MESSAGE(SEND_ERROR "The Python wrappers require that serialization support be built.")
