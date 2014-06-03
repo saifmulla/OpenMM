@@ -898,7 +898,7 @@ private:
      * 5 =>	setAtomPositions
      * 6 => 	updateMolecularPositions
      */
-    cl::Kernel integration[7];
+    cl::Kernel integration[8];
 
     /*
      * the below variable would be initiliased only if molecular integration is requied
